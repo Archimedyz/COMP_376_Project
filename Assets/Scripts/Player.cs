@@ -5,7 +5,9 @@ public class Player : MonoBehaviour
 {
 
 	private bool mRunning;
+	private bool mWalking;
 	private bool mMoving;
+	private bool mDefending;
 
 	public float mMoveSpeed;
 
@@ -21,21 +23,29 @@ public class Player : MonoBehaviour
 
 	void Update ()
 	{
-		mMoving = false;
-		mRunning = false;
+		resetBoolean ();
 
-		if (Input.GetButton ("Left")) {
-			MovingLeft ();
-		} else if (Input.GetButton ("Right")) {
-			MovingRight ();
-		} 
-		if (Input.GetButton ("Up")) {
-			MovingUp ();
-		} else if (Input.GetButton ("Down")) {
-			MovingDown ();
+		if (Input.GetKey ("space")) {
+			Defend ();
+		} else {
+			if (Input.GetButton ("Left")) {
+				MovingLeft ();
+			} else if (Input.GetButton ("Right")) {
+				MovingRight ();
+			} 
+			if (Input.GetButton ("Up")) {
+				MovingUp ();
+			} else if (Input.GetButton ("Down")) {
+				MovingDown ();
+			}
 		}
 
 		UpdateAnimator ();
+	}
+
+	private void Defend ()
+	{
+		mDefending = true;
 	}
 
 	private void MovingLeft ()
@@ -44,6 +54,7 @@ public class Player : MonoBehaviour
 		FaceDirection (-Vector2.right);
 		mMoving = true;
 		mRunning = true;
+		//mWalking = true;
 	}
 	
 	private void MovingRight ()
@@ -52,6 +63,7 @@ public class Player : MonoBehaviour
 		FaceDirection (Vector2.right);
 		mMoving = true;
 		mRunning = true;
+		//mWalking = true;
 	}
 	
 	private void MovingUp ()
@@ -59,6 +71,7 @@ public class Player : MonoBehaviour
 		transform.Translate (Vector2.up * mMoveSpeed * Time.deltaTime);
 		mMoving = true;
 		mRunning = true;
+		//mWalking = true;
 	}
 	
 	private void MovingDown ()
@@ -66,6 +79,7 @@ public class Player : MonoBehaviour
 		transform.Translate (Vector2.down * mMoveSpeed * Time.deltaTime);
 		mMoving = true;
 		mRunning = true;
+		//mWalking = true;
 	}
 
 	private void FaceDirection (Vector2 direction)
@@ -80,10 +94,19 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	private void resetBoolean ()
+	{
+		mMoving = false;
+		mRunning = false;
+		mDefending = false;
+		mWalking = false;
+	}
+
 	private void UpdateAnimator ()
 	{
-		Debug.Log (mRunning);
 		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isRunning", mRunning);
+		mAnimator.SetBool ("isWalking", mWalking);
+		mAnimator.SetBool ("isDefending", mDefending);
 	}
 }

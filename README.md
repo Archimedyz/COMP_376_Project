@@ -20,4 +20,11 @@ I added a small script that moves the player around. Arrows to move. Daniel feel
 	<li>Walking</li>
 	<li>Defending (Button: Space)</li>
 	<li>Jumping - Need a rigid body and gravity on to move up (Button: a)</li>
+	<li>Getting hit - Need to be idle (Button:s)</li>
+</ul>
+<br>
+<h6>Things to change</h6>
+<ul>
+	<li>Jumping: Tweak how much the character can move when in the air.</li>
+	<li>Getting hit: start getting hit animation from any animation</li>
 </ul>

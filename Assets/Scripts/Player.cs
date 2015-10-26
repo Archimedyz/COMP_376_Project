@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 	private bool mMoving;
 	private bool mDefending;
 	private bool mJumping;
+	private bool mGetHit;
 
 	public float mMoveSpeed;
 	public float mJumpForce;
@@ -23,34 +24,43 @@ public class Player : MonoBehaviour
 		mAnimator = GetComponent<Animator> ();
 		mRigidBody = GetComponent<Rigidbody> ();
 		mJumping = false;
+		mGetHit = false;
 	}
 
 
 	void Update ()
 	{
-		resetBoolean ();
+		ResetBoolean ();
 
 		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mJumping = false;
+		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+			Debug.Log ("Get hit");
+			mGetHit = false;
 		}
 
-		if (Input.GetKey ("space")) {
-			Defend ();
-		} else if (Input.GetKeyDown ("a")) {
-			Jump ();
-
-		} else {
-			if (Input.GetButton ("Left")) {
-				MovingLeft ();
-			} else if (Input.GetButton ("Right")) {
-				MovingRight ();
-			} 
-			if (Input.GetButton ("Up")) {
-				MovingUp ();
-			} else if (Input.GetButton ("Down")) {
-				MovingDown ();
+		if (!mGetHit) {
+			if (Input.GetKey ("space")) {
+				Defend ();
+			} else if (Input.GetKeyDown ("a")) {
+				Jump ();
+			} else {
+				if (Input.GetButton ("Left")) {
+					MovingLeft ();
+				} else if (Input.GetButton ("Right")) {
+					MovingRight ();
+				} 
+				if (Input.GetButton ("Up")) {
+					MovingUp ();
+				} else if (Input.GetButton ("Down")) {
+					MovingDown ();
+				}
 			}
 		}
+
+		if (Input.GetKeyDown ("s")) {
+			GetHit ();
+		} 
 
 		UpdateAnimator ();
 	}
@@ -59,6 +69,13 @@ public class Player : MonoBehaviour
 	{
 		mJumping = true;
 		mRigidBody.AddForce (Vector2.up * mJumpForce, ForceMode.Impulse);
+	}
+
+	private void GetHit ()
+	{
+		ResetBoolean ();
+		mJumping = false;
+		mGetHit = true;
 	}
 
 	private void Defend ()
@@ -112,7 +129,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void resetBoolean ()
+	private void ResetBoolean ()
 	{
 		mMoving = false;
 		mRunning = false;
@@ -127,5 +144,6 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isWalking", mWalking);
 		mAnimator.SetBool ("isDefending", mDefending);
 		mAnimator.SetBool ("isJumping", mJumping);
+		mAnimator.SetBool ("isHit", mGetHit);
 	}
 }

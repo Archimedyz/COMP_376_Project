@@ -11,12 +11,13 @@ The aim of the project is to develop a game from scratch using the Unity Engine.
 The Development period will be from Sept. 2015 to Dec. 2015.
 
 <h3>Player Animation Log </h3>
-I added a small script that moves the player around. Arrows to move. Daniel feel free to change it. Player run by default.
+I added a small script that moves the player around. Arrows to move. Daniel feel free to change it. Player run by default. The buttons written are just for testing.
  
 <h6>Animations done</h6>
-<li>
-	<ul>Running</ul>
-	<ul>Idle</ul>
-	<ul>Walking</ul>
-	<ul>Defending (Space)</ul>
-</li>
+<ul>
+	<li>Running</li>
+	<li>Idle</li>
+	<li>Walking</li>
+	<li>Defending (Button: Space)</li>
+	<li>Jumping - Need a rigid body and gravity on to move up (Button: a)</li>
+</ul>

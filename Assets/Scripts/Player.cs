@@ -8,16 +8,21 @@ public class Player : MonoBehaviour
 	private bool mWalking;
 	private bool mMoving;
 	private bool mDefending;
+	private bool mJumping;
 
 	public float mMoveSpeed;
+	public float mJumpForce;
 
 	private Vector2 mFacingDirection;
 
 	private Animator mAnimator;
+	private Rigidbody mRigidBody;
 	
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
+		mRigidBody = GetComponent<Rigidbody> ();
+		mJumping = false;
 	}
 
 
@@ -25,8 +30,15 @@ public class Player : MonoBehaviour
 	{
 		resetBoolean ();
 
+		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+			mJumping = false;
+		}
+
 		if (Input.GetKey ("space")) {
 			Defend ();
+		} else if (Input.GetKeyDown ("a")) {
+			Jump ();
+
 		} else {
 			if (Input.GetButton ("Left")) {
 				MovingLeft ();
@@ -41,6 +53,12 @@ public class Player : MonoBehaviour
 		}
 
 		UpdateAnimator ();
+	}
+
+	private void Jump ()
+	{
+		mJumping = true;
+		mRigidBody.AddForce (Vector2.up * mJumpForce, ForceMode.Impulse);
 	}
 
 	private void Defend ()
@@ -108,5 +126,6 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isRunning", mRunning);
 		mAnimator.SetBool ("isWalking", mWalking);
 		mAnimator.SetBool ("isDefending", mDefending);
+		mAnimator.SetBool ("isJumping", mJumping);
 	}
 }

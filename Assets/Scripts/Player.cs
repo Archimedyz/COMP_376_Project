@@ -49,8 +49,7 @@ public class Player : MonoBehaviour
 			mHitting = true;
 		}
 
-
-		/*if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mJumping = false;
 		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mGetHit = false;
@@ -79,7 +78,7 @@ public class Player : MonoBehaviour
 			GetHit ();
 		} else if (Input.GetKeyDown ("d")) {
 			GetKnockdown ();
-		}*/
+		}
 
 		UpdateAnimator ();
 	}

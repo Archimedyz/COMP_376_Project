@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 	private bool mGetHit;
 	private bool mGetKnockdown;
 	private bool mSliding;
+	private bool mDashing;
 	private int mNormalAttack;
 
 	private bool mHitting;
@@ -28,9 +29,11 @@ public class Player : MonoBehaviour
 	{
 		mAnimator = GetComponent<Animator> ();
 		mRigidBody = GetComponent<Rigidbody> ();
+		mFacingDirection = Vector2.right;
 		mJumping = false;
 		mGetHit = false;
 		mSliding = false;
+		mDashing = false;
 		mNormalAttack = 0;
 	}
 
@@ -84,9 +87,17 @@ public class Player : MonoBehaviour
 			GetKnockdown ();
 		} else if (mMoving && Input.GetKeyDown ("f")) {
 			Slide ();
+		} else if (Input.GetKeyDown ("q")) {
+			Dash ();
 		}
 
 		UpdateAnimator ();
+	}
+
+	private void Dash ()
+	{
+		mDashing = true;
+		FaceDirection (mFacingDirection);
 	}
 
 	private void Slide ()
@@ -174,6 +185,7 @@ public class Player : MonoBehaviour
 		mDefending = false;
 		mWalking = false;
 		mGetKnockdown = false;
+		mDashing = false;
 	}
 
 	private void UpdateAnimator ()
@@ -188,5 +200,6 @@ public class Player : MonoBehaviour
 		mAnimator.SetInteger ("isHitting", mNormalAttack % 6);
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isSliding", mSliding);
+		mAnimator.SetBool ("isDashing", mDashing);
 	}
 }

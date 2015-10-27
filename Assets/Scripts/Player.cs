@@ -87,12 +87,14 @@ public class Player : MonoBehaviour
 	private void Jump ()
 	{
 		mJumping = true;
+		FaceDirection (mFacingDirection);
 		mRigidBody.AddForce (Vector2.up * mJumpForce, ForceMode.Impulse);
 	}
 
 	private void GetHit ()
 	{
 		ResetBoolean ();
+		FaceDirection (mFacingDirection);
 		mJumping = false;
 		mGetHit = true;
 	}
@@ -100,17 +102,19 @@ public class Player : MonoBehaviour
 	private void GetKnockdown ()
 	{
 		ResetBoolean ();
+		FaceDirection (mFacingDirection);
 		mGetKnockdown = true;
 	}
 
 	private void Defend ()
 	{
 		mDefending = true;
+		FaceDirection (mFacingDirection);
 	}
 
 	private void MovingLeft ()
 	{
-		transform.Translate (-Vector2.right * mMoveSpeed * Time.deltaTime);
+		transform.Translate (Vector2.right * mMoveSpeed * Time.deltaTime);
 		FaceDirection (-Vector2.right);
 		mMoving = true;
 		mRunning = true;
@@ -146,11 +150,9 @@ public class Player : MonoBehaviour
 	{
 		mFacingDirection = direction;
 		if (direction == Vector2.right) {
-			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
-			transform.localScale = newScale;
+			transform.localRotation = Quaternion.Euler (0.0f, 0.0f, 0.0f);
 		} else {
-			Vector3 newScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
-			transform.localScale = newScale;
+			transform.localRotation = Quaternion.Euler (0.0f, 180.0f, 0.0f);
 		}
 	}
 

@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 	private bool mJumping;
 	private bool mGetHit;
 	private bool mGetKnockdown;
+	private int mNormalAttack;
+
+	private bool mHitting;
 
 	public float mMoveSpeed;
 	public float mJumpForce;
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
 		mRigidBody = GetComponent<Rigidbody> ();
 		mJumping = false;
 		mGetHit = false;
+		mNormalAttack = 0;
 	}
 
 
@@ -33,7 +37,20 @@ public class Player : MonoBehaviour
 	{
 		ResetBoolean ();
 
-		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+		if (mNormalAttack > 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+			mNormalAttack = 0;
+			mHitting = false;
+		} 
+
+
+		if (Input.GetKeyDown ("z")) {
+			//if (!mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle"))
+			mNormalAttack++;
+			mHitting = true;
+		}
+
+
+		/*if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mJumping = false;
 		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mGetHit = false;
@@ -62,7 +79,7 @@ public class Player : MonoBehaviour
 			GetHit ();
 		} else if (Input.GetKeyDown ("d")) {
 			GetKnockdown ();
-		}
+		}*/
 
 		UpdateAnimator ();
 	}
@@ -155,5 +172,7 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isJumping", mJumping);
 		mAnimator.SetBool ("isHit", mGetHit);
 		mAnimator.SetBool ("isKnockdown", mGetKnockdown);
+		mAnimator.SetInteger ("isHitting", mNormalAttack % 6);
+		mAnimator.SetBool ("isHittingBool", mHitting);
 	}
 }

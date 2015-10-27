@@ -13,7 +13,7 @@ The Development period will be from Sept. 2015 to Dec. 2015.
 <h3>Player Animation Log </h3>
 I added a small script that moves the player around. Arrows to move. Daniel feel free to change it. Player run by default. The buttons written are just for testing.
  
-<h6>Animations done</h6>
+<h6>Animations done (with collider)</h6>
 <ul>
 	<li>Running</li>
 	<li>Idle</li>
@@ -22,6 +22,10 @@ I added a small script that moves the player around. Arrows to move. Daniel feel
 	<li>Jumping - Need a rigid body and gravity on to move up (Button: a)</li>
 	<li>Getting hit - Need to be idle (Button:s)</li>
 	<li>Getting knockdown + Get up - Need to be idle (Button:d)</li>
+</ul>
+<h6>Animations in progress</h6>
+<ul>
+	<li>Simple fist combo</li>
 </ul>
 <br>
 <h6>Things to change</h6>

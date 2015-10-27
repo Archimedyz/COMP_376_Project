@@ -24,6 +24,7 @@ I added a small script that moves the player around. Arrows to move. Daniel feel
 	<li>Jumping - Need a rigid body and gravity on to move up (Button: a)</li>
 	<li>Getting hit - Need to be idle (Button:s)</li>
 	<li>Getting knockdown + Get up - Need to be idle (Button:d)</li>
+	<li>Sliding - Need to move (Button:f)</li>
 </ul>
 <h6>Animations in progress</h6>
 <ul>

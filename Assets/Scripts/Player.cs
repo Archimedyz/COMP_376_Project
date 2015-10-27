@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	private bool mJumping;
 	private bool mGetHit;
 	private bool mGetKnockdown;
+	private bool mSliding;
 	private int mNormalAttack;
 
 	private bool mHitting;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
 		mRigidBody = GetComponent<Rigidbody> ();
 		mJumping = false;
 		mGetHit = false;
+		mSliding = false;
 		mNormalAttack = 0;
 	}
 
@@ -53,7 +55,9 @@ public class Player : MonoBehaviour
 			mJumping = false;
 		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mGetHit = false;
-		}
+		} else if (mSliding && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+			mSliding = false;
+		} 
 
 		if (!mGetHit) {
 			if (Input.GetKey ("space")) {
@@ -78,9 +82,17 @@ public class Player : MonoBehaviour
 			GetHit ();
 		} else if (Input.GetKeyDown ("d")) {
 			GetKnockdown ();
+		} else if (mMoving && Input.GetKeyDown ("f")) {
+			Slide ();
 		}
 
 		UpdateAnimator ();
+	}
+
+	private void Slide ()
+	{
+		mSliding = true;
+		FaceDirection (mFacingDirection);
 	}
 
 	private void Jump ()
@@ -175,5 +187,6 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isKnockdown", mGetKnockdown);
 		mAnimator.SetInteger ("isHitting", mNormalAttack % 6);
 		mAnimator.SetBool ("isHittingBool", mHitting);
+		mAnimator.SetBool ("isSliding", mSliding);
 	}
 }

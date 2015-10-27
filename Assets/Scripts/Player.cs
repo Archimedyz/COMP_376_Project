@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 	private bool mDefending;
 	private bool mJumping;
 	private bool mGetHit;
+	private bool mGetKnockdown;
 
 	public float mMoveSpeed;
 	public float mJumpForce;
@@ -35,7 +36,6 @@ public class Player : MonoBehaviour
 		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mJumping = false;
 		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
-			Debug.Log ("Get hit");
 			mGetHit = false;
 		}
 
@@ -60,7 +60,9 @@ public class Player : MonoBehaviour
 
 		if (Input.GetKeyDown ("s")) {
 			GetHit ();
-		} 
+		} else if (Input.GetKeyDown ("d")) {
+			GetKnockdown ();
+		}
 
 		UpdateAnimator ();
 	}
@@ -76,6 +78,12 @@ public class Player : MonoBehaviour
 		ResetBoolean ();
 		mJumping = false;
 		mGetHit = true;
+	}
+
+	private void GetKnockdown ()
+	{
+		ResetBoolean ();
+		mGetKnockdown = true;
 	}
 
 	private void Defend ()
@@ -135,6 +143,7 @@ public class Player : MonoBehaviour
 		mRunning = false;
 		mDefending = false;
 		mWalking = false;
+		mGetKnockdown = false;
 	}
 
 	private void UpdateAnimator ()
@@ -145,5 +154,6 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isDefending", mDefending);
 		mAnimator.SetBool ("isJumping", mJumping);
 		mAnimator.SetBool ("isHit", mGetHit);
+		mAnimator.SetBool ("isKnockdown", mGetKnockdown);
 	}
 }

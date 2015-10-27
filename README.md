@@ -12,6 +12,8 @@ The Development period will be from Sept. 2015 to Dec. 2015.
 
 <h3>Player Animation Log </h3>
 I added a small script that moves the player around. Arrows to move. Daniel feel free to change it. Player run by default. The buttons written are just for testing.
+
+<b>Colliders: Player have 2 colliders, each with its own script: one for getting hit, hitting boundaries, etc. The other one for fighting.</b>
  
 <h6>Animations done (with collider)</h6>
 <ul>

@@ -37,11 +37,11 @@ public class Floor : MonoBehaviour
 
 	public void GetBoundary (float[] boundary, SpriteRenderer sr)
 	{
-        ;
+        Debug.Log("sr.bounds.size: " + sr.bounds.size);
 
         boundary[X_MAX] = xMax + (sr.bounds.size.x / 2.0f);
         boundary[X_MIN] = xMin - (sr.bounds.size.x / 2.0f);
 		boundary[Y_MAX] = yMax + (sr.bounds.size.y / 2.0f);
-		boundary[Y_MIN] = yMin - (sr.bounds.size.y / 2.0f);
+		boundary[Y_MIN] = yMin + (sr.bounds.size.y / 2.0f);
 	}
 }

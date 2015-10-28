@@ -50,7 +50,9 @@ public class PlayerFloorTest : MonoBehaviour
 
         mFloorRef = FindObjectOfType<Floor>();
         mFloorBoundary = new float[4];
-        
+
+        Debug.Log("gameObject.GetComponentInChildren<SpriteRenderer>().gameObject.name: " + gameObject.GetComponentInChildren<SpriteRenderer>().gameObject.name);
+
         mFloorRef.GetBoundary(mFloorBoundary, gameObject.GetComponentInChildren<SpriteRenderer>());
     }
 

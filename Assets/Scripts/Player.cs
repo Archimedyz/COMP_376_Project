@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	private bool mSliding;
 	private bool mDashing;
 	private int mNormalAttack;
+	private int mStrongAttack;
 
 	private bool mHitting;
 
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour
 		mSliding = false;
 		mDashing = false;
 		mNormalAttack = 0;
+		mStrongAttack = 0;
 	}
 
 
@@ -51,6 +53,9 @@ public class Player : MonoBehaviour
 		if (Input.GetKeyDown ("z")) {
 			//if (!mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle"))
 			mNormalAttack++;
+			mHitting = true;
+		} else if (Input.GetKey ("w")) {
+			mStrongAttack ++;
 			mHitting = true;
 		}
 
@@ -180,6 +185,7 @@ public class Player : MonoBehaviour
 
 	private void ResetBoolean ()
 	{
+		mStrongAttack = 0;
 		mMoving = false;
 		mRunning = false;
 		mDefending = false;
@@ -198,6 +204,7 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isHit", mGetHit);
 		mAnimator.SetBool ("isKnockdown", mGetKnockdown);
 		mAnimator.SetInteger ("isHitting", mNormalAttack % 6);
+		mAnimator.SetInteger ("isStrongHitting", mStrongAttack);
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isSliding", mSliding);
 		mAnimator.SetBool ("isDashing", mDashing);

@@ -30,6 +30,7 @@ I added a small script that moves the player around. Arrows to move. Daniel feel
 <h6>Animations in progress</h6>
 <ul>
 	<li>Simple fist combo</li>
+	<li>Strong fist attack</li>
 </ul>
 <br>
 <h6>Things to change</h6>

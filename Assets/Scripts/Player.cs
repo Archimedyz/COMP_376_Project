@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
 
 	private void MovingLeft ()
 	{
-		transform.Translate (Vector2.right * mMoveSpeed * Time.deltaTime);
+		transform.Translate (-Vector2.right * mMoveSpeed * Time.deltaTime);
 		FaceDirection (-Vector2.right);
 		mMoving = true;
 		mRunning = true;
@@ -177,9 +177,11 @@ public class Player : MonoBehaviour
 	{
 		mFacingDirection = direction;
 		if (direction == Vector2.right) {
-			transform.localRotation = Quaternion.Euler (0.0f, 0.0f, 0.0f);
+			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			transform.localScale = newScale;
 		} else {
-			transform.localRotation = Quaternion.Euler (0.0f, 180.0f, 0.0f);
+			Vector3 newScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			transform.localScale = newScale;
 		}
 	}
 

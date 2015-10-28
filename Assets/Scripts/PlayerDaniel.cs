@@ -18,18 +18,20 @@ public class PlayerDaniel : MonoBehaviour
 
 	private bool mHitting;
 
-	public float mMoveSpeed;
+	//public float mMoveSpeed;
+    public float mMoveSpeedX;
+    public float mMoveSpeedY;
 	public float mJumpForce;
 
 	private Vector2 mFacingDirection;
 
 	private Animator mAnimator;
-	private Rigidbody mRigidBody;
+    Rigidbody2D mRigidBody2D;
 	
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
-		mRigidBody = GetComponent<Rigidbody> ();
+        mRigidBody2D = GetComponent<Rigidbody2D>();
 		mFacingDirection = Vector2.right;
 		mJumping = false;
 		mGetHit = false;
@@ -80,12 +82,16 @@ public class PlayerDaniel : MonoBehaviour
                 {
                     Vector3 direction = new Vector3(horizontal, vertical, 0.0f);
                     direction = Vector3.ClampMagnitude(direction, 1.0f);
-                    if (direction.x > 0.0f)
+                    if (direction.x > 0.00f)
                         FaceDirection(Vector2.right);
                     else
-                        FaceDirection(Vector2.left);
-
-                    transform.Translate(direction * Time.deltaTime * mMoveSpeed, Space.World);
+                    {
+                        if (direction.x < 0.00f)
+                            FaceDirection(Vector2.left);
+                    }
+                    direction.x = direction.x * mMoveSpeedX;
+                    direction.y = direction.y * mMoveSpeedY;
+                    transform.Translate(direction * Time.deltaTime, Space.World);
 
                     mMoving = true;
                     mRunning = true;
@@ -123,7 +129,7 @@ public class PlayerDaniel : MonoBehaviour
 	{
 		mJumping = true;
 		FaceDirection (mFacingDirection);
-		mRigidBody.AddForce (Vector2.up * mJumpForce, ForceMode.Impulse);
+        mRigidBody2D.AddForce(Vector2.up * mJumpForce, ForceMode2D.Impulse);
 	}
 
 	private void GetHit ()
@@ -154,8 +160,8 @@ public class PlayerDaniel : MonoBehaviour
 			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
 			transform.localScale = newScale;
 		} else {
-			Vector3 newScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
-			transform.localScale = newScale;
+            Vector3 newScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = newScale;
 		}
 	}
 

@@ -1,0 +1,1453 @@
+fileFormatVersion: 2
+guid: a996ee6e5358c4420bff945a2d44cee2
+timeCreated: 1446062792
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Hobo_0
+    21300002: Hobo_1
+    21300004: Hobo_2
+    21300006: Hobo_3
+    21300008: Hobo_4
+    21300010: Hobo_5
+    21300012: Hobo_6
+    21300014: Hobo_7
+    21300016: Hobo_8
+    21300018: Hobo_9
+    21300020: Hobo_10
+    21300022: Hobo_11
+    21300024: Hobo_12
+    21300026: Hobo_13
+    21300028: Hobo_14
+    21300030: Hobo_15
+    21300032: Hobo_16
+    21300034: Hobo_17
+    21300036: Hobo_18
+    21300038: Hobo_19
+    21300040: Hobo_20
+    21300042: Hobo_21
+    21300044: Hobo_22
+    21300046: Hobo_23
+    21300048: Hobo_24
+    21300050: Hobo_25
+    21300052: Hobo_26
+    21300054: Hobo_27
+    21300056: Hobo_28
+    21300058: Hobo_29
+    21300060: Hobo_30
+    21300062: Hobo_31
+    21300064: Hobo_32
+    21300066: Hobo_33
+    21300068: Hobo_34
+    21300070: Hobo_35
+    21300072: Hobo_36
+    21300074: Hobo_37
+    21300076: Hobo_38
+    21300078: Hobo_39
+    21300080: Hobo_40
+    21300082: Hobo_41
+    21300084: Hobo_42
+    21300086: Hobo_43
+    21300088: Hobo_44
+    21300090: Hobo_45
+    21300092: Hobo_46
+    21300094: Hobo_47
+    21300096: Hobo_48
+    21300098: Hobo_49
+    21300100: Hobo_50
+    21300102: Hobo_51
+    21300104: Hobo_52
+    21300106: Hobo_53
+    21300108: Hobo_54
+    21300110: Hobo_55
+    21300112: Hobo_56
+    21300114: Hobo_57
+    21300116: Hobo_58
+    21300118: Hobo_59
+    21300120: Hobo_60
+    21300122: Hobo_61
+    21300124: Hobo_62
+    21300126: Hobo_63
+    21300128: Hobo_64
+    21300130: Hobo_65
+    21300132: Hobo_66
+    21300134: Hobo_67
+    21300136: Hobo_68
+    21300138: Hobo_69
+    21300140: Hobo_70
+    21300142: Hobo_71
+    21300144: Hobo_72
+    21300146: Hobo_73
+    21300148: Hobo_74
+    21300150: Hobo_75
+    21300152: Hobo_76
+    21300154: Hobo_77
+    21300156: Hobo_78
+    21300158: Hobo_79
+    21300160: Hobo_80
+    21300162: Hobo_81
+    21300164: Hobo_82
+    21300166: Hobo_83
+    21300168: Hobo_84
+    21300170: Hobo_85
+    21300172: Hobo_86
+    21300174: Hobo_87
+    21300176: Hobo_88
+    21300178: Hobo_89
+    21300180: Hobo_90
+    21300182: Hobo_91
+    21300184: Hobo_92
+    21300186: Hobo_93
+    21300188: Hobo_94
+    21300190: Hobo_95
+    21300192: Hobo_96
+    21300194: Hobo_97
+    21300196: Hobo_98
+    21300198: Hobo_99
+    21300200: Hobo_100
+    21300202: Hobo_101
+    21300204: Hobo_102
+    21300206: Hobo_103
+    21300208: Hobo_104
+    21300210: Hobo_105
+    21300212: Hobo_106
+    21300214: Hobo_107
+    21300216: Hobo_108
+    21300218: Hobo_109
+    21300220: Hobo_110
+    21300222: Hobo_111
+    21300224: Hobo_112
+    21300226: Hobo_113
+    21300228: Hobo_114
+    21300230: Hobo_115
+    21300232: Hobo_116
+    21300234: Hobo_117
+    21300236: Hobo_118
+    21300238: Hobo_119
+    21300240: Hobo_120
+    21300242: Hobo_121
+    21300244: Hobo_122
+    21300246: Hobo_123
+    21300248: Hobo_124
+    21300250: Hobo_125
+    21300252: Hobo_126
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -2
+  maxTextureSize: 8192
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 100
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Hobo_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 230
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 230
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_2
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 230
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_3
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 233
+        width: 33
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_4
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 232
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_5
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 233
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_6
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 230
+        width: 34
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_7
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 231
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_8
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 230
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_9
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 233
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_10
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 232
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_11
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 233
+        width: 33
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_12
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 181
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_13
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 181
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_14
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 181
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_15
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 181
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_16
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 181
+        width: 31
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_17
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 181
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_18
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 181
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_19
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 181
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_20
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 181
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_21
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 181
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_22
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 181
+        width: 31
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_23
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 181
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_24
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 134
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_25
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 135
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_26
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 131
+        width: 36
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_27
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 135
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_28
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 134
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_29
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 132
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_30
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 134
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_31
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 131
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_32
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 131
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_33
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 131
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_34
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 131
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_35
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 86
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_36
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 84
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_37
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 86
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_38
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 83
+        width: 34
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_39
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 84
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_40
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 83
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_41
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 86
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_42
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 84
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_43
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 86
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_44
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 83
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_45
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 83
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_46
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 83
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_47
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 36
+        width: 36
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_48
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 36
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_49
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 36
+        width: 30
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_50
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 37
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_51
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 36
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_52
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 36
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_53
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 36
+        width: 36
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_54
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 36
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_55
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 36
+        width: 30
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_56
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 22
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_57
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_58
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 21
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_59
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_60
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 21
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_61
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_62
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 21
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_63
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 21
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_64
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_65
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_66
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_67
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_68
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_69
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_70
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 21
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_71
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 21
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_72
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 21
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_73
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_74
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_75
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 21
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_76
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_77
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 21
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_78
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 21
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_79
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 19
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_80
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 19
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_81
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_82
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 21
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_83
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 21
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_84
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 19
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_85
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 21
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_86
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 20
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_87
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_88
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_89
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 19
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_90
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 21
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_91
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_92
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 21
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_93
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 21
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_94
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 19
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_95
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_96
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_97
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 21
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_98
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 9
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_99
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_100
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 7
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_101
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 7
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_102
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 7
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_103
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 9
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_104
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 9
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_105
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 9
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_106
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 9
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_107
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 9
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_108
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 9
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_109
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_110
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 9
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_111
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 9
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_112
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 9
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_113
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 9
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_114
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 9
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_115
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_116
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_117
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_118
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 9
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_119
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_120
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_121
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_122
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_123
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_124
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_125
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 9
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Hobo_126
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 7
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

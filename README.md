@@ -15,6 +15,7 @@ I added a small script that moves the player around. Arrows to move. Daniel feel
 
 <b>Colliders: Player have 2 colliders, each with its own script: one for getting hit, hitting boundaries, etc. The other one for fighting.</b>
  
+<h5>Player</h5>
 <h6>Animations done (with collider)</h6>
 <ul>
 	<li>Running</li>
@@ -38,4 +39,13 @@ I added a small script that moves the player around. Arrows to move. Daniel feel
 <ul>
 	<li>Jumping: Tweak how much the character can move when in the air.</li>
 	<li>Getting hit and Getting knockdown: start getting hit animation from any animation</li>
+</ul>
+
+<h5>Enemy 1 (Hobo)</h5>
+
+<h6>Animations done (with collider)</h6>
+
+<ul>
+	<li>Walking (Arrows)</li>
+	<li>Hitting (Space)</li>
 </ul>

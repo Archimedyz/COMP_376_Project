@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
 			mHitting = true;
 		} else if (Input.GetKey ("w")) {
 			mStrongAttack ++;
-			mHitting = true;
+			//mHitting = true;
 		}
 
 		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {

@@ -26,11 +26,12 @@ I added a small script that moves the player around. Arrows to move. Daniel feel
 	<li>Getting knockdown + Get up - Need to be idle (Button:d)</li>
 	<li>Sliding - Need to move (Button:f)</li>
 	<li>Dashing (Button:q)</li>
+	<li>Strong fist attack - Need to keep pressing the button (Button: w)</li>
+	<li>Simple fist combo (Button:z)</li>
 </ul>
 <h6>Animations in progress</h6>
 <ul>
-	<li>Simple fist combo</li>
-	<li>Strong fist attack</li>
+	
 </ul>
 <br>
 <h6>Things to change</h6>

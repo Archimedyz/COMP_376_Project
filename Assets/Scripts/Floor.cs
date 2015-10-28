@@ -4,21 +4,29 @@ using System.Collections;
 public class Floor : MonoBehaviour
 {
 
-	float xMax;
-	float xMin;
-	float yMax;
-	float yMin;
+	public float xMax;
+	public float xMin;
+	public float yMax;
+	public float yMin;
 	GameObject[] floorPieces;
 
-	const int X_MAX = 0, X_MIN = 1, Y_MAX = 2, Y_MIN = 3;
+	public const int X_MAX = 0, X_MIN = 1, Y_MAX = 2, Y_MIN = 3;
+    public float paddingLeft, paddingRight, paddingTop, paddingBottom; // must be set in unity editor
 
 	// Use this for initialization
 	void Start ()
 	{
-		yMax = transform.position.y + 4.5f;
-		yMin = transform.position.y - 4.5f;
-		//xMax = ;
-		//xMin = ;
+
+        SpriteRenderer floorSegmentRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        Debug.Log("lossyScale: " + transform.lossyScale);
+        Debug.Log("localScale: " + transform.localScale);
+        Debug.Log("SpriteRenderer.bounds.size: " + floorSegmentRenderer.bounds.size);
+
+        xMax = transform.position.x - paddingRight + (floorSegmentRenderer.bounds.size.x / 2.0f);
+        xMin = transform.position.x + paddingLeft - (floorSegmentRenderer.bounds.size.x / 2.0f);
+        yMax = transform.position.y - paddingTop + (floorSegmentRenderer.bounds.size.y / 2.0f);
+        yMin = transform.position.y + paddingBottom - (floorSegmentRenderer.bounds.size.y / 2.0f);
 	}
 	
 	// Update is called once per frame
@@ -27,12 +35,13 @@ public class Floor : MonoBehaviour
 	
 	}
 
-	void GetBoundary (GameObject g)
+	public void GetBoundary (float[] boundary, SpriteRenderer sr)
 	{
-		float[] boundary = new float[4];
-		boundary [X_MAX] = 0.0f;
-		boundary [X_MIN] = 0.0f;
-		boundary [Y_MAX] = yMax + (g.transform.lossyScale.y / 2.0f);
-		boundary [Y_MIN] = yMin + (g.transform.lossyScale.y / 2.0f);
+        Debug.Log("sr.bounds.size: " + sr.bounds.size);
+
+        boundary[X_MAX] = xMax + (sr.bounds.size.x / 2.0f);
+        boundary[X_MIN] = xMin - (sr.bounds.size.x / 2.0f);
+		boundary[Y_MAX] = yMax + (sr.bounds.size.y / 2.0f);
+		boundary[Y_MIN] = yMin + (sr.bounds.size.y / 2.0f);
 	}
 }

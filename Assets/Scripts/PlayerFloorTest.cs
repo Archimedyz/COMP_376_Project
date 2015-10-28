@@ -26,6 +26,13 @@ public class PlayerFloorTest : MonoBehaviour
     private Animator mAnimator;
     private Rigidbody mRigidBody;
 
+    // Floor Variables - START
+
+    private Floor mFloorRef;
+    public float[] mFloorBoundary;
+
+    // Floor Variables - END
+
     void Start()
     {
         mAnimator = GetComponent<Animator>();
@@ -37,8 +44,16 @@ public class PlayerFloorTest : MonoBehaviour
         mDashing = false;
         mNormalAttack = 0;
         mStrongAttack = 0;
+
         mMoveSpeed = 5.0f;
         mJumpForce = 1.0f;
+
+        mFloorRef = FindObjectOfType<Floor>();
+        mFloorBoundary = new float[4];
+
+        Debug.Log("gameObject.GetComponentInChildren<SpriteRenderer>().gameObject.name: " + gameObject.GetComponentInChildren<SpriteRenderer>().gameObject.name);
+
+        mFloorRef.GetBoundary(mFloorBoundary, gameObject.GetComponentInChildren<SpriteRenderer>());
     }
 
 
@@ -62,7 +77,7 @@ public class PlayerFloorTest : MonoBehaviour
         else if (Input.GetKey("w"))
         {
             mStrongAttack++;
-            mHitting = true;
+            //mHitting = true;
         }
 
         if (mJumping && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -106,6 +121,8 @@ public class PlayerFloorTest : MonoBehaviour
                 {
                     MovingDown();
                 }
+
+                transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN], mFloorBoundary[Floor.Y_MAX]), transform.position.z);
             }
         }
 
@@ -171,7 +188,7 @@ public class PlayerFloorTest : MonoBehaviour
 
     private void MovingLeft()
     {
-        transform.Translate(Vector2.right * mMoveSpeed * Time.deltaTime);
+        transform.Translate(-Vector2.right * mMoveSpeed * Time.deltaTime);
         FaceDirection(-Vector2.right);
         mMoving = true;
         mRunning = true;
@@ -208,11 +225,13 @@ public class PlayerFloorTest : MonoBehaviour
         mFacingDirection = direction;
         if (direction == Vector2.right)
         {
-            transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+            Vector3 newScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = newScale;
         }
         else
         {
-            transform.localRotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+            Vector3 newScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = newScale;
         }
     }
 

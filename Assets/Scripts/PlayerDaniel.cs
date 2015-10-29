@@ -14,14 +14,16 @@ public class PlayerDaniel : MonoBehaviour
 	private bool mSliding;
 	private bool mDashing;
 	private int mNormalAttack;
-	private int mStrongAttack;
+    private int mStrongAttack;
+    private float mGroundY;
 
 	private bool mHitting;
 
-	//public float mMoveSpeed;
     public float mMoveSpeedX;
     public float mMoveSpeedY;
 	public float mJumpForce;
+    public float mGravityScale;
+
 
 	private Vector2 mFacingDirection;
 
@@ -45,6 +47,13 @@ public class PlayerDaniel : MonoBehaviour
 	void Update ()
 	{
 		ResetBoolean ();
+        if (transform.position.y < mGroundY)
+        {
+            mRigidBody2D.gravityScale = 0;
+            mRigidBody2D.velocity = Vector2.zero;
+            transform.position = new Vector3(transform.position.x, mGroundY, transform.position.z);
+            mJumping = false;
+        }
 
 		if (mNormalAttack > 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mNormalAttack = 0;
@@ -108,7 +117,12 @@ public class PlayerDaniel : MonoBehaviour
 			Slide ();
 		} else if (Input.GetKeyDown ("q")) {
 			Dash ();
-		}
+        }
+        else if (Input.GetKeyDown("j"))
+        {
+            mGroundY = transform.position.y;
+            Jump();
+        }
 
 		UpdateAnimator ();
 	}
@@ -130,6 +144,7 @@ public class PlayerDaniel : MonoBehaviour
 		mJumping = true;
 		FaceDirection (mFacingDirection);
         mRigidBody2D.AddForce(Vector2.up * mJumpForce, ForceMode2D.Impulse);
+        mRigidBody2D.gravityScale = mGravityScale;
 	}
 
 	private void GetHit ()

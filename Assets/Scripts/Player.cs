@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 			//mHitting = true;
 		}
 
-		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+		if (mJumping && transform.position.y <= 0) {
 			mJumping = false;
 		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mGetHit = false;

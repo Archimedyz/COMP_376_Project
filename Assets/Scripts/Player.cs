@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 	private bool mMoving;
 	private bool mDefending;
 	private bool mJumping;
+	private bool mFalling;
 	private bool mGetHit;
 	private bool mGetKnockdown;
 	private bool mSliding;
@@ -66,6 +67,13 @@ public class Player : MonoBehaviour
 		} else if (mSliding && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mSliding = false;
 		} 
+
+		if (mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Jumping")) {
+
+			mFalling = true;
+		} else {
+			mFalling = false;
+		}
 
 		if (!mGetHit) {
 			if (Input.GetKey ("space")) {
@@ -203,6 +211,7 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isWalking", mWalking);
 		mAnimator.SetBool ("isDefending", mDefending);
 		mAnimator.SetBool ("isJumping", mJumping);
+		mAnimator.SetBool ("isFalling", mFalling);
 		mAnimator.SetBool ("isHit", mGetHit);
 		mAnimator.SetBool ("isKnockdown", mGetKnockdown);
 		mAnimator.SetInteger ("isHitting", mNormalAttack % 6);

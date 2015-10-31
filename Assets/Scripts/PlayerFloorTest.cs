@@ -9,6 +9,7 @@ public class PlayerFloorTest : MonoBehaviour
     private bool mMoving;
     private bool mDefending;
     private bool mJumping;
+    private bool mFalling;
     private bool mGetHit;
     private bool mGetKnockdown;
     private bool mSliding;
@@ -31,6 +32,7 @@ public class PlayerFloorTest : MonoBehaviour
     private Floor mFloorRef;
     public float[] mFloorBoundary;
     private SpriteRenderer mSpriteRenderer;
+    private int mInitialOrderInLayer;
 
     // Floor Variables - END
 
@@ -47,12 +49,12 @@ public class PlayerFloorTest : MonoBehaviour
         mStrongAttack = 0;
 
         mMoveSpeed = 5.0f;
-        mJumpForce = 1.0f;
+        mJumpForce = 2.0f;
 
         mFloorRef = FindObjectOfType<Floor>();
         mFloorBoundary = new float[4];
         mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-
+        mInitialOrderInLayer = (int)(transform.position.y);
 
         mFloorRef.GetBoundary(mFloorBoundary, mSpriteRenderer);
     }
@@ -81,7 +83,7 @@ public class PlayerFloorTest : MonoBehaviour
             //mHitting = true;
         }
 
-        if (mJumping && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (mJumping && transform.position.y <= 0)
         {
             mJumping = false;
         }
@@ -92,6 +94,16 @@ public class PlayerFloorTest : MonoBehaviour
         else if (mSliding && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             mSliding = false;
+        }
+
+        if (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jumping"))
+        {
+
+            mFalling = true;
+        }
+        else
+        {
+            mFalling = false;
         }
 
         if (!mGetHit)
@@ -123,7 +135,8 @@ public class PlayerFloorTest : MonoBehaviour
                     MovingDown();
                 }
 
-                transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN], mFloorBoundary[Floor.Y_MAX]), transform.position.z);
+                transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
+                UpdateOrderInLayer();
             }
         }
 
@@ -254,6 +267,7 @@ public class PlayerFloorTest : MonoBehaviour
         mAnimator.SetBool("isWalking", mWalking);
         mAnimator.SetBool("isDefending", mDefending);
         mAnimator.SetBool("isJumping", mJumping);
+        mAnimator.SetBool("isFalling", mFalling);
         mAnimator.SetBool("isHit", mGetHit);
         mAnimator.SetBool("isKnockdown", mGetKnockdown);
         mAnimator.SetInteger("isHitting", mNormalAttack % 6);
@@ -263,8 +277,8 @@ public class PlayerFloorTest : MonoBehaviour
         mAnimator.SetBool("isDashing", mDashing);
     }
 
-    private void UpdateOrderInLayer ()
+    private void UpdateOrderInLayer()
     {
-        mSpriteRenderer.sortingOrder = (int)(transform.position.y);
+        mSpriteRenderer.sortingOrder = mInitialOrderInLayer - (int)(transform.position.y);
     }
 }

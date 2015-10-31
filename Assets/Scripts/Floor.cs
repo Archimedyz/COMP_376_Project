@@ -10,7 +10,7 @@ public class Floor : MonoBehaviour
 	public float yMin;
 	GameObject[] floorPieces;
 
-	public const int X_MAX = 0, X_MIN = 1, Y_MAX = 2, Y_MIN = 3;
+    public const int X_MAX_INDEX = 0, X_MIN_INDEX = 1, Y_MAX_INDEX = 2, Y_MIN_INDEX = 3;
     public float paddingLeft, paddingRight, paddingTop, paddingBottom; // must be set in unity editor
 
 	// Use this for initialization
@@ -40,9 +40,9 @@ public class Floor : MonoBehaviour
 	{
         Debug.Log("sr.bounds.size: " + sr.bounds.size);
 
-        boundary[X_MAX] = xMax + (sr.bounds.size.x / 2.0f);
-        boundary[X_MIN] = xMin - (sr.bounds.size.x / 2.0f);
-		boundary[Y_MAX] = yMax + (sr.bounds.size.y / 2.0f);
-		boundary[Y_MIN] = yMin + (sr.bounds.size.y / 2.0f); // we want the feet to be the point of reference of the vertical boundary
+        boundary[X_MAX_INDEX] = xMax + (sr.bounds.size.x / 2.0f);
+        boundary[X_MIN_INDEX] = xMin - (sr.bounds.size.x / 2.0f);
+		boundary[Y_MAX_INDEX] = yMax + (sr.bounds.size.y / 2.0f);
+		boundary[Y_MIN_INDEX] = yMin + (sr.bounds.size.y / 2.0f); // we want the feet to be the point of reference of the vertical boundary
 	}
 }

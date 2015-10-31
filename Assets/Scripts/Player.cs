@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
 	private void MovingLeft ()
 	{
 		transform.Translate (-Vector2.right * mMoveSpeed * Time.deltaTime);
-		//FaceDirection (-Vector2.right);
+		FaceDirection (-Vector2.right);
 		mMoving = true;
 		mRunning = true;
 		//mWalking = true;
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
 	private void MovingRight ()
 	{
 		transform.Translate (Vector2.right * mMoveSpeed * Time.deltaTime);
-		//FaceDirection (Vector2.right);
+		FaceDirection (Vector2.right);
 		mMoving = true;
 		mRunning = true;
 		//mWalking = true;

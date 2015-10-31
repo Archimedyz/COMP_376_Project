@@ -30,6 +30,7 @@ public class PlayerFloorTest : MonoBehaviour
 
     private Floor mFloorRef;
     public float[] mFloorBoundary;
+    private SpriteRenderer mSpriteRenderer;
 
     // Floor Variables - END
 
@@ -50,10 +51,10 @@ public class PlayerFloorTest : MonoBehaviour
 
         mFloorRef = FindObjectOfType<Floor>();
         mFloorBoundary = new float[4];
+        mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
 
-        Debug.Log("gameObject.GetComponentInChildren<SpriteRenderer>().gameObject.name: " + gameObject.GetComponentInChildren<SpriteRenderer>().gameObject.name);
 
-        mFloorRef.GetBoundary(mFloorBoundary, gameObject.GetComponentInChildren<SpriteRenderer>());
+        mFloorRef.GetBoundary(mFloorBoundary, mSpriteRenderer);
     }
 
 
@@ -260,5 +261,10 @@ public class PlayerFloorTest : MonoBehaviour
         mAnimator.SetBool("isHittingBool", mHitting);
         mAnimator.SetBool("isSliding", mSliding);
         mAnimator.SetBool("isDashing", mDashing);
+    }
+
+    private void UpdateOrderInLayer ()
+    {
+        mSpriteRenderer.sortingOrder = (int)(transform.position.y);
     }
 }

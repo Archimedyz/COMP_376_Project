@@ -29,7 +29,8 @@ public class PlayerFloorTest : MonoBehaviour
 
     // Floor Variables - START
 
-    private Floor mFloorRef;
+    private FloorController mFloorControllerRef;
+    public int mFloorIndex;
     public float[] mFloorBoundary;
     private SpriteRenderer mSpriteRenderer;
     private int mInitialOrderInLayer;
@@ -51,12 +52,12 @@ public class PlayerFloorTest : MonoBehaviour
         mMoveSpeed = 5.0f;
         mJumpForce = 2.0f;
 
-        mFloorRef = FindObjectOfType<Floor>();
+        mFloorControllerRef = FindObjectOfType<FloorController>();
         mFloorBoundary = new float[4];
         mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         mInitialOrderInLayer = (int)(transform.position.y);
 
-        mFloorRef.GetBoundary(mFloorBoundary, mSpriteRenderer);
+        mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
     }
 
 

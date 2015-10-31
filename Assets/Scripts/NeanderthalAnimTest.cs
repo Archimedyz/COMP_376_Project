@@ -15,9 +15,13 @@ public class NeanderthalAnimTest : MonoBehaviour
 	
 	private Animator mAnimator;
 
+	public GameObject projectile;
+	private GameObject coconut;
+
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
+		coconut = null;
 	}
 
 	void Update ()
@@ -59,6 +63,10 @@ public class NeanderthalAnimTest : MonoBehaviour
 	private void Throw ()
 	{
 		mThrowing = true;
+		if (coconut == null) {
+			coconut = Instantiate (projectile, new Vector3 (-0.1f, -0.3f, -1.0f), Quaternion.identity) as GameObject;
+			coconut.transform.parent = gameObject.transform;
+		}
 	}
 
 	private void MovingLeft ()

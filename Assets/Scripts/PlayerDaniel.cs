@@ -9,6 +9,7 @@ public class PlayerDaniel : MonoBehaviour
 	private bool mMoving;
 	private bool mDefending;
 	private bool mJumping;
+    private bool mFalling;
 	private bool mGetHit;
 	private bool mGetKnockdown;
 	private bool mSliding;
@@ -29,6 +30,15 @@ public class PlayerDaniel : MonoBehaviour
 
 	private Animator mAnimator;
     Rigidbody2D mRigidBody2D;
+
+    // Floor Variables - START
+
+    private Floor mFloorRef;
+    public float[] mFloorBoundary;
+    private SpriteRenderer mSpriteRenderer;
+    private int mInitialOrderInLayer;
+
+    // Floor Variables - END
 	
 	void Start ()
 	{
@@ -41,13 +51,24 @@ public class PlayerDaniel : MonoBehaviour
 		mDashing = false;
 		mNormalAttack = 0;
 		mStrongAttack = 0;
+
+        mMoveSpeedX = 4.0f;
+        mMoveSpeedY = 2.5f;
+        mJumpForce = 5.0f;
+        mGravityScale = 0.8f;
+
+        mFloorRef = FindObjectOfType<Floor>();
+        mFloorBoundary = new float[4];
+        mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+
+        mFloorRef.GetBoundary(mFloorBoundary, mSpriteRenderer);
 	}
 
 
 	void Update ()
 	{
 		ResetBoolean ();
-        if (transform.position.y < mGroundY)
+        if (transform.position.y < mGroundY && mJumping)
         {
             mRigidBody2D.gravityScale = 0;
             mRigidBody2D.velocity = Vector2.zero;
@@ -100,11 +121,16 @@ public class PlayerDaniel : MonoBehaviour
                     }
                     direction.x = direction.x * mMoveSpeedX;
                     direction.y = direction.y * mMoveSpeedY;
+                    if (mJumping)
+                        direction.y = 0;
                     transform.Translate(direction * Time.deltaTime, Space.World);
 
                     mMoving = true;
                     mRunning = true;
                     //mWalking = true;
+                    if(!mJumping && !mFalling)
+                        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
+                    UpdateOrderInLayer();
                 }
             }
 		}
@@ -118,12 +144,13 @@ public class PlayerDaniel : MonoBehaviour
 		} else if (Input.GetKeyDown ("q")) {
 			Dash ();
         }
-        else if (Input.GetKeyDown("j"))
+        else if (Input.GetKeyDown("j") && !mJumping)
         {
             mGroundY = transform.position.y;
             Jump();
         }
 
+        CheckFalling();
 		UpdateAnimator ();
 	}
 
@@ -194,10 +221,11 @@ public class PlayerDaniel : MonoBehaviour
 	private void UpdateAnimator ()
 	{
 		mAnimator.SetBool ("isMoving", mMoving);
-		mAnimator.SetBool ("isRunning", mRunning);
-		mAnimator.SetBool ("isWalking", mWalking);
+		mAnimator.SetBool ("isRunning", (mRunning && !mJumping));
+        mAnimator.SetBool("isWalking", (mWalking && !mJumping));
 		mAnimator.SetBool ("isDefending", mDefending);
 		mAnimator.SetBool ("isJumping", mJumping);
+        mAnimator.SetBool("isFalling", mFalling);
 		mAnimator.SetBool ("isHit", mGetHit);
 		mAnimator.SetBool ("isKnockdown", mGetKnockdown);
 		mAnimator.SetInteger ("isHitting", mNormalAttack % 6);
@@ -206,4 +234,14 @@ public class PlayerDaniel : MonoBehaviour
 		mAnimator.SetBool ("isSliding", mSliding);
 		mAnimator.SetBool ("isDashing", mDashing);
 	}
+
+    private void CheckFalling()
+    {
+        mFalling = mRigidBody2D.velocity.y < 0.0f;
+    }
+
+    private void UpdateOrderInLayer()
+    {
+        mSpriteRenderer.sortingOrder = mInitialOrderInLayer - (int)(transform.position.y);
+    }
 }

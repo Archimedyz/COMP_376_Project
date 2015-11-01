@@ -40,7 +40,9 @@ public class NeanderthalAnimTest : MonoBehaviour
 		}
 
 		if (Input.GetKey ("space")) {
-			Throw ();
+			if (coconut == null) {
+				Throw ();
+			}
 		} else if (Input.GetKey ("z")) {
 			Die ();
 		} else if (Input.GetKey ("x")) {
@@ -63,10 +65,9 @@ public class NeanderthalAnimTest : MonoBehaviour
 	private void Throw ()
 	{
 		mThrowing = true;
-		if (coconut == null) {
-			coconut = Instantiate (projectile, new Vector3 (-0.1f, -0.3f, -1.0f), Quaternion.identity) as GameObject;
-			coconut.transform.parent = gameObject.transform;
-		}
+		coconut = Instantiate (projectile, new Vector3 (-0.15f, -0.3f, transform.position.z), Quaternion.identity) as GameObject;
+		coconut.transform.parent = gameObject.transform;
+
 	}
 
 	private void MovingLeft ()

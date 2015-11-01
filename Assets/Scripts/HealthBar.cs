@@ -36,10 +36,10 @@ public class HealthBar : MonoBehaviour {
     public void LoseHealth(float hpLoss)
     {
         // determine how may health fragments the hpLoss represents.
-        int oldFragments = (int)(mHealthValue / maxHealthValue);
+        int oldFragments = (int)((mHealthValue / maxHealthValue) * maxHeathFragments);
         mHealthValue = Mathf.Clamp(mHealthValue - hpLoss, 0.0f, maxHealthValue);
-        int newFragments = (int)(mHealthValue / maxHealthValue);
-
+        int newFragments = (int)((mHealthValue / maxHealthValue) * maxHeathFragments);
+        
         int diffFragments = oldFragments - newFragments;
 
 
@@ -53,16 +53,16 @@ public class HealthBar : MonoBehaviour {
     public void GainHealth(float hpGain)
     {
         // determine how may health fragments the hpLoss represents.
-        int oldFragments = (int)(mHealthValue / maxHealthValue);
+        int oldFragments = (int)((mHealthValue / maxHealthValue) * maxHeathFragments);
         mHealthValue = Mathf.Clamp(mHealthValue + hpGain, 0.0f, maxHealthValue);
-        int newFragments = (int)(mHealthValue / maxHealthValue);
+        int newFragments = (int)((mHealthValue / maxHealthValue) * maxHeathFragments);
 
         int diffFragments = newFragments - oldFragments;
 
 
         for (int i = 0; i < diffFragments; ++i)
         {
-            mHealth[mHealthIndex + i + 1] = Instantiate(mHealthFragmentPrefab, new Vector3(healthDisplayOffset + (mHealthIndex + i + 1 * 0.05f) + transform.position.x, transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
+            mHealth[mHealthIndex + i + 1] = Instantiate(mHealthFragmentPrefab, new Vector3(healthDisplayOffset + ((mHealthIndex + i + 1) * 0.05f) + transform.position.x, transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
             mHealth[mHealthIndex + i + 1].transform.parent = gameObject.transform;
         }
         mHealthIndex += diffFragments;

@@ -67,4 +67,20 @@ public class HealthBar : MonoBehaviour {
         }
         mHealthIndex += diffFragments;
     }
+
+    public float GetHealth()
+    {
+        return mHealthValue;
+    }
+
+    public void SetHealth(float healthValue)
+    {
+        if(healthValue > mHealthValue) {
+            LoseHealth(healthValue - mHealthValue);
+        }
+        else
+        {
+            GainHealth(mHealthValue - healthValue);
+        }
+    }
 }

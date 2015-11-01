@@ -38,6 +38,12 @@ public class PlayerFloorTest : MonoBehaviour
 
     // Floor Variables - END
 
+    // Health Bar Variables - Start
+
+    private HealthBar mHealthBarRef;
+
+    // Health Bar Variables - End
+
     void Start()
     {
         mAnimator = GetComponent<Animator>();
@@ -59,11 +65,15 @@ public class PlayerFloorTest : MonoBehaviour
         mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         mInitialOrderInLayer = (int)(transform.position.y);
         floorBoundaryInitialized = false;
+
+        // Init HealthBar Stuff
+        mHealthBarRef = FindObjectOfType<HealthBar>();
     }
 
 
     void Update()
     {
+
         if (!floorBoundaryInitialized)
         {
             // get current boundary
@@ -79,6 +89,16 @@ public class PlayerFloorTest : MonoBehaviour
             mHitting = false;
         }
 
+        if (Input.GetKeyDown("n"))
+        {
+            Debug.Log("Lose Health");
+            mHealthBarRef.LoseHealth(20.0f);
+        }
+        else if (Input.GetKeyDown("m"))
+        {
+            Debug.Log("Gain Health");
+            mHealthBarRef.GainHealth(15.0f);
+        }
 
         if (Input.GetKeyDown("z"))
         {

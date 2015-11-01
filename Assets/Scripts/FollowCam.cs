@@ -30,11 +30,11 @@ public class FollowCam : MonoBehaviour {
         }
 
         // determine movement on y if applicable.
-        if (transform.position.y - mFollowTarget.transform.position.y > mHorizontalDistanceFromCenter)
+        if (transform.position.y - mFollowTarget.transform.position.y > mVerticalDistanceFromCenter)
         { // If the target has moved to the left
             newY = mFollowTarget.transform.position.y + mVerticalDistanceFromCenter;
         }
-        else if (mFollowTarget.transform.position.y - transform.position.y > mHorizontalDistanceFromCenter)
+        else if (mFollowTarget.transform.position.y - transform.position.y > mVerticalDistanceFromCenter)
         { // If the tagret has moved to the right
             newY = mFollowTarget.transform.position.y - mVerticalDistanceFromCenter;
         }

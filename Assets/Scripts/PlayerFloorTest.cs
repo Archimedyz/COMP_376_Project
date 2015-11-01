@@ -52,11 +52,13 @@ public class PlayerFloorTest : MonoBehaviour
         mMoveSpeed = 5.0f;
         mJumpForce = 2.0f;
 
+        // Init Floor stuff
         mFloorControllerRef = FindObjectOfType<FloorController>();
         mFloorBoundary = new float[4];
         mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         mInitialOrderInLayer = (int)(transform.position.y);
 
+        // get current boundary
         mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
     }
 
@@ -134,9 +136,19 @@ public class PlayerFloorTest : MonoBehaviour
                 else if (Input.GetButton("Down"))
                 {
                     MovingDown();
+                    // if u pass the bottom of the 
+                    if(transform.position.y < mFloorBoundary[Floor.Y_MIN_INDEX]) {
+                        int newFloorIndex = mFloorControllerRef.NextFloorDown(mFloorIndex);
+                        if(newFloorIndex != mFloorIndex) {
+                            mFloorIndex = newFloorIndex;
+                            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+                            mJumping = true;
+                            mFalling = true;
+                        }
+                    }
                 }
 
-                transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, mFloorBoundary[Floor.X_MIN_INDEX], mFloorBoundary[Floor.X_MAX_INDEX]), Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
                 UpdateOrderInLayer();
             }
         }
@@ -157,6 +169,13 @@ public class PlayerFloorTest : MonoBehaviour
         {
             Dash();
         }
+
+        // if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.
+        if(!mJumping && !mFalling) 
+        {
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, mFloorBoundary[Floor.X_MIN_INDEX], mFloorBoundary[Floor.X_MAX_INDEX]), Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
+        }
+        UpdateOrderInLayer();
 
         UpdateAnimator();
     }

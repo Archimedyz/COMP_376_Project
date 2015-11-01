@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
 	public float mMoveSpeed;
 	public float mJumpForce;
 
+	private float mInvincibleTimer;
+	private float kInvincibilityDuration = 0.1f;
+	public float mPushBack;
+
 	private Vector2 mFacingDirection;
 
 	private Animator mAnimator;
@@ -44,6 +48,12 @@ public class Player : MonoBehaviour
 	void Update ()
 	{
 		ResetBoolean ();
+
+		if (transform.position.y > 0.0f) {
+			mRigidBody.useGravity = true;
+		} else if (transform.position.y <= 0.0f) {
+			mRigidBody.useGravity = false;
+		}
 
 		if (mNormalAttack > 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mNormalAttack = 0;
@@ -93,7 +103,7 @@ public class Player : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown ("s")) {
-			GetHit ();
+			//GetHit ();
 		} else if (Input.GetKeyDown ("d")) {
 			GetKnockdown ();
 		} else if (mMoving && Input.GetKeyDown ("f")) {
@@ -103,6 +113,15 @@ public class Player : MonoBehaviour
 		}
 
 		UpdateAnimator ();
+
+		if (mGetHit) {
+			mInvincibleTimer += Time.deltaTime;
+			if (mInvincibleTimer >= kInvincibilityDuration) {
+				mGetHit = false;
+				mRigidBody.isKinematic = true;
+				mInvincibleTimer = 0.0f;
+			}
+		}
 	}
 
 	private void Dash ()
@@ -124,11 +143,15 @@ public class Player : MonoBehaviour
 		mRigidBody.AddForce (Vector2.up * mJumpForce, ForceMode.Impulse);
 	}
 
-	private void GetHit ()
+	public void GetHit (Vector2 direction)
 	{
-		ResetBoolean ();
-		FaceDirection (mFacingDirection);
-		mGetHit = true;
+		if (!mGetHit) {
+			//ResetBoolean ();
+			mRigidBody.isKinematic = false;
+			mGetHit = true;
+			mRigidBody.velocity = Vector2.zero;
+			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+		}
 	}
 
 	private void GetKnockdown ()
@@ -199,11 +222,11 @@ public class Player : MonoBehaviour
 		mWalking = false;
 		mGetKnockdown = false;
 		mDashing = false;
-		mGetHit = false;
 	}
 
 	private void UpdateAnimator ()
 	{
+		Debug.Log (mGetHit);
 		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isRunning", mRunning);
 		mAnimator.SetBool ("isWalking", mWalking);

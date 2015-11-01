@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy1AnimTest : MonoBehaviour
+public class Hobo : MonoBehaviour
 {
 	private bool mMoving;
 	private bool mMovingRight;
@@ -12,6 +12,11 @@ public class Enemy1AnimTest : MonoBehaviour
 
 	public float mHoriMoveSpeed;
 	public float mVertiMoveSpeed;
+
+	public Transform mTarget;
+	public float mFollowRange;
+	public float mFollowSpeed;
+	public float mAttackDistance;
 
 	private Animator mAnimator;
 
@@ -25,15 +30,20 @@ public class Enemy1AnimTest : MonoBehaviour
 	{
 		ResetBoolean ();
 
-		if (Input.GetButton ("Left")) {
-			MovingLeft ();
-		} else if (Input.GetButton ("Right")) {
-			MovingRight ();
-		} 
-		if (Input.GetButton ("Up")) {
-			MovingUp ();
-		} else if (Input.GetButton ("Down")) {
-			MovingDown ();
+		if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
+			Hit ();
+		} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
+			if (transform.position.x < mTarget.position.x) {
+				MovingRight ();
+			} else if (transform.position.x > mTarget.position.x) {
+				MovingLeft ();
+			}
+
+			if (transform.position.y < mTarget.position.y) {
+				MovingUp ();
+			} else if (transform.position.y > mTarget.position.y) {
+				MovingDown ();
+			}
 		}
 
 		if (Input.GetKey ("space")) {
@@ -103,5 +113,10 @@ public class Enemy1AnimTest : MonoBehaviour
 		mAnimator.SetBool ("isMovingRight", mMovingRight);
 		mAnimator.SetBool ("isMovingLeft", mMovingLeft);
 		mAnimator.SetBool ("isHitting", mHitting);
+	}
+
+	public Vector2 GetFacingDirection ()
+	{
+		return mFacingDirection;
 	}
 }

@@ -34,6 +34,7 @@ public class PlayerFloorTest : MonoBehaviour
     public float[] mFloorBoundary;
     private SpriteRenderer mSpriteRenderer;
     private int mInitialOrderInLayer;
+    private bool floorBoundaryInitialized;
 
     // Floor Variables - END
 
@@ -57,14 +58,17 @@ public class PlayerFloorTest : MonoBehaviour
         mFloorBoundary = new float[4];
         mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         mInitialOrderInLayer = (int)(transform.position.y);
+        floorBoundaryInitialized = false;
     }
 
 
     void Update()
     {
-        if(mFloorBoundary == null) {
+        if (!floorBoundaryInitialized)
+        {
             // get current boundary
             mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+            floorBoundaryInitialized = true;
         }
 
         ResetBoolean();

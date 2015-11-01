@@ -4,19 +4,18 @@ using System.Collections;
 public class FloorController : MonoBehaviour {
 
     private Floor[] mFloors;
-    private bool mScriptReady;
 
 	// Use this for initialization
-	void Start () {
-	    // get all the floors in the current level.
+    void Start()
+    {
+        // get all the floors in the current level.
         mFloors = GetComponentsInChildren<Floor>();
 
-        //for(int i = 0; i < mFloors.Length; ++i) {
-        //    Debug.Log(i + " - " + mFloors[i].gameObject.name);
-        //}
-
-        mScriptReady = true;
-	}
+        for (int i = 0; i < mFloors.Length; ++i)
+        {
+            Debug.Log(i + " - " + mFloors[i].gameObject.name);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,12 +24,15 @@ public class FloorController : MonoBehaviour {
 
     public void GetCurrentFloorBoundary(float[] boundary, int floorIndex, SpriteRenderer sr)
     {
+        Debug.Log("Here - floorIndex: " + floorIndex);
         if(floorIndex >= 0 && floorIndex < mFloors.Length)
         {
+            Debug.Log("In 'if'");
             mFloors[floorIndex].GetBoundary(boundary, sr);
         }
         else
         {
+            Debug.Log("In 'else'");
             mFloors[0].GetBoundary(boundary, sr);
         }
     }
@@ -54,10 +56,5 @@ public class FloorController : MonoBehaviour {
             return currFloorIndex + 1;
         }
         return mFloors.Length - 1;
-    }
-
-    public bool ScriptReady()
-    {
-        return mScriptReady;
     }
 }

@@ -4,11 +4,11 @@ using System.Collections;
 public class Floor : MonoBehaviour
 {
 
-	public float xMax;
-	public float xMin;
-	public float yMax;
-	public float yMin;
-	GameObject[] floorPieces;
+	private float xMax;
+	private float xMin;
+	private float yMax;
+	private float yMin;
+	private GameObject[] floorPieces;
 
     public int floorLevel; // 0 is front most.
     public const int X_MAX_INDEX = 0, X_MIN_INDEX = 1, Y_MAX_INDEX = 2, Y_MIN_INDEX = 3;

@@ -57,14 +57,16 @@ public class PlayerFloorTest : MonoBehaviour
         mFloorBoundary = new float[4];
         mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         mInitialOrderInLayer = (int)(transform.position.y);
-
-        // get current boundary
-        mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
     }
 
 
     void Update()
     {
+        if(mFloorBoundary == null) {
+            // get current boundary
+            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+        }
+
         ResetBoolean();
 
         if (mNormalAttack > 0 && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))

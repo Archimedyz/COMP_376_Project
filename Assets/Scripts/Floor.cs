@@ -42,9 +42,9 @@ public class Floor : MonoBehaviour
 	{
         Debug.Log("sr.bounds.size: " + sr.bounds.size);
 
-        boundary[X_MAX_INDEX] = xMax + (sr.bounds.size.x / 2.0f);
-        boundary[X_MIN_INDEX] = xMin - (sr.bounds.size.x / 2.0f);
-		boundary[Y_MAX_INDEX] = yMax + (sr.bounds.size.y / 2.0f);
-		boundary[Y_MIN_INDEX] = yMin + (sr.bounds.size.y / 2.0f); // we want the feet to be the point of reference of the vertical boundary
+        boundary[X_MAX_INDEX] = xMax - (sr.bounds.size.x / 2.0f);
+        boundary[X_MIN_INDEX] = xMin + (sr.bounds.size.x / 2.0f);
+		boundary[Y_MAX_INDEX] = yMax + (sr.bounds.size.y / 2.0f); // we want the feet to be the point of reference of the vertical boundary
+		boundary[Y_MIN_INDEX] = yMin + (sr.bounds.size.y / 2.0f); 
 	}
 }

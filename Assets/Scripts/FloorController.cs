@@ -3,18 +3,19 @@ using System.Collections;
 
 public class FloorController : MonoBehaviour {
 
-    Floor[] mFloors;
+    private Floor[] mFloors;
+    private bool mScriptReady;
 
 	// Use this for initialization
 	void Start () {
 	    // get all the floors in the current level.
         mFloors = GetComponentsInChildren<Floor>();
 
-        for(int i = 0; i < mFloors.Length; ++i) {
-            Debug.Log(i + " - " + mFloors[i].gameObject.name);
-        }
+        //for(int i = 0; i < mFloors.Length; ++i) {
+        //    Debug.Log(i + " - " + mFloors[i].gameObject.name);
+        //}
 
-        
+        mScriptReady = true;
 	}
 	
 	// Update is called once per frame
@@ -53,5 +54,10 @@ public class FloorController : MonoBehaviour {
             return currFloorIndex + 1;
         }
         return mFloors.Length - 1;
+    }
+
+    public bool ScriptReady()
+    {
+        return mScriptReady;
     }
 }

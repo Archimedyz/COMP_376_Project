@@ -62,8 +62,6 @@ public class Player : MonoBehaviour
 
 		if (mJumping && transform.position.y <= 0) {
 			mJumping = false;
-		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
-			mGetHit = false;
 		} else if (mSliding && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mSliding = false;
 		} 
@@ -130,7 +128,6 @@ public class Player : MonoBehaviour
 	{
 		ResetBoolean ();
 		FaceDirection (mFacingDirection);
-		mJumping = false;
 		mGetHit = true;
 	}
 
@@ -202,6 +199,7 @@ public class Player : MonoBehaviour
 		mWalking = false;
 		mGetKnockdown = false;
 		mDashing = false;
+		mGetHit = false;
 	}
 
 	private void UpdateAnimator ()

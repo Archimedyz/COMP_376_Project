@@ -150,7 +150,7 @@ public class PlayerDaniel : MonoBehaviour
                     //mWalking = true;
                     
                     // if u pass the bottom of the floor boundary 
-                    if (transform.position.y < mFloorBoundary[Floor.Y_MIN_INDEX])
+                    if ((mJumping && mGroundY < mFloorBoundary[Floor.Y_MIN_INDEX]) || (!mJumping && transform.position.y < mFloorBoundary[Floor.Y_MIN_INDEX]))
                     {
                         int newFloorIndex = mFloorControllerRef.NextFloorDown(mFloorIndex);
                         if (newFloorIndex != mFloorIndex)
@@ -159,6 +159,15 @@ public class PlayerDaniel : MonoBehaviour
                             mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
                             mJumping = true;
                             mFalling = true;
+                        }
+                    }
+                    else if (mJumping && !mFalling && mGroundY > mFloorBoundary[Floor.Y_MAX_INDEX])
+                    {
+                        int newFloorIndex = mFloorControllerRef.NextFloorUp(mFloorIndex);
+                        if (newFloorIndex != mFloorIndex)
+                        {
+                            mFloorIndex = newFloorIndex;
+                            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
                         }
                     }
                 }

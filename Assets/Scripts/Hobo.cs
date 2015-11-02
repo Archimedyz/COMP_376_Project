@@ -71,7 +71,6 @@ public class Hobo : MonoBehaviour
 		if (!mGetHit) {
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
-			Debug.Log ("Hobo hit");
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
 		}

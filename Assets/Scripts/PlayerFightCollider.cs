@@ -5,9 +5,10 @@ public class PlayerFightCollider : MonoBehaviour
 {
 	void OnTriggerEnter (Collider col)
 	{
-		Debug.Log (col.gameObject.name);
-		if (col.gameObject.name == "GeneralCollider") {
+		if (col.gameObject.name == "GeneralColliderHobo") {
 			col.gameObject.transform.parent.GetComponent<Hobo> ().GetHit (gameObject.transform.parent.GetComponent<Player> ().GetFacingDirection ());
+		} else if (col.gameObject.name == "GeneralColliderNeanderthal") {
+			col.gameObject.transform.parent.GetComponent<Neanderthal> ().GetHit (gameObject.transform.parent.GetComponent<Player> ().GetFacingDirection ());
 		}
 	}
 }

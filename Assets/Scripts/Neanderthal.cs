@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NeanderthalAnimTest : MonoBehaviour
+public class Neanderthal : MonoBehaviour
 {
 	private bool mMoving;
 	private bool mThrowing;
 	private bool mDying;
-	private bool mGettingHit;
+	private bool mGetHit;
 	
 	private Vector2 mFacingDirection;
 	
@@ -58,23 +58,28 @@ public class NeanderthalAnimTest : MonoBehaviour
 			}
 		}
 
-		if (Input.GetKey ("space")) {
-			if (coconut == null) {
-				Throw ();
-			}
-		} else if (Input.GetKey ("z")) {
-			Die ();
-		} else if (Input.GetKey ("x")) {
-			GettingHit ();
-		}
-
 		attackTimer += Time.deltaTime;
 		UpdateAnimator ();
+
+		if (mGetHit) {
+			mInvincibleTimer += Time.deltaTime;
+			if (mInvincibleTimer >= kInvincibilityDuration) {
+				mGetHit = false;
+				mRigidBody.isKinematic = true;
+				mInvincibleTimer = 0.0f;
+			}
+		}
 	}
 
-	private void GettingHit ()
+	public void GetHit (Vector2 direction)
 	{
-		mGettingHit = true;
+		if (!mGetHit) {
+			attackTimer = 0;
+			mRigidBody.isKinematic = false;
+			mGetHit = true;
+			mRigidBody.velocity = Vector2.zero;
+			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+		}
 	}
 
 	private void Die ()
@@ -84,10 +89,12 @@ public class NeanderthalAnimTest : MonoBehaviour
 
 	private void Throw ()
 	{
-		mThrowing = true;
-		coconut = Instantiate (projectile, new Vector3 (transform.position.x - 0.15f, transform.position.y - 0.3f, transform.position.z), Quaternion.identity) as GameObject;
-		coconut.gameObject.GetComponent<Coconut> ().SetDirection (-mFacingDirection);
-		coconut.transform.parent = gameObject.transform;
+		if (!mGetHit) {
+			mThrowing = true;
+			coconut = Instantiate (projectile, new Vector3 (transform.position.x - 0.15f, transform.position.y - 0.3f, transform.position.z), Quaternion.identity) as GameObject;
+			coconut.gameObject.GetComponent<Coconut> ().SetDirection (-mFacingDirection);
+			coconut.transform.parent = gameObject.transform;
+		}
 	}
 
 	private void MovingLeft ()
@@ -133,13 +140,12 @@ public class NeanderthalAnimTest : MonoBehaviour
 		mMoving = false;
 		mThrowing = false;
 		mDying = false;
-		mGettingHit = false;
 	}
 	
 	private void UpdateAnimator ()
 	{
 		mAnimator.SetBool ("isMoving", mMoving);
-		mAnimator.SetBool ("isGettingHit", mGettingHit);
+		mAnimator.SetBool ("isGettingHit", mGetHit);
 		mAnimator.SetBool ("isThrowing", mThrowing);
 		mAnimator.SetBool ("isDying", mDying);
 	}

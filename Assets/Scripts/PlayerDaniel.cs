@@ -29,7 +29,7 @@ public class PlayerDaniel : MonoBehaviour
 	private Vector2 mFacingDirection;
 
 	private Animator mAnimator;
-    Rigidbody2D mRigidBody2D;
+    Rigidbody mRigidBody;
 
     // Floor Variables - START
 
@@ -43,7 +43,7 @@ public class PlayerDaniel : MonoBehaviour
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
-        mRigidBody2D = GetComponent<Rigidbody2D>();
+        mRigidBody = GetComponent<Rigidbody>();
 		mFacingDirection = Vector2.right;
 		mJumping = false;
 		mGetHit = false;
@@ -70,8 +70,8 @@ public class PlayerDaniel : MonoBehaviour
 		ResetBoolean ();
         if (transform.position.y < mGroundY && mJumping)
         {
-            mRigidBody2D.gravityScale = 0;
-            mRigidBody2D.velocity = Vector2.zero;
+            mRigidBody.useGravity = false;
+            mRigidBody.velocity = new Vector3(0,0,0);
             transform.position = new Vector3(transform.position.x, mGroundY, transform.position.z);
             mJumping = false;
         }
@@ -149,7 +149,7 @@ public class PlayerDaniel : MonoBehaviour
             mGroundY = transform.position.y;
             Jump();
         }
-
+        print(mRigidBody.velocity);
         CheckFalling();
 		UpdateAnimator ();
 	}
@@ -170,8 +170,8 @@ public class PlayerDaniel : MonoBehaviour
 	{
 		mJumping = true;
 		FaceDirection (mFacingDirection);
-        mRigidBody2D.AddForce(Vector2.up * mJumpForce, ForceMode2D.Impulse);
-        mRigidBody2D.gravityScale = mGravityScale;
+        mRigidBody.AddForce(Vector2.up * mJumpForce, ForceMode.Impulse);
+        mRigidBody.useGravity = true;
 	}
 
 	private void GetHit ()
@@ -237,7 +237,7 @@ public class PlayerDaniel : MonoBehaviour
 
     private void CheckFalling()
     {
-        mFalling = mRigidBody2D.velocity.y < 0.0f;
+        mFalling = (mRigidBody.velocity.y < 0.0f);
     }
 
     private void UpdateOrderInLayer()

@@ -168,6 +168,7 @@ public class PlayerDaniel : MonoBehaviour
                         {
                             mFloorIndex = newFloorIndex;
                             mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+                            mGroundY = mFloorBoundary[Floor.Y_MIN_INDEX];
                         }
                     }
                 }

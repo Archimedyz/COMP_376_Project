@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Neanderthal : MonoBehaviour
 {
+	public float Life;
+
 	private bool mMoving;
 	private bool mThrowing;
-	private bool mDying;
+	private bool mDying = false;
 	private bool mGetHit;
 	
 	private Vector2 mFacingDirection;
@@ -30,6 +32,8 @@ public class Neanderthal : MonoBehaviour
 
 	public float attackTimeWait;
 	private float attackTimer = 0.0f;
+
+	private float dyingTimer = 0.0f;
 
 	void Start ()
 	{
@@ -59,7 +63,19 @@ public class Neanderthal : MonoBehaviour
 		}
 
 		attackTimer += Time.deltaTime;
+		
+		if (Life <= 0 && !mDying) {
+			Die ();
+		}
+
 		UpdateAnimator ();
+
+		if (mDying) {
+			dyingTimer += Time.deltaTime;
+			if (dyingTimer >= 1.2f) {
+				Destroy (gameObject);
+			}
+		}
 
 		if (mGetHit) {
 			mInvincibleTimer += Time.deltaTime;
@@ -71,9 +87,10 @@ public class Neanderthal : MonoBehaviour
 		}
 	}
 
-	public void GetHit (Vector2 direction)
+	public void GetHit (Vector2 direction, float damage)
 	{
-		if (!mGetHit) {
+		if (!mGetHit && !mDying) {
+			Life -= damage;
 			attackTimer = 0;
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
@@ -139,7 +156,6 @@ public class Neanderthal : MonoBehaviour
 	{
 		mMoving = false;
 		mThrowing = false;
-		mDying = false;
 	}
 	
 	private void UpdateAnimator ()

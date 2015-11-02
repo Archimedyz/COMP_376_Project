@@ -3,10 +3,13 @@ using System.Collections;
 
 public class Hobo : MonoBehaviour
 {
+	public float Life;
+
 	private bool mMoving;
 	private bool mMovingRight;
 	private bool mMovingLeft;
 	private bool mHitting;
+	private bool mDying;
 
 	private bool mGetHit;
 
@@ -26,19 +29,22 @@ public class Hobo : MonoBehaviour
 	public float mPushBack;
 	private float mInvincibleTimer;
 	private float kInvincibilityDuration = 0.1f;
+	
+	private float dyingTimer = 0.0f;
 
 	void Start ()
 	{
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		mFacingDirection = Vector2.right;
+		mDying = false;
 	}
 
 	void Update ()
 	{
 		ResetBoolean ();
 
-		if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
+		/*if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
 			Hit ();
 		} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
 			if (transform.position.x < mTarget.position.x) {
@@ -52,9 +58,20 @@ public class Hobo : MonoBehaviour
 			} else if (transform.position.y > mTarget.position.y) {
 				MovingDown ();
 			}
+		}*/
+
+		if (Life <= 0 && !mDying) {
+			Die ();
 		}
 
 		UpdateAnimator ();
+		
+		if (mDying) {
+			dyingTimer += Time.deltaTime;
+			if (dyingTimer >= 1.0f) {
+				Destroy (gameObject);
+			}
+		}
 
 		if (mGetHit) {
 			mInvincibleTimer += Time.deltaTime;
@@ -66,9 +83,15 @@ public class Hobo : MonoBehaviour
 		}
 	}
 
-	public void GetHit (Vector2 direction)
+	private void Die ()
 	{
-		if (!mGetHit) {
+		mDying = true;
+	}
+
+	public void GetHit (Vector2 direction, float damage)
+	{
+		if (!mGetHit && !mDying) {
+			Life -= damage;
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
@@ -133,6 +156,7 @@ public class Hobo : MonoBehaviour
 		mAnimator.SetBool ("isMovingRight", mMovingRight);
 		mAnimator.SetBool ("isMovingLeft", mMovingLeft);
 		mAnimator.SetBool ("isHitting", mHitting);
+		mAnimator.SetBool ("isDying", mDying);
 	}
 
 	public Vector2 GetFacingDirection ()

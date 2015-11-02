@@ -24,7 +24,9 @@ public class Player : MonoBehaviour
 
 	private float mInvincibleTimer;
 	private float kInvincibilityDuration = 0.1f;
-	public float mPushBack;
+	private float kKnockdownInvincibilityDuration = 1.0f;
+	public float mHitPushBack;
+	public float mKnockdownPushBack;
 
 	private Vector2 mFacingDirection;
 
@@ -105,7 +107,7 @@ public class Player : MonoBehaviour
 		if (Input.GetKeyDown ("s")) {
 			//GetHit ();
 		} else if (Input.GetKeyDown ("d")) {
-			GetKnockdown ();
+			//GetKnockdown ();
 		} else if (mMoving && Input.GetKeyDown ("f")) {
 			Slide ();
 		} else if (Input.GetKeyDown ("q")) {
@@ -118,6 +120,15 @@ public class Player : MonoBehaviour
 			mInvincibleTimer += Time.deltaTime;
 			if (mInvincibleTimer >= kInvincibilityDuration) {
 				mGetHit = false;
+				mRigidBody.isKinematic = true;
+				mInvincibleTimer = 0.0f;
+			}
+		}
+
+		if (mGetKnockdown) {
+			mInvincibleTimer += Time.deltaTime;
+			if (mInvincibleTimer >= kKnockdownInvincibilityDuration) {
+				mGetKnockdown = false;
 				mRigidBody.isKinematic = true;
 				mInvincibleTimer = 0.0f;
 			}
@@ -145,19 +156,22 @@ public class Player : MonoBehaviour
 
 	public void GetHit (Vector2 direction)
 	{
-		if (!mGetHit) {
+		if (!mGetHit && !mGetKnockdown) {
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
-			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
 		}
 	}
 
-	private void GetKnockdown ()
+	public void GetKnockdown (Vector2 direction)
 	{
-		ResetBoolean ();
-		FaceDirection (mFacingDirection);
-		mGetKnockdown = true;
+		if (!mGetHit && !mGetKnockdown) {
+			mRigidBody.isKinematic = false;
+			mGetKnockdown = true;
+			mRigidBody.velocity = Vector2.zero;
+			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);
+		}
 	}
 
 	private void Defend ()
@@ -219,7 +233,6 @@ public class Player : MonoBehaviour
 		mRunning = false;
 		mDefending = false;
 		mWalking = false;
-		mGetKnockdown = false;
 		mDashing = false;
 	}
 

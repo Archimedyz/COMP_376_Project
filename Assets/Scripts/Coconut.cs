@@ -68,4 +68,17 @@ public class Coconut : MonoBehaviour
 	{
 		mDirection = direction;
 	}
+
+	public Vector2 GetDirection ()
+	{
+		return mDirection;
+	}
+
+	void OnCollisionEnter (Collision col)
+	{
+		if (col.gameObject.name == "Player") {
+			col.gameObject.GetComponent<Player> ().GetKnockdown (mDirection);
+			Destroy (gameObject);
+		}
+	}
 }

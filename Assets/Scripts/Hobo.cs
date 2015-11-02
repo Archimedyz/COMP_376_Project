@@ -8,6 +8,8 @@ public class Hobo : MonoBehaviour
 	private bool mMovingLeft;
 	private bool mHitting;
 
+	private bool mGetHit;
+
 	private Vector2 mFacingDirection;
 
 	public float mHoriMoveSpeed;
@@ -19,9 +21,15 @@ public class Hobo : MonoBehaviour
 	public float mAttackDistance;
 
 	private Animator mAnimator;
+	private Rigidbody mRigidBody;
+
+	public float mPushBack;
+	private float mInvincibleTimer;
+	private float kInvincibilityDuration = 0.1f;
 
 	void Start ()
 	{
+		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		mFacingDirection = Vector2.right;
 	}
@@ -30,7 +38,7 @@ public class Hobo : MonoBehaviour
 	{
 		ResetBoolean ();
 
-		if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
+		/*if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
 			Hit ();
 		} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
 			if (transform.position.x < mTarget.position.x) {
@@ -44,13 +52,29 @@ public class Hobo : MonoBehaviour
 			} else if (transform.position.y > mTarget.position.y) {
 				MovingDown ();
 			}
-		}
-
-		if (Input.GetKey ("space")) {
-			Hit ();
-		}
+		}*/
 
 		UpdateAnimator ();
+
+		if (mGetHit) {
+			mInvincibleTimer += Time.deltaTime;
+			if (mInvincibleTimer >= kInvincibilityDuration) {
+				mGetHit = false;
+				mRigidBody.isKinematic = true;
+				mInvincibleTimer = 0.0f;
+			}
+		}
+	}
+
+	public void GetHit (Vector2 direction)
+	{
+		if (!mGetHit) {
+			mRigidBody.isKinematic = false;
+			mGetHit = true;
+			Debug.Log ("Hobo hit");
+			mRigidBody.velocity = Vector2.zero;
+			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+		}
 	}
 
 	private void Hit ()
@@ -61,7 +85,6 @@ public class Hobo : MonoBehaviour
 	private void MovingLeft ()
 	{
 		transform.Translate (-Vector2.right * mHoriMoveSpeed * Time.deltaTime);
-		//mFacingDirection = -Vector2.right;
 		mMoving = true;
 		mMovingLeft = true;
 	}
@@ -69,8 +92,6 @@ public class Hobo : MonoBehaviour
 	private void MovingRight ()
 	{
 		transform.Translate (Vector2.right * mHoriMoveSpeed * Time.deltaTime);
-		//mFacingDirection = Vector2.right;
-		mMoving = true;
 		mMovingRight = true;
 	}
 	

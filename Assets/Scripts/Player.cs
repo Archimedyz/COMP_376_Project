@@ -146,7 +146,6 @@ public class Player : MonoBehaviour
 	public void GetHit (Vector2 direction)
 	{
 		if (!mGetHit) {
-			//ResetBoolean ();
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
@@ -226,7 +225,6 @@ public class Player : MonoBehaviour
 
 	private void UpdateAnimator ()
 	{
-		Debug.Log (mGetHit);
 		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isRunning", mRunning);
 		mAnimator.SetBool ("isWalking", mWalking);
@@ -240,5 +238,10 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isSliding", mSliding);
 		mAnimator.SetBool ("isDashing", mDashing);
+	}
+
+	public Vector2 GetFacingDirection ()
+	{
+		return mFacingDirection;
 	}
 }

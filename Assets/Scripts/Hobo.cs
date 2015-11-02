@@ -38,7 +38,7 @@ public class Hobo : MonoBehaviour
 	{
 		ResetBoolean ();
 
-		/*if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
+		if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
 			Hit ();
 		} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
 			if (transform.position.x < mTarget.position.x) {
@@ -52,7 +52,7 @@ public class Hobo : MonoBehaviour
 			} else if (transform.position.y > mTarget.position.y) {
 				MovingDown ();
 			}
-		}*/
+		}
 
 		UpdateAnimator ();
 

@@ -14,12 +14,26 @@ public class NeanderthalAnimTest : MonoBehaviour
 	public float mVertiMoveSpeed;
 	
 	private Animator mAnimator;
+	private Rigidbody mRigidBody;
 
 	public GameObject projectile;
 	private GameObject coconut;
 
+	public Transform mTarget;
+	public float mFollowRange;
+
+	public float mPushBack;
+	private float mInvincibleTimer;
+	private float kInvincibilityDuration = 0.1f;
+	
+	public float mAttackDistance;
+
+	public float attackTimeWait;
+	private float attackTimer = 0.0f;
+
 	void Start ()
 	{
+		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		coconut = null;
 	}
@@ -28,15 +42,20 @@ public class NeanderthalAnimTest : MonoBehaviour
 	{
 		ResetBoolean ();
 
-		if (Input.GetButton ("Left")) {
-			MovingLeft ();
-		} else if (Input.GetButton ("Right")) {
-			MovingRight ();
-		} 
-		if (Input.GetButton ("Up")) {
-			MovingUp ();
-		} else if (Input.GetButton ("Down")) {
-			MovingDown ();
+		if (attackTimer > attackTimeWait && Vector2.Distance (transform.position, mTarget.position) < mAttackDistance && mTarget.position.y < (transform.position.y + 1) && mTarget.position.y > (transform.position.y - 1)) {
+			attackTimer = 0;
+			Throw ();
+		} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
+			if (mTarget.position.x >= transform.position.x)
+				FaceDirection (Vector2.right);
+			else
+				FaceDirection (Vector2.left);
+			
+			if (mTarget.position.y > (transform.position.y + 1)) {
+				MovingUp ();
+			} else if (mTarget.position.y < (transform.position.y - 1)) {
+				MovingDown ();
+			}
 		}
 
 		if (Input.GetKey ("space")) {
@@ -49,6 +68,7 @@ public class NeanderthalAnimTest : MonoBehaviour
 			GettingHit ();
 		}
 
+		attackTimer += Time.deltaTime;
 		UpdateAnimator ();
 	}
 
@@ -65,9 +85,9 @@ public class NeanderthalAnimTest : MonoBehaviour
 	private void Throw ()
 	{
 		mThrowing = true;
-		coconut = Instantiate (projectile, new Vector3 (-0.15f, -0.3f, transform.position.z), Quaternion.identity) as GameObject;
+		coconut = Instantiate (projectile, new Vector3 (transform.position.x - 0.15f, transform.position.y - 0.3f, transform.position.z), Quaternion.identity) as GameObject;
+		coconut.gameObject.GetComponent<Coconut> ().SetDirection (-mFacingDirection);
 		coconut.transform.parent = gameObject.transform;
-
 	}
 
 	private void MovingLeft ()

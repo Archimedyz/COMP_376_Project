@@ -162,7 +162,7 @@ public class PlayerFloorTest : MonoBehaviour
                 else if (Input.GetButton("Down"))
                 {
                     MovingDown();
-                    // if u pass the bottom of the 
+                    // if u pass the bottom of the floor boundary 
                     if(transform.position.y < mFloorBoundary[Floor.Y_MIN_INDEX]) {
                         int newFloorIndex = mFloorControllerRef.NextFloorDown(mFloorIndex);
                         if(newFloorIndex != mFloorIndex) {

@@ -142,7 +142,11 @@ public class PlayerDaniel : MonoBehaviour
                     direction.x = direction.x * mMoveSpeedX;
                     direction.y = direction.y * mMoveSpeedY;
                     if (mJumping)
+                    {
+                        direction /= 2.0f;
+                        mGroundY += direction.y * Time.deltaTime; 
                         direction.y = 0;
+                    }
                     transform.Translate(direction * Time.deltaTime, Space.World);
 
                     mMoving = true;
@@ -159,16 +163,24 @@ public class PlayerDaniel : MonoBehaviour
                             mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
                             mJumping = true;
                             mFalling = true;
+                            mGroundY = mFloorBoundary[Floor.Y_MAX_INDEX];
+                            mRigidBody.useGravity = true;
                         }
                     }
-                    else if (mJumping && !mFalling && mGroundY > mFloorBoundary[Floor.Y_MAX_INDEX])
+                    else if (mJumping && mGroundY > mFloorBoundary[Floor.Y_MAX_INDEX])
                     {
                         int newFloorIndex = mFloorControllerRef.NextFloorUp(mFloorIndex);
                         if (newFloorIndex != mFloorIndex)
                         {
-                            mFloorIndex = newFloorIndex;
-                            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
-                            mGroundY = mFloorBoundary[Floor.Y_MIN_INDEX];
+                            // check if the player has even reached the next level in terms of animation.
+                            float[] newFloorBoundary = new float[4];
+                            mFloorControllerRef.GetCurrentFloorBoundary(newFloorBoundary, newFloorIndex, mSpriteRenderer);
+                            
+                            if(transform.position.y > newFloorBoundary[Floor.Y_MIN_INDEX]) {
+                                mFloorIndex = newFloorIndex;
+                                mFloorBoundary = newFloorBoundary;
+                                mGroundY = mFloorBoundary[Floor.Y_MIN_INDEX];
+                            }
                         }
                     }
                 }
@@ -189,7 +201,7 @@ public class PlayerDaniel : MonoBehaviour
             mGroundY = transform.position.y;
             Jump();
         }
-        print(mRigidBody.velocity);
+        //print(mRigidBody.velocity);
         CheckFalling();
 
         // if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.

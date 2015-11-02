@@ -33,12 +33,20 @@ public class PlayerDaniel : MonoBehaviour
 
     // Floor Variables - START
 
-    private Floor mFloorRef;
+    private FloorController mFloorControllerRef;
+    public int mFloorIndex;
     public float[] mFloorBoundary;
     private SpriteRenderer mSpriteRenderer;
     private int mInitialOrderInLayer;
+    private bool floorBoundaryInitialized;
 
     // Floor Variables - END
+
+    // Health Bar Variables - Start
+
+    private HealthBar mHealthBarRef;
+
+    // Health Bar Variables - End
 	
 	void Start ()
 	{
@@ -57,17 +65,29 @@ public class PlayerDaniel : MonoBehaviour
         mJumpForce = 5.0f;
         mGravityScale = 0.8f;
 
-        mFloorRef = FindObjectOfType<Floor>();
+        // Init Floor stuff
+        mFloorControllerRef = FindObjectOfType<FloorController>();
         mFloorBoundary = new float[4];
         mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        mInitialOrderInLayer = (int)(transform.position.y);
+        floorBoundaryInitialized = false;
 
-        mFloorRef.GetBoundary(mFloorBoundary, mSpriteRenderer);
+        // Init HealthBar Stuff
+        mHealthBarRef = FindObjectOfType<HealthBar>();
 	}
 
 
 	void Update ()
 	{
+        if (!floorBoundaryInitialized)
+        {
+            // get current boundary
+            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+            floorBoundaryInitialized = true;
+        }
+
 		ResetBoolean ();
+        
         if (transform.position.y < mGroundY && mJumping)
         {
             mRigidBody.useGravity = false;
@@ -128,9 +148,19 @@ public class PlayerDaniel : MonoBehaviour
                     mMoving = true;
                     mRunning = true;
                     //mWalking = true;
-                    if(!mJumping && !mFalling)
-                        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
-                    UpdateOrderInLayer();
+                    
+                    // if u pass the bottom of the floor boundary 
+                    if (transform.position.y < mFloorBoundary[Floor.Y_MIN_INDEX])
+                    {
+                        int newFloorIndex = mFloorControllerRef.NextFloorDown(mFloorIndex);
+                        if (newFloorIndex != mFloorIndex)
+                        {
+                            mFloorIndex = newFloorIndex;
+                            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+                            mJumping = true;
+                            mFalling = true;
+                        }
+                    }
                 }
             }
 		}
@@ -151,6 +181,14 @@ public class PlayerDaniel : MonoBehaviour
         }
         print(mRigidBody.velocity);
         CheckFalling();
+
+        // if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.
+        if (!mJumping && !mFalling)
+        {
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, mFloorBoundary[Floor.X_MIN_INDEX], mFloorBoundary[Floor.X_MAX_INDEX]), Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
+        }
+        UpdateOrderInLayer();
+
 		UpdateAnimator ();
 	}
 

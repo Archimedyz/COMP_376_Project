@@ -140,6 +140,7 @@ public class Hobo : MonoBehaviour
 	private void MovingLeft ()
 	{
 		transform.Translate (-Vector2.right * mHoriMoveSpeed * Time.deltaTime);
+		FaceDirection (Vector2.left);
 		mMoving = true;
 		mMovingLeft = true;
 	}
@@ -147,6 +148,7 @@ public class Hobo : MonoBehaviour
 	private void MovingRight ()
 	{
 		transform.Translate (Vector2.right * mHoriMoveSpeed * Time.deltaTime);
+		FaceDirection (Vector2.right);
 		mMovingRight = true;
 	}
 	
@@ -167,13 +169,6 @@ public class Hobo : MonoBehaviour
 	private void FaceDirection (Vector2 direction)
 	{
 		mFacingDirection = direction;
-		if (direction == Vector2.right) {
-			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
-			transform.localScale = newScale;
-		} else {
-			Vector3 newScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
-			transform.localScale = newScale;
-		}
 	}
 
 	private void ResetBoolean ()

@@ -135,7 +135,11 @@ public class Neanderthal : MonoBehaviour
 		if (!mGetHit) {
 			mThrowing = true;
 			coconut = Instantiate (projectile, new Vector3 (transform.position.x - 0.15f, transform.position.y - 0.3f, transform.position.z), Quaternion.identity) as GameObject;
-			coconut.gameObject.GetComponent<Coconut> ().SetDirection (-mFacingDirection);
+			if (mTarget.position.x >= transform.position.x) {
+				coconut.gameObject.GetComponent<Coconut> ().SetDirection (Vector2.left);
+			} else if (mTarget.position.x < transform.position.x) {
+				coconut.gameObject.GetComponent<Coconut> ().SetDirection (Vector2.right);
+			}
 			coconut.transform.parent = gameObject.transform;
 		}
 	}

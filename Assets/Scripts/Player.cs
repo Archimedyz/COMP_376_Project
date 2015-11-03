@@ -248,7 +248,7 @@ public class Player : MonoBehaviour
 			mGetHit = true;
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
-			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
+			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
 		}
 	}
 	

@@ -98,7 +98,7 @@ public class Neanderthal : MonoBehaviour
 
 		if (mDying) {
 			dyingTimer += Time.deltaTime;
-			if (dyingTimer >= 1.31f) {
+			if (dyingTimer >= 1.5f) {
 				Destroy (gameObject);
 			}
 		}

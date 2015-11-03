@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
 	//Combat variables - Start
 	
 	private float mInvincibleTimer;
-	private float kInvincibilityDuration = 0.1f;
+	private float kInvincibilityDuration = 0.5f;
 	private float kKnockdownInvincibilityDuration = 0.5f;
 	public float mHitPushBack;
 	public float mKnockdownPushBack;
@@ -64,7 +64,6 @@ public class Player : MonoBehaviour
 		mRigidBody = GetComponent<Rigidbody> ();
 		mFacingDirection = Vector2.right;
 		mJumping = false;
-		mGetHit = false;
 		mSliding = false;
 		mDashing = false;
 		mNormalAttack = 0;
@@ -121,8 +120,6 @@ public class Player : MonoBehaviour
 
 		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mJumping = false;
-		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
-			mGetHit = false;
 		} else if (mSliding && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mSliding = false;
 		} 

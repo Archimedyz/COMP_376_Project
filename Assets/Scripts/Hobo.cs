@@ -65,14 +65,14 @@ public class Hobo : MonoBehaviour
 	{
 		if (!floorBoundaryInitialized) {
 			// get current boundary
-			//mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
 			floorBoundaryInitialized = true;
 		}
 		
 		ResetBoolean ();
 
-		if (!mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
-			if (attackTimer > attackTimeWait && Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
+		if (attackTimer > attackTimeWait && !mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
+			if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
 				attackTimer = 0;
 				Hit ();
 			} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {

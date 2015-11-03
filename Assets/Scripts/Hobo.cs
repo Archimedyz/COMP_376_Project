@@ -142,47 +142,48 @@ public class Hobo : MonoBehaviour
 		transform.Translate (-Vector2.right * mHoriMoveSpeed * Time.deltaTime);
 		FaceDirection (Vector2.left);
 		mMoving = true;
-		mMovingLeft = true;
 	}
 	
 	private void MovingRight ()
 	{
 		transform.Translate (Vector2.right * mHoriMoveSpeed * Time.deltaTime);
 		FaceDirection (Vector2.right);
-		mMovingRight = true;
+		mMoving = true;
 	}
 	
 	private void MovingUp ()
 	{
 		transform.Translate (Vector2.up * mVertiMoveSpeed * Time.deltaTime);
 		mMoving = true;
-		mMovingRight = true;
 	}
 	
 	private void MovingDown ()
 	{
 		transform.Translate (Vector2.down * mVertiMoveSpeed * Time.deltaTime);
 		mMoving = true;
-		mMovingLeft = true;
 	}
 
 	private void FaceDirection (Vector2 direction)
 	{
 		mFacingDirection = direction;
+		if (direction == Vector2.right) {
+			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			transform.localScale = newScale;
+		} else {
+			Vector3 newScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			transform.localScale = newScale;
+		}
 	}
 
 	private void ResetBoolean ()
 	{
 		mMoving = false;
-		mMovingLeft = false;
-		mMovingRight = false;
 		mHitting = false;
 	}
 
 	private void UpdateAnimator ()
 	{
-		mAnimator.SetBool ("isMovingRight", mMovingRight);
-		mAnimator.SetBool ("isMovingLeft", mMovingLeft);
+		mAnimator.SetBool ("isMoving", mMovingRight);
 		mAnimator.SetBool ("isHitting", mHitting);
 		mAnimator.SetBool ("isDying", mDying);
 	}

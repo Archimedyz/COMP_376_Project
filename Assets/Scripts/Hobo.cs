@@ -31,34 +31,66 @@ public class Hobo : MonoBehaviour
 	private float kInvincibilityDuration = 0.1f;
 	
 	private float dyingTimer = 0.0f;
+	private float attackTimer = 0.0f;	
+	public float attackTimeWait;
 
+	// Floor Variables - START
+	
+	private FloorController mFloorControllerRef;
+	public int mFloorIndex;
+	public float[] mFloorBoundary;
+	private SpriteRenderer mSpriteRenderer;
+	private int mInitialOrderInLayer;
+	private bool floorBoundaryInitialized;
+	
+	// Floor Variables - END
+
+
+	
 	void Start ()
 	{
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		mFacingDirection = Vector2.right;
 		mDying = false;
+
+		mFloorControllerRef = FindObjectOfType<FloorController> ();
+		mFloorBoundary = new float[4];
+		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
+		mInitialOrderInLayer = (int)(transform.position.y);
+		floorBoundaryInitialized = false;
 	}
 
 	void Update ()
 	{
+		if (!floorBoundaryInitialized) {
+			// get current boundary
+			//mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			floorBoundaryInitialized = true;
+		}
+		
 		ResetBoolean ();
 
-		/*if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
-			Hit ();
-		} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
-			if (transform.position.x < mTarget.position.x) {
-				MovingRight ();
-			} else if (transform.position.x > mTarget.position.x) {
-				MovingLeft ();
-			}
+		if (!mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
+			if (attackTimer > attackTimeWait && Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
+				attackTimer = 0;
+				Hit ();
+			} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
+				if (transform.position.x < mTarget.position.x) {
+					MovingRight ();
+				} else if (transform.position.x > mTarget.position.x) {
+					MovingLeft ();
+				}
 
-			if (transform.position.y < mTarget.position.y) {
-				MovingUp ();
-			} else if (transform.position.y > mTarget.position.y) {
-				MovingDown ();
+				if (transform.position.y < mTarget.position.y) {
+					MovingUp ();
+				} else if (transform.position.y > mTarget.position.y) {
+					MovingDown ();
+				}
 			}
-		}*/
+		}
+
+		attackTimer += Time.deltaTime;
 
 		if (Life <= 0 && !mDying) {
 			Die ();
@@ -101,6 +133,7 @@ public class Hobo : MonoBehaviour
 
 	private void Hit ()
 	{
+		attackTimer = 0;
 		mHitting = true;
 	}
 	

@@ -16,22 +16,47 @@ public class Player : MonoBehaviour
 	private bool mDashing;
 	private int mNormalAttack;
 	private int mStrongAttack;
+	private float mGroundY;
 
 	private bool mHitting;
 
-	public float mMoveSpeed;
+	public float mMoveSpeedX;
+	public float mMoveSpeedY;
 	public float mJumpForce;
+	public float mGravityScale;
 
-	private float mInvincibleTimer;
-	private float kInvincibilityDuration = 0.1f;
-	private float kKnockdownInvincibilityDuration = 1.0f;
-	public float mHitPushBack;
-	public float mKnockdownPushBack;
 
 	private Vector2 mFacingDirection;
 
 	private Animator mAnimator;
-	private Rigidbody mRigidBody;
+	Rigidbody mRigidBody;
+
+	// Floor Variables - START
+
+	private FloorController mFloorControllerRef;
+	public int mFloorIndex;
+	public float[] mFloorBoundary;
+	private SpriteRenderer mSpriteRenderer;
+	private int mInitialOrderInLayer;
+	private bool floorBoundaryInitialized;
+
+	// Floor Variables - END
+
+	// Health Bar Variables - Start
+
+	private HealthBar mHealthBarRef;
+
+	// Health Bar Variables - End
+
+	//Combat variables - Start
+	
+	private float mInvincibleTimer;
+	private float kInvincibilityDuration = 0.1f;
+	private float kKnockdownInvincibilityDuration = 0.5f;
+	public float mHitPushBack;
+	public float mKnockdownPushBack;
+
+	//Combat variables - End
 	
 	void Start ()
 	{
@@ -44,17 +69,41 @@ public class Player : MonoBehaviour
 		mDashing = false;
 		mNormalAttack = 0;
 		mStrongAttack = 0;
+
+		mMoveSpeedX = 4.0f;
+		mMoveSpeedY = 2.5f;
+		mJumpForce = 5.0f;
+		mGravityScale = 0.8f;
+
+		// Init Floor stuff
+		mFloorControllerRef = FindObjectOfType<FloorController> ();
+		mFloorBoundary = new float[4];
+		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
+		mInitialOrderInLayer = (int)(transform.position.y);
+		floorBoundaryInitialized = false;
+
+		// Init HealthBar Stuff
+		mHealthBarRef = FindObjectOfType<HealthBar> ();
 	}
 
 
 	void Update ()
 	{
-		ResetBoolean ();
+		mRigidBody.isKinematic = false;
 
-		if (transform.position.y > 0.0f) {
-			mRigidBody.useGravity = true;
-		} else if (transform.position.y <= 0.0f) {
+		if (!floorBoundaryInitialized) {
+			// get current boundary
+			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			floorBoundaryInitialized = true;
+		}
+
+		ResetBoolean ();
+        
+		if (transform.position.y < mGroundY && mJumping) {
 			mRigidBody.useGravity = false;
+			mRigidBody.velocity = new Vector3 (0, 0, 0);
+			transform.position = new Vector3 (transform.position.x, mGroundY, transform.position.z);
+			mJumping = false;
 		}
 
 		if (mNormalAttack > 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
@@ -64,55 +113,96 @@ public class Player : MonoBehaviour
 
 
 		if (Input.GetKeyDown ("z")) {
-			//if (!mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle"))
 			mNormalAttack++;
 			mHitting = true;
 		} else if (Input.GetKey ("w")) {
 			mStrongAttack ++;
-			//mHitting = true;
 		}
 
-		if (mJumping && transform.position.y <= 0) {
+		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mJumping = false;
+		} else if (mGetHit && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+			mGetHit = false;
 		} else if (mSliding && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mSliding = false;
 		} 
 
-		if (mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Jumping")) {
-
-			mFalling = true;
-		} else {
-			mFalling = false;
-		}
-
-		if (!mGetHit) {
+		if (!mGetHit && !mGetKnockdown) {
 			if (Input.GetKey ("space")) {
 				Defend ();
-			} else if (Input.GetKeyDown ("a")) {
-				Jump ();
 			} else {
-				if (Input.GetButton ("Left")) {
-					MovingLeft ();
-				} else if (Input.GetButton ("Right")) {
-					MovingRight ();
-				} 
-				if (Input.GetButton ("Up")) {
-					MovingUp ();
-				} else if (Input.GetButton ("Down")) {
-					MovingDown ();
+				float horizontal = Input.GetAxis ("Horizontal");
+				float vertical = Input.GetAxis ("Vertical");
+
+				if (!Mathf.Approximately (vertical, 0.0f) || !Mathf.Approximately (horizontal, 0.0f)) {
+					Vector3 direction = new Vector3 (horizontal, vertical, 0.0f);
+					direction = Vector3.ClampMagnitude (direction, 1.0f);
+					if (direction.x > 0.00f)
+						FaceDirection (Vector2.right);
+					else {
+						if (direction.x < 0.00f)
+							FaceDirection (Vector2.left);
+					}
+					direction.x = direction.x * mMoveSpeedX;
+					direction.y = direction.y * mMoveSpeedY;
+					if (mJumping) {
+						direction /= 2.0f;
+						mGroundY += direction.y * Time.deltaTime; 
+						direction.y = 0;
+					}
+					transform.Translate (direction * Time.deltaTime, Space.World);
+
+					mMoving = true;
+					mRunning = true;
+                    
+					// if u pass the bottom of the floor boundary 
+					if ((mJumping && mGroundY < mFloorBoundary [Floor.Y_MIN_INDEX]) || (!mJumping && transform.position.y < mFloorBoundary [Floor.Y_MIN_INDEX])) {
+						int newFloorIndex = mFloorControllerRef.NextFloorDown (mFloorIndex);
+						if (newFloorIndex != mFloorIndex) {
+							mFloorIndex = newFloorIndex;
+							mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+							mJumping = true;
+							mFalling = true;
+							mGroundY = mFloorBoundary [Floor.Y_MAX_INDEX];
+							mRigidBody.useGravity = true;
+						}
+					} else if (mJumping && mGroundY > mFloorBoundary [Floor.Y_MAX_INDEX]) {
+						int newFloorIndex = mFloorControllerRef.NextFloorUp (mFloorIndex);
+						if (newFloorIndex != mFloorIndex) {
+							// check if the player has even reached the next level in terms of animation.
+							float[] newFloorBoundary = new float[4];
+							mFloorControllerRef.GetCurrentFloorBoundary (newFloorBoundary, newFloorIndex, mSpriteRenderer);
+                            
+							if (transform.position.y > newFloorBoundary [Floor.Y_MIN_INDEX]) {
+								mFloorIndex = newFloorIndex;
+								mFloorBoundary = newFloorBoundary;
+								mGroundY = mFloorBoundary [Floor.Y_MIN_INDEX];
+							}
+						}
+					}
 				}
 			}
 		}
 
-		if (Input.GetKeyDown ("s")) {
-			//GetHit ();
-		} else if (Input.GetKeyDown ("d")) {
-			//GetKnockdown ();
-		} else if (mMoving && Input.GetKeyDown ("f")) {
+		if (mMoving && Input.GetKeyDown ("f")) {
 			Slide ();
 		} else if (Input.GetKeyDown ("q")) {
 			Dash ();
+		} else if (Input.GetKeyDown ("j") && !mJumping) {
+			mGroundY = transform.position.y;
+			Jump ();
 		}
+
+		CheckFalling ();
+
+		// if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.
+		if (!mJumping && !mFalling) {
+			transform.position = new Vector3 (Mathf.Clamp (transform.position.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]), Mathf.Clamp (transform.position.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]), transform.position.z);
+			if (!mGetHit && !mGetKnockdown) {
+				mRigidBody.isKinematic = true;
+			}
+		}
+		UpdateOrderInLayer ();
 
 		UpdateAnimator ();
 
@@ -124,7 +214,7 @@ public class Player : MonoBehaviour
 				mInvincibleTimer = 0.0f;
 			}
 		}
-
+		
 		if (mGetKnockdown) {
 			mInvincibleTimer += Time.deltaTime;
 			if (mInvincibleTimer >= kKnockdownInvincibilityDuration) {
@@ -152,23 +242,24 @@ public class Player : MonoBehaviour
 		mJumping = true;
 		FaceDirection (mFacingDirection);
 		mRigidBody.AddForce (Vector2.up * mJumpForce, ForceMode.Impulse);
+		mRigidBody.useGravity = true;
 	}
 
 	public void GetHit (Vector2 direction)
 	{
 		if (!mGetHit && !mGetKnockdown) {
-			mRigidBody.isKinematic = false;
 			mGetHit = true;
+			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
 		}
 	}
-
+	
 	public void GetKnockdown (Vector2 direction)
 	{
 		if (!mGetHit && !mGetKnockdown) {
-			mRigidBody.isKinematic = false;
 			mGetKnockdown = true;
+			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);
 		}
@@ -178,40 +269,6 @@ public class Player : MonoBehaviour
 	{
 		mDefending = true;
 		FaceDirection (mFacingDirection);
-	}
-
-	private void MovingLeft ()
-	{
-		transform.Translate (-Vector2.right * mMoveSpeed * Time.deltaTime);
-		FaceDirection (-Vector2.right);
-		mMoving = true;
-		mRunning = true;
-		//mWalking = true;
-	}
-	
-	private void MovingRight ()
-	{
-		transform.Translate (Vector2.right * mMoveSpeed * Time.deltaTime);
-		FaceDirection (Vector2.right);
-		mMoving = true;
-		mRunning = true;
-		//mWalking = true;
-	}
-	
-	private void MovingUp ()
-	{
-		transform.Translate (Vector2.up * mMoveSpeed * Time.deltaTime);
-		mMoving = true;
-		mRunning = true;
-		//mWalking = true;
-	}
-	
-	private void MovingDown ()
-	{
-		transform.Translate (Vector2.down * mMoveSpeed * Time.deltaTime);
-		mMoving = true;
-		mRunning = true;
-		//mWalking = true;
 	}
 
 	private void FaceDirection (Vector2 direction)
@@ -239,8 +296,8 @@ public class Player : MonoBehaviour
 	private void UpdateAnimator ()
 	{
 		mAnimator.SetBool ("isMoving", mMoving);
-		mAnimator.SetBool ("isRunning", mRunning);
-		mAnimator.SetBool ("isWalking", mWalking);
+		mAnimator.SetBool ("isRunning", (mRunning && !mJumping));
+		mAnimator.SetBool ("isWalking", (mWalking && !mJumping));
 		mAnimator.SetBool ("isDefending", mDefending);
 		mAnimator.SetBool ("isJumping", mJumping);
 		mAnimator.SetBool ("isFalling", mFalling);
@@ -253,8 +310,23 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isDashing", mDashing);
 	}
 
+	private void CheckFalling ()
+	{
+		mFalling = (mRigidBody.velocity.y < 0.0f);
+	}
+
+	private void UpdateOrderInLayer ()
+	{
+		mSpriteRenderer.sortingOrder = mInitialOrderInLayer - (int)(transform.position.y);
+	}
+
 	public Vector2 GetFacingDirection ()
 	{
 		return mFacingDirection;
+	}
+
+	public int GetLayerIndex ()
+	{
+		return mFloorIndex;
 	}
 }

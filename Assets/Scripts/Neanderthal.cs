@@ -35,30 +35,56 @@ public class Neanderthal : MonoBehaviour
 
 	private float dyingTimer = 0.0f;
 
+	// Floor Variables - START
+	
+	private FloorController mFloorControllerRef;
+	public int mFloorIndex;
+	public float[] mFloorBoundary;
+	private SpriteRenderer mSpriteRenderer;
+	private int mInitialOrderInLayer;
+	private bool floorBoundaryInitialized;
+	
+	// Floor Variables - END
+
 	void Start ()
 	{
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		coconut = null;
+
+		mFloorControllerRef = FindObjectOfType<FloorController> ();
+		mFloorBoundary = new float[4];
+		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
+		mInitialOrderInLayer = (int)(transform.position.y);
+		floorBoundaryInitialized = false;
 	}
 
 	void Update ()
 	{
+
+		if (!floorBoundaryInitialized) {
+			// get current boundary
+			//mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			floorBoundaryInitialized = true;
+		}
+
 		ResetBoolean ();
 
-		if (attackTimer > attackTimeWait && Vector2.Distance (transform.position, mTarget.position) < mAttackDistance && mTarget.position.y < (transform.position.y + 1) && mTarget.position.y > (transform.position.y - 1)) {
-			attackTimer = 0;
-			Throw ();
-		} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
-			if (mTarget.position.x >= transform.position.x)
-				FaceDirection (Vector2.right);
-			else
-				FaceDirection (Vector2.left);
+		if (!mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
+			if (attackTimer > attackTimeWait && Vector2.Distance (transform.position, mTarget.position) < mAttackDistance && mTarget.position.y < (transform.position.y + 1) && mTarget.position.y > (transform.position.y - 1)) {
+				attackTimer = 0;
+				Throw ();
+			} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
+				if (mTarget.position.x >= transform.position.x)
+					FaceDirection (Vector2.right);
+				else
+					FaceDirection (Vector2.left);
 			
-			if (mTarget.position.y > (transform.position.y + 1)) {
-				MovingUp ();
-			} else if (mTarget.position.y < (transform.position.y - 1)) {
-				MovingDown ();
+				if (mTarget.position.y > (transform.position.y + 1)) {
+					MovingUp ();
+				} else if (mTarget.position.y < (transform.position.y - 1)) {
+					MovingDown ();
+				}
 			}
 		}
 
@@ -72,7 +98,7 @@ public class Neanderthal : MonoBehaviour
 
 		if (mDying) {
 			dyingTimer += Time.deltaTime;
-			if (dyingTimer >= 1.2f) {
+			if (dyingTimer >= 1.31f) {
 				Destroy (gameObject);
 			}
 		}

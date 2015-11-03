@@ -122,9 +122,10 @@ public class Player : MonoBehaviour
 			mJumping = false;
 		} else if (mSliding && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mSliding = false;
-		} 
+		}
 
-		if (!mGetHit && !mGetKnockdown) {
+        if (!mGetHit && !mGetKnockdown && CanMove())
+        {
 			if (Input.GetKey ("space")) {
 				Defend ();
 			} else {
@@ -246,6 +247,7 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown) {
 			mGetHit = true;
+            mHealthBarRef.LoseHealth(10);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -256,6 +258,7 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown) {
 			mGetKnockdown = true;
+            mHealthBarRef.LoseHealth(5);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);
@@ -279,6 +282,14 @@ public class Player : MonoBehaviour
 			transform.localScale = newScale;
 		}
 	}
+
+    private bool CanMove()
+    {
+        bool cond1 = !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("GetKnockdown");
+        bool cond2 = !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("GetUp");
+        bool cond3 = !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("GetHit");
+        return cond1 && cond2 & cond3;
+    }
 
 	private void ResetBoolean ()
 	{

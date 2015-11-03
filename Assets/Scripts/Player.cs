@@ -124,8 +124,7 @@ public class Player : MonoBehaviour
 			mSliding = false;
 		}
 
-        if (!mGetHit && !mGetKnockdown && CanMove())
-        {
+		if (!mGetHit && !mGetKnockdown && CanMove ()) {
 			if (Input.GetKey ("space")) {
 				Defend ();
 			} else {
@@ -196,9 +195,7 @@ public class Player : MonoBehaviour
 		// if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.
 		if (!mJumping && !mFalling) {
 			transform.position = new Vector3 (Mathf.Clamp (transform.position.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]), Mathf.Clamp (transform.position.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]), transform.position.z);
-			if (!mGetHit && !mGetKnockdown) {
-				mRigidBody.isKinematic = true;
-			}
+
 		}
 		UpdateOrderInLayer ();
 
@@ -247,7 +244,7 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown) {
 			mGetHit = true;
-            mHealthBarRef.LoseHealth(10);
+			mHealthBarRef.LoseHealth (10);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -258,7 +255,7 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown) {
 			mGetKnockdown = true;
-            mHealthBarRef.LoseHealth(5);
+			mHealthBarRef.LoseHealth (5);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);
@@ -283,13 +280,13 @@ public class Player : MonoBehaviour
 		}
 	}
 
-    private bool CanMove()
-    {
-        bool cond1 = !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("GetKnockdown");
-        bool cond2 = !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("GetUp");
-        bool cond3 = !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("GetHit");
-        return cond1 && cond2 & cond3;
-    }
+	private bool CanMove ()
+	{
+		bool cond1 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetKnockdown");
+		bool cond2 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetUp");
+		bool cond3 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetHit");
+		return cond1 && cond2 & cond3;
+	}
 
 	private void ResetBoolean ()
 	{

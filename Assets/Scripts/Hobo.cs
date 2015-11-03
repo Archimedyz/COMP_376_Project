@@ -72,10 +72,10 @@ public class Hobo : MonoBehaviour
 		ResetBoolean ();
 
 		if (attackTimer > attackTimeWait && !mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
-			if (Vector2.Distance (transform.position, mTarget.position) < mAttackDistance) {
+			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
 				Hit ();
-			} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
+			} else if (Vector2.Distance (transform.position, mTarget.position) <= mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
 				if (transform.position.x < mTarget.position.x) {
 					MovingRight ();
 				} else if (transform.position.x > mTarget.position.x) {

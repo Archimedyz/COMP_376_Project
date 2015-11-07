@@ -56,11 +56,15 @@ public class Player : MonoBehaviour
 	public float mHitPushBack;
 	public float mKnockdownPushBack;
 
+    public Stats mStats;
+
 	//Combat variables - End
 	
 	void Start ()
 	{
+        mStats = new Stats(79.0f,5, 5, 5);
 		mAnimator = GetComponent<Animator> ();
+        mAnimator.speed = 1 + (float)(mStats.Spd / 20.0f);
 		mRigidBody = GetComponent<Rigidbody> ();
 		mFacingDirection = Vector2.right;
 		mJumping = false;
@@ -83,6 +87,7 @@ public class Player : MonoBehaviour
 
 		// Init HealthBar Stuff
 		mHealthBarRef = FindObjectOfType<HealthBar> ();
+        //mHealthBarRef.MaxHealthValue = 500.0f;
 	}
 
 
@@ -255,7 +260,7 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown) {
 			mGetKnockdown = true;
-			mHealthBarRef.LoseHealth (5);
+            mHealthBarRef.LoseHealth (5);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);

@@ -45,7 +45,7 @@ public class HealthBar : MonoBehaviour {
 
         for (int i = 0; i < diffFragments; ++i)
         {
-            Destroy(mHealth[mHealthIndex - i]);
+            mHealth[mHealthIndex - i].SetActive(false);
         }
         mHealthIndex -= diffFragments;
     }
@@ -62,8 +62,7 @@ public class HealthBar : MonoBehaviour {
 
         for (int i = 0; i < diffFragments; ++i)
         {
-            mHealth[mHealthIndex + i + 1] = Instantiate(mHealthFragmentPrefab, new Vector3(healthDisplayOffset + ((mHealthIndex + i + 1) * 0.05f) + transform.position.x, transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
-            mHealth[mHealthIndex + i + 1].transform.parent = gameObject.transform;
+            mHealth[mHealthIndex + i + 1].SetActive(true);
         }
         mHealthIndex += diffFragments;
     }

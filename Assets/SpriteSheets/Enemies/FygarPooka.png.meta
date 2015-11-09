@@ -1,9 +1,42 @@
 fileFormatVersion: 2
 guid: 9c2d372b9b5684dd8b52d13de4e70a93
-timeCreated: 1447106657
+timeCreated: 1447106766
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: FygarPooka_0
+    21300002: FygarPooka_1
+    21300004: FygarPooka_2
+    21300006: FygarPooka_3
+    21300008: FygarPooka_4
+    21300010: FygarPooka_5
+    21300012: FygarPooka_6
+    21300014: FygarPooka_7
+    21300016: FygarPooka_8
+    21300018: FygarPooka_9
+    21300020: FygarPooka_10
+    21300022: FygarPooka_11
+    21300024: FygarPooka_12
+    21300026: FygarPooka_13
+    21300028: FygarPooka_14
+    21300030: FygarPooka_15
+    21300032: FygarPooka_16
+    21300034: FygarPooka_17
+    21300036: FygarPooka_18
+    21300038: FygarPooka_19
+    21300040: FygarPooka_20
+    21300042: FygarPooka_21
+    21300044: FygarPooka_22
+    21300046: FygarPooka_23
+    21300048: FygarPooka_24
+    21300050: FygarPooka_25
+    21300052: FygarPooka_26
+    21300054: FygarPooka_27
+    21300056: FygarPooka_28
+    21300058: FygarPooka_29
+    21300060: FygarPooka_30
+    21300062: FygarPooka_31
+    21300064: FygarPooka_32
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -27,10 +60,10 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 8192
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -38,7 +71,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,7 +82,337 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: FygarPooka_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 62
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 61
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_2
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 62
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_3
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 62
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_4
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 62
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_5
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 62
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_6
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 65
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_7
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 64
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_8
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 61
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_9
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 60
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_10
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 58
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_11
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 58
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_13
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 32
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_14
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 32
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_15
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 32
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_16
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 31
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_17
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 31
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_18
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 38
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_19
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 38
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_20
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 38
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_21
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 38
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_22
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 32
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_23
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 29
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_24
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 28
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_25
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 27
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_26
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 33
+        width: 14
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_27
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 33
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_28
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 2
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_29
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 2
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_30
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 0
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_31
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 0
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FygarPooka_32
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 0
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

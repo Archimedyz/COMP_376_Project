@@ -3,10 +3,13 @@ using System.Collections;
 
 public class Pooka : MonoBehaviour
 {
+	public float Life;
 
 	private bool mMoving;
+	private bool mDead = false;
 	
 	private Animator mAnimator;
+	private Rigidbody rb;
 	
 	public float mVertiMoveSpeed;
 	
@@ -17,22 +20,47 @@ public class Pooka : MonoBehaviour
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
+		rb = GetComponent<Rigidbody> ();
 	}
 	
 	void Update ()
 	{
 		ResetBoolean ();
-		
-		if (Input.GetKey ("s")) {
-			MovingDown ();
-		} else if (Input.GetKey ("w")) {
-			MovingUp ();
+
+		if (Life <= 0) {
+			mDead = true;
 		}
+
+		if (!mDead) {
+			if (Input.GetKey ("s")) {
+				//MovingDown ();
+			} else if (Input.GetKey ("w")) {
+				//MovingUp ();
+			}
 		
-		if (mTarget.position.x >= transform.position.x)
-			FaceDirection (Vector2.right);
-		else
-			FaceDirection (Vector2.left);
+			if (mTarget.position.x >= transform.position.x)
+				FaceDirection (Vector2.right);
+			else
+				FaceDirection (Vector2.left);
+		} else {
+
+		}
+
+		UpdateAnimator ();
+	}
+
+	//TODO change damage
+	void OnTriggerEnter (Collider col)
+	{
+		if (col.gameObject.name == "FightCollider") {
+			if (!mDead)
+				Life -= 50;
+			else {
+				rb.isKinematic = false;
+				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
+			}
+
+		}
 	}
 	
 	private void MovingUp ()
@@ -67,6 +95,7 @@ public class Pooka : MonoBehaviour
 	private void UpdateAnimator ()
 	{
 		mAnimator.SetBool ("isMoving", mMoving);
+		mAnimator.SetBool ("isDead", mDead);
 	}
 
 }

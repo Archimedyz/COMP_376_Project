@@ -3,10 +3,14 @@ using System.Collections;
 
 public class Fygar : MonoBehaviour
 {
+	public float Life;
+
 	private bool mMoving;
 	private bool mBreathFire;
+	private bool mDead = false;
 
 	private Animator mAnimator;
+	private Rigidbody rb;
 
 	public float mVertiMoveSpeed;
 
@@ -17,22 +21,46 @@ public class Fygar : MonoBehaviour
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
+		rb = GetComponent<Rigidbody> ();
 	}
 
 	void Update ()
 	{
 		ResetBoolean ();
-
-		if (Input.GetKey ("s")) {
-			MovingDown ();
-		} else if (Input.GetKey ("w")) {
-			MovingUp ();
+		
+		if (Life <= 0) {
+			mDead = true;
 		}
+		
+		if (!mDead) {
+			if (Input.GetKey ("s")) {
+				//MovingDown ();
+			} else if (Input.GetKey ("w")) {
+				//MovingUp ();
+			}
+			
+			if (mTarget.position.x >= transform.position.x)
+				FaceDirection (Vector2.right);
+			else
+				FaceDirection (Vector2.left);
+		} else {
+			
+		}
+		
+		UpdateAnimator ();
+	}
 
-		if (mTarget.position.x >= transform.position.x)
-			FaceDirection (Vector2.right);
-		else
-			FaceDirection (Vector2.left);
+	//TODO change damage
+	void OnTriggerEnter (Collider col)
+	{
+		if (col.gameObject.name == "FightCollider") {
+			if (!mDead)
+				Life -= 50;
+			else {
+				rb.isKinematic = false;
+				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
+			}
+		}
 	}
 	
 	private void MovingUp ()
@@ -69,6 +97,7 @@ public class Fygar : MonoBehaviour
 	{
 		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isFire", mBreathFire);
+		mAnimator.SetBool ("isDead", mDead);
 	}
 
 }

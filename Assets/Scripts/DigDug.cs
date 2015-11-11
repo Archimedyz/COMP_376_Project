@@ -3,6 +3,15 @@ using System.Collections;
 
 public class DigDug : MonoBehaviour
 {
+	public GameObject Tile1;
+	public GameObject Tile2;
+	public GameObject Tile3;
+	public GameObject Tile4;
+
+	public float tileRangeXMin;
+	public float tileRangeXMax;
+	public float tileRangeY;
+
 	private Animator mAnimator;
 	private Rigidbody rb;
 
@@ -24,6 +33,10 @@ public class DigDug : MonoBehaviour
 	{
 		ResetBoolean ();
 
+		if (Input.GetKey ("z")) {
+			ThrowTiles ();
+		}
+
 		if (mHit) {
 			hitTimer += Time.deltaTime;
 			if (hitTimer >= 1.0f) {
@@ -41,6 +54,22 @@ public class DigDug : MonoBehaviour
 		if (col.gameObject.tag == "Enemy") {
 			mHit = true;
 			UpdateAnimator ();
+		}
+	}
+
+	private void ThrowTiles ()
+	{
+		for (int i = 0; i < 5; i++) {
+			int a = Random.Range (0, 4);
+			if (a == 0) {
+				Instantiate (Tile1, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
+			} else if (a == 1) {
+				Instantiate (Tile2, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
+			} else if (a == 2) {
+				Instantiate (Tile3, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
+			} else if (a == 3) {
+				Instantiate (Tile4, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
+			}
 		}
 	}
 

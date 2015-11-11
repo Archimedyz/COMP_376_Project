@@ -8,6 +8,7 @@ public class Fygar : MonoBehaviour
 	private bool mMoving;
 	private bool mBreathFire;
 	private bool mDead = false;
+	private bool mExplode = false;
 
 	private Animator mAnimator;
 	private Rigidbody rb;
@@ -18,6 +19,8 @@ public class Fygar : MonoBehaviour
 
 	private Vector2 mFacingDirection;
 
+	private float destroyTimer = 0.0f;
+
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
@@ -27,6 +30,14 @@ public class Fygar : MonoBehaviour
 	void Update ()
 	{
 		ResetBoolean ();
+
+		if (mExplode) {
+			destroyTimer += Time.deltaTime;
+			if (destroyTimer >= 0.3f) {
+				Debug.Log ("Destroy");
+				Destroy (gameObject);
+			}
+		}
 		
 		if (Life <= 0) {
 			mDead = true;
@@ -60,6 +71,14 @@ public class Fygar : MonoBehaviour
 				rb.isKinematic = false;
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}
+		} 
+	}
+
+	void OnCollisionEnter (Collision col)
+	{
+		Debug.Log (col.gameObject.name);
+		if (col.gameObject.name == "DigDug") {
+			mExplode = true;
 		}
 	}
 	
@@ -98,6 +117,7 @@ public class Fygar : MonoBehaviour
 		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isFire", mBreathFire);
 		mAnimator.SetBool ("isDead", mDead);
+		mAnimator.SetBool ("isExploding", mExplode);
 	}
 
 }

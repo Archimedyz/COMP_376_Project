@@ -19,6 +19,8 @@ public class PlayerTesting : MonoBehaviour
 
 	private bool mHitting;
 
+	private bool canMove = true;
+
 	public float mMoveSpeed;
 	public float mJumpForce;
 
@@ -85,21 +87,23 @@ public class PlayerTesting : MonoBehaviour
 			mFalling = false;
 		}
 
-		if (!mGetHit) {
-			if (Input.GetKey ("space")) {
-				Defend ();
-			} else if (Input.GetKeyDown ("a")) {
-				Jump ();
-			} else {
-				if (Input.GetButton ("Left")) {
-					MovingLeft ();
-				} else if (Input.GetButton ("Right")) {
-					MovingRight ();
-				} 
-				if (Input.GetButton ("Up")) {
-					MovingUp ();
-				} else if (Input.GetButton ("Down")) {
-					MovingDown ();
+		if (canMove) {
+			if (!mGetHit) {
+				if (Input.GetKey ("space")) {
+					Defend ();
+				} else if (Input.GetKeyDown ("a")) {
+					Jump ();
+				} else {
+					if (Input.GetButton ("Left")) {
+						MovingLeft ();
+					} else if (Input.GetButton ("Right")) {
+						MovingRight ();
+					} 
+					if (Input.GetButton ("Up")) {
+						MovingUp ();
+					} else if (Input.GetButton ("Down")) {
+						MovingDown ();
+					}
 				}
 			}
 		}
@@ -258,5 +262,15 @@ public class PlayerTesting : MonoBehaviour
 	public Vector2 GetFacingDirection ()
 	{
 		return mFacingDirection;
+	}
+
+	public void SetCanMove (bool a)
+	{
+		canMove = a;
+	}
+
+	public void SetPosition (Vector3 position)
+	{
+		transform.position = position;
 	}
 }

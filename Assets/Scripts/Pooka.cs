@@ -8,22 +8,29 @@ public class Pooka : MonoBehaviour
 	private bool mMoving;
 	private bool mDead = false;
 	private bool mExplode = false;
+
+	private bool moveDown = true, moveUp = false;
+	private bool canMove = false;
 	
 	private Animator mAnimator;
 	private Rigidbody rb;
 	
 	public float mVertiMoveSpeed;
 	
-	public Transform mTarget;
+	private Transform mTarget;
 	
 	private Vector2 mFacingDirection;
 
 	private float destroyTimer = 0.0f;
+
+	public Vector3 initialPosition;
+	private float maxY, minY;
 	
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
+		mTarget = GameObject.Find ("Player").transform;
 	}
 	
 	void Update ()
@@ -33,28 +40,35 @@ public class Pooka : MonoBehaviour
 		if (mExplode) {
 			destroyTimer += Time.deltaTime;
 			if (destroyTimer >= 0.3f) {
-				Debug.Log ("Destroy");
 				Destroy (gameObject);
 			}
 		}
 
-		if (Life <= 0) {
-			mDead = true;
-		}
+		if (canMove) {
+			if (Life <= 0) {
+				mDead = true;
+			} else {
+				if (transform.position.y - 0.1f <= minY) {
+					moveUp = true;
+					moveDown = false;
+				} else if (transform.position.y + 0.1f >= maxY) {
+					moveUp = false;
+					moveDown = true;
+				}
 
-		if (!mDead) {
-			if (Input.GetKey ("s")) {
-				//MovingDown ();
-			} else if (Input.GetKey ("w")) {
-				//MovingUp ();
-			}
+				if (moveDown) {
+					MovingDown ();
+				} else if (moveUp) {
+					MovingUp ();
+				}
 		
-			if (mTarget.position.x >= transform.position.x)
-				FaceDirection (Vector2.right);
-			else
-				FaceDirection (Vector2.left);
+				if (mTarget.position.x >= transform.position.x)
+					FaceDirection (Vector2.right);
+				else
+					FaceDirection (Vector2.left);
+			}
 		} else {
-
+			MovingUp ();
 		}
 
 		UpdateAnimator ();
@@ -70,25 +84,20 @@ public class Pooka : MonoBehaviour
 				rb.isKinematic = false;
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}
-		}
-	}
-
-	void OnCollisionEnter (Collision col)
-	{
-		if (col.gameObject.name == "DigDug") {
+		} else if (col.gameObject.name == "DigDug") {
 			mExplode = true;
 		}
 	}
 	
 	private void MovingUp ()
 	{
-		transform.Translate (Vector2.up * mVertiMoveSpeed * Time.deltaTime);
+		transform.Translate (new Vector2 (0.3f, 1.0f) * mVertiMoveSpeed * Time.deltaTime);
 		mMoving = true;
 	}
 	
 	private void MovingDown ()
 	{
-		transform.Translate (Vector2.down * mVertiMoveSpeed * Time.deltaTime);
+		transform.Translate (new Vector2 (-0.3f, -1.0f) * mVertiMoveSpeed * Time.deltaTime);
 		mMoving = true;
 	}
 	
@@ -119,5 +128,26 @@ public class Pooka : MonoBehaviour
 	public void SetLife (int life)
 	{
 		Life = life;
+	}
+
+	public void SetBoundaries (float max, float min)
+	{
+		maxY = max;
+		minY = min;
+	}
+
+	public void SetCanMove (bool a)
+	{
+		canMove = a;
+	}
+
+	public Vector3 GetInitialPosition ()
+	{
+		return initialPosition;
+	}
+
+	public void SetSpeed (float speed)
+	{
+		mVertiMoveSpeed = speed;
 	}
 }

@@ -15,6 +15,7 @@ public class DigDug : MonoBehaviour
 
 	private Animator mAnimator;
 	private Rigidbody rb;
+	private SpriteRenderer sr;
 
 	private bool mMoving;
 	private bool mDead = false;
@@ -23,54 +24,118 @@ public class DigDug : MonoBehaviour
 	private bool mHit;
 	private bool mThrowRocks;
 
+	private bool canMove = false;
+
+	private bool invincible = false;
+	private float maxInvincibleTimer = 2.0f;
+	private float invincibleTimer = 0.0f;
+
 	private float hitTimer = 0.0f;
 	private float throwRockTimer = 0.0f;
+
+	private int maxLife = 3;
+
+	public float mVertiMoveSpeed;
+	
+	public float maxY, minY;
+	private bool moveDown = true, moveUp = false;
+
+	private int difficulty = 6;
 
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
+		sr = transform.GetChild (0).GetComponent<SpriteRenderer> ();
 	}
 
 	void Update ()
 	{
 		ResetBoolean ();
 
-		if (Input.GetKey ("z")) {
-			mThrowRocks = true;
-		}
-		if (mThrowRocks) {
-			throwRockTimer += Time.deltaTime;
-			if (throwRockTimer >= 2.0f) {
-				throwRockTimer = 0.0f;
-				mThrowRocks = false;
-				StartCoroutine (ThrowTiles ());
-			}
-		}
-
 		if (mHit) {
 			hitTimer += Time.deltaTime;
 			if (hitTimer >= 1.0f) {
+				hitTimer = 0.0f;
 				mHit = false;
+				if (maxLife == 2) {
+					sr.color = new Color (1f, 0.4f, 0.4f, 1f);
+				} else if (maxLife == 1) {
+					sr.color = new Color (1f, 0f, 0f, 1f);
+				} 
 			}
-		} else {
-			hitTimer = 0.0f;
+		}
+
+		if (canMove && !mHit) {
+			float willThrowRocks = Random.Range (0.0f, 100.0f);
+			if (willThrowRocks > 99.9f && !mHit) {
+				mThrowRocks = true;
+			}
+			if (mThrowRocks) {
+				throwRockTimer += Time.deltaTime;
+				if (throwRockTimer >= 2.0f) {
+					throwRockTimer = 0.0f;
+					mThrowRocks = false;
+					StartCoroutine (ThrowTiles ());
+				}
+			} else {
+				if (transform.position.y - 0.1f <= minY) {
+					moveUp = true;
+					moveDown = false;
+				} else if (transform.position.y + 0.1f >= maxY) {
+					moveUp = false;
+					moveDown = true;
+				}
+			
+				if (moveDown) {
+					MovingDown ();
+				} else if (moveUp) {
+					MovingUp ();
+				}
+			}
+		}
+
+		if (invincible) {
+			invincibleTimer += Time.deltaTime;
+			if (invincibleTimer > maxInvincibleTimer) {
+				invincibleTimer = 0.0f;
+				invincible = false;
+			}
 		}
 
 		UpdateAnimator ();
 	}
 
-	void OnCollisionEnter (Collision col)
+	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.tag == "Enemy") {
+		if (col.gameObject.tag == "Enemy" && !invincible) {
 			mHit = true;
+			invincible = true;
+			maxLife --;
 			UpdateAnimator ();
+			IncreaseDifficulty ();
+			if (maxLife >= 0) {
+				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
+				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().CreateWave ();
+			}
 		}
+	}
+
+	private void MovingUp ()
+	{
+		transform.Translate (new Vector2 (0.3f, 1.0f) * mVertiMoveSpeed * Time.deltaTime);
+		mMoving = true;
+	}
+	
+	private void MovingDown ()
+	{
+		transform.Translate (new Vector2 (-0.3f, -1.0f) * mVertiMoveSpeed * Time.deltaTime);
+		mMoving = true;
 	}
 
 	private IEnumerator ThrowTiles ()
 	{
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < difficulty; i++) {
 			int a = Random.Range (0, 6);
 			if (a == 0) {
 				Instantiate (Tile1, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
@@ -102,5 +167,21 @@ public class DigDug : MonoBehaviour
 		mAnimator.SetBool ("isPumping", mPumping);
 		mAnimator.SetBool ("isHit", mHit);
 		mAnimator.SetBool ("isThrowRock", mThrowRocks);
+	}
+
+	public int GetLives ()
+	{
+		return maxLife;
+	}
+
+	public void SetCanMove (bool a)
+	{
+		canMove = a;
+	}
+
+	private void IncreaseDifficulty ()
+	{
+		difficulty += 2;
+		mVertiMoveSpeed += 0.25f;
 	}
 }

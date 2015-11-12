@@ -154,13 +154,14 @@ public class PlayerTesting : MonoBehaviour
 		mRigidBody.AddForce (Vector2.up * mJumpForce, ForceMode.Impulse);
 	}
 
-	public void GetHit (Vector2 direction)
+	public void GetHit (Vector2 direction, int damage)
 	{
 		if (!mGetHit && !mGetKnockdown) {
-			mRigidBody.isKinematic = false;
 			mGetHit = true;
+			//mHealthBarRef.LoseHealth (damage);
+			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
-			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
+			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
 		}
 	}
 

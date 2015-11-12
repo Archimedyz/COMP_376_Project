@@ -75,7 +75,6 @@ public class Pooka : MonoBehaviour
 
 	void OnCollisionEnter (Collision col)
 	{
-		Debug.Log (col.gameObject.name);
 		if (col.gameObject.name == "DigDug") {
 			mExplode = true;
 		}

@@ -28,10 +28,6 @@ public class Coconut : MonoBehaviour
 		throwTimer = 0.0f;
 	}
 
-	void FixedUpdate ()
-	{
-	}
-
 	void Update ()
 	{
 		Timer += Time.deltaTime;
@@ -77,7 +73,7 @@ public class Coconut : MonoBehaviour
 	void OnCollisionEnter (Collision col)
 	{
 		if (col.gameObject.name == "Player") {
-			col.gameObject.GetComponent<Player> ().GetKnockdown (mDirection);
+			col.gameObject.GetComponent<Player> ().GetKnockdown (mDirection, 20);
 			Destroy (gameObject);
 		}
 	}

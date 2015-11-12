@@ -115,4 +115,9 @@ public class Pooka : MonoBehaviour
 		mAnimator.SetBool ("isDead", mDead);
 		mAnimator.SetBool ("isExploding", mExplode);
 	}
+
+	public void SetLife (int life)
+	{
+		Life = life;
+	}
 }

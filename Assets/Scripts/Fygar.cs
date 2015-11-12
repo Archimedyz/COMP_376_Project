@@ -5,8 +5,10 @@ public class Fygar : MonoBehaviour
 {
 	public float Life;
 
+	public GameObject FirePrefab;
+
 	private bool mMoving;
-	private bool mBreathFire;
+	private bool mBreathFire = false;
 	private bool mDead = false;
 	private bool mExplode = false;
 
@@ -20,6 +22,9 @@ public class Fygar : MonoBehaviour
 	private Vector2 mFacingDirection;
 
 	private float destroyTimer = 0.0f;
+	private float fireTimer = 0.0f;
+	private float nextFire = 5.0f;
+	private float timer = 0.0f;
 
 	void Start ()
 	{
@@ -43,11 +48,10 @@ public class Fygar : MonoBehaviour
 			mDead = true;
 		}
 		
-		if (!mDead) {
-			if (Input.GetKey ("s")) {
-				//MovingDown ();
-			} else if (Input.GetKey ("w")) {
-				//MovingUp ();
+		if (!mDead && !mExplode) {
+			timer += Time.deltaTime;
+			if (timer > nextFire) {
+				BreathFire ();
 			}
 			
 			if (mTarget.position.x >= transform.position.x)
@@ -56,6 +60,13 @@ public class Fygar : MonoBehaviour
 				FaceDirection (Vector2.left);
 		} else {
 			
+		}
+
+		if (mBreathFire) {
+			fireTimer += Time.deltaTime;
+			if (fireTimer >= 1.5f) {
+				mBreathFire = false;
+			}
 		}
 		
 		UpdateAnimator ();
@@ -79,6 +90,13 @@ public class Fygar : MonoBehaviour
 		if (col.gameObject.name == "DigDug") {
 			mExplode = true;
 		}
+	}
+
+	private void BreathFire ()
+	{
+		mBreathFire = true;
+		timer = 0.0f;
+		Instantiate (FirePrefab, new Vector3 (transform.position.x - 1.0f, transform.position.y, transform.position.z), Quaternion.identity);
 	}
 	
 	private void MovingUp ()
@@ -108,7 +126,6 @@ public class Fygar : MonoBehaviour
 	private void ResetBoolean ()
 	{
 		mMoving = false;
-		mBreathFire = false;
 	}
 
 	private void UpdateAnimator ()
@@ -119,4 +136,8 @@ public class Fygar : MonoBehaviour
 		mAnimator.SetBool ("isExploding", mExplode);
 	}
 
+	public void SetLife (int life)
+	{
+		Life = life;
+	}
 }

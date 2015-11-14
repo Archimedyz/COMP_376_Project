@@ -101,7 +101,7 @@ public class Fygar : MonoBehaviour
 		if (col.gameObject.name == "FightCollider") {
 			if (!mDead)
 				Life -= 50;
-			else {
+			else if (GameObject.Find ("Player").GetComponent<PlayerTesting> ().IsStrongAttack ()) {
 				rb.isKinematic = false;
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}

@@ -68,7 +68,7 @@ public class DigDug : MonoBehaviour
 
 		if (canMove && !mHit) {
 			float willThrowRocks = Random.Range (0.0f, 100.0f);
-			if (willThrowRocks > 99.9f && !mHit) {
+			if (willThrowRocks > 99.5f && !mHit && !mThrowRocks) {
 				mThrowRocks = true;
 			}
 			if (mThrowRocks) {

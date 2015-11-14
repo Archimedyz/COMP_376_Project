@@ -273,4 +273,9 @@ public class PlayerTesting : MonoBehaviour
 	{
 		transform.position = position;
 	}
+
+	public bool IsStrongAttack ()
+	{
+		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
+	}
 }

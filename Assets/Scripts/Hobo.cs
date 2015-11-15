@@ -27,7 +27,7 @@ public class Hobo : MonoBehaviour
 	private Rigidbody mRigidBody;
 
 	public float mPushBack;
-	private float mInvincibleTimer;
+	private float mInvincibleTimer = 0.0f;
 	private float kInvincibilityDuration = 0.1f;
 	
 	private float dyingTimer = 0.0f;
@@ -74,7 +74,7 @@ public class Hobo : MonoBehaviour
 		if (attackTimer > attackTimeWait && !mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
-				Hit ();
+				//Hit ();
 			} else if (Vector2.Distance (transform.position, mTarget.position) <= mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
 				if (transform.position.x < mTarget.position.x) {
 					MovingRight ();
@@ -127,7 +127,11 @@ public class Hobo : MonoBehaviour
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
-			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
+				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * 10, ForceMode.Impulse);
+			} else {
+				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+			}
 		}
 	}
 

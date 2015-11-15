@@ -121,7 +121,11 @@ public class Neanderthal : MonoBehaviour
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
-			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
+				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * 10, ForceMode.Impulse);
+			} else {
+				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+			}
 		}
 	}
 

@@ -45,7 +45,10 @@ public class Hobo : MonoBehaviour
 	
 	// Floor Variables - END
 
+	AudioSource strongHit;
+	AudioSource normalHit;
 
+	float audioTimer = 0.0f;
 	
 	void Start ()
 	{
@@ -59,6 +62,10 @@ public class Hobo : MonoBehaviour
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		normalHit = audioSources [0];
+		strongHit = audioSources [1];
 	}
 
 	void Update ()
@@ -74,7 +81,7 @@ public class Hobo : MonoBehaviour
 		if (attackTimer > attackTimeWait && !mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
-				Hit ();
+				//Hit ();
 			} else if (Vector2.Distance (transform.position, mTarget.position) <= mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
 				if (transform.position.x < mTarget.position.x) {
 					MovingRight ();
@@ -113,6 +120,7 @@ public class Hobo : MonoBehaviour
 				mInvincibleTimer = 0.0f;
 			}
 		}
+		audioTimer += Time.deltaTime;
 	}
 
 	private void Die ()
@@ -129,8 +137,14 @@ public class Hobo : MonoBehaviour
 			mRigidBody.velocity = Vector2.zero;
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
 				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * 10, ForceMode.Impulse);
+				if (!strongHit.isPlaying)
+					strongHit.Play ();
 			} else {
 				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+				if (audioTimer >= 0.2f) {
+					normalHit.Play ();
+					audioTimer = 0.0f;
+				}
 			}
 		}
 	}

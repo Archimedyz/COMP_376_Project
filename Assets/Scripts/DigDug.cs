@@ -132,6 +132,7 @@ public class DigDug : MonoBehaviour
 			mHit = true;
 			invincible = true;
 			maxLife --;
+			difficulty += 2;
 			UpdateAnimator ();
 			IncreaseDifficulty ();
 			if (maxLife >= 0) {

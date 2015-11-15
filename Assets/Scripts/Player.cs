@@ -61,7 +61,14 @@ public class Player : MonoBehaviour
 	public Stats mStats;
 
 	//Combat variables - End
-	
+
+	//Sound Variables - START
+
+	AudioSource strongPunch;
+	AudioSource normalPunch;
+
+	//Sound Variables - END
+
 	void Start ()
 	{
 		mStats = new Stats (79.0f, 5, 5, 5);
@@ -90,6 +97,9 @@ public class Player : MonoBehaviour
 		// Init HealthBar Stuff
 		mHealthBarRef = FindObjectOfType<HealthBar> ();
 		//mHealthBarRef.MaxHealthValue = 500.0f;
+
+		//AudioSource[] audioSources = GetComponents<AudioSource> ();
+
 	}
 
 

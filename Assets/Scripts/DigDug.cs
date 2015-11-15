@@ -42,11 +42,30 @@ public class DigDug : MonoBehaviour
 
 	private int difficulty = 6;
 
+	public Transform camTransform;
+
+	public float shake = 2.0f;
+
+	public float shakeAmount = 0.05f;
+	
+	Vector3 originalPos;
+
+	void Awake ()
+	{
+		camTransform = GameObject.Find ("Main Camera").transform;
+	}	
+
+	void OnEnable ()
+	{
+		originalPos = camTransform.localPosition;
+	}
+
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
-		sr = transform.GetChild (0).GetComponent<SpriteRenderer> ();
+		sr = transform.GetChild (0).GetComponent<SpriteRenderer> ();	
+
 	}
 
 	void Update ()
@@ -68,11 +87,12 @@ public class DigDug : MonoBehaviour
 
 		if (canMove && !mHit) {
 			float willThrowRocks = Random.Range (0.0f, 100.0f);
-			if (willThrowRocks > 99.5f && !mHit && !mThrowRocks) {
+			if (willThrowRocks > 99.0f && !mHit && !mThrowRocks) {
 				mThrowRocks = true;
 			}
 			if (mThrowRocks) {
 				throwRockTimer += Time.deltaTime;
+				ShakeCamera ();
 				if (throwRockTimer >= 2.0f) {
 					throwRockTimer = 0.0f;
 					mThrowRocks = false;
@@ -119,6 +139,21 @@ public class DigDug : MonoBehaviour
 				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().CreateWave ();
 			}
 		}
+	}
+
+	private void ShakeCamera ()
+	{
+		Debug.Log ("Allo");
+		if (shake > 0.0f) {
+			camTransform.localPosition = originalPos + Random.insideUnitSphere / 10.0f * shakeAmount;
+			
+			shake -= Time.deltaTime;
+		} else {
+			shake = 2.0f;
+			camTransform.localPosition = originalPos;
+		}
+		
+		Debug.Log (camTransform.localPosition);
 	}
 
 	private void MovingUp ()

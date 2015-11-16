@@ -47,6 +47,7 @@ public class Hobo : MonoBehaviour
 
 	AudioSource strongHit;
 	AudioSource normalHit;
+	AudioSource knifeHit;
 
 	float audioTimer = 0.0f;
 	
@@ -66,6 +67,7 @@ public class Hobo : MonoBehaviour
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		normalHit = audioSources [0];
 		strongHit = audioSources [1];
+		knifeHit = audioSources [2];
 	}
 
 	void Update ()
@@ -81,7 +83,7 @@ public class Hobo : MonoBehaviour
 		if (attackTimer > attackTimeWait && !mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
-				//Hit ();
+				Hit ();
 			} else if (Vector2.Distance (transform.position, mTarget.position) <= mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
 				if (transform.position.x < mTarget.position.x) {
 					MovingRight ();
@@ -153,6 +155,7 @@ public class Hobo : MonoBehaviour
 	{
 		attackTimer = 0;
 		mHitting = true;
+		knifeHit.Play ();
 	}
 	
 	private void MovingLeft ()

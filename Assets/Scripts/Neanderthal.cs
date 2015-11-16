@@ -46,6 +46,11 @@ public class Neanderthal : MonoBehaviour
 	
 	// Floor Variables - END
 
+	AudioSource strongHit;
+	AudioSource normalHit;
+	
+	float audioTimer = 0.0f;
+
 	void Start ()
 	{
 		mRigidBody = GetComponent<Rigidbody> ();
@@ -57,6 +62,10 @@ public class Neanderthal : MonoBehaviour
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		normalHit = audioSources [0];
+		strongHit = audioSources [1];
 	}
 
 	void Update ()
@@ -111,6 +120,7 @@ public class Neanderthal : MonoBehaviour
 				mInvincibleTimer = 0.0f;
 			}
 		}
+		audioTimer += Time.deltaTime;
 	}
 
 	public void GetHit (Vector2 direction, float damage)
@@ -123,8 +133,14 @@ public class Neanderthal : MonoBehaviour
 			mRigidBody.velocity = Vector2.zero;
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
 				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * 10, ForceMode.Impulse);
+				if (!strongHit.isPlaying)
+					strongHit.Play ();
 			} else {
-				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);	
+				if (audioTimer >= 0.15f) {
+					normalHit.Play ();
+					audioTimer = 0.0f;
+				}
 			}
 		}
 	}

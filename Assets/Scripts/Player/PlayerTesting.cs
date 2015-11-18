@@ -17,6 +17,10 @@ public class PlayerTesting : MonoBehaviour
 	private int mNormalAttack;
 	private int mStrongAttack;
 
+	private bool mInflate;
+	private float inflateTimer = 0.0f;
+	private float maxInflateTimer = 2.0f;
+
 	private bool mHitting;
 
 	private bool canMove = true;
@@ -53,16 +57,25 @@ public class PlayerTesting : MonoBehaviour
 	{
 		ResetBoolean ();
 
-		if (transform.position.y > 0.0f) {
+		/*if (transform.position.y > 0.0f) {
 			mRigidBody.useGravity = true;
 		} else if (transform.position.y <= 0.0f) {
 			mRigidBody.useGravity = false;
-		}
+		}*/
 
 		if (mNormalAttack > 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mNormalAttack = 0;
 			mHitting = false;
 		} 
+
+		if (mInflate) {
+			canMove = false;
+			inflateTimer += Time.deltaTime;
+			if (inflateTimer >= maxInflateTimer) {
+				inflateTimer = 0.0f;
+				GetKnockdown (Vector2.left, 20);
+			}
+		}
 
 
 		if (Input.GetKeyDown ("z")) {
@@ -257,6 +270,7 @@ public class PlayerTesting : MonoBehaviour
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isSliding", mSliding);
 		mAnimator.SetBool ("isDashing", mDashing);
+		mAnimator.SetBool ("isInflating", mInflate);
 	}
 
 	public Vector2 GetFacingDirection ()
@@ -277,5 +291,12 @@ public class PlayerTesting : MonoBehaviour
 	public bool IsStrongAttack ()
 	{
 		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
+	}
+
+	void OnTriggerEnter (Collider col)
+	{
+		if (col.gameObject.tag == "Hose") {
+			mInflate = true;
+		}
 	}
 }

@@ -4,8 +4,8 @@ using System.Collections;
 public class Title : MonoBehaviour
 {
 	private bool canLaunch = false;
-	public float lauchSpeed;
-	public Vector3 target;
+	private float launchSpeed = 0.2f;
+	private Vector3 target;
 	
 	private float startTime;
 	private float journeyLength;
@@ -45,11 +45,16 @@ public class Title : MonoBehaviour
 
 	private void Launch ()
 	{
-		transform.Translate (Vector2.left * lauchSpeed);
+		transform.Translate (Vector2.left * launchSpeed);
 	}
 
 	public void SetLaunch ()
 	{
 		canLaunch = true;
+	}
+
+	public void SetLaunchSpeed (float speed)
+	{
+		launchSpeed = speed;
 	}
 }

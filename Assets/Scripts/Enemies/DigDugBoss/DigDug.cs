@@ -10,6 +10,9 @@ public class DigDug : MonoBehaviour
 	public GameObject rock;
 	public GameObject dig;
 	public GameObject dug;
+	public GameObject hose;
+
+	private GameObject hoseInstance = null;
 
 	private float titleSpeed = 1.0f;
 	private GameObject[] title;
@@ -56,6 +59,11 @@ public class DigDug : MonoBehaviour
 	
 	Vector3 originalPos;
 
+	private float pumpingTimer = 0.0f;
+	private float maxPumpingTimer = 2.0f;
+
+	private Transform player;
+
 	void Awake ()
 	{
 		camTransform = GameObject.Find ("Main Camera").transform;
@@ -72,6 +80,7 @@ public class DigDug : MonoBehaviour
 		rb = GetComponent<Rigidbody> ();
 		sr = transform.GetChild (0).GetComponent<SpriteRenderer> ();	
 		title = new GameObject[6];
+		player = GameObject.Find ("Player").transform;
 	}
 
 	void Update ()
@@ -91,36 +100,68 @@ public class DigDug : MonoBehaviour
 			}
 		}
 
+			
 		if (canMove && !mHit) {
-			float specialAttack = Random.Range (0.0f, 100.0f);
-			if (specialAttack > 99.5f) {
-				int whichAttack = Random.Range (0, 2);
-				if (whichAttack == 0 && !mHit && !mThrowRocks && !allo)
-					mThrowRocks = true;
-				else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
-					StartCoroutine (CreateTitle ());
-			}
-			if (mThrowRocks) {
-				throwRockTimer += Time.deltaTime;
-				ShakeCamera ();
-				if (throwRockTimer >= 2.0f) {
-					throwRockTimer = 0.0f;
-					mThrowRocks = false;
-					StartCoroutine (ThrowTiles ());
+			if (mPumping) {
+				pumpingTimer += Time.deltaTime;
+				if (pumpingTimer >= maxPumpingTimer) {
+					mThrowing = false;
+					mPumping = false;
+					pumpingTimer = 0.0f;
+					Destroy (hoseInstance);
 				}
-			} else {
-				if (transform.position.y - 0.1f <= minY) {
+			} else if (transform.position.x - player.position.x < 2.0f) {
+				if (player.position.y > transform.position.y) {
 					moveUp = true;
 					moveDown = false;
-				} else if (transform.position.y + 0.1f >= maxY) {
+				} else if (player.position.y < transform.position.y) {
 					moveUp = false;
 					moveDown = true;
+				} else {
+					moveUp = false;
+					moveDown = false;
 				}
-			
+				
 				if (moveDown) {
-					MovingDown ();
+					MovingDown (10);
 				} else if (moveUp) {
-					MovingUp ();
+					MovingUp (10);
+				} 
+
+				if (Mathf.Abs (player.position.y - transform.position.y) <= 0.1) {
+					Pumping ();
+				}
+			} else {
+				float specialAttack = Random.Range (0.0f, 100.0f);
+				if (specialAttack > 99.5f) {
+					int whichAttack = Random.Range (0, 2);
+					if (whichAttack == 0 && !mHit && !mThrowRocks && !allo)
+						mThrowRocks = true;
+					else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
+						StartCoroutine (CreateTitle ());
+				}
+				if (mThrowRocks) {
+					throwRockTimer += Time.deltaTime;
+					ShakeCamera ();
+					if (throwRockTimer >= 2.0f) {
+						throwRockTimer = 0.0f;
+						mThrowRocks = false;
+						StartCoroutine (ThrowTiles ());
+					}
+				} else {
+					if (transform.position.y - 0.1f <= minY) {
+						moveUp = true;
+						moveDown = false;
+					} else if (transform.position.y + 0.1f >= maxY) {
+						moveUp = false;
+						moveDown = true;
+					}
+			
+					if (moveDown) {
+						MovingDown (1);
+					} else if (moveUp) {
+						MovingUp (1);
+					}
 				}
 			}
 		}
@@ -157,6 +198,13 @@ public class DigDug : MonoBehaviour
 		}
 	}
 
+	private void Pumping ()
+	{
+		hoseInstance = Instantiate (hose, transform.position, Quaternion.identity) as GameObject;
+		mThrowing = true;
+		mPumping = true;
+	}
+
 	private void ShakeCamera ()
 	{
 		Debug.Log ("Allo");
@@ -172,15 +220,15 @@ public class DigDug : MonoBehaviour
 		Debug.Log (camTransform.localPosition);
 	}
 
-	private void MovingUp ()
+	private void MovingUp (int multiplier)
 	{
-		transform.Translate (new Vector2 (0.3f, 1.0f) * mVertiMoveSpeed * Time.deltaTime);
+		transform.Translate (new Vector2 (0.3f, 1.0f) * mVertiMoveSpeed * multiplier * Time.deltaTime);
 		mMoving = true;
 	}
 	
-	private void MovingDown ()
+	private void MovingDown (int multiplier)
 	{
-		transform.Translate (new Vector2 (-0.3f, -1.0f) * mVertiMoveSpeed * Time.deltaTime);
+		transform.Translate (new Vector2 (-0.3f, -1.0f) * mVertiMoveSpeed * multiplier * Time.deltaTime);
 		mMoving = true;
 	}
 

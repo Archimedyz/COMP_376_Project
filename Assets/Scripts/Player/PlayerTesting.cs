@@ -38,6 +38,10 @@ public class PlayerTesting : MonoBehaviour
 
 	private Animator mAnimator;
 	private Rigidbody mRigidBody;
+
+	private float target;
+	private float startTime;
+	private float journeyLength;
 	
 	void Start ()
 	{
@@ -72,8 +76,14 @@ public class PlayerTesting : MonoBehaviour
 			canMove = false;
 			inflateTimer += Time.deltaTime;
 			if (inflateTimer >= maxInflateTimer) {
-				inflateTimer = 0.0f;
-				GetKnockdown (Vector2.left, 20);
+				if (transform.position.x > target) {
+					float distCovered = (Time.time - startTime) * 0.5f;
+					float fracJourney = distCovered / journeyLength;
+					transform.position = Vector3.Lerp (transform.position, new Vector3 (target, transform.position.y, transform.position.z), fracJourney);
+				} else {
+					mInflate = false;
+					inflateTimer = 0.0f;
+				}
 			}
 		}
 
@@ -173,7 +183,7 @@ public class PlayerTesting : MonoBehaviour
 
 	public void GetHit (Vector2 direction, int damage)
 	{
-		if (!mGetHit && !mGetKnockdown) {
+		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetHit = true;
 			//mHealthBarRef.LoseHealth (damage);
 			mRigidBody.isKinematic = false;
@@ -184,7 +194,7 @@ public class PlayerTesting : MonoBehaviour
 
 	public void GetKnockdown (Vector2 direction, int damage)
 	{
-		if (!mGetHit && !mGetKnockdown) {
+		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetKnockdown = true;
 			//mHealthBarRef.LoseHealth (damage);
 			mRigidBody.isKinematic = false;
@@ -295,8 +305,12 @@ public class PlayerTesting : MonoBehaviour
 
 	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.tag == "Hose") {
+		if (col.gameObject.tag == "Hose" && !mInflate) {
+			Debug.Log ("Allo");
 			mInflate = true;
+			target = -5;        
+			startTime = Time.time;
+			journeyLength = Mathf.Abs (transform.position.x) + Mathf.Abs (target);
 		}
 	}
 }

@@ -137,8 +137,8 @@ public class DigDug : MonoBehaviour
 					int whichAttack = Random.Range (0, 2);
 					if (whichAttack == 0 && !mHit && !mThrowRocks && !allo)
 						mThrowRocks = true;
-					else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
-						StartCoroutine (CreateTitle ());
+					//else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
+					//StartCoroutine (CreateTitle ());
 				}
 				if (mThrowRocks) {
 					throwRockTimer += Time.deltaTime;
@@ -146,7 +146,7 @@ public class DigDug : MonoBehaviour
 					if (throwRockTimer >= 2.0f) {
 						throwRockTimer = 0.0f;
 						mThrowRocks = false;
-						StartCoroutine (ThrowTiles ());
+						//StartCoroutine (ThrowTiles ());
 					}
 				} else {
 					if (transform.position.y - 0.1f <= minY) {

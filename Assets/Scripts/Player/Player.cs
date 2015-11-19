@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
 	private int mNormalAttack;
 	private int mStrongAttack;
 	private float mGroundY;
+	
+	private bool canMove = true;
 
 	private bool mHitting;
 
@@ -59,7 +61,14 @@ public class Player : MonoBehaviour
 	public Stats mStats;
 
 	//Combat variables - End
-	
+
+	//Sound Variables - START
+
+	AudioSource strongPunch;
+	AudioSource normalPunch;
+
+	//Sound Variables - END
+
 	void Start ()
 	{
 		mStats = new Stats (79.0f, 5, 5, 5);
@@ -88,12 +97,14 @@ public class Player : MonoBehaviour
 		// Init HealthBar Stuff
 		mHealthBarRef = FindObjectOfType<HealthBar> ();
 		//mHealthBarRef.MaxHealthValue = 500.0f;
+
+		//AudioSource[] audioSources = GetComponents<AudioSource> ();
+
 	}
 
 
 	void Update ()
 	{
-		mRigidBody.isKinematic = false;
 
 		if (!floorBoundaryInitialized) {
 			// get current boundary
@@ -119,7 +130,7 @@ public class Player : MonoBehaviour
 		if (Input.GetKeyDown ("z")) {
 			mNormalAttack++;
 			mHitting = true;
-		} else if (Input.GetKey ("w")) {
+		} else if (Input.GetKey ("x")) {
 			mStrongAttack ++;
 		}
 
@@ -338,5 +349,20 @@ public class Player : MonoBehaviour
 	public int GetLayerIndex ()
 	{
 		return mFloorIndex;
+	}
+
+	public void SetCanMove (bool a)
+	{
+		canMove = a;
+	}
+	
+	public void SetPosition (Vector3 position)
+	{
+		transform.position = position;
+	}
+	
+	public bool IsStrongAttack ()
+	{
+		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
 	}
 }

@@ -17,7 +17,13 @@ public class PlayerTesting : MonoBehaviour
 	private int mNormalAttack;
 	private int mStrongAttack;
 
+	private bool mInflate;
+	private float inflateTimer = 0.0f;
+	private float maxInflateTimer = 2.0f;
+
 	private bool mHitting;
+
+	private bool canMove = true;
 
 	public float mMoveSpeed;
 	public float mJumpForce;
@@ -32,6 +38,10 @@ public class PlayerTesting : MonoBehaviour
 
 	private Animator mAnimator;
 	private Rigidbody mRigidBody;
+
+	private float target;
+	private float startTime;
+	private float journeyLength;
 	
 	void Start ()
 	{
@@ -51,16 +61,31 @@ public class PlayerTesting : MonoBehaviour
 	{
 		ResetBoolean ();
 
-		if (transform.position.y > 0.0f) {
+		/*if (transform.position.y > 0.0f) {
 			mRigidBody.useGravity = true;
 		} else if (transform.position.y <= 0.0f) {
 			mRigidBody.useGravity = false;
-		}
+		}*/
 
 		if (mNormalAttack > 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mNormalAttack = 0;
 			mHitting = false;
 		} 
+
+		if (mInflate) {
+			canMove = false;
+			inflateTimer += Time.deltaTime;
+			if (inflateTimer >= maxInflateTimer) {
+				if (transform.position.x > target) {
+					float distCovered = (Time.time - startTime) * 0.5f;
+					float fracJourney = distCovered / journeyLength;
+					transform.position = Vector3.Lerp (transform.position, new Vector3 (target, transform.position.y, transform.position.z), fracJourney);
+				} else {
+					mInflate = false;
+					inflateTimer = 0.0f;
+				}
+			}
+		}
 
 
 		if (Input.GetKeyDown ("z")) {
@@ -85,21 +110,23 @@ public class PlayerTesting : MonoBehaviour
 			mFalling = false;
 		}
 
-		if (!mGetHit) {
-			if (Input.GetKey ("space")) {
-				Defend ();
-			} else if (Input.GetKeyDown ("a")) {
-				Jump ();
-			} else {
-				if (Input.GetButton ("Left")) {
-					MovingLeft ();
-				} else if (Input.GetButton ("Right")) {
-					MovingRight ();
-				} 
-				if (Input.GetButton ("Up")) {
-					MovingUp ();
-				} else if (Input.GetButton ("Down")) {
-					MovingDown ();
+		if (canMove) {
+			if (!mGetHit) {
+				if (Input.GetKey ("space")) {
+					Defend ();
+				} else if (Input.GetKeyDown ("a")) {
+					Jump ();
+				} else {
+					if (Input.GetButton ("Left")) {
+						MovingLeft ();
+					} else if (Input.GetButton ("Right")) {
+						MovingRight ();
+					} 
+					if (Input.GetButton ("Up")) {
+						MovingUp ();
+					} else if (Input.GetButton ("Down")) {
+						MovingDown ();
+					}
 				}
 			}
 		}
@@ -156,7 +183,7 @@ public class PlayerTesting : MonoBehaviour
 
 	public void GetHit (Vector2 direction, int damage)
 	{
-		if (!mGetHit && !mGetKnockdown) {
+		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetHit = true;
 			//mHealthBarRef.LoseHealth (damage);
 			mRigidBody.isKinematic = false;
@@ -167,7 +194,7 @@ public class PlayerTesting : MonoBehaviour
 
 	public void GetKnockdown (Vector2 direction, int damage)
 	{
-		if (!mGetHit && !mGetKnockdown) {
+		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetKnockdown = true;
 			//mHealthBarRef.LoseHealth (damage);
 			mRigidBody.isKinematic = false;
@@ -253,10 +280,37 @@ public class PlayerTesting : MonoBehaviour
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isSliding", mSliding);
 		mAnimator.SetBool ("isDashing", mDashing);
+		mAnimator.SetBool ("isInflating", mInflate);
 	}
 
 	public Vector2 GetFacingDirection ()
 	{
 		return mFacingDirection;
+	}
+
+	public void SetCanMove (bool a)
+	{
+		canMove = a;
+	}
+
+	public void SetPosition (Vector3 position)
+	{
+		transform.position = position;
+	}
+
+	public bool IsStrongAttack ()
+	{
+		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
+	}
+
+	void OnTriggerEnter (Collider col)
+	{
+		if (col.gameObject.tag == "Hose" && !mInflate) {
+			Debug.Log ("Allo");
+			mInflate = true;
+			target = -5;        
+			startTime = Time.time;
+			journeyLength = Mathf.Abs (transform.position.x) + Mathf.Abs (target);
+		}
 	}
 }

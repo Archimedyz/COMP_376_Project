@@ -11,13 +11,15 @@ public class Fygar : MonoBehaviour
 	private bool mBreathFire = false;
 	private bool mDead = false;
 	private bool mExplode = false;
+	
+	private bool moveDown = true, moveUp = false;
 
 	private Animator mAnimator;
 	private Rigidbody rb;
 
 	public float mVertiMoveSpeed;
 
-	public Transform mTarget;
+	private Transform mTarget;
 
 	private Vector2 mFacingDirection;
 
@@ -25,41 +27,62 @@ public class Fygar : MonoBehaviour
 	private float fireTimer = 0.0f;
 	private float nextFire = 5.0f;
 	private float timer = 0.0f;
+	
+	public Vector3 initialPosition;
+	private float maxY, minY;
+
+	private bool canMove = false;
 
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
+		mTarget = GameObject.Find ("Player").transform;
 	}
 
 	void Update ()
 	{
 		ResetBoolean ();
+		
+		if (canMove) {
+			if (mExplode) {
+				destroyTimer += Time.deltaTime;
+				if (destroyTimer >= 0.3f) {
+					Destroy (gameObject);
+				}
+			}
 
-		if (mExplode) {
-			destroyTimer += Time.deltaTime;
-			if (destroyTimer >= 0.3f) {
-				Debug.Log ("Destroy");
-				Destroy (gameObject);
-			}
-		}
-		
-		if (Life <= 0) {
-			mDead = true;
-		}
-		
-		if (!mDead && !mExplode) {
-			timer += Time.deltaTime;
-			if (timer > nextFire) {
-				BreathFire ();
-			}
+			if (Life <= 0) {
+				mDead = true;
+			} else {
+				timer += Time.deltaTime;
+				int a = Random.Range (0, 20);
+				if (timer > nextFire && a == 0) {
+					BreathFire ();
+				}
+				if (!mBreathFire) {
+					if (transform.position.y - 0.1f <= minY) {
+						moveUp = true;
+						moveDown = false;
+					} else if (transform.position.y + 0.1f >= maxY) {
+						moveUp = false;
+						moveDown = true;
+					}
+
+					if (moveDown) {
+						MovingDown ();
+					} else if (moveUp) {
+						MovingUp ();
+					}
 			
-			if (mTarget.position.x >= transform.position.x)
-				FaceDirection (Vector2.right);
-			else
-				FaceDirection (Vector2.left);
+					if (mTarget.position.x >= transform.position.x)
+						FaceDirection (Vector2.right);
+					else
+						FaceDirection (Vector2.left);
+				}
+			} 
 		} else {
-			
+			MovingUp ();
 		}
 
 		if (mBreathFire) {
@@ -78,19 +101,16 @@ public class Fygar : MonoBehaviour
 		if (col.gameObject.name == "FightCollider") {
 			if (!mDead)
 				Life -= 50;
-			else {
+			else if (GameObject.Find ("Player").GetComponent<PlayerTesting> ().IsStrongAttack ()) {
 				rb.isKinematic = false;
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}
-		} 
-	}
-
-	void OnCollisionEnter (Collision col)
-	{
-		if (col.gameObject.name == "DigDug") {
+		} else if (col.gameObject.name == "DigDug") {
 			mExplode = true;
 		}
 	}
+
+
 
 	private void BreathFire ()
 	{
@@ -101,13 +121,13 @@ public class Fygar : MonoBehaviour
 	
 	private void MovingUp ()
 	{
-		transform.Translate (Vector2.up * mVertiMoveSpeed * Time.deltaTime);
+		transform.Translate (new Vector2 (0.3f, 1.0f) * mVertiMoveSpeed * Time.deltaTime);
 		mMoving = true;
 	}
 	
 	private void MovingDown ()
 	{
-		transform.Translate (Vector2.down * mVertiMoveSpeed * Time.deltaTime);
+		transform.Translate (new Vector2 (-0.3f, -1.0f) * mVertiMoveSpeed * Time.deltaTime);
 		mMoving = true;
 	}
 
@@ -139,5 +159,26 @@ public class Fygar : MonoBehaviour
 	public void SetLife (int life)
 	{
 		Life = life;
+	}
+
+	public void SetBoundaries (float max, float min)
+	{
+		maxY = max;
+		minY = min;
+	}
+	
+	public void SetCanMove (bool a)
+	{
+		canMove = a;
+	}
+	
+	public Vector3 GetInitialPosition ()
+	{
+		return initialPosition;
+	}
+
+	public void SetSpeed (float speed)
+	{
+		mVertiMoveSpeed = speed;
 	}
 }

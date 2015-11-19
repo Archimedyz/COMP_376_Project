@@ -1,38 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hobo : MonoBehaviour
+public class Neanderthal : MonoBehaviour
 {
 	public float Life;
 
 	private bool mMoving;
-	private bool mMovingRight;
-	private bool mMovingLeft;
-	private bool mHitting;
-	private bool mDying;
-
+	private bool mThrowing;
+	private bool mDying = false;
 	private bool mGetHit;
-
+	
 	private Vector2 mFacingDirection;
-
+	
 	public float mHoriMoveSpeed;
 	public float mVertiMoveSpeed;
+	
+	private Animator mAnimator;
+	private Rigidbody mRigidBody;
+
+	public GameObject projectile;
+	private GameObject coconut;
 
 	public Transform mTarget;
 	public float mFollowRange;
-	public float mFollowSpeed;
-	public float mAttackDistance;
-
-	private Animator mAnimator;
-	private Rigidbody mRigidBody;
 
 	public float mPushBack;
 	private float mInvincibleTimer;
 	private float kInvincibilityDuration = 0.1f;
 	
-	private float dyingTimer = 0.0f;
-	private float attackTimer = 0.0f;	
+	public float mAttackDistance;
+
 	public float attackTimeWait;
+	private float attackTimer = 0.0f;
+
+	private float dyingTimer = 0.0f;
 
 	// Floor Variables - START
 	
@@ -45,62 +46,68 @@ public class Hobo : MonoBehaviour
 	
 	// Floor Variables - END
 
-
+	AudioSource strongHit;
+	AudioSource normalHit;
 	
+	float audioTimer = 0.0f;
+
 	void Start ()
 	{
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
-		mFacingDirection = Vector2.right;
-		mDying = false;
+		coconut = null;
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		normalHit = audioSources [0];
+		strongHit = audioSources [1];
 	}
 
 	void Update ()
 	{
+
 		if (!floorBoundaryInitialized) {
 			// get current boundary
-			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			//mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
 			floorBoundaryInitialized = true;
 		}
-		
+
 		ResetBoolean ();
 
-		if (attackTimer > attackTimeWait && !mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
-			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
+		if (!mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
+			if (attackTimer > attackTimeWait && Vector2.Distance (transform.position, mTarget.position) < mAttackDistance && mTarget.position.y < (transform.position.y + 1) && mTarget.position.y > (transform.position.y - 1)) {
 				attackTimer = 0;
-				Hit ();
-			} else if (Vector2.Distance (transform.position, mTarget.position) <= mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
-				if (transform.position.x < mTarget.position.x) {
-					MovingRight ();
-				} else if (transform.position.x > mTarget.position.x) {
-					MovingLeft ();
-				}
-
-				if (transform.position.y < mTarget.position.y) {
+				Throw ();
+			} else if (Vector2.Distance (transform.position, mTarget.position) < mFollowRange) {
+				if (mTarget.position.x >= transform.position.x)
+					FaceDirection (Vector2.right);
+				else
+					FaceDirection (Vector2.left);
+			
+				if (mTarget.position.y > (transform.position.y + 1)) {
 					MovingUp ();
-				} else if (transform.position.y > mTarget.position.y) {
+				} else if (mTarget.position.y < (transform.position.y - 1)) {
 					MovingDown ();
 				}
 			}
 		}
 
 		attackTimer += Time.deltaTime;
-
+		
 		if (Life <= 0 && !mDying) {
 			Die ();
 		}
 
 		UpdateAnimator ();
-		
+
 		if (mDying) {
 			dyingTimer += Time.deltaTime;
-			if (dyingTimer >= 1.0f) {
+			if (dyingTimer >= 1.5f) {
 				Destroy (gameObject);
 			}
 		}
@@ -113,6 +120,29 @@ public class Hobo : MonoBehaviour
 				mInvincibleTimer = 0.0f;
 			}
 		}
+		audioTimer += Time.deltaTime;
+	}
+
+	public void GetHit (Vector2 direction, float damage)
+	{
+		if (!mGetHit && !mDying) {
+			Life -= damage;
+			attackTimer = 0;
+			mRigidBody.isKinematic = false;
+			mGetHit = true;
+			mRigidBody.velocity = Vector2.zero;
+			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
+				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * 10, ForceMode.Impulse);
+				if (!strongHit.isPlaying)
+					strongHit.Play ();
+			} else {
+				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);	
+				if (audioTimer >= 0.15f) {
+					normalHit.Play ();
+					audioTimer = 0.0f;
+				}
+			}
+		}
 	}
 
 	private void Die ()
@@ -120,27 +150,24 @@ public class Hobo : MonoBehaviour
 		mDying = true;
 	}
 
-	public void GetHit (Vector2 direction, float damage)
+	private void Throw ()
 	{
-		if (!mGetHit && !mDying) {
-			Life -= damage;
-			mRigidBody.isKinematic = false;
-			mGetHit = true;
-			mRigidBody.velocity = Vector2.zero;
-			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+		if (!mGetHit) {
+			mThrowing = true;
+			coconut = Instantiate (projectile, new Vector3 (transform.position.x - 0.15f, transform.position.y - 0.3f, transform.position.z), Quaternion.identity) as GameObject;
+			if (mTarget.position.x >= transform.position.x) {
+				coconut.gameObject.GetComponent<Coconut> ().SetDirection (Vector2.left);
+			} else if (mTarget.position.x < transform.position.x) {
+				coconut.gameObject.GetComponent<Coconut> ().SetDirection (Vector2.right);
+			}
+			coconut.transform.parent = gameObject.transform;
 		}
 	}
 
-	private void Hit ()
-	{
-		attackTimer = 0;
-		mHitting = true;
-	}
-	
 	private void MovingLeft ()
 	{
 		transform.Translate (-Vector2.right * mHoriMoveSpeed * Time.deltaTime);
-		FaceDirection (Vector2.left);
+		FaceDirection (-Vector2.right);
 		mMoving = true;
 	}
 	
@@ -162,7 +189,7 @@ public class Hobo : MonoBehaviour
 		transform.Translate (Vector2.down * mVertiMoveSpeed * Time.deltaTime);
 		mMoving = true;
 	}
-
+	
 	private void FaceDirection (Vector2 direction)
 	{
 		mFacingDirection = direction;
@@ -178,18 +205,14 @@ public class Hobo : MonoBehaviour
 	private void ResetBoolean ()
 	{
 		mMoving = false;
-		mHitting = false;
+		mThrowing = false;
 	}
-
+	
 	private void UpdateAnimator ()
 	{
-		mAnimator.SetBool ("isMoving", mMovingRight);
-		mAnimator.SetBool ("isHitting", mHitting);
+		mAnimator.SetBool ("isMoving", mMoving);
+		mAnimator.SetBool ("isGettingHit", mGetHit);
+		mAnimator.SetBool ("isThrowing", mThrowing);
 		mAnimator.SetBool ("isDying", mDying);
-	}
-
-	public Vector2 GetFacingDirection ()
-	{
-		return mFacingDirection;
 	}
 }

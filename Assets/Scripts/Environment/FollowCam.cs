@@ -11,6 +11,7 @@ public class FollowCam : MonoBehaviour {
 	void Start () 
     {
         mFollowTarget = GameObject.FindGameObjectWithTag("Player");
+        transform.position = new Vector3(mFollowTarget.transform.position.x, mFollowTarget.transform.position.y, transform.position.z);
 	}
 	
 	// Update is called once per frame

@@ -6,16 +6,16 @@ public class Metro : MonoBehaviour {
     public float mSpeed;
     public bool mGoingRight;
     public float mDistanceToLive;
+    public int mOrderInLayer;
 
     float mInitialX;
 
-    SpriteRenderer mSpriteRenderer;
-
 	// Use this for initialization
+
 	void Start () {
-	    mSpriteRenderer = GetComponent<SpriteRenderer>();
+	    GetComponent<SpriteRenderer>().sortingOrder = mOrderInLayer;
         mInitialX = transform.position.x;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,15 +27,13 @@ public class Metro : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("YOYO > " + col.gameObject.tag);
         if(col.gameObject.tag == "Player") {
             Debug.Log("Metro hits player.");
         }
     }
 
     public void SetOrderInLayer(int orderInLayer) {
-        Debug.Log("HERE");
-        mSpriteRenderer.sortingOrder = orderInLayer;
+        mOrderInLayer = orderInLayer;
     }
 
     public void SetGoingRight(bool goingRight)

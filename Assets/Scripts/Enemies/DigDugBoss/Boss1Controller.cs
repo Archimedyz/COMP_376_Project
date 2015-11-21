@@ -53,7 +53,7 @@ public class Boss1Controller : MonoBehaviour
 	{
 		enemySpeed += 0.25f;
 		player.SetCanMove (false);
-		player.SetPosition (playerPosition);
+		player.SetPosition (digdug.transform.position - new Vector3 (10, 0, 0));
 		digdug.SetCanMove (false);
 		
 		if (enemies [0] != null) {

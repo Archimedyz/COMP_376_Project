@@ -79,6 +79,9 @@ public class Player : MonoBehaviour
 	private float startTime;
 	private float journeyLength;
 
+    private UICanvas uiCanvas;
+    private Vector3 damagePosition = new Vector3(0,0.7f,0);
+
 	void Start ()
 	{
 		mStats = new Stats (79.0f, 5, 5, 5);
@@ -110,6 +113,7 @@ public class Player : MonoBehaviour
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
+        uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag("UICanvas").GetComponent("UICanvas");
 
 	}
 
@@ -293,8 +297,9 @@ public class Player : MonoBehaviour
 	public void GetHit (Vector2 direction, int damage)
 	{
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
-			mGetHit = true;
-			mHealthBarRef.LoseHealth (damage);
+            mGetHit = true;
+            mHealthBarRef.LoseHealth(damage);
+            uiCanvas.CreateDamageLabel(damage, (transform.position + damagePosition));
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);

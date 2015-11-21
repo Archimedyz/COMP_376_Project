@@ -32,7 +32,7 @@ public class Metro : MonoBehaviour {
         if(col.gameObject.tag == "Player") {
             
             // get the player's ground y position and determine if he is to be hit.
-            float playerGroundY = col.gameObject.GetComponent<Player>().GetGroundY();
+            float playerGroundY = col.gameObject.GetComponent<Player>().GetFootY();
             if(playerGroundY < mTopOfTrack && playerGroundY > mBottomOfTrack) {
                 Debug.Log("Metro hit Player.");
             }

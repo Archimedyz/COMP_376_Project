@@ -24,13 +24,19 @@ public class Rock : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.name == "GeneralColliderPlayer") {
-			col.gameObject.transform.parent.GetComponent<Player> ().GetHit (Vector2.left, 10);
-			//col.gameObject.transform.parent.GetComponent<PlayerTesting> ().GetHit (Vector2.left, 10);
+            // determine the Players Script.
+            Player player = col.gameObject.transform.parent.GetComponent<Player>();
+            Debug.Log("Rock Ground Y: " + transform.parent.position.y + "Player Ground Y: " + player.GetFootY());
+            if(Mathf.Abs(player.GetFootY() - transform.parent.position.y) <= 0.2f) {
+                player.GetHit(Vector2.left, 10);
+                Destroy(transform.parent.gameObject);
+            }
 		} else if (col.gameObject.name == "Pooka") {
-			col.gameObject.GetComponent<Pooka> ().SetLife (0);
+            col.gameObject.GetComponent<Pooka>().SetLife(0);
+            Destroy(transform.parent.gameObject);
 		} else if (col.gameObject.name == "Fygar") {
 			col.gameObject.GetComponent<Fygar> ().SetLife (0);
+            Destroy(transform.parent.gameObject);
 		}
-		Destroy (gameObject);
 	}
 }

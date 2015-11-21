@@ -3,6 +3,24 @@ using System.Collections;
 
 public class Rock : MonoBehaviour
 {
+
+    GameObject mShadow;
+
+    void Start()
+    {
+        mShadow = transform.parent.GetChild(1).gameObject;
+    }
+
+    void Update()
+    {
+        if(transform.localPosition.y <= 0.0f) {
+            Destroy(transform.parent.gameObject);
+            return;
+        }
+        float shadowScale = Mathf.Min(1.5f/transform.localPosition.y, 1.0f);
+        mShadow.transform.localScale = new Vector3(shadowScale, shadowScale, mShadow.transform.localScale.z);
+    }
+
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.name == "GeneralColliderPlayer") {

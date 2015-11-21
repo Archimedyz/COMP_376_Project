@@ -28,7 +28,7 @@ public class Fire : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.name == "GeneralColliderPlayer") {
-			col.gameObject.transform.parent.GetComponent<PlayerTesting> ().GetKnockdown (Vector2.left, 20);
+			col.gameObject.transform.parent.GetComponent<Player> ().GetKnockdown (Vector2.left, 20);
 		}
 	}
 }

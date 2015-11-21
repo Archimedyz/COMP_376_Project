@@ -39,7 +39,7 @@ public class Title : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.name == "GeneralColliderPlayer") {
-			col.gameObject.transform.parent.GetComponent<PlayerTesting> ().GetHit (Vector2.left, 10);
+			col.gameObject.transform.parent.GetComponent<Player> ().GetHit (Vector2.left, 10);
 		}
 	}
 

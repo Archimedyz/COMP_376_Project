@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 		floorBoundaryInitialized = false;
 
 		// Init HealthBar Stuff
-		mHealthBarRef = FindObjectOfType<HealthBar> ();
+		mHealthBarRef = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<HealthBar>();
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();

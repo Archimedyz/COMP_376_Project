@@ -21,6 +21,7 @@ public class HealthBar : MonoBehaviour {
         {
             mHealth[i] = Instantiate(mHealthFragmentPrefab, new Vector3(healthDisplayOffset + (i * 0.05f) + transform.position.x, transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
             mHealth[i].transform.parent = gameObject.transform;
+            mHealth[i].transform.localScale = transform.parent.localScale;
         }
         mHealthIndex = maxHeathFragments - 1;
 

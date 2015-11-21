@@ -14,10 +14,9 @@ public class DigDug : MonoBehaviour
 	private GameObject[] title;
 	private bool throwTitle = false;
 	private int nextThrow = 0;
-	private bool allo = false;
+	private bool finishThrowTitle = true;
 
-	public float tileRangeXMin;
-	public float tileRangeXMax;
+	public float tileRangeX;
 	public float tileRangeY;
 
 	private Animator mAnimator;
@@ -154,11 +153,11 @@ public class DigDug : MonoBehaviour
 				}
 			} else {
 				float specialAttack = Random.Range (0.0f, 100.0f);
-				if (specialAttack > 99.5f) {
+				if (specialAttack > 99.0f) {
 					int whichAttack = Random.Range (0, 2);
-					if (whichAttack == 0 && !mHit && !mThrowRocks && !allo)
+					if (whichAttack == 0 && !mHit && !mThrowRocks)
 						mThrowRocks = true;
-					else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
+					else if (whichAttack == 1 && !mHit && finishThrowTitle)
 						StartCoroutine (CreateTitle ());
 				}
 				if (mThrowRocks) {
@@ -190,6 +189,9 @@ public class DigDug : MonoBehaviour
 		if (throwTitle) {
 			title [nextThrow].GetComponent<Title> ().SetLaunch ();
 			throwTitle = false;
+			if (nextThrow == 6) {
+				finishThrowTitle = true;
+			}
 		}
 
 		if (invincible) {
@@ -228,7 +230,6 @@ public class DigDug : MonoBehaviour
 
 	private void ShakeCamera ()
 	{
-		Debug.Log ("Allo");
 		if (shake > 0.0f) {
 			camTransform.localPosition = originalPos + Random.insideUnitSphere / 10.0f * shakeAmount;
 			
@@ -256,7 +257,7 @@ public class DigDug : MonoBehaviour
 	private IEnumerator ThrowTiles ()
 	{
 		for (int i = 0; i < difficulty; i++) {
-			Instantiate (rock, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
+			Instantiate (rock, new Vector3 (Random.Range (transform.position.x - 12, transform.position.x - 2), tileRangeY, -1.0f), Quaternion.identity);
 			yield return new WaitForSeconds (0.5f);
 		}
 	}
@@ -271,9 +272,9 @@ public class DigDug : MonoBehaviour
 
 		for (int i = 0; i < title.Length; i++) {
 			if (i % 2 == 0)
-				title [i] = Instantiate (dig, new Vector3 (9.3f, 3.5f - (i * 1.5f), -1f), Quaternion.identity) as GameObject;
+				title [i] = Instantiate (dig, new Vector3 (transform.position.x + 4.5f, 1.65f - (i * 1f), -1f), Quaternion.identity) as GameObject;
 			else
-				title [i] = Instantiate (dug, new Vector3 (9.4f, 3.5f - (i * 1.5f), -1f), Quaternion.identity) as GameObject;
+				title [i] = Instantiate (dug, new Vector3 (transform.position.x + 4.6f, 1.65f - (i * 1f), -1f), Quaternion.identity) as GameObject;
 		}
 
 		for (int i = 0; i < title.Length; i++) {
@@ -284,7 +285,7 @@ public class DigDug : MonoBehaviour
 		}
 		yield return new WaitForSeconds (1.0f);
 		throwTitle = true;
-		allo = true;
+		finishThrowTitle = false;
 	}
 
 	private void ThrowTitle ()

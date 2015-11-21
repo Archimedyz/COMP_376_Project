@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
 
 		mMoveSpeedX = 4.0f;
 		mMoveSpeedY = 2.5f;
-		mJumpForce = 5.0f;
+		mJumpForce = 6.0f;
 		mGravityScale = 0.8f;
 
 		// Init Floor stuff

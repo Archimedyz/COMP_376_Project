@@ -10,6 +10,10 @@ public class DigDugStory : MonoBehaviour
 
 	private bool meetDigDug = false;
 	private bool meetPlayer = false;
+	private bool goTowardPlayer = false;
+	private bool moveCamera = false;
+
+	private float timer = 0.0f, startTimer = 0.0f;
 
 	void Start ()
 	{
@@ -20,6 +24,8 @@ public class DigDugStory : MonoBehaviour
 
 	void Update ()
 	{
+		timer += Time.deltaTime;
+
 		if (player.transform.position.x >= 30 && !meetDigDug) {
 			meetDigDug = true;
 			player.SetCanMove (false);
@@ -38,11 +44,23 @@ public class DigDugStory : MonoBehaviour
 				}
 			}
 		}
-		Debug.Log (meetPlayer);
+
 		if (meetPlayer) {
 			digdug.Pumping ();
-			Debug.Log ("Allo2");
 			meetPlayer = false;
+			goTowardPlayer = true;
+		}
+
+		if (goTowardPlayer) {
+			startTimer += Time.deltaTime;
+		}
+
+		if (startTimer > 4.0f && !digdug.isPumping () && goTowardPlayer && digdug.transform.position.x >= 2.0f) {
+			digdug.transform.position -= new Vector3 (0.2f, 0, 0f);
+			if (digdug.transform.position.x <= 2.0) {
+				goTowardPlayer = false;
+				startTimer = 0.0f;
+			}
 		}
 	}
 }

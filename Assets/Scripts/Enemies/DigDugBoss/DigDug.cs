@@ -277,7 +277,7 @@ public class DigDug : MonoBehaviour
 	private IEnumerator ThrowTiles ()
 	{
 		for (int i = 0; i < difficulty; i++) {
-            Instantiate(rock, new Vector3(Random.Range(transform.position.x - 12, transform.position.x - 2), Random.Range(mFloorBoundary[Floor.Y_MIN_INDEX] - (mSpriteRenderer.bounds.size.y / 2.0f), mFloorBoundary[Floor.Y_MAX_INDEX] - (mSpriteRenderer.bounds.size.y / 2.0f)), -1.0f), Quaternion.identity);
+			Instantiate (rock, new Vector3 (Random.Range (transform.position.x - 12, transform.position.x - 2), Random.Range (mFloorBoundary [Floor.Y_MIN_INDEX] - (mSpriteRenderer.bounds.size.y / 2.0f), mFloorBoundary [Floor.Y_MAX_INDEX] - (mSpriteRenderer.bounds.size.y / 2.0f)), -1.0f), Quaternion.identity);
 			yield return new WaitForSeconds (0.5f);
 		}
 	}
@@ -350,5 +350,10 @@ public class DigDug : MonoBehaviour
 	public void SetInStory (bool a)
 	{
 		inStory = a;
+	}
+
+	public bool isPumping ()
+	{
+		return mPumping;
 	}
 }

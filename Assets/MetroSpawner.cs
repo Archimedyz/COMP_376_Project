@@ -10,6 +10,8 @@ public class MetroSpawner : MonoBehaviour {
     public float spawnRate; // trains per second
     public bool spawnRight;
     public float distanceToLive;
+    public float topOfTrack;
+    public float bottomOfTrack;
 
     float spawnTimer;
 
@@ -28,6 +30,8 @@ public class MetroSpawner : MonoBehaviour {
             spawnedMetro.SendMessage("SetOrderInLayer", spawnOrderInLayer);
             spawnedMetro.SendMessage("SetGoingRight", spawnRight);
             spawnedMetro.SendMessage("SetDistanceToLive", distanceToLive);
+            spawnedMetro.SendMessage("SetTopOfTrack", topOfTrack);
+            spawnedMetro.SendMessage("SetBottomOfTrack", bottomOfTrack);
         }
 	}
 }

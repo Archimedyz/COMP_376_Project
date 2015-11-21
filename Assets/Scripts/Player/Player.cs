@@ -365,4 +365,9 @@ public class Player : MonoBehaviour
 	{
 		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
 	}
+
+    public float GetGroundY()
+    {
+        return mGroundY;
+    }
 }

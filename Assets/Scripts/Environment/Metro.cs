@@ -7,6 +7,8 @@ public class Metro : MonoBehaviour {
     public bool mGoingRight;
     public float mDistanceToLive;
     public int mOrderInLayer;
+    public float mTopOfTrack;
+    public float mBottomOfTrack;
 
     float mInitialX;
 
@@ -28,7 +30,13 @@ public class Metro : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.tag == "Player") {
-            Debug.Log("Metro hits player.");
+            
+            // get the player's ground y position and determine if he is to be hit.
+            float playerGroundY = col.gameObject.GetComponent<Player>().GetGroundY();
+            Debug.Log("player in collider.");
+            if(playerGroundY < mTopOfTrack && playerGroundY > mBottomOfTrack) {
+                Debug.Log("I hit em. PlayerGroundY: " + playerGroundY + "\tTopOfTrack: " + mTopOfTrack + "\tBottomOfTrack: " + mBottomOfTrack);
+            }
         }
     }
 
@@ -44,5 +52,15 @@ public class Metro : MonoBehaviour {
     public void SetDistanceToLive(float distanceToLive)
     {
         mDistanceToLive = distanceToLive;
+    }
+
+    public void SetTopOfTrack(float topOfTrack)
+    {
+        mTopOfTrack = topOfTrack;
+    }
+
+    public void SetBottomOfTrack(float bottomOfTrack)
+    {
+        mBottomOfTrack = bottomOfTrack;
     }
 }

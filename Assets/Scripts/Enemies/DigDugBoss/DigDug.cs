@@ -43,8 +43,7 @@ public class DigDug : MonoBehaviour
 	private int maxLife = 3;
 
 	public float mVertiMoveSpeed;
-	
-	public float maxY, minY;
+
 	private bool moveDown = true, moveUp = false;
 
 	private int difficulty = 6;
@@ -60,16 +59,16 @@ public class DigDug : MonoBehaviour
 
 	private Transform player;
 
-    // Floor Variables - START
+	// Floor Variables - START
 
-    private FloorController mFloorControllerRef;
-    public int mFloorIndex;
-    public float[] mFloorBoundary;
-    private SpriteRenderer mSpriteRenderer;
-    private int mInitialOrderInLayer;
-    private bool floorBoundaryInitialized;
+	private FloorController mFloorControllerRef;
+	public int mFloorIndex;
+	public float[] mFloorBoundary;
+	private SpriteRenderer mSpriteRenderer;
+	private int mInitialOrderInLayer;
+	private bool floorBoundaryInitialized;
 
-    // Floor Variables - END
+	// Floor Variables - END
 
 	void Awake ()
 	{
@@ -89,24 +88,23 @@ public class DigDug : MonoBehaviour
 		title = new GameObject[6];
 		player = GameObject.Find ("Player").transform;
 
-        // Init Floor stuff
-        mFloorControllerRef = FindObjectOfType<FloorController>();
-        mFloorBoundary = new float[4];
-        mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-        mInitialOrderInLayer = (int)(transform.position.y);
-        floorBoundaryInitialized = false;
+		// Init Floor stuff
+		mFloorControllerRef = FindObjectOfType<FloorController> ();
+		mFloorBoundary = new float[4];
+		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
+		mInitialOrderInLayer = (int)(transform.position.y);
+		floorBoundaryInitialized = false;
 
 	}
 
 	void Update ()
 	{
 
-        if (!floorBoundaryInitialized)
-        {
-            // get current boundary
-            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
-            floorBoundaryInitialized = true;
-        }
+		if (!floorBoundaryInitialized) {
+			// get current boundary
+			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			floorBoundaryInitialized = true;
+		}
 
 		ResetBoolean ();
 
@@ -172,10 +170,10 @@ public class DigDug : MonoBehaviour
 						StartCoroutine (ThrowTiles ());
 					}
 				} else {
-					if (transform.position.y - 0.1f <= mFloorBoundary[Floor.Y_MIN_INDEX]) {
+					if (transform.position.y - 0.1f <= mFloorBoundary [Floor.Y_MIN_INDEX]) {
 						moveUp = true;
 						moveDown = false;
-					} else if (transform.position.y + 0.1f >=  mFloorBoundary[Floor.Y_MAX_INDEX]) {
+					} else if (transform.position.y + 0.1f >= mFloorBoundary [Floor.Y_MAX_INDEX]) {
 						moveUp = false;
 						moveDown = true;
 					}

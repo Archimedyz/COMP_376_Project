@@ -29,20 +29,41 @@ public class Fygar : MonoBehaviour
 	private float timer = 0.0f;
 	
 	public Vector3 initialPosition;
-	private float maxY, minY;
 
 	private bool canMove = false;
 
+	// Init Floor stuff
+	private FloorController mFloorControllerRef;
+	public int mFloorIndex;
+	public float[] mFloorBoundary;
+	private SpriteRenderer mSpriteRenderer;
+	private int mInitialOrderInLayer;
+	private bool floorBoundaryInitialized;
+
 	void Start ()
 	{
+		
 		mAnimator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
 		mTarget = GameObject.Find ("Player").transform;
+
+		// Init Floor stuff
+		mFloorControllerRef = FindObjectOfType<FloorController> ();
+		mFloorBoundary = new float[4];
+		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
+		mInitialOrderInLayer = (int)(transform.position.y);
+		floorBoundaryInitialized = false;
 	}
 
 	void Update ()
 	{
 		ResetBoolean ();
+
+		if (!floorBoundaryInitialized) {
+			// get current boundary
+			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			floorBoundaryInitialized = true;
+		}
 		
 		if (canMove) {
 			if (mExplode) {
@@ -61,10 +82,10 @@ public class Fygar : MonoBehaviour
 					BreathFire ();
 				}
 				if (!mBreathFire) {
-					if (transform.position.y - 0.1f <= minY) {
+					if (transform.position.y - 0.1f <= mFloorBoundary [Floor.Y_MIN_INDEX]) {
 						moveUp = true;
 						moveDown = false;
-					} else if (transform.position.y + 0.1f >= maxY) {
+					} else if (transform.position.y + 0.1f >= mFloorBoundary [Floor.Y_MAX_INDEX]) {
 						moveUp = false;
 						moveDown = true;
 					}
@@ -159,12 +180,6 @@ public class Fygar : MonoBehaviour
 	public void SetLife (int life)
 	{
 		Life = life;
-	}
-
-	public void SetBoundaries (float max, float min)
-	{
-		maxY = max;
-		minY = min;
 	}
 	
 	public void SetCanMove (bool a)

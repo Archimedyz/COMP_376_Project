@@ -11,13 +11,18 @@ public class Boss1Controller : MonoBehaviour
 	public DigDug digdug;
 
 	int bossDifficulty = 4;
-	
-	public float maxY, minY;
 
 	private bool canMove;
 
 	public Vector3 playerPosition;
 	private float enemySpeed = 1.25f;
+
+	private FloorController mFloorControllerRef;
+	public int mFloorIndex;
+	public float[] mFloorBoundary;
+	private SpriteRenderer mSpriteRenderer;
+	private int mInitialOrderInLayer;
+	private bool floorBoundaryInitialized;
 
 	void Start ()
 	{
@@ -36,10 +41,8 @@ public class Boss1Controller : MonoBehaviour
 				for (int i = 0; i < bossDifficulty; i++) {
 					if (i < 3) {
 						enemies [i].GetComponent<Pooka> ().SetCanMove (true);
-						enemies [i].GetComponent<Pooka> ().SetBoundaries (maxY, minY);
 					} else {
 						enemies [i].GetComponent<Fygar> ().SetCanMove (true);
-						enemies [i].GetComponent<Fygar> ().SetBoundaries (maxY, minY);
 					}
 				}
 			}

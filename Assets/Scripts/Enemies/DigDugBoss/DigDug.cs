@@ -5,12 +5,15 @@ public class DigDug : MonoBehaviour
 {
 	public float randomAttackTime;
 
+	private int hitTime = 0;
+
 	private HealthBar mHealthBarRef;
 
 	public GameObject rock;
 	public GameObject dig;
 	public GameObject dug;
 	public GameObject hose;
+	private DigDugStory storyScript;
 
 	private GameObject hoseInstance = null;
 
@@ -101,6 +104,7 @@ public class DigDug : MonoBehaviour
 		floorBoundaryInitialized = false;
 
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("BossHealth").GetComponent<HealthBar> ();
+		storyScript = GameObject.Find ("BossScript").GetComponent<DigDugStory> ();
 	}
 
 	void Update ()
@@ -221,6 +225,8 @@ public class DigDug : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Enemy" && !invincible) {
+			hitTime ++;
+			storyScript.MoveDigDug (hitTime);
 			mHit = true;
 			invincible = true;
 			difficulty += 2;

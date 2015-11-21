@@ -14,6 +14,11 @@ public class DigDugStory : MonoBehaviour
 	private bool goTowardPlayer = false;
 	private bool moveCamera = false;
 	private bool startBattle = false;
+	private bool moveDigDug = false;
+
+	private Vector3 digdugTargetPosition;
+
+	private int hitTime = 0;
 
 	private float timer = 0.0f, startTimer = 0.0f;
 
@@ -81,6 +86,28 @@ public class DigDugStory : MonoBehaviour
 			player.SetInStory (false);
 			digdug.SetInStory (false);
 			enemies.GetComponent<Boss1Controller> ().enabled = true;
+		}
+
+		if (moveDigDug && hitTime <= 3) {
+			digdug.transform.position += new Vector3 (0.2f, 0, 0f);
+			if (digdug.transform.position.x >= digdugTargetPosition.x) {
+				moveDigDug = false;
+			}
+		}
+	}
+
+	public void MoveDigDug (int numberOfHit)
+	{
+		enemies.GetComponent<Boss1Controller> ().enabled = false;
+		moveDigDug = true;
+		hitTime = numberOfHit;
+
+		if (hitTime == 1)
+			digdugTargetPosition = digdug.transform.position + new Vector3 (10, 0, 0);
+		else if (hitTime == 2) {
+			digdugTargetPosition = digdug.transform.position + new Vector3 (12, 0, 0);
+		} else if (hitTime == 3) {
+			digdugTargetPosition = digdug.transform.position + new Vector3 (15, 0, 0);
 		}
 	}
 }

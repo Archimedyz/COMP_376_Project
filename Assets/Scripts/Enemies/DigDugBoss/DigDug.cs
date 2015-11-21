@@ -225,6 +225,7 @@ public class DigDug : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Enemy" && !invincible) {
+			GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().DestroyWave ();
 			hitTime ++;
 			storyScript.MoveDigDug (hitTime);
 			mHit = true;
@@ -234,7 +235,6 @@ public class DigDug : MonoBehaviour
 			IncreaseDifficulty ();
 			if (maxLife >= 0) {
 				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
-				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().CreateWave (1);
 			}
 			if (col.gameObject.name.Substring (0, 5) == "Pooka") {
 				mHealthBarRef.LoseHealth (10);
@@ -249,7 +249,6 @@ public class DigDug : MonoBehaviour
 		hoseInstance = Instantiate (hose, transform.position, Quaternion.identity) as GameObject;
 		mThrowing = true;
 		mPumping = true;
-		Debug.Log ("Pumping");
 		if (inStory)
 			UpdateAnimator ();
 	}

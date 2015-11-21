@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 	private int mNormalAttack;
 	private int mStrongAttack;
 	private float mGroundY;
+	private bool moveRight = false;
 	
 	private bool canMove = true;
 
@@ -79,8 +80,8 @@ public class Player : MonoBehaviour
 	private float startTime;
 	private float journeyLength;
 
-    private UICanvas uiCanvas;
-    private Vector3 damagePosition = new Vector3(0,0.7f,0);
+	private UICanvas uiCanvas;
+	private Vector3 damagePosition = new Vector3 (0, 0.7f, 0);
 
 	void Start ()
 	{
@@ -94,7 +95,7 @@ public class Player : MonoBehaviour
 		mDashing = false;
 		mNormalAttack = 0;
 		mStrongAttack = 0;
-        mGroundY = transform.position.y;
+		mGroundY = transform.position.y;
 
 		mMoveSpeedX = 4.0f;
 		mMoveSpeedY = 2.5f;
@@ -113,7 +114,7 @@ public class Player : MonoBehaviour
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
-        uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag("UICanvas").GetComponent("UICanvas");
+		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent ("UICanvas");
 
 	}
 
@@ -145,7 +146,9 @@ public class Player : MonoBehaviour
 		}
 
 		if (inStory) {
-
+			if (moveRight) {
+				MovingRight ();
+			}
 		} else {
 			if (transform.position.y < mGroundY && mJumping) {
 				mRigidBody.useGravity = false;
@@ -196,10 +199,10 @@ public class Player : MonoBehaviour
 							direction.y = 0;
 						}
 						transform.Translate (direction * Time.deltaTime, Space.World);
-                        mGroundY += direction.y * Time.deltaTime;
-                        if(!mJumping) {
-						    mGroundY = Mathf.Clamp(mGroundY, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]); 
-                        }
+						mGroundY += direction.y * Time.deltaTime;
+						if (!mJumping) {
+							mGroundY = Mathf.Clamp (mGroundY, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]); 
+						}
 
 
 						mMoving = true;
@@ -274,6 +277,20 @@ public class Player : MonoBehaviour
 		UpdateAnimator ();
 	}
 
+	public void SetMoveRight (bool a)
+	{
+		moveRight = a;
+	}
+
+	private void MovingRight ()
+	{
+		//transform.Translate (Vector2.right * 2 * Time.deltaTime);
+		transform.position += new Vector3 (1f, 0, 0f);
+		FaceDirection (Vector2.right);
+		mMoving = true;
+		mRunning = true;
+	}
+
 	private void Dash ()
 	{
 		mDashing = true;
@@ -297,9 +314,9 @@ public class Player : MonoBehaviour
 	public void GetHit (Vector2 direction, int damage)
 	{
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
-            mGetHit = true;
-            mHealthBarRef.LoseHealth(damage);
-            uiCanvas.CreateDamageLabel(damage, (transform.position + damagePosition));
+			mGetHit = true;
+			mHealthBarRef.LoseHealth (damage);
+			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition));
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -419,7 +436,6 @@ public class Player : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
-			Debug.Log ("Allo");
 			mInflate = true;
 			if (inStory)
 				target = -7;

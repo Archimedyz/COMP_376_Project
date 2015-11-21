@@ -1,11 +1,25 @@
 ﻿using System.Collections;
+using UnityEngine;
 
-public class Stats {
+public class Stats
+{
 
     private float _hp;
     private int _str;
     private int _def;
     private int _spd;
+    private float _minDmg;
+    private float _maxDmg;
+
+    private float DmgDiff
+    {
+        get { return (Str * 0.15f + Spd * 0.02f); }
+    }
+
+    private float CritChance
+    {
+        get { return (Spd * 0.00015f + 0.01f); }
+    }
 
     public float Hp
     {
@@ -15,7 +29,12 @@ public class Stats {
     public int Str
     {
         get { return _str; }
-        set { _str = value; }
+        set
+        {
+            _str = value;
+            _minDmg = Str - DmgDiff;
+            _maxDmg = Str + DmgDiff;
+        }
     }
     public int Def
     {
@@ -24,7 +43,7 @@ public class Stats {
     }
     public int Spd
     {
-        get { return _spd-4; }
+        get { return _spd - 4; }
         set { _spd = value; }
     }
 
@@ -43,11 +62,26 @@ public class Stats {
     /// <summary>
     /// With the attack parameter, the health removed is calculated and total remaining is returned.
     /// </summary>
-    /// <param name="strValue"></param>
+    /// <param name="damage"></param>
     /// <returns></returns>
-    public float TakeDamage(int strValue)
+    public float TakeDamage(int damage)
     {
-        Hp -= strValue - Def;
+        Hp -= damage - Def;
         return Hp;
+    }
+    public float DoStaticDamage()
+    {
+        if (CritChance > Random.value)
+            return Str * 2;
+        else
+            return Str;
+    }
+
+    public float DoDynamicDamage()
+    {
+        if(CritChance>Random.value)
+            return Random.Range(_minDmg,_maxDmg)*2;
+        else
+            return Random.Range(_minDmg, _maxDmg);
     }
 }

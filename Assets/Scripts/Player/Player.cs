@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
 		mDashing = false;
 		mNormalAttack = 0;
 		mStrongAttack = 0;
+        mGroundY = transform.position.y;
 
 		mMoveSpeedX = 4.0f;
 		mMoveSpeedY = 2.5f;
@@ -191,7 +192,11 @@ public class Player : MonoBehaviour
 							direction.y = 0;
 						}
 						transform.Translate (direction * Time.deltaTime, Space.World);
-						mGroundY += direction.y * Time.deltaTime; 
+                        mGroundY += direction.y * Time.deltaTime;
+                        if(!mJumping) {
+						    mGroundY = Mathf.Clamp(mGroundY, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]); 
+                        }
+
 
 						mMoving = true;
 						mRunning = true;

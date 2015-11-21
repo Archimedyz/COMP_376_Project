@@ -4,8 +4,7 @@ using System.Collections;
 
 public class UICanvas : MonoBehaviour {
 
-    public Text mDamageText;
-    public int createdText;
+    public Text mUINotification;
 
 	// Use this for initialization
 	void Start () {
@@ -16,12 +15,32 @@ public class UICanvas : MonoBehaviour {
 	    
 	}
 
-    public void CreateDamageLabel(int damage, Vector3 position)
+    public void CreateDamageLabel(float text, Vector3 position, UINotification.TYPE t)
     {
-        createdText++;
-        Text dmg = (Text)Instantiate(mDamageText, position, Quaternion.identity);
+        Text dmg = (Text)Instantiate(mUINotification, position, Quaternion.identity);
         dmg.transform.SetParent(transform,true);
-        dmg.transform.localScale = mDamageText.transform.localScale;
-        dmg.text = damage.ToString();
+        switch (t)
+        {
+            case UINotification.TYPE.CRIT:
+                dmg.color = Color.yellow;
+                dmg.fontSize = 13;
+                break;
+            case UINotification.TYPE.EXP:
+                dmg.color = Color.white;
+                break;
+            case UINotification.TYPE.HPGAIN:
+                dmg.color = Color.green;
+                dmg.fontSize = 12;
+                break;
+            case UINotification.TYPE.HPLOSS:
+                dmg.color = Color.red;
+                break;
+            case UINotification.TYPE.LVLUP:
+                dmg.color = Color.yellow;
+                dmg.fontSize = 14;
+                break;
+        }
+        dmg.transform.localScale = mUINotification.transform.localScale;
+        dmg.text = ((int)text).ToString();
     }
 }

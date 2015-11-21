@@ -50,6 +50,9 @@ public class Hobo : MonoBehaviour
 	AudioSource knifeHit;
 
 	float audioTimer = 0.0f;
+
+    UICanvas uiCanvas;
+    private Vector3 damagePositionOffset = new Vector3(0, 0.7f, 0);
 	
 	void Start ()
 	{
@@ -68,6 +71,8 @@ public class Hobo : MonoBehaviour
 		normalHit = audioSources [0];
 		strongHit = audioSources [1];
 		knifeHit = audioSources [2];
+
+        uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag("UICanvas").GetComponent<UICanvas>();
 	}
 
 	void Update ()
@@ -134,6 +139,7 @@ public class Hobo : MonoBehaviour
 	{
 		if (!mGetHit && !mDying) {
 			Life -= damage;
+            uiCanvas.CreateDamageLabel(damage, (transform.position + damagePositionOffset),UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;

@@ -154,9 +154,9 @@ public class Pooka : MonoBehaviour
 		canMove = a;
 	}
 
-	public Vector3 GetInitialPosition ()
+	public float GetFloorBoundaryY ()
 	{
-		return initialPosition;
+		return mFloorBoundary [Floor.Y_MAX_INDEX];
 	}
 
 	public void SetSpeed (float speed)

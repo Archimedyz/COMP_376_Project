@@ -3,6 +3,10 @@ using System.Collections;
 
 public class DigDug : MonoBehaviour
 {
+	public float randomAttackTime;
+
+	private HealthBar mHealthBarRef;
+
 	public GameObject rock;
 	public GameObject dig;
 	public GameObject dug;
@@ -30,7 +34,7 @@ public class DigDug : MonoBehaviour
 	private bool mHit;
 	private bool mThrowRocks;
 
-	private bool canMove = true;
+	private bool canMove = false;
 
 	private bool invincible = false;
 	private float maxInvincibleTimer = 2.0f;
@@ -69,6 +73,8 @@ public class DigDug : MonoBehaviour
 
 	// Floor Variables - END
 
+	bool inStory = true;
+
 	void Awake ()
 	{
 		camTransform = GameObject.Find ("Main Camera").transform;
@@ -94,6 +100,7 @@ public class DigDug : MonoBehaviour
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
 
+		mHealthBarRef = GameObject.FindGameObjectWithTag ("BossHealth").GetComponent<HealthBar> ();
 	}
 
 	void Update ()
@@ -112,16 +119,22 @@ public class DigDug : MonoBehaviour
 			if (hitTimer >= 1.0f) {
 				hitTimer = 0.0f;
 				mHit = false;
-				if (maxLife == 2) {
-					sr.color = new Color (1f, 0.4f, 0.4f, 1f);
-				} else if (maxLife == 1) {
-					sr.color = new Color (1f, 0f, 0f, 1f);
-				} 
+				sr.color -= new Color (0f, 0.1f, 0.1f, 0f);
 			}
 		}
 
 			
-		if (canMove && !mHit) {
+		if (inStory) {
+			if (mPumping) {
+				pumpingTimer += Time.deltaTime;
+				if (pumpingTimer >= maxPumpingTimer) {
+					mThrowing = false;
+					mPumping = false;
+					pumpingTimer = 0.0f;
+					Destroy (hoseInstance);
+				}
+			}
+		} else if (canMove && !mHit) {
 			if (mPumping) {
 				pumpingTimer += Time.deltaTime;
 				if (pumpingTimer >= maxPumpingTimer) {
@@ -153,7 +166,7 @@ public class DigDug : MonoBehaviour
 				}
 			} else {
 				float specialAttack = Random.Range (0.0f, 100.0f);
-				if (specialAttack > 99.0f) {
+				if (specialAttack > randomAttackTime) {
 					int whichAttack = Random.Range (0, 2);
 					if (whichAttack == 0 && !mHit && !mThrowRocks)
 						mThrowRocks = true;
@@ -210,7 +223,6 @@ public class DigDug : MonoBehaviour
 		if (col.gameObject.tag == "Enemy" && !invincible) {
 			mHit = true;
 			invincible = true;
-			maxLife --;
 			difficulty += 2;
 			UpdateAnimator ();
 			IncreaseDifficulty ();
@@ -218,14 +230,22 @@ public class DigDug : MonoBehaviour
 				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
 				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().CreateWave ();
 			}
+			if (col.gameObject.name.Substring (0, 5) == "Pooka") {
+				mHealthBarRef.LoseHealth (10);
+			} else 	if (col.gameObject.name.Substring (0, 5) == "Fygar") {
+				mHealthBarRef.LoseHealth (20);
+			}
 		}
 	}
 
-	private void Pumping ()
+	public void Pumping ()
 	{
 		hoseInstance = Instantiate (hose, transform.position, Quaternion.identity) as GameObject;
 		mThrowing = true;
 		mPumping = true;
+		Debug.Log ("Pumping");
+		if (inStory)
+			UpdateAnimator ();
 	}
 
 	private void ShakeCamera ()
@@ -239,7 +259,7 @@ public class DigDug : MonoBehaviour
 			camTransform.localPosition = originalPos;
 		}
 		
-		Debug.Log (camTransform.localPosition);
+		Debug.Log ("Allo" + camTransform.localPosition);
 	}
 
 	private void MovingUp (int multiplier)
@@ -288,11 +308,6 @@ public class DigDug : MonoBehaviour
 		finishThrowTitle = false;
 	}
 
-	private void ThrowTitle ()
-	{
-
-	}
-
 	private void ResetBoolean ()
 	{
 		mMoving = false;
@@ -330,5 +345,10 @@ public class DigDug : MonoBehaviour
 			throwTitle = true;
 			nextThrow++;
 		}
+	}
+
+	public void SetInStory (bool a)
+	{
+		inStory = a;
 	}
 }

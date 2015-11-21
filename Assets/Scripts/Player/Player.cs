@@ -160,10 +160,10 @@ public class Player : MonoBehaviour
 					direction.y = direction.y * mMoveSpeedY;
 					if (mJumping) {
 						direction /= 2.0f;
-						mGroundY += direction.y * Time.deltaTime; 
 						direction.y = 0;
 					}
 					transform.Translate (direction * Time.deltaTime, Space.World);
+					mGroundY += direction.y * Time.deltaTime; 
 
 					mMoving = true;
 					mRunning = true;
@@ -338,7 +338,7 @@ public class Player : MonoBehaviour
 
 	private void UpdateOrderInLayer ()
 	{
-		mSpriteRenderer.sortingOrder = mInitialOrderInLayer - (int)(transform.position.y);
+		mSpriteRenderer.sortingOrder = mInitialOrderInLayer - (int)(mGroundY);
 	}
 
 	public Vector2 GetFacingDirection ()

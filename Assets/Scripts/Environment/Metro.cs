@@ -33,9 +33,8 @@ public class Metro : MonoBehaviour {
             
             // get the player's ground y position and determine if he is to be hit.
             float playerGroundY = col.gameObject.GetComponent<Player>().GetGroundY();
-            Debug.Log("player in collider.");
             if(playerGroundY < mTopOfTrack && playerGroundY > mBottomOfTrack) {
-                Debug.Log("I hit em. PlayerGroundY: " + playerGroundY + "\tTopOfTrack: " + mTopOfTrack + "\tBottomOfTrack: " + mBottomOfTrack);
+                Debug.Log("Metro hit Player.");
             }
         }
     }

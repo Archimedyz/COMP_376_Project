@@ -69,6 +69,8 @@ public class Player : MonoBehaviour
 
 	//Sound Variables - END
 
+    UICanvas UICanvas;
+
 	void Start ()
 	{
 		mStats = new Stats (79.0f, 5, 5, 5);
@@ -99,7 +101,7 @@ public class Player : MonoBehaviour
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
-
+        UICanvas = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<UICanvas>();
 	}
 
 
@@ -261,6 +263,7 @@ public class Player : MonoBehaviour
 		if (!mGetHit && !mGetKnockdown) {
 			mGetHit = true;
 			mHealthBarRef.LoseHealth (damage);
+            UICanvas.CreateDamageLabel(transform.position);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);

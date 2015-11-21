@@ -175,7 +175,7 @@ public class DigDug : MonoBehaviour
 				}
 				if (mThrowRocks) {
 					throwRockTimer += Time.deltaTime;
-					ShakeCamera ();
+					//ShakeCamera ();
 					if (throwRockTimer >= 2.0f) {
 						throwRockTimer = 0.0f;
 						mThrowRocks = false;
@@ -228,7 +228,7 @@ public class DigDug : MonoBehaviour
 			IncreaseDifficulty ();
 			if (maxLife >= 0) {
 				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
-				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().CreateWave ();
+				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().CreateWave (1);
 			}
 			if (col.gameObject.name.Substring (0, 5) == "Pooka") {
 				mHealthBarRef.LoseHealth (10);

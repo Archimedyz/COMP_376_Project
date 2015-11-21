@@ -73,6 +73,11 @@ public class HealthBar : MonoBehaviour {
         return mHealthValue;
     }
 
+    public float GetMaxHealth()
+    {
+        return maxHealthValue;
+    }
+
     public void SetHealth(float healthValue)
     {
         if(healthValue > mHealthValue) {
@@ -82,5 +87,17 @@ public class HealthBar : MonoBehaviour {
         {
             GainHealth(mHealthValue - healthValue);
         }
+    }
+
+    public void setMaxHealth(float newMax)
+    {
+        if ((int)newMax == (int)maxHealthValue)
+            return;
+        bool moreHealth = newMax > maxHealthValue;
+        maxHealthValue = newMax;
+        if (moreHealth)
+            LoseHealth(0);
+        else
+            GainHealth(0);
     }
 }

@@ -23,7 +23,7 @@ public class Stats
 
     public float Hp
     {
-        get { return _hp; }
+        get { return _hp + Def*2; }
         set { _hp = value; }
     }
     public int Str
@@ -39,7 +39,7 @@ public class Stats
     public int Def
     {
         get { return _def; }
-        set { _def = value; }
+        set { _def = value;}
     }
     public int Spd
     {

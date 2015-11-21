@@ -80,7 +80,7 @@ public class Pooka : MonoBehaviour
 		if (col.gameObject.name == "FightCollider") {
 			if (!mDead)
 				Life -= 50;
-			else if (GameObject.Find ("Player").GetComponent<PlayerTesting> ().IsStrongAttack ()) {
+			else if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
 				rb.isKinematic = false;
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}

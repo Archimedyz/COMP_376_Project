@@ -6,7 +6,7 @@ public class Boss1Controller : MonoBehaviour
 	public GameObject fygarPrefab;
 	public GameObject pookaPrefab;
 
-	private PlayerTesting player;
+	private Player player;
 	private GameObject[] enemies;
 	public DigDug digdug;
 
@@ -21,7 +21,7 @@ public class Boss1Controller : MonoBehaviour
 
 	void Start ()
 	{
-		player = GameObject.Find ("Player").GetComponent<PlayerTesting> ();
+		player = GameObject.Find ("Player").GetComponent<Player> ();
 		digdug = GameObject.Find ("DigDug").GetComponent<DigDug> ();
 		enemies = new GameObject[6];
 		CreateWave ();

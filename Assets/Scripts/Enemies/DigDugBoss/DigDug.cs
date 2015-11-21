@@ -3,10 +3,6 @@ using System.Collections;
 
 public class DigDug : MonoBehaviour
 {
-	public GameObject Tile1;
-	public GameObject Tile2;
-	public GameObject Tile3;
-	public GameObject Tile4;
 	public GameObject rock;
 	public GameObject dig;
 	public GameObject dug;
@@ -35,7 +31,7 @@ public class DigDug : MonoBehaviour
 	private bool mHit;
 	private bool mThrowRocks;
 
-	private bool canMove = false;
+	private bool canMove = true;
 
 	private bool invincible = false;
 	private float maxInvincibleTimer = 2.0f;
@@ -64,6 +60,17 @@ public class DigDug : MonoBehaviour
 
 	private Transform player;
 
+    // Floor Variables - START
+
+    private FloorController mFloorControllerRef;
+    public int mFloorIndex;
+    public float[] mFloorBoundary;
+    private SpriteRenderer mSpriteRenderer;
+    private int mInitialOrderInLayer;
+    private bool floorBoundaryInitialized;
+
+    // Floor Variables - END
+
 	void Awake ()
 	{
 		camTransform = GameObject.Find ("Main Camera").transform;
@@ -81,10 +88,26 @@ public class DigDug : MonoBehaviour
 		sr = transform.GetChild (0).GetComponent<SpriteRenderer> ();	
 		title = new GameObject[6];
 		player = GameObject.Find ("Player").transform;
+
+        // Init Floor stuff
+        mFloorControllerRef = FindObjectOfType<FloorController>();
+        mFloorBoundary = new float[4];
+        mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        mInitialOrderInLayer = (int)(transform.position.y);
+        floorBoundaryInitialized = false;
+
 	}
 
 	void Update ()
 	{
+
+        if (!floorBoundaryInitialized)
+        {
+            // get current boundary
+            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+            floorBoundaryInitialized = true;
+        }
+
 		ResetBoolean ();
 
 		if (mHit) {
@@ -138,7 +161,7 @@ public class DigDug : MonoBehaviour
 					if (whichAttack == 0 && !mHit && !mThrowRocks && !allo)
 						mThrowRocks = true;
 					//else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
-					//StartCoroutine (CreateTitle ());
+					StartCoroutine (CreateTitle ());
 				}
 				if (mThrowRocks) {
 					throwRockTimer += Time.deltaTime;
@@ -146,13 +169,13 @@ public class DigDug : MonoBehaviour
 					if (throwRockTimer >= 2.0f) {
 						throwRockTimer = 0.0f;
 						mThrowRocks = false;
-						//StartCoroutine (ThrowTiles ());
+						StartCoroutine (ThrowTiles ());
 					}
 				} else {
-					if (transform.position.y - 0.1f <= minY) {
+					if (transform.position.y - 0.1f <= mFloorBoundary[Floor.Y_MIN_INDEX]) {
 						moveUp = true;
 						moveDown = false;
-					} else if (transform.position.y + 0.1f >= maxY) {
+					} else if (transform.position.y + 0.1f >=  mFloorBoundary[Floor.Y_MAX_INDEX]) {
 						moveUp = false;
 						moveDown = true;
 					}
@@ -235,20 +258,7 @@ public class DigDug : MonoBehaviour
 	private IEnumerator ThrowTiles ()
 	{
 		for (int i = 0; i < difficulty; i++) {
-			int a = Random.Range (0, 6);
-			if (a == 0) {
-				Instantiate (Tile1, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
-			} else if (a == 1) {
-				Instantiate (Tile2, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
-			} else if (a == 2) {
-				Instantiate (Tile3, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
-			} else if (a == 3) {
-				Instantiate (Tile4, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
-			} else if (a == 4) {
-				Instantiate (rock, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
-			} else if (a == 5) {
-				Instantiate (rock, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
-			}
+			Instantiate (rock, new Vector3 (Random.Range (tileRangeXMin, tileRangeXMax), tileRangeY, -1.0f), Quaternion.identity);
 			yield return new WaitForSeconds (0.5f);
 		}
 	}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tile : MonoBehaviour
+public class Rock : MonoBehaviour
 {
 	void OnTriggerEnter (Collider col)
 	{

@@ -158,8 +158,8 @@ public class DigDug : MonoBehaviour
 					int whichAttack = Random.Range (0, 2);
 					if (whichAttack == 0 && !mHit && !mThrowRocks && !allo)
 						mThrowRocks = true;
-					//else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
-					StartCoroutine (CreateTitle ());
+					else if (whichAttack == 1 && !mHit && !mThrowRocks && !allo)
+						StartCoroutine (CreateTitle ());
 				}
 				if (mThrowRocks) {
 					throwRockTimer += Time.deltaTime;

@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 		floorBoundaryInitialized = false;
 
 		// Init HealthBar Stuff
-		mHealthBarRef = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<HealthBar>();
+		mHealthBarRef = GameObject.FindGameObjectWithTag ("PlayerHealth").GetComponent<HealthBar> ();
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
@@ -301,7 +301,7 @@ public class Player : MonoBehaviour
 		bool cond1 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetKnockdown");
 		bool cond2 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetUp");
 		bool cond3 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetHit");
-		return cond1 && cond2 & cond3;
+		return cond1 && cond2 & cond3 && canMove;
 	}
 
 	private void ResetBoolean ()
@@ -366,8 +366,8 @@ public class Player : MonoBehaviour
 		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
 	}
 
-    public float GetGroundY()
-    {
-        return mGroundY;
-    }
+	public float GetGroundY ()
+	{
+		return mGroundY;
+	}
 }

@@ -8,13 +8,12 @@ public class Boss1Controller : MonoBehaviour
 	
 	private Player player;
 	private GameObject[] enemies;
-	public DigDug digdug;
+	private DigDug digdug;
 	
 	int bossDifficulty = 4;
 	
 	private bool canMove;
-	
-	public Vector3 playerPosition;
+
 	private float enemySpeed = 1.25f;
 	
 	private FloorController mFloorControllerRef;
@@ -29,7 +28,7 @@ public class Boss1Controller : MonoBehaviour
 		player = GameObject.Find ("Player").GetComponent<Player> ();
 		digdug = GameObject.Find ("DigDug").GetComponent<DigDug> ();
 		enemies = new GameObject[6];
-		CreateWave ();
+		CreateWave (0);
 	}
 	
 	void Update ()
@@ -49,11 +48,12 @@ public class Boss1Controller : MonoBehaviour
 		}
 	}
 	
-	public void CreateWave ()
+	public void CreateWave (int wave)
 	{
 		enemySpeed += 0.25f;
 		player.SetCanMove (false);
-		player.SetPosition (digdug.transform.position - new Vector3 (10, 0, 0));
+		if (wave != 0)
+			player.SetPosition (digdug.transform.position - new Vector3 (10, 0, 0));
 		digdug.SetCanMove (false);
 		
 		if (enemies [0] != null) {

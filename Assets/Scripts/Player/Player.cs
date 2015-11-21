@@ -129,14 +129,14 @@ public class Player : MonoBehaviour
 			canMove = false;
 			inflateTimer += Time.deltaTime;
 			if (inflateTimer >= maxInflateTimer) {
-				if (transform.position.x > target) {
+				if (transform.position.x <= (target + 0.1)) {
+					mInflate = false;
+					inflateTimer = 0.0f;
+				} else if (transform.position.x > target) {
 					float distCovered = (Time.time - startTime) * 0.5f;
 					float fracJourney = distCovered / journeyLength;
 					transform.position = Vector3.Lerp (transform.position, new Vector3 (target, transform.position.y, transform.position.z), fracJourney);
-				} else {
-					mInflate = false;
-					inflateTimer = 0.0f;
-				}
+				} 
 			}
 		}
 
@@ -417,7 +417,7 @@ public class Player : MonoBehaviour
 			Debug.Log ("Allo");
 			mInflate = true;
 			if (inStory)
-				target = -5;
+				target = -7;
 			else
 				target = -5;  
 			startTime = Time.time;

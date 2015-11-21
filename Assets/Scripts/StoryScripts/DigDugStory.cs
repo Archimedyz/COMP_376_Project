@@ -6,12 +6,14 @@ public class DigDugStory : MonoBehaviour
 
 	private Player player;
 	private DigDug digdug;
-	private GameObject camera;
+	private GameObject mainCamera;
+	private GameObject enemies;
 
 	private bool meetDigDug = false;
 	private bool meetPlayer = false;
 	private bool goTowardPlayer = false;
 	private bool moveCamera = false;
+	private bool startBattle = false;
 
 	private float timer = 0.0f, startTimer = 0.0f;
 
@@ -19,7 +21,8 @@ public class DigDugStory : MonoBehaviour
 	{
 		player = GameObject.Find ("Player").GetComponent<Player> ();
 		digdug = GameObject.Find ("DigDug").GetComponent<DigDug> ();
-		camera = GameObject.Find ("Main Camera") as GameObject;
+		mainCamera = GameObject.Find ("Main Camera") as GameObject;
+		enemies = GameObject.Find ("Enemies") as GameObject;
 	}
 
 	void Update ()
@@ -59,8 +62,25 @@ public class DigDugStory : MonoBehaviour
 			digdug.transform.position -= new Vector3 (0.2f, 0, 0f);
 			if (digdug.transform.position.x <= 2.0) {
 				goTowardPlayer = false;
+				moveCamera = true;
 				startTimer = 0.0f;
 			}
+		}
+
+		if (moveCamera) {
+			mainCamera.GetComponent<FollowCam> ().enabled = false;
+			if (mainCamera.transform.position.x <= -3.0f) {
+				mainCamera.transform.position += new Vector3 (0.05f, 0f, 0f);
+			} else {
+				moveCamera = false;
+				startBattle = true;
+			}
+		}
+
+		if (startBattle) {
+			player.SetInStory (false);
+			digdug.SetInStory (false);
+			enemies.GetComponent<Boss1Controller> ().enabled = true;
 		}
 	}
 }

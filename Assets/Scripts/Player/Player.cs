@@ -396,9 +396,9 @@ public class Player : MonoBehaviour
 		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
 	}
 
-	public float GetGroundY ()
+	public float GetFootY ()
 	{
-		return mGroundY;
+		return mGroundY - (mSpriteRenderer.bounds.size.y / 2.0f);
 	}
 
 	public void SetInStory (bool a)

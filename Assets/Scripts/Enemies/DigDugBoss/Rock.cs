@@ -26,8 +26,7 @@ public class Rock : MonoBehaviour
 		if (col.gameObject.name == "GeneralColliderPlayer") {
             // determine the Players Script.
             Player player = col.gameObject.transform.parent.GetComponent<Player>();
-            Debug.Log("Rock Ground Y: " + transform.parent.position.y + "Player Ground Y: " + player.GetFootY());
-            if(Mathf.Abs(player.GetFootY() - transform.parent.position.y) <= 0.2f) {
+            if(Mathf.Abs(player.GetFootY() - (transform.parent.position.y - 0.3f)) <= 0.2f) {
                 player.GetHit(Vector2.left, 10);
                 Destroy(transform.parent.gameObject);
             }

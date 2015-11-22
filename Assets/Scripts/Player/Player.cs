@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
 	void Start ()
 	{
-		mStats = new Stats (79.0f, 5, 5, 5);
+		mStats = new Stats (1,200, 10, 5, 5,new int[] {20,5,2,2});
 		mAnimator = GetComponent<Animator> ();
 		mAnimator.speed = 1 + (float)(mStats.Spd / 20.0f);
 		mRigidBody = GetComponent<Rigidbody> ();
@@ -114,7 +114,8 @@ public class Player : MonoBehaviour
 
 		// Init HealthBar Stuff
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("PlayerHealth").GetComponent<HealthBar> ();
-		//mHealthBarRef.MaxHealthValue = 500.0f;
+        mHealthBarRef.SetMaxHealth(mStats.Hp);
+        mHealthBarRef.SetHealth(mStats.Hp);
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
 		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas> ();

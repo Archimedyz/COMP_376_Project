@@ -10,11 +10,6 @@ public class FloorController : MonoBehaviour {
     {
         // get all the floors in the current level.
         mFloors = GetComponentsInChildren<Floor>();
-
-        for (int i = 0; i < mFloors.Length; ++i)
-        {
-            Debug.Log(i + " - " + mFloors[i].gameObject.name);
-        }
     }
 	
 	// Update is called once per frame

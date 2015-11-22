@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
 	void Start ()
 	{
-		mStats = new Stats (1,200, 10, 5, 5,new int[] {20,5,2,2});
+		mStats = new Stats (1,50, 10, 5, 5,new int[] {20,5,2,2});
 		mAnimator = GetComponent<Animator> ();
 		mAnimator.speed = 1 + (float)(mStats.Spd / 20.0f);
 		mRigidBody = GetComponent<Rigidbody> ();
@@ -324,8 +324,9 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetHit = true;
-			mHealthBarRef.LoseHealth (damage);
-			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+            mStats.TakeDamage(damage);
+			mHealthBarRef.SetHealth (mStats.Hp);
+            uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -336,8 +337,9 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetKnockdown = true;
-			mHealthBarRef.LoseHealth (damage);
-			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+            mStats.TakeDamage(damage);
+            mHealthBarRef.SetHealth(mStats.Hp);
+			uiCanvas.CreateDamageLabel (mStats.DamageDealt(damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);

@@ -26,7 +26,7 @@ public class Stats
     public Stats(int lvl, float hp, int str, int def, int speed, int[] rate)
     {
         _lvl = lvl;
-        Hp = hp;
+        Hp = hp + def*2;
         Str = str;
         Def = def;
         Spd = speed;
@@ -69,7 +69,7 @@ public class Stats
     }
     public float Hp
     {
-        get { return _hp + Def*2; }
+        get { return _hp; }
         set { _hp = value; }
     }
     public int Str
@@ -85,7 +85,7 @@ public class Stats
     public int Def
     {
         get { return _def; }
-        set { _def = value;}
+        set { _def = value; }
     }
     public int Spd
     {
@@ -98,14 +98,15 @@ public class Stats
         return Hp <= 0.0f;
     }
     /// <summary>
-    /// With the attack parameter, the health removed is calculated and total remaining is returned.
+    /// With the attack parameter, the health removed is calculated.
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
-    public float TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        Hp -= damage - Def;
-        return Hp;
+        if ((damage - Def) > 0)
+            Hp -= damage - Def;
+
     }
     public float DoStaticDamage()
     {
@@ -117,8 +118,8 @@ public class Stats
 
     public float DoDynamicDamage()
     {
-        if(CritChance>Random.value)
-            return Random.Range(_minDmg,_maxDmg)*2;
+        if (CritChance > Random.value)
+            return Random.Range(_minDmg, _maxDmg) * 2;
         else
             return Random.Range(_minDmg, _maxDmg);
     }
@@ -126,10 +127,17 @@ public class Stats
     public void LevelUp()
     {
         _lvl++;
-        Hp = _hp + _rate[0];
+        Hp = _hp + _rate[0] + (_rate[2] * 2);
         Str = _str + _rate[1];
         Def = _def + _rate[2];
         Spd = _spd + _rate[3];
         _isLevelUp = false;
+    }
+    public float DamageDealt(int damage)
+    {
+        if (damage - Def > 0)
+            return damage - Def;
+        else
+            return 0;
     }
 }

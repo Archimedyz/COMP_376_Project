@@ -45,9 +45,9 @@ public class HealthBar : MonoBehaviour {
         int diffFragments = oldFragments - newFragments;
 
 
-        for (int i = 0; i < diffFragments; ++i)
+        for (int i = oldFragments; i > newFragments; --i)
         {
-            mHealth[mHealthIndex - i].SetActive(false);
+            mHealth[i-1].SetActive(false);
         }
         mHealthIndex -= diffFragments;
     }
@@ -61,10 +61,9 @@ public class HealthBar : MonoBehaviour {
 
         int diffFragments = newFragments - oldFragments;
 
-
-        for (int i = 0; i < diffFragments; ++i)
+        for (int i = oldFragments; i < newFragments; ++i)
         {
-            mHealth[mHealthIndex + i + 1].SetActive(true);
+            mHealth[i].SetActive(true);
         }
         mHealthIndex += diffFragments;
     }
@@ -82,13 +81,11 @@ public class HealthBar : MonoBehaviour {
     public void SetHealth(float healthValue)
     {
         if(healthValue > mHealthValue) {
-            mHealthValue = healthValue;
-            GainHealth(0);
+            GainHealth(healthValue - mHealthValue);
         }
         else
         {
-            mHealthValue = healthValue;
-            LoseHealth(0);
+            LoseHealth(mHealthValue - healthValue);
         }
     }
 
@@ -97,10 +94,11 @@ public class HealthBar : MonoBehaviour {
         if ((int)newMax == (int)maxHealthValue)
             return;
         bool moreHealth = newMax > maxHealthValue;
+        float oldMax = maxHealthValue;
         maxHealthValue = newMax;
         if (moreHealth)
-            LoseHealth(0);
+            LoseHealth(newMax - oldMax);
         else
-            GainHealth(0);
+            GainHealth(oldMax - newMax);
     }
 }

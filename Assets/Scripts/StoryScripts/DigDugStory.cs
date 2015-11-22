@@ -3,12 +3,12 @@ using System.Collections;
 
 public class DigDugStory : MonoBehaviour
 {
-
+	
 	private Player player;
 	private DigDug digdug;
 	private GameObject mainCamera;
 	private GameObject enemies;
-
+	
 	private bool meetDigDug = false;
 	private bool meetPlayer = false;
 	private bool goTowardPlayer = false;
@@ -16,14 +16,14 @@ public class DigDugStory : MonoBehaviour
 	private bool startBattle = false;
 	private bool moveDigDug = false;
 	private bool finish = false;
-
-
+	
+	
 	private float digdugTargetPosition;
-
+	
 	private int hitTime = 0;
-
+	
 	private float timer = 0.0f, startTimer = 0.0f;
-
+	
 	void Start ()
 	{
 		player = GameObject.Find ("Player").GetComponent<Player> ();
@@ -31,43 +31,42 @@ public class DigDugStory : MonoBehaviour
 		mainCamera = GameObject.Find ("Main Camera") as GameObject;
 		enemies = GameObject.Find ("Enemies") as GameObject;
 	}
-
+	
 	void Update ()
 	{
 		if (!finish) {
 			StartBattle ();
 		}
-
+		
 		if (moveDigDug && hitTime <= 3) {
 			digdug.transform.position += new Vector3 (0.1f, 0, 0f);
 			mainCamera.transform.position += new Vector3 (0.1f, 0f, 0f);
-			player.SetMoveRight (true);
+			if (player.transform.position.x <= digdugTargetPosition - 10)
+				player.SetMoveRight (true);
 			if (digdug.transform.position.x >= (digdugTargetPosition - 0.3f)) {
 				enemies.GetComponent<Boss1Controller> ().enabled = true;
 				enemies.GetComponent<Boss1Controller> ().CreateWave (0);
 				moveDigDug = false;
-				Debug.Log (hitTime);
-				Debug.Log (moveDigDug);
 				player.SetMoveRight (false);
 				player.SetInStory (false);
-				digdug.SetInStory (false);		
-				if (hitTime == 3) {
-					hitTime++;
-				}
+				digdug.SetInStory (false);	
+				digdug.SetColor ();
+				digdug.IncreaseDifficulty ();
 			}
 		}
 	}
-
+	
 	public void MoveDigDug (int numberOfHit)
 	{
 		if (numberOfHit <= 3) {
+			GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().DestroyWave ();
+			GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
 			enemies.GetComponent<Boss1Controller> ().enabled = false;
 			moveDigDug = true;
 			hitTime = numberOfHit;
 			player.SetInStory (true);
 			digdug.SetInStory (true);
 			digdug.Reset ();
-			Debug.Log ("Allo");
 			if (hitTime == 1)
 				digdugTargetPosition = digdug.transform.position.x + 13;
 			else if (hitTime == 2) {
@@ -75,9 +74,10 @@ public class DigDugStory : MonoBehaviour
 			} else if (hitTime == 3) {
 				digdugTargetPosition = digdug.transform.position.x + 13;
 			}
+			
 		}
 	}
-
+	
 	public void StartBattle ()
 	{
 		timer += Time.deltaTime;

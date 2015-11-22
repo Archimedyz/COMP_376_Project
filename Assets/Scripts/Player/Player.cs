@@ -83,12 +83,12 @@ public class Player : MonoBehaviour
 	private UICanvas uiCanvas;
 	private Vector3 damagePosition = new Vector3 (0, 0.7f, 0);
 
-    // Shadow GameObject
-    GameObject mShadow;
+	// Shadow GameObject
+	GameObject mShadow;
 
 	void Start ()
 	{
-		mStats = new Stats (1,50, 10, 5, 5,new int[] {20,5,2,2});
+		mStats = new Stats (1, 50, 10, 5, 5, new int[] {20,5,2,2});
 		mAnimator = GetComponent<Animator> ();
 		mAnimator.speed = 1 + (float)(mStats.Spd / 20.0f);
 		mRigidBody = GetComponent<Rigidbody> ();
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
 		mDashing = false;
 		mNormalAttack = 0;
 		mStrongAttack = 0;
-        mGroundY = transform.position.y;
+		mGroundY = transform.position.y;
 
 		mMoveSpeedX = 4.0f;
 		mMoveSpeedY = 2.5f;
@@ -114,15 +114,15 @@ public class Player : MonoBehaviour
 
 		// Init HealthBar Stuff
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("PlayerHealth").GetComponent<HealthBar> ();
-        mHealthBarRef.SetMaxHealth(mStats.Hp);
-        mHealthBarRef.SetHealth(mStats.Hp);
+		mHealthBarRef.SetMaxHealth (mStats.Hp);
+		mHealthBarRef.SetHealth (mStats.Hp);
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
 		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas> ();
 
-        // get the shadow. it's the last element in the childern.
-        SpriteRenderer[] childSpriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
-        mShadow = childSpriteRenderers[childSpriteRenderers.Length - 1].gameObject;
+		// get the shadow. it's the last element in the childern.
+		SpriteRenderer[] childSpriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer> ();
+		mShadow = childSpriteRenderers [childSpriteRenderers.Length - 1].gameObject;
 
 	}
 
@@ -204,13 +204,11 @@ public class Player : MonoBehaviour
 						direction.y = direction.y * mMoveSpeedY;
 						if (mJumping) {
 							direction /= 2.0f;
-                            mGroundY += direction.y * Time.deltaTime;
+							mGroundY += direction.y * Time.deltaTime;
 							direction.y = 0;
-                        }
-                        else
-                        {
-                            mGroundY += direction.y * Time.deltaTime;
-                        }
+						} else {
+							mGroundY += direction.y * Time.deltaTime;
+						}
 						transform.Translate (direction * Time.deltaTime, Space.World);
 
 						mMoving = true;
@@ -235,18 +233,18 @@ public class Player : MonoBehaviour
 								mFloorControllerRef.GetCurrentFloorBoundary (newFloorBoundary, newFloorIndex, mSpriteRenderer);
                             
 								//if (transform.position.y > newFloorBoundary [Floor.Y_MIN_INDEX]) {
-									mFloorIndex = newFloorIndex;
-									mFloorBoundary = newFloorBoundary;
-									mGroundY = mFloorBoundary [Floor.Y_MIN_INDEX];
+								mFloorIndex = newFloorIndex;
+								mFloorBoundary = newFloorBoundary;
+								mGroundY = mFloorBoundary [Floor.Y_MIN_INDEX];
 								//}
 							}
 						}
 
-                        mGroundY = Mathf.Clamp(mGroundY, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]);
+						mGroundY = Mathf.Clamp (mGroundY, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]);
 					}
 				}
 			}
-            mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
+//            mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 
 			if (mMoving && Input.GetKeyDown ("f")) {
 				Slide ();
@@ -324,9 +322,9 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetHit = true;
-            mStats.TakeDamage(damage);
+			mStats.TakeDamage (damage);
 			mHealthBarRef.SetHealth (mStats.Hp);
-            uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+			uiCanvas.CreateDamageLabel (mStats.DamageDealt (damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -337,9 +335,9 @@ public class Player : MonoBehaviour
 	{
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetKnockdown = true;
-            mStats.TakeDamage(damage);
-            mHealthBarRef.SetHealth(mStats.Hp);
-			uiCanvas.CreateDamageLabel (mStats.DamageDealt(damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+			mStats.TakeDamage (damage);
+			mHealthBarRef.SetHealth (mStats.Hp);
+			uiCanvas.CreateDamageLabel (mStats.DamageDealt (damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);

@@ -8,6 +8,8 @@ public class DigDug : MonoBehaviour
 	private int hitTime = 0;
 
 	private HealthBar mHealthBarRef;
+	private float healthDivider;
+	private float healthLost = 0.0f;
 
 	public GameObject rock;
 	public GameObject dig;
@@ -105,6 +107,8 @@ public class DigDug : MonoBehaviour
 
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("BossHealth").GetComponent<HealthBar> ();
 		storyScript = GameObject.Find ("BossScript").GetComponent<DigDugStory> ();
+
+		healthDivider = mHealthBarRef.GetMaxHealth () / 4;
 	}
 
 	void Update ()
@@ -123,7 +127,6 @@ public class DigDug : MonoBehaviour
 			if (hitTimer >= 1.0f) {
 				hitTimer = 0.0f;
 				mHit = false;
-				sr.color -= new Color (0f, 0.1f, 0.1f, 0f);
 			}
 		}
 
@@ -223,21 +226,21 @@ public class DigDug : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Enemy" && !invincible) {
-			GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().DestroyWave ();
 			hitTime ++;
-			storyScript.MoveDigDug (hitTime);
 			mHit = true;
 			invincible = true;
-			difficulty += 2;
 			UpdateAnimator ();
-			IncreaseDifficulty ();
-			if (maxLife >= 0 && difficulty <= 6) {
-				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
-			}
 			if (col.gameObject.name.Substring (0, 5) == "Pooka") {
 				mHealthBarRef.LoseHealth (10);
+				healthLost += 10;
 			} else 	if (col.gameObject.name.Substring (0, 5) == "Fygar") {
 				mHealthBarRef.LoseHealth (20);
+				healthLost += 20;
+			}
+
+			if (healthLost >= healthDivider) {
+				healthLost = 0.0f;
+				storyScript.MoveDigDug (hitTime);
 			}
 		}
 	}
@@ -334,7 +337,7 @@ public class DigDug : MonoBehaviour
 		canMove = a;
 	}
 
-	private void IncreaseDifficulty ()
+	public void IncreaseDifficulty ()
 	{
 		difficulty += 2;
 		mVertiMoveSpeed += 0.25f;
@@ -369,5 +372,10 @@ public class DigDug : MonoBehaviour
 		finishThrowTitle = true;
 		ResetBoolean ();
 		Destroy (hoseInstance);
+	}
+
+	public void SetColor ()
+	{
+		sr.color -= new Color (0f, 0.33f, 0.33f, 0f);
 	}
 }

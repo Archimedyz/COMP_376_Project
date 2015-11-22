@@ -4,11 +4,11 @@ using System.Collections;
 public class Pooka : MonoBehaviour
 {
 	public float Life;
-
+	
 	private bool mMoving;
 	private bool mDead = false;
 	private bool mExplode = false;
-
+	
 	private bool moveDown = true, moveUp = false;
 	private bool canMove = false;
 	
@@ -20,11 +20,11 @@ public class Pooka : MonoBehaviour
 	private Transform mTarget;
 	
 	private Vector2 mFacingDirection;
-
+	
 	private float destroyTimer = 0.0f;
-
+	
 	public Vector3 initialPosition;
-
+	
 	private FloorController mFloorControllerRef;
 	public int mFloorIndex;
 	public float[] mFloorBoundary;
@@ -37,7 +37,7 @@ public class Pooka : MonoBehaviour
 		mAnimator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody> ();
 		mTarget = GameObject.Find ("Player").transform;
-
+		
 		// Init Floor stuff
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
@@ -53,16 +53,13 @@ public class Pooka : MonoBehaviour
 			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
 			floorBoundaryInitialized = true;
 		}
-
+		
 		ResetBoolean ();
-
-		if (mExplode) {
-			destroyTimer += Time.deltaTime;
-			if (destroyTimer >= 0.3f) {
-				Destroy (gameObject);
-			}
+		
+		if (transform.position.x >= 50) {
+			Destroy (gameObject);
 		}
-
+		
 		if (canMove) {
 			if (Life <= 0) {
 				mDead = true;
@@ -74,13 +71,13 @@ public class Pooka : MonoBehaviour
 					moveUp = false;
 					moveDown = true;
 				}
-
+				
 				if (moveDown) {
 					MovingDown ();
 				} else if (moveUp) {
 					MovingUp ();
 				}
-		
+				
 				if (mTarget.position.x >= transform.position.x)
 					FaceDirection (Vector2.right);
 				else
@@ -89,10 +86,10 @@ public class Pooka : MonoBehaviour
 		} else {
 			MovingUp ();
 		}
-
+		
 		UpdateAnimator ();
 	}
-
+	
 	//TODO change damage
 	void OnTriggerEnter (Collider col)
 	{
@@ -105,7 +102,7 @@ public class Pooka : MonoBehaviour
 			}
 		} else if (col.gameObject.name == "DigDug") {
 			mExplode = true;
-		} 
+		}  
 	}
 	
 	private void MovingUp ()
@@ -143,22 +140,22 @@ public class Pooka : MonoBehaviour
 		mAnimator.SetBool ("isDead", mDead);
 		mAnimator.SetBool ("isExploding", mExplode);
 	}
-
+	
 	public void SetLife (int life)
 	{
 		Life = life;
 	}
-
+	
 	public void SetCanMove (bool a)
 	{
 		canMove = a;
 	}
-
+	
 	public float GetFloorBoundaryY ()
 	{
 		return mFloorBoundary [Floor.Y_MAX_INDEX];
 	}
-
+	
 	public void SetSpeed (float speed)
 	{
 		mVertiMoveSpeed = speed;

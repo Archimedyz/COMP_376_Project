@@ -28,8 +28,7 @@ public class FloorController : MonoBehaviour {
         {
             mFloors[floorIndex].GetBoundary(boundary, sr);
         }
-        else
-        
+        else{        
             mFloors[0].GetBoundary(boundary, sr);
         }
     }

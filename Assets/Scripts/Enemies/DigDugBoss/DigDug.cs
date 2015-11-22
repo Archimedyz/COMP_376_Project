@@ -63,7 +63,7 @@ public class DigDug : MonoBehaviour
 	Vector3 originalPos;
 
 	private float pumpingTimer = 0.0f;
-	private float maxPumpingTimer = 2.0f;
+	private float maxPumpingTimer = 2.5f;
 
 	private Transform player;
 
@@ -77,6 +77,8 @@ public class DigDug : MonoBehaviour
 	private bool floorBoundaryInitialized;
 
 	// Floor Variables - END
+
+	private AudioSource pumping;
 
 	bool inStory = true;
 
@@ -109,6 +111,9 @@ public class DigDug : MonoBehaviour
 		storyScript = GameObject.Find ("BossScript").GetComponent<DigDugStory> ();
 
 		healthDivider = mHealthBarRef.GetMaxHealth () / 4;
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		pumping = audioSources [0];
 	}
 
 	void Update ()
@@ -135,6 +140,7 @@ public class DigDug : MonoBehaviour
 			if (mPumping) {
 				pumpingTimer += Time.deltaTime;
 				if (pumpingTimer >= maxPumpingTimer) {
+					pumping.Stop ();
 					mThrowing = false;
 					mPumping = false;
 					pumpingTimer = 0.0f;
@@ -145,6 +151,7 @@ public class DigDug : MonoBehaviour
 			if (mPumping) {
 				pumpingTimer += Time.deltaTime;
 				if (pumpingTimer >= maxPumpingTimer) {
+					pumping.Stop ();
 					mThrowing = false;
 					mPumping = false;
 					pumpingTimer = 0.0f;
@@ -250,6 +257,7 @@ public class DigDug : MonoBehaviour
 
 	public void Pumping ()
 	{
+		pumping.Play ();
 		hoseInstance = Instantiate (hose, transform.position, Quaternion.identity) as GameObject;
 		mThrowing = true;
 		mPumping = true;

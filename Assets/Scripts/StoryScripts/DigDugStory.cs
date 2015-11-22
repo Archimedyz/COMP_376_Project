@@ -27,6 +27,7 @@ public class DigDugStory : MonoBehaviour
 
 	private AudioSource backgroundMusic;
 	private AudioSource crash;
+	private AudioSource falling;
 	
 	void Start ()
 	{
@@ -38,6 +39,7 @@ public class DigDugStory : MonoBehaviour
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		backgroundMusic = audioSources [0];
 		crash = audioSources [1];
+		falling = audioSources [2];
 	}
 	
 	void Update ()
@@ -121,7 +123,10 @@ public class DigDugStory : MonoBehaviour
 		if (meetDigDug && digdug.transform.position.y >= player.transform.position.y) {
 			for (int i = 0; i < 5; i++) {
 				digdug.transform.position -= new Vector3 (0f, 0.1f, 0f);
+				if (!falling.isPlaying)
+					falling.Play ();
 				if (digdug.transform.position.y <= player.transform.position.y) {
+					falling.Stop ();
 					crash.Play ();
 					meetDigDug = false;
 					meetPlayer = true;

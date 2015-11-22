@@ -54,6 +54,8 @@ public class Hobo : MonoBehaviour
     UICanvas uiCanvas;
     private Vector3 damagePositionOffset = new Vector3(0, 0.7f, 0);
 	
+    public int expGiven=100;
+
 	void Start ()
 	{
         mStats = new Stats(1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });

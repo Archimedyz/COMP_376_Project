@@ -12,11 +12,6 @@ public class PauseMenu : MonoBehaviour {
 	void Start () {
         mPausePanel = GameObject.FindGameObjectWithTag("PauseMenu");
         menuButtons = mPausePanel.GetComponentsInChildren<UnityEngine.UI.Button>();
-        Debug.Log("menuButton.Length: " + menuButtons.Length);
-        for(int i = 0; i < menuButtons.Length; ++i) {
-            Debug.Log(menuButtons[i].gameObject.name);
-        }
-
         // do this at the end of start, so we get everything in the panel
         mPausePanel.SetActive(false);
         paused = false;
@@ -26,11 +21,9 @@ public class PauseMenu : MonoBehaviour {
 	void Update () {
 	    if(paused) {
             if(Input.GetButtonDown("Pause")) {
-                mPausePanel.SetActive(false);
-                Time.timeScale = 1;
-                paused = false;
+                Resume();
             } else if(Input.GetButtonDown("Up")) {
-                buttonSelected = (buttonSelected - 1) % menuButtons.Length;
+                buttonSelected = (buttonSelected + menuButtons.Length - 1) % menuButtons.Length; // add menuButtons.Length because % allows for negative remainders . . .
                 menuButtons[buttonSelected].Select();
             } else if(Input.GetButtonDown("Down")) {
                 buttonSelected = (buttonSelected + 1) % menuButtons.Length;
@@ -46,4 +39,24 @@ public class PauseMenu : MonoBehaviour {
             }
         }
 	}
+
+    void Resume()
+    {
+        buttonSelected = 0;
+        mPausePanel.SetActive(false);
+        Time.timeScale = 1;
+        paused = false;
+    }
+
+    void Save()
+    {
+        buttonSelected = 1;
+        Debug.Log("Save");
+    }
+
+    void MainMenu()
+    {
+        buttonSelected = 2;
+        Debug.Log("Main Menu");
+    }
 }

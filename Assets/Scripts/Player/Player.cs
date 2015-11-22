@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
 	GameObject mShadow;
 
 	private AudioSource deflating;
+	private AudioSource running;
 
 	void Start ()
 	{
@@ -128,7 +129,7 @@ public class Player : MonoBehaviour
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		deflating = audioSources [0];
-
+		running = audioSources [1];
 	}
 
 
@@ -254,6 +255,8 @@ public class Player : MonoBehaviour
 			}
 			mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 
+			PlayRunSound ();
+
 			if (mMoving && Input.GetKeyDown ("f")) {
 				Slide ();
 			} else if (Input.GetKeyDown ("q")) {
@@ -293,9 +296,23 @@ public class Player : MonoBehaviour
 		UpdateAnimator ();
 	}
 
+	private void PlayRunSound ()
+	{
+		if (mRunning) {
+			if (!running.isPlaying) {
+				running.Play ();
+			}
+		} else {
+			if (running.isPlaying) {
+				running.Stop ();
+			}
+		}
+	}
+
 	public void SetMoveRight (bool a)
 	{
 		moveRight = a;
+		mRunning = true;
 	}
 
 	private void MovingRight ()
@@ -455,6 +472,8 @@ public class Player : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
 			mInflate = true;
+			mRunning = false;
+			PlayRunSound ();
 			if (inStory)
 				target = -6;
 			else

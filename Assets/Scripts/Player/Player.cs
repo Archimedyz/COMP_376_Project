@@ -86,6 +86,8 @@ public class Player : MonoBehaviour
 	// Shadow GameObject
 	GameObject mShadow;
 
+	private AudioSource deflating;
+
 	void Start ()
 	{
 		mStats = new Stats (1, 50, 10, 5, 5, new int[] {20,5,2,2});
@@ -124,6 +126,9 @@ public class Player : MonoBehaviour
 		SpriteRenderer[] childSpriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer> ();
 		mShadow = childSpriteRenderers [childSpriteRenderers.Length - 1].gameObject;
 
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		deflating = audioSources [0];
+
 	}
 
 
@@ -143,10 +148,13 @@ public class Player : MonoBehaviour
 			inflateTimer += Time.deltaTime;
 			if (inflateTimer >= maxInflateTimer) {
 				if (transform.position.x > (target + 0.1f)) {
+					if (!deflating.isPlaying)
+						deflating.Play ();
 					float distCovered = (Time.time - startTime) * 0.5f;
 					float fracJourney = distCovered / journeyLength;
 					transform.position = Vector3.Lerp (transform.position, new Vector3 (target, transform.position.y, transform.position.z), fracJourney);
 				} else {
+					deflating.Stop ();
 					mInflate = false;
 					inflateTimer = 0.0f;
 				} 

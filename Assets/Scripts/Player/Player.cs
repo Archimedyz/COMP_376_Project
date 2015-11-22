@@ -157,7 +157,7 @@ public class Player : MonoBehaviour
 				MovingRight ();
 			}
 		} else {
-			if (transform.position.y < mGroundY && mJumping) {
+			if (transform.position.y <= mGroundY && mJumping) {
 				mRigidBody.useGravity = false;
 				mRigidBody.velocity = new Vector3 (0, 0, 0);
 				transform.position = new Vector3 (transform.position.x, mGroundY, transform.position.z);
@@ -203,10 +203,14 @@ public class Player : MonoBehaviour
 						direction.y = direction.y * mMoveSpeedY;
 						if (mJumping) {
 							direction /= 2.0f;
+                            mGroundY += direction.y * Time.deltaTime;
 							direction.y = 0;
-						}
+                        }
+                        else
+                        {
+                            mGroundY += direction.y * Time.deltaTime;
+                        }
 						transform.Translate (direction * Time.deltaTime, Space.World);
-                        mGroundY += direction.y * Time.deltaTime;
 
 						mMoving = true;
 						mRunning = true;
@@ -238,10 +242,10 @@ public class Player : MonoBehaviour
 						}
 
                         mGroundY = Mathf.Clamp(mGroundY, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]);
-                        mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 					}
 				}
 			}
+            mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 
 			if (mMoving && Input.GetKeyDown ("f")) {
 				Slide ();

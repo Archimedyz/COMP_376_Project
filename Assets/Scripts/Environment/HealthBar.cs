@@ -13,7 +13,7 @@ public class HealthBar : MonoBehaviour
 	private const float healthDisplayOffset = -1.95f;
 	private const int maxHeathFragments = 79; // SO CLOSE TO 80
 	private int mHealthIndex;
-	private float maxHealthValue;
+	private float maxHealthValue = 100.0f;
 	private float mHealthValue;
 
 	// Use this for initialization
@@ -28,7 +28,6 @@ public class HealthBar : MonoBehaviour
 		}
 		mHealthIndex = maxHeathFragments - 1;
 
-		maxHealthValue = 100.0f;
 		mHealthValue = maxHealthValue;
 	}
 	
@@ -81,7 +80,7 @@ public class HealthBar : MonoBehaviour
 
 	public void SetHealth (float healthValue)
 	{
-		if (healthValue > mHealthValue) {
+        if (healthValue > mHealthValue) {
 			GainHealth (healthValue - mHealthValue);
 		} else {
 			LoseHealth (mHealthValue - healthValue);

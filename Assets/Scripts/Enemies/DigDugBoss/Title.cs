@@ -10,12 +10,17 @@ public class Title : MonoBehaviour
 	private float startTime;
 	private float journeyLength;
 
+	private AudioSource launch;
+	private bool hasLaunched = false;
 
 	void Start ()
 	{
 		target = new Vector3 (transform.position.x - 1.0f, transform.position.y, transform.position.z);        
 		startTime = Time.time;
 		journeyLength = Vector3.Distance (transform.position, target);
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		launch = audioSources [0];
 	}
 	
 	void Update ()
@@ -27,6 +32,10 @@ public class Title : MonoBehaviour
 		}
 
 		if (canLaunch) {
+			if (!hasLaunched) {
+				hasLaunched = true;
+				launch.Play ();
+			}
 			Launch ();
 		}
 

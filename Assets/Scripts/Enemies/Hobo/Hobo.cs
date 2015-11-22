@@ -51,11 +51,14 @@ public class Hobo : MonoBehaviour
 
 	float audioTimer = 0.0f;
 
+    public Stats mStats;
+
     UICanvas uiCanvas;
     private Vector3 damagePositionOffset = new Vector3(0, 0.7f, 0);
 	
 	void Start ()
 	{
+        mStats = new Stats(1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		mFacingDirection = Vector2.right;
@@ -135,7 +138,7 @@ public class Hobo : MonoBehaviour
 		mDying = true;
 	}
 
-	public void GetHit (Vector2 direction, float damage)
+	public void GetHit (Vector2 direction, int damage)
 	{
 		if (!mGetHit && !mDying) {
 			Life -= damage;
@@ -219,4 +222,9 @@ public class Hobo : MonoBehaviour
 	{
 		return mFacingDirection;
 	}
+
+    public void LevelUp()
+    {
+        mStats.Exp = 100;
+    }
 }

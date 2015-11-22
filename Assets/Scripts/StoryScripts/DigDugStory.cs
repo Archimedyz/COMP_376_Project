@@ -51,8 +51,10 @@ public class DigDugStory : MonoBehaviour
 		if (moveDigDug && hitTime <= 3) {
 			digdug.transform.position += new Vector3 (0.1f, 0, 0f);
 			mainCamera.transform.position += new Vector3 (0.1f, 0f, 0f);
-			if (player.transform.position.x <= digdugTargetPosition - 10)
+			if (player.transform.position.x <= (digdugTargetPosition - 10))
 				player.SetMoveRight (true);
+			else
+				player.SetMoveRight (false);
 			if (digdug.transform.position.x >= (digdugTargetPosition - 0.3f)) {
 				enemies.GetComponent<Boss1Controller> ().enabled = true;
 				enemies.GetComponent<Boss1Controller> ().CreateWave (0);

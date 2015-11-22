@@ -255,15 +255,7 @@ public class Player : MonoBehaviour
 			}
 			mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 
-			if (mRunning) {
-				if (!running.isPlaying) {
-					running.Play ();
-				}
-			} else {
-				if (running.isPlaying) {
-					running.Stop ();
-				}
-			}
+			PlayRunSound ();
 
 			if (mMoving && Input.GetKeyDown ("f")) {
 				Slide ();
@@ -304,9 +296,23 @@ public class Player : MonoBehaviour
 		UpdateAnimator ();
 	}
 
+	private void PlayRunSound ()
+	{
+		if (mRunning) {
+			if (!running.isPlaying) {
+				running.Play ();
+			}
+		} else {
+			if (running.isPlaying) {
+				running.Stop ();
+			}
+		}
+	}
+
 	public void SetMoveRight (bool a)
 	{
 		moveRight = a;
+		mRunning = true;
 	}
 
 	private void MovingRight ()
@@ -466,6 +472,8 @@ public class Player : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
 			mInflate = true;
+			mRunning = false;
+			PlayRunSound ();
 			if (inStory)
 				target = -6;
 			else

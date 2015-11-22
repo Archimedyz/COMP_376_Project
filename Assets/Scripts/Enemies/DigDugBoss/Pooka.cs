@@ -31,6 +31,8 @@ public class Pooka : MonoBehaviour
 	private SpriteRenderer mSpriteRenderer;
 	private int mInitialOrderInLayer;
 	private bool floorBoundaryInitialized;
+
+	private AudioSource pop;
 	
 	void Start ()
 	{
@@ -44,6 +46,9 @@ public class Pooka : MonoBehaviour
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		pop = audioSources [0];
 	}
 	
 	void Update ()
@@ -55,6 +60,13 @@ public class Pooka : MonoBehaviour
 		}
 		
 		ResetBoolean ();
+
+		if (mExplode) {
+			destroyTimer += Time.deltaTime;
+			if (destroyTimer >= 0.3f) {
+				Destroy (gameObject);
+			}
+		}
 		
 		if (transform.position.x >= 50) {
 			Destroy (gameObject);
@@ -101,6 +113,8 @@ public class Pooka : MonoBehaviour
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}
 		} else if (col.gameObject.name == "DigDug") {
+			pop.Play ();
+			rb.isKinematic = true;
 			mExplode = true;
 		}  
 	}

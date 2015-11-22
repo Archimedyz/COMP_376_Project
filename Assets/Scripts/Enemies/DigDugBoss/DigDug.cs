@@ -246,6 +246,9 @@ public class DigDug : MonoBehaviour
 			}
 
 			if (mHealthBarRef.GetHealth () <= 0.0f) {
+				Reset ();
+				ResetBoolean ();
+				mDead = true;
 				storyScript.DigDugDie ();
 			} else if (healthLost >= healthDivider) {
 				healthLost = 0.0f;

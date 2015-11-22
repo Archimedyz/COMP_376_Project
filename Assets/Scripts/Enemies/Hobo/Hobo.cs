@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Hobo : MonoBehaviour
 {
-	public float Life;
-
 	private bool mMoving;
 	private bool mMovingRight;
 	private bool mMovingLeft;
@@ -109,7 +107,7 @@ public class Hobo : MonoBehaviour
 
 		attackTimer += Time.deltaTime;
 
-		if (Life <= 0 && !mDying) {
+		if (mStats.isDead() && !mDying) {
 			Die ();
 		}
 
@@ -138,15 +136,14 @@ public class Hobo : MonoBehaviour
 		mDying = true;
 	}
 
-	public void GetHit (Vector2 direction, int damage)
+	public void GetHit (Vector2 direction, int damage, bool isCrit)
 	{
 		if (!mGetHit && !mDying) {
-			Life -= damage;
-            uiCanvas.CreateDamageLabel(damage, (transform.position + damagePositionOffset),UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
+                damage = (int)(damage * 1.2f);
 				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * 10, ForceMode.Impulse);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
@@ -157,6 +154,15 @@ public class Hobo : MonoBehaviour
 					audioTimer = 0.0f;
 				}
 			}
+            mStats.TakeDamage(damage);
+            if (isCrit)
+            {
+                uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePositionOffset), UINotification.TYPE.CRIT);
+            }
+            else
+            {
+                uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
+            }
 		}
 	}
 

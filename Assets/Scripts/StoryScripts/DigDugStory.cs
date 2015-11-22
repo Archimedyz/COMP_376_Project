@@ -67,9 +67,12 @@ public class DigDugStory : MonoBehaviour
 
 		if (digdugDie) {
 			if (digdug.transform.position.x >= (digdugTargetPosition - 0.3f)) {
+				if (!falling.isPlaying)
+					falling.Play ();
 				digdug.transform.position += new Vector3 (0f, -0.1f, 0f);
 			} else {
 				digdug.transform.position += new Vector3 (0.05f, 0, 0f);
+				mainCamera.transform.position += new Vector3 (0.05f, 0f, 0f);
 			}
 		}
 	}

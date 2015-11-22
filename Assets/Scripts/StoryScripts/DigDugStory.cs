@@ -15,6 +15,8 @@ public class DigDugStory : MonoBehaviour
 	private bool moveCamera = false;
 	private bool startBattle = false;
 	private bool moveDigDug = false;
+	private bool finish = false;
+
 
 	private float digdugTargetPosition;
 
@@ -32,69 +34,17 @@ public class DigDugStory : MonoBehaviour
 
 	void Update ()
 	{
-		timer += Time.deltaTime;
-
-		if (player.transform.position.x >= 30 && !meetDigDug) {
-			meetDigDug = true;
-			player.SetCanMove (false);
-			player.SetInStory (true);
-			digdug.SetCanMove (false);
-			//camera.GetComponent<FollowCam> ().enabled = false;
-		}
-
-		if (meetDigDug && digdug.transform.position.y >= player.transform.position.y) {
-			for (int i = 0; i < 5; i++) {
-				digdug.transform.position -= new Vector3 (0f, 0.1f, 0f);
-				if (digdug.transform.position.y <= player.transform.position.y) {
-					meetDigDug = false;
-					meetPlayer = true;
-					break;
-				}
-			}
-		}
-
-		if (meetPlayer) {
-			digdug.Pumping ();
-			meetPlayer = false;
-			goTowardPlayer = true;
-		}
-
-		if (goTowardPlayer) {
-			startTimer += Time.deltaTime;
-		}
-
-		if (startTimer > 4.0f && !digdug.isPumping () && goTowardPlayer && digdug.transform.position.x >= 2.0f) {
-			digdug.transform.position -= new Vector3 (0.2f, 0, 0f);
-			if (digdug.transform.position.x <= 2.0) {
-				goTowardPlayer = false;
-				moveCamera = true;
-				startTimer = 0.0f;
-			}
-		}
-
-		if (moveCamera) {
-			mainCamera.GetComponent<FollowCam> ().enabled = false;
-			if (mainCamera.transform.position.x <= -3.0f) {
-				mainCamera.transform.position += new Vector3 (0.05f, 0f, 0f);
-			} else {
-				moveCamera = false;
-				startBattle = true;
-			}
-		}
-
-		if (startBattle) {
-			player.SetInStory (false);
-			digdug.SetInStory (false);
-			enemies.GetComponent<Boss1Controller> ().enabled = true;
+		if (!finish) {
+			StartBattle ();
 		}
 
 		if (moveDigDug && hitTime <= 3) {
-			digdug.transform.position += new Vector3 (0.2f, 0, 0f);
-			mainCamera.transform.position += new Vector3 (0.05f, 0f, 0f);
+			digdug.transform.position += new Vector3 (0.1f, 0, 0f);
+			mainCamera.transform.position += new Vector3 (0.1f, 0f, 0f);
 			player.SetMoveRight (true);
-			if (digdug.transform.position.x >= digdugTargetPosition) {
-				Debug.Log ("Allo");
-				enemies.GetComponent<Boss1Controller> ().CreateWave (1);
+			if (digdug.transform.position.x >= (digdugTargetPosition - 0.3f)) {
+				enemies.GetComponent<Boss1Controller> ().enabled = true;
+				enemies.GetComponent<Boss1Controller> ().CreateWave (0);
 				moveDigDug = false;
 				player.SetMoveRight (false);
 				player.SetInStory (false);
@@ -110,13 +60,76 @@ public class DigDugStory : MonoBehaviour
 		hitTime = numberOfHit;
 		player.SetInStory (true);
 		digdug.SetInStory (true);
+		digdug.Reset ();
 
 		if (hitTime == 1)
-			digdugTargetPosition = digdug.transform.position.x + 15;
+			digdugTargetPosition = digdug.transform.position.x + 12;
 		else if (hitTime == 2) {
 			digdugTargetPosition = digdug.transform.position.x + 10;
 		} else if (hitTime == 3) {
 			digdugTargetPosition = digdug.transform.position.x + 10;
+		}
+	}
+
+	public void StartBattle ()
+	{
+		timer += Time.deltaTime;
+		
+		if (player.transform.position.x >= 30 && !meetDigDug) {
+			meetDigDug = true;
+			player.SetCanMove (false);
+			player.SetInStory (true);
+			digdug.SetCanMove (false);
+			digdug.SetInStory (true);
+		}
+		
+		if (meetDigDug && digdug.transform.position.y >= player.transform.position.y) {
+			for (int i = 0; i < 5; i++) {
+				digdug.transform.position -= new Vector3 (0f, 0.1f, 0f);
+				if (digdug.transform.position.y <= player.transform.position.y) {
+					meetDigDug = false;
+					meetPlayer = true;
+					break;
+				}
+			}
+		}
+		
+		if (meetPlayer) {
+			digdug.Pumping ();
+			meetPlayer = false;
+			goTowardPlayer = true;
+		}
+		
+		if (goTowardPlayer) {
+			startTimer += Time.deltaTime;
+		}
+		
+		if (startTimer > 4.0f && !digdug.isPumping () && goTowardPlayer && digdug.transform.position.x >= 2.0f) {
+			digdug.transform.position -= new Vector3 (0.2f, 0, 0f);
+			Debug.Log ("Osti");
+			if (digdug.transform.position.x <= 2.0) {
+				goTowardPlayer = false;
+				moveCamera = true;
+				startTimer = 0.0f;
+			}
+		}
+		
+		if (moveCamera) {
+			mainCamera.GetComponent<FollowCam> ().enabled = false;
+			if (mainCamera.transform.position.x <= -3.0f) {
+				mainCamera.transform.position += new Vector3 (0.05f, 0f, 0f);
+			} else {
+				moveCamera = false;
+				startBattle = true;
+			}
+		}
+		
+		if (startBattle) {
+			player.SetInStory (false);
+			digdug.SetInStory (false);
+			startBattle = false;
+			enemies.GetComponent<Boss1Controller> ().enabled = true;
+			finish = true;
 		}
 	}
 }

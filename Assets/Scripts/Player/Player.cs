@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
-		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent ("UICanvas");
+		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas>();
 
 	}
 
@@ -284,8 +284,7 @@ public class Player : MonoBehaviour
 
 	private void MovingRight ()
 	{
-		//transform.Translate (Vector2.right * 2 * Time.deltaTime);
-		transform.position += new Vector3 (1f, 0, 0f);
+		transform.position += new Vector3 (0.1f, 0f, 0f);
 		FaceDirection (Vector2.right);
 		mMoving = true;
 		mRunning = true;
@@ -316,7 +315,7 @@ public class Player : MonoBehaviour
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetHit = true;
 			mHealthBarRef.LoseHealth (damage);
-			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition));
+			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition),UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -328,6 +327,7 @@ public class Player : MonoBehaviour
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetKnockdown = true;
 			mHealthBarRef.LoseHealth (damage);
+            uiCanvas.CreateDamageLabel(damage, (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);

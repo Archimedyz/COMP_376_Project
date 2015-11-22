@@ -27,16 +27,18 @@ public class Boss1Controller : MonoBehaviour
 	{
 		player = GameObject.Find ("Player").GetComponent<Player> ();
 		digdug = GameObject.Find ("DigDug").GetComponent<DigDug> ();
-		enemies = new GameObject[6];
+		enemies = new GameObject[6];	
 		CreateWave (0);
 	}
 	
 	void Update ()
 	{
 		if (enemies [0] != null) {
-			if (enemies [2].transform.position.y >= enemies [2].GetComponent<Pooka> ().GetFloorBoundaryY ()) {
+			Debug.Log (enemies [0].transform.position.y + " " + enemies [0].GetComponent<Pooka> ().GetFloorBoundaryY ());
+			if (enemies [0].transform.position.y >= enemies [0].GetComponent<Pooka> ().GetFloorBoundaryY () - 4) {
 				player.SetCanMove (true);
 				digdug.SetCanMove (true);
+				Debug.Log ("Allo");
 				for (int i = 0; i < bossDifficulty; i++) {
 					if (i < 3) {
 						enemies [i].GetComponent<Pooka> ().SetCanMove (true);
@@ -45,7 +47,7 @@ public class Boss1Controller : MonoBehaviour
 					}
 				}
 			}
-		}
+		} 
 	}
 	
 	public void CreateWave (int wave)
@@ -76,6 +78,7 @@ public class Boss1Controller : MonoBehaviour
 				Destroy (enemies [i]);
 			}
 		}
+
 	}
 	
 	public void IncreaseDifficulty ()

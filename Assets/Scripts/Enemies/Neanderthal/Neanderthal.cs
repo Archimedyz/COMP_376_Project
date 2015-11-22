@@ -55,6 +55,8 @@ public class Neanderthal : MonoBehaviour
 
     public Stats mStats;
 
+    public int expGiven = 10;
+
     void Start()
     {
         mStats = new Stats(1, 7000, 18, 2, 0, new int[] { 20, 4, 2, 0 });

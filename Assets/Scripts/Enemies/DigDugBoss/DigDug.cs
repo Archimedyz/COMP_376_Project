@@ -231,7 +231,7 @@ public class DigDug : MonoBehaviour
 			difficulty += 2;
 			UpdateAnimator ();
 			IncreaseDifficulty ();
-			if (maxLife >= 0) {
+			if (maxLife >= 0 && difficulty <= 6) {
 				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
 			}
 			if (col.gameObject.name.Substring (0, 5) == "Pooka") {
@@ -363,7 +363,10 @@ public class DigDug : MonoBehaviour
 		for (int i = 0; i < title.Length; i++) {
 			Destroy (title [i]);
 		}
+		throwTitle = false;
 		mThrowRocks = false;
+		
+		finishThrowTitle = true;
 		ResetBoolean ();
 		Destroy (hoseInstance);
 	}

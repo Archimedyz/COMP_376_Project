@@ -51,6 +51,9 @@ public class Neanderthal : MonoBehaviour
 	
 	float audioTimer = 0.0f;
 
+    private UICanvas uiCanvas;
+    private Vector3 damagePositionOffset = new Vector3(0, 0.8f, 0);
+
 	void Start ()
 	{
 		mRigidBody = GetComponent<Rigidbody> ();
@@ -66,6 +69,8 @@ public class Neanderthal : MonoBehaviour
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		normalHit = audioSources [0];
 		strongHit = audioSources [1];
+
+        uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag("UICanvas").GetComponent<UICanvas>();
 	}
 
 	void Update ()
@@ -127,6 +132,7 @@ public class Neanderthal : MonoBehaviour
 	{
 		if (!mGetHit && !mDying) {
 			Life -= damage;
+            uiCanvas.CreateDamageLabel(damage, (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
 			attackTimer = 0;
 			mRigidBody.isKinematic = false;
 			mGetHit = true;

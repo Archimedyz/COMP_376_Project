@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 		mDashing = false;
 		mNormalAttack = 0;
 		mStrongAttack = 0;
-		mGroundY = transform.position.y;
+        mGroundY = transform.position.y;
 
 		mMoveSpeedX = 4.0f;
 		mMoveSpeedY = 2.5f;
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
-		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent ("UICanvas");
+		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas>();
 
 	}
 
@@ -134,13 +134,13 @@ public class Player : MonoBehaviour
 			canMove = false;
 			inflateTimer += Time.deltaTime;
 			if (inflateTimer >= maxInflateTimer) {
-				if (transform.position.x <= (target + 0.1)) {
-					mInflate = false;
-					inflateTimer = 0.0f;
-				} else if (transform.position.x > target) {
+				if (transform.position.x > target) {
 					float distCovered = (Time.time - startTime) * 0.5f;
 					float fracJourney = distCovered / journeyLength;
 					transform.position = Vector3.Lerp (transform.position, new Vector3 (target, transform.position.y, transform.position.z), fracJourney);
+				} else {
+					mInflate = false;
+					inflateTimer = 0.0f;
 				} 
 			}
 		}
@@ -199,17 +199,14 @@ public class Player : MonoBehaviour
 							direction.y = 0;
 						}
 						transform.Translate (direction * Time.deltaTime, Space.World);
-						mGroundY += direction.y * Time.deltaTime;
-						if (!mJumping) {
-							mGroundY = Mathf.Clamp (mGroundY, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]); 
-						}
-
+                        mGroundY += direction.y * Time.deltaTime;
 
 						mMoving = true;
 						mRunning = true;
                     
 						// if u pass the bottom of the floor boundary 
-						if ((mJumping && mGroundY < mFloorBoundary [Floor.Y_MIN_INDEX]) || (!mJumping && transform.position.y < mFloorBoundary [Floor.Y_MIN_INDEX])) {
+						if (!mJumping && mGroundY < mFloorBoundary [Floor.Y_MIN_INDEX] && Input.GetKey("j")) 
+                        {
 							int newFloorIndex = mFloorControllerRef.NextFloorDown (mFloorIndex);
 							if (newFloorIndex != mFloorIndex) {
 								mFloorIndex = newFloorIndex;
@@ -219,20 +216,24 @@ public class Player : MonoBehaviour
 								mGroundY = mFloorBoundary [Floor.Y_MAX_INDEX];
 								mRigidBody.useGravity = true;
 							}
-						} else if (mJumping && mGroundY > mFloorBoundary [Floor.Y_MAX_INDEX]) {
+						}
+                        else if (!mJumping && mGroundY > mFloorBoundary[Floor.Y_MAX_INDEX] && Input.GetKey("j")) 
+                        {
 							int newFloorIndex = mFloorControllerRef.NextFloorUp (mFloorIndex);
 							if (newFloorIndex != mFloorIndex) {
 								// check if the player has even reached the next level in terms of animation.
 								float[] newFloorBoundary = new float[4];
 								mFloorControllerRef.GetCurrentFloorBoundary (newFloorBoundary, newFloorIndex, mSpriteRenderer);
                             
-								if (transform.position.y > newFloorBoundary [Floor.Y_MIN_INDEX]) {
+								//if (transform.position.y > newFloorBoundary [Floor.Y_MIN_INDEX]) {
 									mFloorIndex = newFloorIndex;
 									mFloorBoundary = newFloorBoundary;
 									mGroundY = mFloorBoundary [Floor.Y_MIN_INDEX];
-								}
+								//}
 							}
 						}
+
+                        mGroundY = Mathf.Clamp(mGroundY, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]);
 					}
 				}
 			}
@@ -251,7 +252,6 @@ public class Player : MonoBehaviour
 			// if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.
 			if (!mJumping && !mFalling) {
 				transform.position = new Vector3 (Mathf.Clamp (transform.position.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]), Mathf.Clamp (transform.position.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]), transform.position.z);
-
 			}
 			UpdateOrderInLayer ();
 
@@ -315,7 +315,7 @@ public class Player : MonoBehaviour
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetHit = true;
 			mHealthBarRef.LoseHealth (damage);
-			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition));
+			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition),UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -327,6 +327,7 @@ public class Player : MonoBehaviour
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetKnockdown = true;
 			mHealthBarRef.LoseHealth (damage);
+            uiCanvas.CreateDamageLabel(damage, (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);
@@ -437,7 +438,7 @@ public class Player : MonoBehaviour
 		if (col.gameObject.tag == "Hose" && !mInflate) {
 			mInflate = true;
 			if (inStory)
-				target = -7;
+				target = -5;
 			else
 				target = -5;  
 			startTime = Time.time;

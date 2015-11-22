@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UIDmgText : MonoBehaviour {
+public class UINotification : MonoBehaviour {
+    public enum TYPE {EXP,HPGAIN,HPLOSS,CRIT,LVLUP};
     private int duration;
     private Text text;
     private float decrease;

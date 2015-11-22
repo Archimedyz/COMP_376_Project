@@ -10,6 +10,7 @@ public class Floor : MonoBehaviour
 	private float yMin;
 	private GameObject[] floorPieces;
 
+
     public int floorLevel; // 0 is front most.
     public const int X_MAX_INDEX = 0, X_MIN_INDEX = 1, Y_MAX_INDEX = 2, Y_MIN_INDEX = 3;
     public float paddingLeft, paddingRight, paddingTop, paddingBottom; // must be set in unity editor

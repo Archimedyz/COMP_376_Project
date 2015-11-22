@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
 	GameObject mShadow;
 
 	private AudioSource deflating;
+	private AudioSource running;
 
 	void Start ()
 	{
@@ -128,7 +129,7 @@ public class Player : MonoBehaviour
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		deflating = audioSources [0];
-
+		running = audioSources [1];
 	}
 
 
@@ -253,6 +254,16 @@ public class Player : MonoBehaviour
 				}
 			}
 			mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
+
+			if (mRunning) {
+				if (!running.isPlaying) {
+					running.Play ();
+				}
+			} else {
+				if (running.isPlaying) {
+					running.Stop ();
+				}
+			}
 
 			if (mMoving && Input.GetKeyDown ("f")) {
 				Slide ();

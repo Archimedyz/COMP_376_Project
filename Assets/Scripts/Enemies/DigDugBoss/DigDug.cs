@@ -200,25 +200,24 @@ public class DigDug : MonoBehaviour
 						MovingUp (1);
 					}
 				}
+			}		
+			if (throwTitle) {
+				title [nextThrow].GetComponent<Title> ().SetLaunch ();
+				throwTitle = false;
+				if (nextThrow == 6) {
+					finishThrowTitle = true;
+				}
+			}
+			
+			if (invincible) {
+				invincibleTimer += Time.deltaTime;
+				if (invincibleTimer > maxInvincibleTimer) {
+					invincibleTimer = 0.0f;
+					invincible = false;
+				}
 			}
 		}
-
-		if (throwTitle) {
-			title [nextThrow].GetComponent<Title> ().SetLaunch ();
-			throwTitle = false;
-			if (nextThrow == 6) {
-				finishThrowTitle = true;
-			}
-		}
-
-		if (invincible) {
-			invincibleTimer += Time.deltaTime;
-			if (invincibleTimer > maxInvincibleTimer) {
-				invincibleTimer = 0.0f;
-				invincible = false;
-			}
-		}
-
+		Debug.Log (transform.position);
 		UpdateAnimator ();
 	}
 
@@ -360,5 +359,15 @@ public class DigDug : MonoBehaviour
 	public bool isPumping ()
 	{
 		return mPumping;
+	}
+
+	public void Reset ()
+	{
+		for (int i = 0; i < title.Length; i++) {
+			Destroy (title [i]);
+		}
+		mThrowRocks = false;
+		ResetBoolean ();
+		Destroy (hoseInstance);
 	}
 }

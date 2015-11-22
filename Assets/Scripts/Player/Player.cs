@@ -284,8 +284,7 @@ public class Player : MonoBehaviour
 
 	private void MovingRight ()
 	{
-		//transform.Translate (Vector2.right * 2 * Time.deltaTime);
-		transform.position += new Vector3 (1f, 0, 0f);
+		transform.position += new Vector3 (0.1f, 0f, 0f);
 		FaceDirection (Vector2.right);
 		mMoving = true;
 		mRunning = true;

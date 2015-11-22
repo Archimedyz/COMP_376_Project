@@ -116,12 +116,12 @@ public class Stats
             return Str;
     }
 
-    public float DoDynamicDamage()
+    public int DoDynamicDamage()
     {
         if (CritChance > Random.value)
-            return Random.Range(_minDmg, _maxDmg) * 2;
+            return (int)(Random.Range(_minDmg, _maxDmg) * 2.0f);
         else
-            return Random.Range(_minDmg, _maxDmg);
+            return (int)Random.Range(_minDmg, _maxDmg);
     }
 
     public void LevelUp()
@@ -131,7 +131,6 @@ public class Stats
         Str = _str + _rate[1];
         Def = _def + _rate[2];
         Spd = _spd + _rate[3];
-        _isLevelUp = false;
     }
     public float DamageDealt(int damage)
     {

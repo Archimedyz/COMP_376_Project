@@ -54,8 +54,11 @@ public class Neanderthal : MonoBehaviour
     private UICanvas uiCanvas;
     private Vector3 damagePositionOffset = new Vector3(0, 0.8f, 0);
 
+    public Stats mStats;
+
 	void Start ()
 	{
+        mStats = new Stats(1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		coconut = null;
@@ -128,7 +131,7 @@ public class Neanderthal : MonoBehaviour
 		audioTimer += Time.deltaTime;
 	}
 
-	public void GetHit (Vector2 direction, float damage)
+	public void GetHit (Vector2 direction, int damage)
 	{
 		if (!mGetHit && !mDying) {
 			Life -= damage;
@@ -167,6 +170,7 @@ public class Neanderthal : MonoBehaviour
 				coconut.gameObject.GetComponent<Coconut> ().SetDirection (Vector2.right);
 			}
 			coconut.transform.parent = gameObject.transform;
+            coconut.gameObject.GetComponent<Coconut>().damage = mStats.DoDynamicDamage();
 		}
 	}
 
@@ -221,4 +225,9 @@ public class Neanderthal : MonoBehaviour
 		mAnimator.SetBool ("isThrowing", mThrowing);
 		mAnimator.SetBool ("isDying", mDying);
 	}
+
+    public void LevelUp()
+    {
+        mStats.Exp = 100;
+    }
 }

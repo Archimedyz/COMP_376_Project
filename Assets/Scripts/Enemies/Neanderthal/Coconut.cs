@@ -19,6 +19,8 @@ public class Coconut : MonoBehaviour
 
 	private float maxExistTime = 5.0f;
 
+    public int damage = 20;
+
 	void Start ()
 	{
 		canThrow = true;
@@ -73,7 +75,7 @@ public class Coconut : MonoBehaviour
 	void OnCollisionEnter (Collision col)
 	{
 		if (col.gameObject.name == "Player") {
-			col.gameObject.GetComponent<Player> ().GetKnockdown (mDirection, 20);
+			col.gameObject.GetComponent<Player> ().GetKnockdown (mDirection, damage);
 			Destroy (gameObject);
 		}
 	}

@@ -13,6 +13,7 @@ public class Stats
     private float _minDmg;
     private float _maxDmg;
     private bool _isLevelUp;
+    public bool wasCrit;
 
     /// <summary>
     /// 
@@ -33,6 +34,7 @@ public class Stats
         _rate = rate;
         _exp = 0;
         _isLevelUp = false;
+        wasCrit = false;
     }
 
     private float DmgDiff
@@ -42,7 +44,7 @@ public class Stats
 
     private float CritChance
     {
-        get { return (Spd * 0.00015f + 0.01f); }
+        get { return (Spd * 0.00625f); }
     }
     public int Level
     {
@@ -111,17 +113,29 @@ public class Stats
     public float DoStaticDamage()
     {
         if (CritChance > Random.value)
+        {
+            wasCrit = true;
             return Str * 2;
+        }
         else
+        {
+            wasCrit = false;
             return Str;
+        }
     }
 
     public int DoDynamicDamage()
     {
         if (CritChance > Random.value)
+        {
+            wasCrit = true;
             return (int)(Random.Range(_minDmg, _maxDmg) * 2.0f);
+        }
         else
+        {
+            wasCrit = false;
             return (int)Random.Range(_minDmg, _maxDmg);
+        }
     }
 
     public void LevelUp()

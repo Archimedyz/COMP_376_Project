@@ -23,7 +23,7 @@ public class UICanvas : MonoBehaviour {
         {
             case UINotification.TYPE.CRIT:
                 dmg.color = Color.yellow;
-                dmg.fontSize = 13;
+                dmg.fontSize = 14;
                 break;
             case UINotification.TYPE.EXP:
                 dmg.color = Color.white;
@@ -37,7 +37,7 @@ public class UICanvas : MonoBehaviour {
                 break;
             case UINotification.TYPE.LVLUP:
                 dmg.color = Color.yellow;
-                dmg.fontSize = 14;
+                dmg.fontSize = 15;
                 break;
         }
         dmg.transform.localScale = mUINotification.transform.localScale;

@@ -24,6 +24,9 @@ public class DigDugStory : MonoBehaviour
 	private int hitTime = 0;
 	
 	private float timer = 0.0f, startTimer = 0.0f;
+
+	private AudioSource backgroundMusic;
+	private AudioSource crash;
 	
 	void Start ()
 	{
@@ -31,6 +34,10 @@ public class DigDugStory : MonoBehaviour
 		digdug = GameObject.Find ("DigDug").GetComponent<DigDug> ();
 		mainCamera = GameObject.Find ("Main Camera") as GameObject;
 		enemies = GameObject.Find ("Enemies") as GameObject;
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		backgroundMusic = audioSources [0];
+		crash = audioSources [1];
 	}
 	
 	void Update ()
@@ -89,6 +96,7 @@ public class DigDugStory : MonoBehaviour
 
 	public void DigDugDie ()
 	{
+		backgroundMusic.Stop ();
 		GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().DestroyWave ();
 		enemies.GetComponent<Boss1Controller> ().enabled = false;
 		digdugDie = true;
@@ -114,6 +122,7 @@ public class DigDugStory : MonoBehaviour
 			for (int i = 0; i < 5; i++) {
 				digdug.transform.position -= new Vector3 (0f, 0.1f, 0f);
 				if (digdug.transform.position.y <= player.transform.position.y) {
+					crash.Play ();
 					meetDigDug = false;
 					meetPlayer = true;
 					break;
@@ -133,8 +142,8 @@ public class DigDugStory : MonoBehaviour
 		
 		if (startTimer > 4.0f && !digdug.isPumping () && goTowardPlayer && digdug.transform.position.x >= 2.0f) {
 			digdug.transform.position -= new Vector3 (0.2f, 0, 0f);
-			Debug.Log ("Osti");
 			if (digdug.transform.position.x <= 2.0) {
+				backgroundMusic.Play ();
 				goTowardPlayer = false;
 				moveCamera = true;
 				startTimer = 0.0f;

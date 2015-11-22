@@ -83,6 +83,9 @@ public class Player : MonoBehaviour
 	private UICanvas uiCanvas;
 	private Vector3 damagePosition = new Vector3 (0, 0.7f, 0);
 
+    // Shadow GameObject
+    GameObject mShadow;
+
 	void Start ()
 	{
 		mStats = new Stats (79.0f, 5, 5, 5);
@@ -115,6 +118,10 @@ public class Player : MonoBehaviour
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
 		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas>();
+
+        // get the shadow. it's the last element in the childern.
+        SpriteRenderer[] childSpriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        mShadow = childSpriteRenderers[childSpriteRenderers.Length - 1].gameObject;
 
 	}
 
@@ -234,6 +241,7 @@ public class Player : MonoBehaviour
 						}
 
                         mGroundY = Mathf.Clamp(mGroundY, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]);
+                        mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 					}
 				}
 			}

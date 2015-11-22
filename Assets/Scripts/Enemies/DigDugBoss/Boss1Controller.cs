@@ -56,12 +56,6 @@ public class Boss1Controller : MonoBehaviour
 			player.SetPosition (digdug.transform.position - new Vector3 (10, 0, 0));
 		digdug.SetCanMove (false);
 		
-		if (enemies [0] != null) {
-			for (int i = 0; i < transform.childCount; i++) {
-				Destroy (enemies [i]);
-			}
-		}
-		
 		for (int i = 0; i < bossDifficulty; i++) {
 			if (i < 3) {
 				enemies [i] = Instantiate (pookaPrefab, new Vector3 ((digdug.transform.position.x - 8f) + (i * 0.3f), -7f + (i * 2), -1f), Quaternion.identity) as GameObject;
@@ -71,6 +65,15 @@ public class Boss1Controller : MonoBehaviour
 				enemies [i] = Instantiate (fygarPrefab, new Vector3 ((digdug.transform.position.x - 5.5f) + ((i - 3) * 0.3f), -7f + ((i - 3) * 2), -1f), Quaternion.identity) as GameObject;
 				enemies [i].transform.parent = transform;
 				enemies [i].GetComponent<Fygar> ().SetSpeed (enemySpeed);
+			}
+		}
+	}
+
+	public void DestroyWave ()
+	{
+		if (enemies [0] != null) {
+			for (int i = 0; i < transform.childCount; i++) {
+				Destroy (enemies [i]);
 			}
 		}
 	}

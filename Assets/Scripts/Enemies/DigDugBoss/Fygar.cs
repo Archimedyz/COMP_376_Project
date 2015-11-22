@@ -40,6 +40,8 @@ public class Fygar : MonoBehaviour
 	private int mInitialOrderInLayer;
 	private bool floorBoundaryInitialized;
 
+	private AudioSource pop;
+
 	void Start ()
 	{
 		
@@ -53,6 +55,9 @@ public class Fygar : MonoBehaviour
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
+
+		AudioSource[] audioSources = GetComponents<AudioSource> ();
+		pop = audioSources [0];
 	}
 
 	void Update ()
@@ -64,14 +69,19 @@ public class Fygar : MonoBehaviour
 			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
 			floorBoundaryInitialized = true;
 		}
+
+		if (mExplode) {
+			destroyTimer += Time.deltaTime;
+			if (destroyTimer >= 0.3f) {
+				Destroy (gameObject);
+			}
+		}
+
+		if (transform.position.x >= 50) {
+			Destroy (gameObject);
+		}
 		
 		if (canMove) {
-			if (mExplode) {
-				destroyTimer += Time.deltaTime;
-				if (destroyTimer >= 0.3f) {
-					Destroy (gameObject);
-				}
-			}
 
 			if (Life <= 0) {
 				mDead = true;
@@ -127,6 +137,8 @@ public class Fygar : MonoBehaviour
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}
 		} else if (col.gameObject.name == "DigDug") {
+			pop.Play ();
+			rb.isKinematic = true;
 			mExplode = true;
 		}
 	}

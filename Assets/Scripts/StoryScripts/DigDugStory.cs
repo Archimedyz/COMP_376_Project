@@ -106,7 +106,6 @@ public class DigDugStory : MonoBehaviour
 		
 		if (startTimer > 4.0f && !digdug.isPumping () && goTowardPlayer && digdug.transform.position.x >= 2.0f) {
 			digdug.transform.position -= new Vector3 (0.2f, 0, 0f);
-			Debug.Log ("Osti");
 			if (digdug.transform.position.x <= 2.0) {
 				goTowardPlayer = false;
 				moveCamera = true;

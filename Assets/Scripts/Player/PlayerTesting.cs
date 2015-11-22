@@ -306,7 +306,6 @@ public class PlayerTesting : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
-			Debug.Log ("Allo");
 			mInflate = true;
 			target = -5;        
 			startTime = Time.time;

@@ -217,7 +217,6 @@ public class DigDug : MonoBehaviour
 				}
 			}
 		}
-		Debug.Log (transform.position);
 		UpdateAnimator ();
 	}
 
@@ -262,8 +261,6 @@ public class DigDug : MonoBehaviour
 			shake = 2.0f;
 			camTransform.localPosition = originalPos;
 		}
-		
-		Debug.Log ("Allo" + camTransform.localPosition);
 	}
 
 	private void MovingUp (int multiplier)

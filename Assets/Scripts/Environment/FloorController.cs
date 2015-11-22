@@ -24,15 +24,12 @@ public class FloorController : MonoBehaviour {
 
     public void GetCurrentFloorBoundary(float[] boundary, int floorIndex, SpriteRenderer sr)
     {
-        Debug.Log("Here - floorIndex: " + floorIndex);
         if(floorIndex >= 0 && floorIndex < mFloors.Length)
         {
-            Debug.Log("In 'if'");
             mFloors[floorIndex].GetBoundary(boundary, sr);
         }
         else
-        {
-            Debug.Log("In 'else'");
+        
             mFloors[0].GetBoundary(boundary, sr);
         }
     }

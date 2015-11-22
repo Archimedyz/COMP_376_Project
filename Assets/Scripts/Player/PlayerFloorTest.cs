@@ -91,12 +91,10 @@ public class PlayerFloorTest : MonoBehaviour
 
         if (Input.GetKeyDown("n"))
         {
-            Debug.Log("Lose Health");
             mHealthBarRef.LoseHealth(20.0f);
         }
         else if (Input.GetKeyDown("m"))
         {
-            Debug.Log("Gain Health");
             mHealthBarRef.GainHealth(15.0f);
         }
 

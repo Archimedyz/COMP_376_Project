@@ -34,11 +34,9 @@ public class Boss1Controller : MonoBehaviour
 	void Update ()
 	{
 		if (enemies [0] != null) {
-			Debug.Log (enemies [0].transform.position.y + " " + enemies [0].GetComponent<Pooka> ().GetFloorBoundaryY ());
 			if (enemies [0].transform.position.y >= enemies [0].GetComponent<Pooka> ().GetFloorBoundaryY () - 4) {
 				player.SetCanMove (true);
 				digdug.SetCanMove (true);
-				Debug.Log ("Allo");
 				for (int i = 0; i < bossDifficulty; i++) {
 					if (i < 3) {
 						enemies [i].GetComponent<Pooka> ().SetCanMove (true);

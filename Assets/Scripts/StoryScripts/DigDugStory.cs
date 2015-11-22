@@ -16,6 +16,7 @@ public class DigDugStory : MonoBehaviour
 	private bool startBattle = false;
 	private bool moveDigDug = false;
 	private bool finish = false;
+	private bool digdugDie = false;
 	
 	
 	private float digdugTargetPosition;
@@ -54,6 +55,14 @@ public class DigDugStory : MonoBehaviour
 				digdug.IncreaseDifficulty ();
 			}
 		}
+
+		if (digdugDie) {
+			if (digdug.transform.position.x >= (digdugTargetPosition - 0.3f)) {
+				digdug.transform.position += new Vector3 (0f, -0.1f, 0f);
+			} else {
+				digdug.transform.position += new Vector3 (0.05f, 0, 0f);
+			}
+		}
 	}
 	
 	public void MoveDigDug (int numberOfHit)
@@ -76,6 +85,17 @@ public class DigDugStory : MonoBehaviour
 			}
 			
 		}
+	}
+
+	public void DigDugDie ()
+	{
+		GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().DestroyWave ();
+		enemies.GetComponent<Boss1Controller> ().enabled = false;
+		digdugDie = true;
+		player.SetInStory (true);
+		digdug.SetInStory (true);
+		digdug.Reset ();
+		digdugTargetPosition = digdug.transform.position.x + 5;
 	}
 	
 	public void StartBattle ()

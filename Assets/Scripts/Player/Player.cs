@@ -244,7 +244,7 @@ public class Player : MonoBehaviour
 					}
 				}
 			}
-//            mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
+			mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 
 			if (mMoving && Input.GetKeyDown ("f")) {
 				Slide ();

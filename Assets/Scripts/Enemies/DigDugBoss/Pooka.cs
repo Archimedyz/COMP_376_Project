@@ -93,7 +93,7 @@ public class Pooka : MonoBehaviour
 	//TODO change damage
 	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.name == "FightCollider") {
+		if (col.gameObject.name == "FightCollider" && canMove) {
 			if (!mDead)
 				Life -= 50;
 			else if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {

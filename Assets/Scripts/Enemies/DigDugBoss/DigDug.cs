@@ -226,7 +226,7 @@ public class DigDug : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Enemy" && !invincible) {
-			hitTime ++;
+			ResetBoolean ();
 			mHit = true;
 			invincible = true;
 			UpdateAnimator ();
@@ -238,8 +238,11 @@ public class DigDug : MonoBehaviour
 				healthLost += 20;
 			}
 
-			if (healthLost >= healthDivider) {
+			if (mHealthBarRef.GetHealth () <= 0.0f) {
+				storyScript.DigDugDie ();
+			} else if (healthLost >= healthDivider) {
 				healthLost = 0.0f;
+				hitTime ++;
 				storyScript.MoveDigDug (hitTime);
 			}
 		}

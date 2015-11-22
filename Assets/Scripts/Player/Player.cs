@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 	private int mNormalAttack;
 	private int mStrongAttack;
 	private float mGroundY;
+	private bool moveRight = false;
 	
 	private bool canMove = true;
 
@@ -79,6 +80,9 @@ public class Player : MonoBehaviour
 	private float startTime;
 	private float journeyLength;
 
+	private UICanvas uiCanvas;
+	private Vector3 damagePosition = new Vector3 (0, 0.7f, 0);
+
 	void Start ()
 	{
 		mStats = new Stats (79.0f, 5, 5, 5);
@@ -110,6 +114,7 @@ public class Player : MonoBehaviour
 		//mHealthBarRef.MaxHealthValue = 500.0f;
 
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
+		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent ("UICanvas");
 
 	}
 
@@ -136,12 +141,14 @@ public class Player : MonoBehaviour
 				} else {
 					mInflate = false;
 					inflateTimer = 0.0f;
-				}
+				} 
 			}
 		}
 
 		if (inStory) {
-
+			if (moveRight) {
+				MovingRight ();
+			}
 		} else {
 			if (transform.position.y < mGroundY && mJumping) {
 				mRigidBody.useGravity = false;
@@ -213,11 +220,11 @@ public class Player : MonoBehaviour
                         else if (!mJumping && mGroundY > mFloorBoundary[Floor.Y_MAX_INDEX] && Input.GetKey("j")) 
                         {
 							int newFloorIndex = mFloorControllerRef.NextFloorUp (mFloorIndex);
-                            if (newFloorIndex != mFloorIndex) {
+							if (newFloorIndex != mFloorIndex) {
 								// check if the player has even reached the next level in terms of animation.
 								float[] newFloorBoundary = new float[4];
 								mFloorControllerRef.GetCurrentFloorBoundary (newFloorBoundary, newFloorIndex, mSpriteRenderer);
-                                
+                            
 								//if (transform.position.y > newFloorBoundary [Floor.Y_MIN_INDEX]) {
 									mFloorIndex = newFloorIndex;
 									mFloorBoundary = newFloorBoundary;
@@ -270,6 +277,20 @@ public class Player : MonoBehaviour
 		UpdateAnimator ();
 	}
 
+	public void SetMoveRight (bool a)
+	{
+		moveRight = a;
+	}
+
+	private void MovingRight ()
+	{
+		//transform.Translate (Vector2.right * 2 * Time.deltaTime);
+		transform.position += new Vector3 (1f, 0, 0f);
+		FaceDirection (Vector2.right);
+		mMoving = true;
+		mRunning = true;
+	}
+
 	private void Dash ()
 	{
 		mDashing = true;
@@ -295,6 +316,7 @@ public class Player : MonoBehaviour
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
 			mGetHit = true;
 			mHealthBarRef.LoseHealth (damage);
+			uiCanvas.CreateDamageLabel (damage, (transform.position + damagePosition));
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -414,7 +436,6 @@ public class Player : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
-			Debug.Log ("Allo");
 			mInflate = true;
 			if (inStory)
 				target = -5;

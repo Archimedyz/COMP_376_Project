@@ -5,12 +5,15 @@ public class DigDug : MonoBehaviour
 {
 	public float randomAttackTime;
 
+	private int hitTime = 0;
+
 	private HealthBar mHealthBarRef;
 
 	public GameObject rock;
 	public GameObject dig;
 	public GameObject dug;
 	public GameObject hose;
+	private DigDugStory storyScript;
 
 	private GameObject hoseInstance = null;
 
@@ -101,6 +104,7 @@ public class DigDug : MonoBehaviour
 		floorBoundaryInitialized = false;
 
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("BossHealth").GetComponent<HealthBar> ();
+		storyScript = GameObject.Find ("BossScript").GetComponent<DigDugStory> ();
 	}
 
 	void Update ()
@@ -221,6 +225,9 @@ public class DigDug : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Enemy" && !invincible) {
+			GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().DestroyWave ();
+			hitTime ++;
+			storyScript.MoveDigDug (hitTime);
 			mHit = true;
 			invincible = true;
 			difficulty += 2;
@@ -228,7 +235,6 @@ public class DigDug : MonoBehaviour
 			IncreaseDifficulty ();
 			if (maxLife >= 0) {
 				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().IncreaseDifficulty ();
-				GameObject.Find ("Enemies").GetComponent<Boss1Controller> ().CreateWave (1);
 			}
 			if (col.gameObject.name.Substring (0, 5) == "Pooka") {
 				mHealthBarRef.LoseHealth (10);
@@ -243,7 +249,6 @@ public class DigDug : MonoBehaviour
 		hoseInstance = Instantiate (hose, transform.position, Quaternion.identity) as GameObject;
 		mThrowing = true;
 		mPumping = true;
-		Debug.Log ("Pumping");
 		if (inStory)
 			UpdateAnimator ();
 	}

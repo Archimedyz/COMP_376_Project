@@ -40,10 +40,6 @@ public class MainMenu : MonoBehaviour
             if(i != mainMenuIndex) {
                 mMenuPanels[i].SetActive(false);
             }
-            for (int j = 0; j < mainMenuButtons[i].Length; ++j)
-            {
-                Debug.Log(mainMenuButtons[i][j].gameObject.name);
-            }
         }
 
         activeMenu = mainMenuIndex;
@@ -52,7 +48,7 @@ public class MainMenu : MonoBehaviour
         // check if there exists a save file. If yes, allow for continue.
         int gamesSaved = PlayerPrefs.GetInt("games_saved");
         if(gamesSaved == 0) {
-            Destroy(mainMenuButtons[mainMenuIndex][0].gameObject);
+            //Destroy(mainMenuButtons[mainMenuIndex][0].gameObject);
             mainMenuButtons[mainMenuIndex][0].Select();            
         }
     }
@@ -76,12 +72,18 @@ public class MainMenu : MonoBehaviour
     {
         buttonSelected = 0;
         Debug.Log("Load Game");
+        activeMenu = loadMenuIndex;
+        mMenuPanels[activeMenu].SetActive(true);
+        mMenuPanels[mainMenuIndex].SetActive(false);
     }
 
     void NewGame()
     {
         buttonSelected = 0;
         Debug.Log("New Game");
+        activeMenu = newMenuIndex;
+        mMenuPanels[activeMenu].SetActive(true);
+        mMenuPanels[mainMenuIndex].SetActive(false);
 
     }
 
@@ -90,5 +92,43 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         Debug.Log("Quit");
         Debug.DebugBreak();
+    }
+
+    void Back()
+    {
+        activeMenu = mainMenuIndex;
+        mMenuPanels[activeMenu].SetActive(true);
+        mMenuPanels[newMenuIndex].SetActive(false);
+        mMenuPanels[loadMenuIndex].SetActive(false);
+    }
+
+    void NewFile1()
+    {
+        Debug.Log("New Game - File 1");
+    }
+
+    void NewFile2()
+    {
+        Debug.Log("New Game - File 2");
+    }
+
+    void NewFile3()
+    {
+        Debug.Log("New Game - File 3");
+    }
+
+    void LoadFile1()
+    {
+        Debug.Log("Load Game - File 1");
+    }
+
+    void LoadFile2()
+    {
+        Debug.Log("Load Game - File 2");
+    }
+
+    void LoadFile3()
+    {
+        Debug.Log("Load Game - File 3");
     }
 }

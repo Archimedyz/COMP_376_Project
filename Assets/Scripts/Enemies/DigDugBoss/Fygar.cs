@@ -41,6 +41,9 @@ public class Fygar : MonoBehaviour
 	private bool floorBoundaryInitialized;
 
 	private AudioSource pop;
+	private AudioSource strongHit;
+	private AudioSource normalHit;
+	private float audioTimer = 0.0f;
 
 	void Start ()
 	{
@@ -58,6 +61,8 @@ public class Fygar : MonoBehaviour
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		pop = audioSources [0];
+		normalHit = audioSources [1];
+		strongHit = audioSources [2];
 	}
 
 	void Update ()
@@ -124,15 +129,22 @@ public class Fygar : MonoBehaviour
 		}
 		
 		UpdateAnimator ();
+		audioTimer += Time.deltaTime;
 	}
 
 	//TODO change damage
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.name == "FightCollider" && canMove) {
-			if (!mDead)
+			if (!mDead) {
 				Life -= 50;
-			else if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
+				if (audioTimer >= 0.2f) {
+					normalHit.Play ();
+					audioTimer = 0.0f;
+				}
+			} else if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
+				if (!strongHit.isPlaying)
+					strongHit.Play ();
 				rb.isKinematic = false;
 				rb.AddForce (Vector2.right * 10, ForceMode.Impulse);
 			}
@@ -140,7 +152,7 @@ public class Fygar : MonoBehaviour
 			pop.Play ();
 			rb.isKinematic = true;
 			mExplode = true;
-		}
+		}  
 	}
 
 

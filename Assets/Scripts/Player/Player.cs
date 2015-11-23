@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 	private bool mRunning;
 	private bool mWalking;
 	private bool mMoving;
-	private bool mDefending;
+    private bool mDefending;
 	private bool mJumping;
 	private bool mFalling;
 	private bool mGetHit;
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
 
 	void Start ()
 	{
-		mStats = new Stats (1, 50, 10, 5, 5, new int[] {20,5,2,2});
+		mStats = new Stats (1, 50, 10, 5, 5, new int[] {20,2,2,2});
 		mAnimator = GetComponent<Animator> ();
 		mAnimator.speed = 1 + (float)(mStats.Spd / 20.0f);
 		mRigidBody = GetComponent<Rigidbody> ();
@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
 			}
 
 			if (!mGetHit && !mGetKnockdown && CanMove ()) {
-				if (Input.GetKey ("space")) {
+				if (Input.GetKey (KeyCode.C)) {
 					Defend ();
 				} else {
 					float horizontal = Input.GetAxis ("Horizontal");
@@ -224,7 +224,7 @@ public class Player : MonoBehaviour
 						mRunning = true;
                     
 						// if u pass the bottom of the floor boundary 
-						if (!mJumping && mGroundY < mFloorBoundary [Floor.Y_MIN_INDEX] && Input.GetKey ("j")) {
+						if (!mJumping && mGroundY < mFloorBoundary [Floor.Y_MIN_INDEX] && Input.GetKey (KeyCode.Space)) {
 							int newFloorIndex = mFloorControllerRef.NextFloorDown (mFloorIndex);
 							if (newFloorIndex != mFloorIndex) {
 								mFloorIndex = newFloorIndex;
@@ -234,7 +234,7 @@ public class Player : MonoBehaviour
 								mGroundY = mFloorBoundary [Floor.Y_MAX_INDEX];
 								mRigidBody.useGravity = true;
 							}
-						} else if (!mJumping && mGroundY > mFloorBoundary [Floor.Y_MAX_INDEX] && Input.GetKey ("j")) {
+						} else if (!mJumping && mGroundY > mFloorBoundary [Floor.Y_MAX_INDEX] && Input.GetKey (KeyCode.Space)) {
 							int newFloorIndex = mFloorControllerRef.NextFloorUp (mFloorIndex);
 							if (newFloorIndex != mFloorIndex) {
 								// check if the player has even reached the next level in terms of animation.
@@ -261,7 +261,7 @@ public class Player : MonoBehaviour
 				Slide ();
 			} else if (Input.GetKeyDown ("q")) {
 				Dash ();
-			} else if (Input.GetKeyDown ("j") && !mJumping) {
+			} else if (Input.GetKeyDown (KeyCode.Space) && !mJumping) {
 				mGroundY = transform.position.y;
 				Jump ();
 			}
@@ -457,6 +457,11 @@ public class Player : MonoBehaviour
 	{
 		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
 	}
+
+    public bool IsDefending()
+    {
+        return mAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefendingPhase2");
+    }
 
 	public float GetFootY ()
 	{

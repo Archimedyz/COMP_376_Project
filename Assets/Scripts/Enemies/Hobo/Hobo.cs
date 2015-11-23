@@ -145,12 +145,12 @@ public class Hobo : MonoBehaviour
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
-                damage = (int)(damage * 1.2f);
-				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * 10, ForceMode.Impulse);
+                damage = (int)(damage * 1.3f);
+                Recoil(direction, 10.0f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
 			} else {
-				mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+                Recoil(direction, mPushBack);
 				if (audioTimer >= 0.2f) {
 					normalHit.Play ();
 					audioTimer = 0.0f;
@@ -167,6 +167,11 @@ public class Hobo : MonoBehaviour
             }
 		}
 	}
+
+    public void Recoil(Vector2 direction, float modifier)
+    {
+        mRigidBody.AddForce(new Vector2(direction.x, 0.0f) * modifier, ForceMode.Impulse);
+    }
 
 	private void Hit ()
 	{

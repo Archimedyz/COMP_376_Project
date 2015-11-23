@@ -39,7 +39,7 @@ public class Stats
 
     private float DmgDiff
     {
-        get { return (Str * 0.15f + Spd * 0.02f); }
+        get { return (Str * 0.10f + Spd * 0.02f); }
     }
 
     private float CritChance

@@ -155,7 +155,7 @@ public class Neanderthal : MonoBehaviour
             mRigidBody.velocity = Vector2.zero;
             if (GameObject.Find("Player").GetComponent<Player>().IsStrongAttack())
             {
-                damage = (int)(damage * 1.2f);
+                damage = (int)(damage * 1.3f);
                 mRigidBody.AddForce(new Vector2(direction.x, 0.0f) * 10, ForceMode.Impulse);
                 if (!strongHit.isPlaying)
                     strongHit.Play();

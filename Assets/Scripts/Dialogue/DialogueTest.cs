@@ -21,9 +21,12 @@ public class DialogueTest : MonoBehaviour
 	
 	void Update ()
 	{
-		if (text != null) {
-			if (Input.anyKeyDown) {
+		if (Input.anyKeyDown) {
+			text = reader.ReadLine ();
+			if (text != null) {
 				StartCoroutine (DisplayText ());
+			} else {
+				//File finished
 			}
 		}
 	}
@@ -31,7 +34,6 @@ public class DialogueTest : MonoBehaviour
 	private IEnumerator DisplayText ()
 	{
 		int charLineNumber = 0;
-		text = reader.ReadLine ();
 		thisText.text = "";
 		for (int i = 0; i < text.Length; i++, charLineNumber++) {
 			if (text [i] == '$') {

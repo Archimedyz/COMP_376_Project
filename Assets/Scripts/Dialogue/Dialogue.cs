@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.IO;
 
-public class DialogueTest : MonoBehaviour
+public class Dialogue: MonoBehaviour
 {
 
 	private Text thisText;
@@ -15,19 +15,29 @@ public class DialogueTest : MonoBehaviour
 	void Start ()
 	{
 		thisText = gameObject.GetComponent<Text> ();
-		theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/dialogueTest.txt");
-		reader = theSourceFile.OpenText ();
+		theSourceFile = null;
 	}
 	
 	void Update ()
 	{
-		if (Input.anyKeyDown) {
+		if (Input.anyKeyDown && theSourceFile != null) {
 			text = reader.ReadLine ();
 			if (text != null) {
 				StartCoroutine (DisplayText ());
 			} else {
-				//File finished
+				theSourceFile = null;
+				GameObject.Find ("Dialogue").SetActive (false);
 			}
+		}
+	}
+
+	public void SelectTextFile (string file)
+	{
+		if (file == "FirstScene") {
+			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FirstScene.txt");
+			reader = theSourceFile.OpenText ();
+		} else {
+			theSourceFile = null;
 		}
 	}
 

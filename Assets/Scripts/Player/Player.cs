@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 	private bool mRunning;
 	private bool mWalking;
 	private bool mMoving;
-    private bool mDefending;
+	private bool mDefending;
 	private bool mJumping;
 	private bool mFalling;
 	private bool mGetHit;
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 	private int mStrongAttack;
 	private float mGroundY;
 	private bool moveRight = false;
+	private bool moveUp = false;
 	
 	private bool canMove = true;
 
@@ -165,6 +166,8 @@ public class Player : MonoBehaviour
 		if (inStory) {
 			if (moveRight) {
 				MovingRight ();
+			} else if (moveUp) {
+				MovingUp ();
 			}
 		} else {
 			if (transform.position.y <= mGroundY && mJumping) {
@@ -312,12 +315,26 @@ public class Player : MonoBehaviour
 	public void SetMoveRight (bool a)
 	{
 		moveRight = a;
-		mRunning = true;
+		mRunning = a;
+	}
+
+	public void SetMoveUp (bool a)
+	{
+		moveUp = a;
+		mRunning = a;
 	}
 
 	private void MovingRight ()
 	{
-		transform.position += new Vector3 (0.1f, 0f, 0f);
+		transform.position += new Vector3 (0.05f, 0f, 0f);
+		FaceDirection (Vector2.right);
+		mMoving = true;
+		mRunning = true;
+	}
+
+	private void MovingUp ()
+	{
+		transform.position += new Vector3 (0f, 0.01f, 0f);
 		FaceDirection (Vector2.right);
 		mMoving = true;
 		mRunning = true;
@@ -458,10 +475,10 @@ public class Player : MonoBehaviour
 		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("StrongAttackPhase2");
 	}
 
-    public bool IsDefending()
-    {
-        return mAnimator.GetCurrentAnimatorStateInfo(0).IsName("DefendingPhase2");
-    }
+	public bool IsDefending ()
+	{
+		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("DefendingPhase2");
+	}
 
 	public float GetFootY ()
 	{

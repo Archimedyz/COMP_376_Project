@@ -11,7 +11,9 @@ public class Level1Story : MonoBehaviour
 	private Dialogue dialogueText;
 
 	private bool metroArrives = true;
+	private bool metroDeparts = false;
 	private bool scottArrives = false;
+	private bool scottGoesUp = false;
 	private bool scottStopMove = false;
 	private bool hoodedStartTalking = false;
 
@@ -50,24 +52,37 @@ public class Level1Story : MonoBehaviour
 			theme.Play ();
 		}*/
 
-		//TODO Arrives in metro
 		if (metroArrives) {
-			float distCovered = (Time.time - startTime) * 0.5f;
+			float distCovered = (Time.time - startTime) * 10f;
 			float fracJourney = distCovered / journeyLength;
 			metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
 			if (metro.transform.position.x <= -59f) {
 				metroArrives = false;
 				scottArrives = true;
+				metroDeparts = true;
+			}
+		}
+
+		if (metroDeparts) {
+			metro.transform.position -= new Vector3 (0.5f, 0.0f, 0.0f);
+			if (metro.transform.position.x <= -70f) {
+				scottGoesUp = true;
+				metroDeparts = false;
+				Destroy (metro);
 			}
 		}
 
 		if (scottArrives) {
 			player.gameObject.SetActive (true);
-			player.SetInStory (true);
 			mainCamera.GetComponent<FollowCam> ().SetTarget ();
+		}
+
+		if (scottGoesUp) {
+			player.SetInStory (true);
 			player.SetMoveUp (true);
 			scottArrives = false;
 			scottStopMove = true;
+			scottGoesUp = false;
 		}
 
 		if (scottStopMove) {
@@ -82,9 +97,9 @@ public class Level1Story : MonoBehaviour
 		//TODO Something in between ?
 
 		if (hoodedStartTalking) {
+			hoodedStartTalking = false;
 			dialogue.SetActive (true);
 			dialogueText.SelectTextFile ("FirstScene");
-			hoodedStartTalking = false;
 		}
 	}
 }

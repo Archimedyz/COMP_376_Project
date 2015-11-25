@@ -12,6 +12,7 @@ public class Dialogue: MonoBehaviour
 	private string text = " ";
 
 	private bool startText = false;
+	private bool finished = true;
 	
 	void Start ()
 	{
@@ -22,7 +23,7 @@ public class Dialogue: MonoBehaviour
 	
 	void Update ()
 	{
-		if ((Input.anyKeyDown && theSourceFile != null) || startText) {
+		if ((Input.anyKeyDown && theSourceFile != null && finished) || startText) {
 			startText = false;
 			text = reader.ReadLine ();
 			if (text != null) {
@@ -49,11 +50,16 @@ public class Dialogue: MonoBehaviour
 	{
 		int charLineNumber = 0;
 		thisText.text = "";
+		finished = false;
 		for (int i = 0; i < text.Length; i++, charLineNumber++) {
 
 			thisText.text += text [i];
-
+			if (Input.anyKeyDown) {
+				thisText.text = text;
+				break;
+			}
 			yield return new WaitForSeconds (0.05f);
 		}
+		finished = true;
 	}
 }

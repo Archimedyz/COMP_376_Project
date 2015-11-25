@@ -5,22 +5,25 @@ using System.IO;
 
 public class Dialogue: MonoBehaviour
 {
-
 	private Text thisText;
 	
-	protected FileInfo theSourceFile = null;
-	protected StreamReader reader = null;
-	protected string text = " ";
+	private FileInfo theSourceFile = null;
+	private StreamReader reader = null;
+	private string text = " ";
+
+	private bool startText = false;
 	
 	void Start ()
 	{
 		thisText = gameObject.GetComponent<Text> ();
+		thisText.text = " ";
 		theSourceFile = null;
 	}
 	
 	void Update ()
 	{
-		if (Input.anyKeyDown && theSourceFile != null) {
+		if ((Input.anyKeyDown && theSourceFile != null) || startText) {
+			startText = false;
 			text = reader.ReadLine ();
 			if (text != null) {
 				StartCoroutine (DisplayText ());
@@ -36,6 +39,7 @@ public class Dialogue: MonoBehaviour
 		if (file == "FirstScene") {
 			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FirstScene.txt");
 			reader = theSourceFile.OpenText ();
+			startText = true;
 		} else {
 			theSourceFile = null;
 		}
@@ -46,11 +50,9 @@ public class Dialogue: MonoBehaviour
 		int charLineNumber = 0;
 		thisText.text = "";
 		for (int i = 0; i < text.Length; i++, charLineNumber++) {
-			if (text [i] == '$') {
-				thisText.text += "\n";
-			} else {
-				thisText.text += text [i];
-			}
+
+			thisText.text += text [i];
+
 			yield return new WaitForSeconds (0.05f);
 		}
 	}

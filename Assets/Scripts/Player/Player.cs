@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 	private bool moveUp = false;
 	
 	private bool canMove = true;
+	private bool canWalk = false;
 
 	private bool mInflate;
 	private float inflateTimer = 0.0f;
@@ -310,6 +311,12 @@ public class Player : MonoBehaviour
 				running.Stop ();
 			}
 		}
+	}
+
+	public void SetCanWalk (bool a)
+	{
+		canWalk = a;
+		mWalking = a;
 	}
 
 	public void SetMoveRight (bool a)

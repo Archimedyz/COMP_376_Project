@@ -18,6 +18,16 @@ public class HoodedCharacter : MonoBehaviour
 	void Update ()
 	{
 		ResetBoolean ();
+		if (mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("FinalState")) {
+			GameObject.Find ("LevelController").GetComponent<Level1Story> ().SetHoodedDissapeared (true);
+			gameObject.SetActive (false);
+		}
+		UpdateAnimator ();
+	}
+
+	public void SetDissapears ()
+	{
+		mDissapear = true;
 	}
 
 	private void ResetBoolean ()

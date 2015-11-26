@@ -7,6 +7,7 @@ public class Level1Story : MonoBehaviour
 	private AudioSource terraTheme;
 
 	public Player player;
+	private HoodedCharacter hooded;
 	private GameObject mainCamera;
 	private GameObject dialogue;
 	private Dialogue dialogueText;
@@ -19,6 +20,7 @@ public class Level1Story : MonoBehaviour
 	private bool scottCanWalk = false;
 	private bool hoodedStartTalking = false;
 	private bool hoodedFinishedTalking = false;
+	private bool hoodedDissapeared = false;
 
 	public GameObject metroPrefab;
 	private GameObject metro;
@@ -43,7 +45,7 @@ public class Level1Story : MonoBehaviour
 		dialogue.SetActive (false);
 
 		//enemies = GameObject.Find ("Enemies") as GameObject;
-		//hoodedCharacter = GameObject.Find ("Enemies") as GameObject;
+		hooded = GameObject.Find ("HoodedCharacter").GetComponent<HoodedCharacter> ();
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		theme = audioSources [0];
@@ -118,8 +120,13 @@ public class Level1Story : MonoBehaviour
 
 		if (hoodedFinishedTalking) {
 			StartCoroutine (FadeIn (theme));
-			player.SetInStory (false);
 			hoodedFinishedTalking = false;
+			hooded.SetDissapears ();
+		}
+
+		if (hoodedDissapeared) {
+			player.SetInStory (false);
+			hoodedDissapeared = false;
 		}
 	}
 
@@ -146,5 +153,10 @@ public class Level1Story : MonoBehaviour
 	public void SetHoodedFinishedTalking (bool a)
 	{
 		hoodedFinishedTalking = a;
+	}
+
+	public void SetHoodedDissapeared (bool a)
+	{
+		hoodedDissapeared = a;
 	}
 }

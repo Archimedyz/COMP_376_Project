@@ -57,7 +57,7 @@ public class Level1Story : MonoBehaviour
 			if (!terraTheme.isPlaying) {
 				terraTheme.Play ();
 			}
-			float distCovered = (Time.time - startTime) * 10f;
+			float distCovered = (Time.time - startTime) * 0.05f;
 			float fracJourney = distCovered / journeyLength;
 			metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
 			if (metro.transform.position.x <= -57f) {
@@ -69,7 +69,7 @@ public class Level1Story : MonoBehaviour
 
 		if (metroDeparts) {
 			metro.transform.position -= new Vector3 (0.1f, 0.0f, 0.0f);
-			if (metro.transform.position.x <= -65f) {
+			if (metro.transform.position.x <= -70f) {
 				scottGoesUp = true;
 				metroDeparts = false;
 				Destroy (metro);
@@ -79,12 +79,12 @@ public class Level1Story : MonoBehaviour
 		if (scottArrives) {
 			player.gameObject.SetActive (true);
 			mainCamera.GetComponent<FollowCam> ().SetTarget ();
+			scottArrives = false;
 		}
 
 		if (scottGoesUp) {
 			player.SetInStory (true);
 			player.SetMoveUp (true);
-			scottArrives = false;
 			scottGoesUp = false;
 			scottStopMove = true;
 		}

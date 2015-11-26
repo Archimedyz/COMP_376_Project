@@ -15,7 +15,9 @@ public class Level1Story : MonoBehaviour
 	private bool scottArrives = false;
 	private bool scottGoesUp = false;
 	private bool scottStopMove = false;
+	private bool scottCanWalk = false;
 	private bool hoodedStartTalking = false;
+	private bool hoodedFinishedTalking = false;
 
 	public GameObject metroPrefab;
 	private GameObject metro;
@@ -81,8 +83,8 @@ public class Level1Story : MonoBehaviour
 			player.SetInStory (true);
 			player.SetMoveUp (true);
 			scottArrives = false;
-			scottStopMove = true;
 			scottGoesUp = false;
+			scottStopMove = true;
 		}
 
 		if (scottStopMove) {
@@ -90,16 +92,33 @@ public class Level1Story : MonoBehaviour
 				player.SetMoveUp (false);
 				scottStopMove = false;
 				//TODO Character can move ?
-				hoodedStartTalking = true;
+				scottCanWalk = true;
 			}
 		}
 
-		//TODO Something in between ?
+		if (scottCanWalk) {
+			player.SetCanWalk (true);
+			if (player.transform.position.x >= -40f) {
+				scottCanWalk = false;
+				player.SetCanWalk (false);
+				hoodedStartTalking = true;
+			}
+		}
 
 		if (hoodedStartTalking) {
 			hoodedStartTalking = false;
 			dialogue.SetActive (true);
 			dialogueText.SelectTextFile ("FirstScene");
 		}
+
+		if (hoodedFinishedTalking) {
+			player.SetInStory (false);
+			hoodedFinishedTalking = false;
+		}
+	}
+
+	public void SetHoodedFinishedTalking (bool a)
+	{
+		hoodedFinishedTalking = a;
 	}
 }

@@ -10,7 +10,7 @@ public class FollowCam : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		mFollowTarget = GameObject.FindGameObjectWithTag ("Player");
+		//mFollowTarget = GameObject.FindGameObjectWithTag ("Player");
 		transform.position = new Vector3 (mFollowTarget.transform.position.x, mFollowTarget.transform.position.y, transform.position.z);
 	}
 	

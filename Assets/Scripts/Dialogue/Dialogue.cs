@@ -11,6 +11,8 @@ public class Dialogue: MonoBehaviour
 	private StreamReader reader = null;
 	private string text = " ";
 
+	private string fileName = "";
+
 	private bool startText = false;
 	private bool finished = true;
 	
@@ -31,6 +33,9 @@ public class Dialogue: MonoBehaviour
 			} else {
 				theSourceFile = null;
 				GameObject.Find ("Dialogue").SetActive (false);
+				if (fileName == "FirstScene") {
+					GameObject.Find ("LevelController").GetComponent<Level1Story> ().SetHoodedFinishedTalking (true);
+				}
 			}
 		}
 	}
@@ -38,6 +43,7 @@ public class Dialogue: MonoBehaviour
 	public void SelectTextFile (string file)
 	{
 		if (file == "FirstScene") {
+			fileName = file;
 			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FirstScene.txt");
 			reader = theSourceFile.OpenText ();
 			startText = true;
@@ -54,10 +60,10 @@ public class Dialogue: MonoBehaviour
 		for (int i = 0; i < text.Length; i++, charLineNumber++) {
 
 			thisText.text += text [i];
-			if (Input.anyKeyDown) {
+			/*if (Input.anyKeyDown) {
 				thisText.text = text;
 				break;
-			}
+			}*/
 			yield return new WaitForSeconds (0.05f);
 		}
 		finished = true;

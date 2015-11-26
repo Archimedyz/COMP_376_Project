@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 	
 	private bool canMove = true;
 	private bool canWalk = false;
+	private float mWalkSpeed = 2.0f;
 
 	private bool mInflate;
 	private float inflateTimer = 0.0f;
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
 
 	private UICanvas uiCanvas;
 	private Vector3 damagePosition = new Vector3 (0, 0.7f, 0);
-    private Vector3 expPosition = new Vector3(0.1f, 0.7f, 0);
+	private Vector3 expPosition = new Vector3 (0.1f, 0.7f, 0);
 
 	// Shadow GameObject
 	GameObject mShadow;
@@ -171,6 +172,24 @@ public class Player : MonoBehaviour
 			} else if (moveUp) {
 				MovingUp ();
 			}
+
+			if (canWalk) {
+				if (Input.GetButton ("Left")) {
+					WalkLeft ();
+				} else if (Input.GetButton ("Right")) {
+					WalkRight ();
+				} 
+				if (Input.GetButton ("Up")) {
+					WalkUp ();
+				} else if (Input.GetButton ("Down")) {
+					WalkDown ();
+				}
+			}
+			transform.localPosition = new Vector3 (
+				Mathf.Clamp (transform.localPosition.y, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]),
+			    Mathf.Clamp (transform.localPosition.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]), 
+			     transform.localPosition.z
+			);
 		} else {
 			if (transform.position.y <= mGroundY && mJumping) {
 				mRigidBody.useGravity = false;
@@ -317,7 +336,36 @@ public class Player : MonoBehaviour
 	public void SetCanWalk (bool a)
 	{
 		canWalk = a;
-		mWalking = a;
+	}
+
+	public void WalkRight ()
+	{
+		transform.Translate (Vector2.right * mWalkSpeed * Time.deltaTime);
+		FaceDirection (Vector2.right);
+		mMoving = true;
+		mWalking = true;
+	}
+
+	public void WalkLeft ()
+	{
+		transform.Translate (-Vector2.right * mWalkSpeed * Time.deltaTime);
+		FaceDirection (-Vector2.right);
+		mMoving = true;
+		mWalking = true;
+	}
+
+	public void WalkUp ()
+	{
+		transform.Translate (Vector2.up * mWalkSpeed * Time.deltaTime);
+		mMoving = true;
+		mWalking = true;
+	}
+
+	public void WalkDown ()
+	{
+		transform.Translate (Vector2.down * mWalkSpeed * Time.deltaTime);
+		mMoving = true;
+		mWalking = true;
 	}
 
 	public void SetMoveRight (bool a)
@@ -374,7 +422,7 @@ public class Player : MonoBehaviour
 			mGetHit = true;
 			mStats.TakeDamage (damage);
 			mHealthBarRef.SetHealth (mStats.Hp);
-			uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString(), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+			uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString (), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -387,7 +435,7 @@ public class Player : MonoBehaviour
 			mGetKnockdown = true;
 			mStats.TakeDamage (damage);
 			mHealthBarRef.SetHealth (mStats.Hp);
-			uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString(), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+			uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString (), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);
@@ -478,16 +526,15 @@ public class Player : MonoBehaviour
 		transform.position = position;
 	}
 
-    public void AddExperience(int exp)
-    {
-        mStats.Exp += exp;
-        uiCanvas.CreateDamageLabel(exp.ToString() + "exp", (transform.position + damagePosition), UINotification.TYPE.EXP);
-        if (mStats.IsLevelUp)
-        {
-            uiCanvas.CreateDamageLabel("LEVEL UP!", (transform.position + damagePosition/1.5f), UINotification.TYPE.LVLUP);
-            mStats.IsLevelUp = false;
-        }
-    }
+	public void AddExperience (int exp)
+	{
+		mStats.Exp += exp;
+		uiCanvas.CreateDamageLabel (exp.ToString () + "exp", (transform.position + damagePosition), UINotification.TYPE.EXP);
+		if (mStats.IsLevelUp) {
+			uiCanvas.CreateDamageLabel ("LEVEL UP!", (transform.position + damagePosition / 1.5f), UINotification.TYPE.LVLUP);
+			mStats.IsLevelUp = false;
+		}
+	}
 	
 	public bool IsStrongAttack ()
 	{

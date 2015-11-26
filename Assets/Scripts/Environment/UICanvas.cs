@@ -15,7 +15,7 @@ public class UICanvas : MonoBehaviour {
 	    
 	}
 
-    public void CreateDamageLabel(float text, Vector3 position, UINotification.TYPE t)
+    public void CreateDamageLabel(string text, Vector3 position, UINotification.TYPE t)
     {
         Text dmg = (Text)Instantiate(mUINotification, position, Quaternion.identity);
         dmg.transform.SetParent(transform,true);
@@ -26,6 +26,7 @@ public class UICanvas : MonoBehaviour {
                 dmg.fontSize = 14;
                 break;
             case UINotification.TYPE.EXP:
+                dmg.fontSize = 10;
                 dmg.color = Color.white;
                 break;
             case UINotification.TYPE.HPGAIN:
@@ -38,9 +39,11 @@ public class UICanvas : MonoBehaviour {
             case UINotification.TYPE.LVLUP:
                 dmg.color = Color.yellow;
                 dmg.fontSize = 15;
+                dmg.GetComponent<UINotification>().Duration = 8;
+                dmg.GetComponent<UINotification>().Decrease = 0.01f;
                 break;
         }
         dmg.transform.localScale = mUINotification.transform.localScale;
-        dmg.text = ((int)text).ToString();
+        dmg.text = text;
     }
 }

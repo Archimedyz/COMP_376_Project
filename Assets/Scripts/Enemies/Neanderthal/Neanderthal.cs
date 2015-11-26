@@ -57,6 +57,7 @@ public class Neanderthal : MonoBehaviour
 
     public int expGiven = 10;
 
+
     void Start()
     {
         mStats = new Stats(1, 7000, 18, 2, 0, new int[] { 20, 4, 2, 0 });
@@ -172,11 +173,11 @@ public class Neanderthal : MonoBehaviour
             mStats.TakeDamage(damage);
             if (isCrit)
             {
-                uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePositionOffset), UINotification.TYPE.CRIT);
+                uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePositionOffset), UINotification.TYPE.CRIT);
             }
             else
             {
-                uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
+                uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
             }
         }
     }

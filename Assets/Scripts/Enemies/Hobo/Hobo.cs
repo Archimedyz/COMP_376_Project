@@ -53,8 +53,8 @@ public class Hobo : MonoBehaviour
 
     UICanvas uiCanvas;
     private Vector3 damagePositionOffset = new Vector3(0, 0.7f, 0);
-	
-    public int expGiven=100;
+
+    public int expGiven = 100;
 
 	void Start ()
 	{
@@ -159,11 +159,11 @@ public class Hobo : MonoBehaviour
             mStats.TakeDamage(damage);
             if (isCrit)
             {
-                uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePositionOffset), UINotification.TYPE.CRIT);
+                uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePositionOffset), UINotification.TYPE.CRIT);
             }
             else
             {
-                uiCanvas.CreateDamageLabel(mStats.DamageDealt(damage), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
+                uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
             }
 		}
 	}

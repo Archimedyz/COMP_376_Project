@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
 
 	private UICanvas uiCanvas;
 	private Vector3 damagePosition = new Vector3 (0, 0.7f, 0);
+    private Vector3 expPosition = new Vector3(0.1f, 0.7f, 0);
 
 	// Shadow GameObject
 	GameObject mShadow;
@@ -373,7 +374,7 @@ public class Player : MonoBehaviour
 			mGetHit = true;
 			mStats.TakeDamage (damage);
 			mHealthBarRef.SetHealth (mStats.Hp);
-			uiCanvas.CreateDamageLabel (mStats.DamageDealt (damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+			uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString(), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * mHitPushBack, ForceMode.Impulse);
@@ -386,7 +387,7 @@ public class Player : MonoBehaviour
 			mGetKnockdown = true;
 			mStats.TakeDamage (damage);
 			mHealthBarRef.SetHealth (mStats.Hp);
-			uiCanvas.CreateDamageLabel (mStats.DamageDealt (damage), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+			uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString(), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
 			mRigidBody.isKinematic = false;
 			mRigidBody.velocity = Vector2.zero;
 			mRigidBody.AddForce (new Vector2 (-direction.x, 0.0f) * mKnockdownPushBack, ForceMode.Impulse);
@@ -476,6 +477,17 @@ public class Player : MonoBehaviour
 	{
 		transform.position = position;
 	}
+
+    public void AddExperience(int exp)
+    {
+        mStats.Exp += exp;
+        uiCanvas.CreateDamageLabel(exp.ToString() + "exp", (transform.position + damagePosition), UINotification.TYPE.EXP);
+        if (mStats.IsLevelUp)
+        {
+            uiCanvas.CreateDamageLabel("LEVEL UP!", (transform.position + damagePosition/1.5f), UINotification.TYPE.LVLUP);
+            mStats.IsLevelUp = false;
+        }
+    }
 	
 	public bool IsStrongAttack ()
 	{

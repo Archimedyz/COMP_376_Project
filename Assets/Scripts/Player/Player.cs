@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 	
 	private bool canMove = true;
 	private bool canWalk = false;
-	private float mWalkSpeed = 2.0f;
+	private float mWalkSpeed = 5.0f;
 
 	private bool mInflate;
 	private float inflateTimer = 0.0f;
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
 				}
 			}
 			transform.localPosition = new Vector3 (
-				Mathf.Clamp (transform.localPosition.y, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]),
+				Mathf.Clamp (transform.localPosition.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]),
 			    Mathf.Clamp (transform.localPosition.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]), 
 			     transform.localPosition.z
 			);
@@ -377,7 +377,7 @@ public class Player : MonoBehaviour
 	public void SetMoveUp (bool a)
 	{
 		moveUp = a;
-		mRunning = a;
+		mWalking = a;
 	}
 
 	private void MovingRight ()
@@ -393,7 +393,7 @@ public class Player : MonoBehaviour
 		transform.position += new Vector3 (0f, 0.01f, 0f);
 		FaceDirection (Vector2.right);
 		mMoving = true;
-		mRunning = true;
+		mWalking = true;
 	}
 
 	private void Dash ()

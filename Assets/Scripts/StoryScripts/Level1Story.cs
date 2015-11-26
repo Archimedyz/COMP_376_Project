@@ -4,6 +4,7 @@ using System.Collections;
 public class Level1Story : MonoBehaviour
 {
 	private AudioSource theme;
+	private AudioSource terraTheme;
 
 	public Player player;
 	private GameObject mainCamera;
@@ -46,19 +47,20 @@ public class Level1Story : MonoBehaviour
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		theme = audioSources [0];
+		theme.volume = 0f;
+		terraTheme = audioSources [1];
 	}
 
 	void Update ()
 	{
-		/*if (!theme.isPlaying) {
-			theme.Play ();
-		}*/
-
 		if (metroArrives) {
+			if (!terraTheme.isPlaying) {
+				terraTheme.Play ();
+			}
 			float distCovered = (Time.time - startTime) * 10f;
 			float fracJourney = distCovered / journeyLength;
 			metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
-			if (metro.transform.position.x <= -59f) {
+			if (metro.transform.position.x <= -57f) {
 				metroArrives = false;
 				scottArrives = true;
 				metroDeparts = true;
@@ -66,8 +68,8 @@ public class Level1Story : MonoBehaviour
 		}
 
 		if (metroDeparts) {
-			metro.transform.position -= new Vector3 (0.5f, 0.0f, 0.0f);
-			if (metro.transform.position.x <= -70f) {
+			metro.transform.position -= new Vector3 (0.1f, 0.0f, 0.0f);
+			if (metro.transform.position.x <= -65f) {
 				scottGoesUp = true;
 				metroDeparts = false;
 				Destroy (metro);
@@ -106,15 +108,39 @@ public class Level1Story : MonoBehaviour
 		}
 
 		if (hoodedStartTalking) {
+			if (terraTheme.isPlaying) {
+				StartCoroutine (FadeOut (terraTheme));
+			}
 			hoodedStartTalking = false;
 			dialogue.SetActive (true);
 			dialogueText.SelectTextFile ("FirstScene");
 		}
 
 		if (hoodedFinishedTalking) {
+			StartCoroutine (FadeIn (theme));
 			player.SetInStory (false);
 			hoodedFinishedTalking = false;
 		}
+	}
+
+	private IEnumerator FadeIn (AudioSource audio)
+	{
+		theme.Play ();
+		if (audio.volume <= 0.8f) {
+			while (audio.volume < 0.8f) {
+				audio.volume += 0.3f * Time.deltaTime;
+				yield return new WaitForSeconds (0.05f);
+			}
+		}
+	}
+
+	private IEnumerator FadeOut (AudioSource audio)
+	{
+		while (audio.volume > 0f) {
+			audio.volume -= 0.3f * Time.deltaTime;
+			yield return new WaitForSeconds (0.05f);
+		}
+		audio.Stop ();
 	}
 
 	public void SetHoodedFinishedTalking (bool a)

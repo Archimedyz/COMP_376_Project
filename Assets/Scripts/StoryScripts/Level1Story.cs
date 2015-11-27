@@ -30,14 +30,14 @@ public class Level1Story : MonoBehaviour
 	
 	void Start ()
 	{
-		metro = Instantiate (metroPrefab, new Vector3 (82f, -5.5f, -1f), Quaternion.identity) as GameObject;
+		metro = Instantiate (metroPrefab, new Vector3 (81f, -5.5f, -1f), Quaternion.identity) as GameObject;
 		metro.GetComponent<Metro> ().enabled = false;
 		startTime = Time.time;
 
-		player.transform.position = new Vector3 (77f, -4.33f, 0f);
+		player.transform.position = new Vector3 (76f, -4.33f, 0f);
 		player.GetComponent<Player> ().enabled = false;
 
-		metroTarget = -65f;
+		metroTarget = -68f;
 		journeyLength = Mathf.Abs (60) + Mathf.Abs (metroTarget);
 
 		mainCamera = GameObject.Find ("Main Camera") as GameObject;

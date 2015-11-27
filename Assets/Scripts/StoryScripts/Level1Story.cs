@@ -30,15 +30,19 @@ public class Level1Story : MonoBehaviour
 	
 	void Start ()
 	{
-		metro = Instantiate (metroPrefab, new Vector3 (60f, -5.5f, -1f), Quaternion.identity) as GameObject;
+		metro = Instantiate (metroPrefab, new Vector3 (82f, -5.5f, -1f), Quaternion.identity) as GameObject;
 		metro.GetComponent<Metro> ().enabled = false;
 		startTime = Time.time;
 
-		metroTarget = -60f;
+		player.transform.position = new Vector3 (77f, -4.33f, 0f);
+		player.GetComponent<Player> ().enabled = false;
+
+		metroTarget = -65f;
 		journeyLength = Mathf.Abs (60) + Mathf.Abs (metroTarget);
 
 		mainCamera = GameObject.Find ("Main Camera") as GameObject;
-		mainCamera.GetComponent<FollowCam> ().SetTarget (metro);
+		mainCamera.GetComponent<FollowCam> ().SetPosition (new Vector3 (65f, -3.8f, -10f));
+		//mainCamera.GetComponent<FollowCam> ().SetTarget (metro);
 
 		dialogue = GameObject.Find ("Dialogue") as GameObject;
 		dialogueText = GameObject.Find ("DialogueText").GetComponent<Dialogue> ();
@@ -59,10 +63,14 @@ public class Level1Story : MonoBehaviour
 			if (!terraTheme.isPlaying) {
 				terraTheme.Play ();
 			}
-			float distCovered = (Time.time - startTime) * 0.05f;
+			float distCovered = (Time.time - startTime) * 0.01f;
 			float fracJourney = distCovered / journeyLength;
 			metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
-			if (metro.transform.position.x <= -57f) {
+			player.transform.position = Vector3.Lerp (player.transform.position, new Vector3 (metroTarget, player.transform.position.y, player.transform.position.z), fracJourney);
+			if (player.transform.position.x <= mainCamera.transform.position.x) {
+				mainCamera.GetComponent<FollowCam> ().SetTarget ();
+			}
+			if (metro.transform.position.x <= -60f) {
 				metroArrives = false;
 				scottArrives = true;
 				metroDeparts = true;
@@ -79,13 +87,15 @@ public class Level1Story : MonoBehaviour
 		}
 
 		if (scottArrives) {
-			player.gameObject.SetActive (true);
-			mainCamera.GetComponent<FollowCam> ().SetTarget ();
+			//player.gameObject.SetActive (true);
+			player.GetComponent<Player> ().enabled = true;
+			player.transform.position += new Vector3 (0f, 0f, 1f);
+			player.SetInStory (true);
+			//mainCamera.GetComponent<FollowCam> ().SetTarget ();
 			scottArrives = false;
 		}
 
 		if (scottGoesUp) {
-			player.SetInStory (true);
 			player.SetMoveUp (true);
 			scottGoesUp = false;
 			scottStopMove = true;

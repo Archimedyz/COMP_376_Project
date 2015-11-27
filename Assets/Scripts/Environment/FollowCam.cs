@@ -13,7 +13,8 @@ public class FollowCam : MonoBehaviour
 	void Start ()
 	{
 		//mFollowTarget = GameObject.FindGameObjectWithTag ("Player");
-		transform.position = new Vector3 (mFollowTarget.transform.position.x, mFollowTarget.transform.position.y, transform.position.z);
+		if (mFollowTarget != null)
+			transform.position = new Vector3 (mFollowTarget.transform.position.x, mFollowTarget.transform.position.y, transform.position.z);
 		offset = new Vector2 (0f, 0f);
 	}
 	
@@ -23,21 +24,23 @@ public class FollowCam : MonoBehaviour
 		float newX = transform.position.x;
 		float newY = transform.position.y;
 
-		// determine movement on x if applicable
-		if (transform.position.x - mFollowTarget.transform.position.x > mHorizontalDistanceFromCenter) { // If the target has moved to the left
-			newX = mFollowTarget.transform.position.x + mHorizontalDistanceFromCenter + offset.x;
-		} else if (mFollowTarget.transform.position.x - transform.position.x > mHorizontalDistanceFromCenter) { // If the tagret has moved to the right
-			newX = mFollowTarget.transform.position.x - mHorizontalDistanceFromCenter - offset.x;
-		}
+		if (mFollowTarget != null) {
+			// determine movement on x if applicable
+			if (transform.position.x - mFollowTarget.transform.position.x > mHorizontalDistanceFromCenter) { // If the target has moved to the left
+				newX = mFollowTarget.transform.position.x + mHorizontalDistanceFromCenter + offset.x;
+			} else if (mFollowTarget.transform.position.x - transform.position.x > mHorizontalDistanceFromCenter) { // If the tagret has moved to the right
+				newX = mFollowTarget.transform.position.x - mHorizontalDistanceFromCenter - offset.x;
+			}
 
-		// determine movement on y if applicable.
-		if (transform.position.y - mFollowTarget.transform.position.y > mVerticalDistanceFromCenter) { // If the target has moved to the left
-			newY = mFollowTarget.transform.position.y + mVerticalDistanceFromCenter + offset.y;
-		} else if (mFollowTarget.transform.position.y - transform.position.y > mVerticalDistanceFromCenter) { // If the tagret has moved to the right
-			newY = mFollowTarget.transform.position.y - mVerticalDistanceFromCenter - offset.y;
-		}
+			// determine movement on y if applicable.
+			if (transform.position.y - mFollowTarget.transform.position.y > mVerticalDistanceFromCenter) { // If the target has moved to the left
+				newY = mFollowTarget.transform.position.y + mVerticalDistanceFromCenter + offset.y;
+			} else if (mFollowTarget.transform.position.y - transform.position.y > mVerticalDistanceFromCenter) { // If the tagret has moved to the right
+				newY = mFollowTarget.transform.position.y - mVerticalDistanceFromCenter - offset.y;
+			}
 
-		transform.position = new Vector3 (newX, newY, transform.position.z);
+			transform.position = new Vector3 (newX, newY, transform.position.z);
+		}
 	}
 
 	public void SetTarget (GameObject target = null)
@@ -48,5 +51,10 @@ public class FollowCam : MonoBehaviour
 			mFollowTarget = target;
 		}
 		//offset = newOffset;
+	}
+
+	public void SetPosition (Vector3 newPosition)
+	{
+		transform.position = newPosition;
 	}
 }

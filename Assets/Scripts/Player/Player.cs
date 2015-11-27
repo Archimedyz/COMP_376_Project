@@ -134,6 +134,7 @@ public class Player : MonoBehaviour
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		deflating = audioSources [0];
 		running = audioSources [1];
+
 	}
 
 

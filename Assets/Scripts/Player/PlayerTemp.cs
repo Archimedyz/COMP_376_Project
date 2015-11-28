@@ -297,7 +297,7 @@ public class PlayerTemp : MonoBehaviour
         }
 
         //get out of jumping?! / slide
-        if (mJumping && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (mJumping && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && Mathf.Approximately(transform.position.y,mGroundY))
         {
             mJumping = false;
         }

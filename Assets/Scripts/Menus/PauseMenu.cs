@@ -33,6 +33,7 @@ public class PauseMenu : MonoBehaviour {
             if (Input.GetButtonDown("Pause")) {
                 mPausePanel.SetActive(true);
                 buttonSelected = 0;
+                Debug.Log(menuButtons[0].gameObject.name);
                 menuButtons[buttonSelected].Select();
                 Time.timeScale = 0;
                 paused = true;

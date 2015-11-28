@@ -4,6 +4,8 @@ using System.Collections;
 public class MainMenu : MonoBehaviour
 {
 
+    GameObject gameMasterRef;
+
     private int activeMenu;
 
     GameObject[] mainMenuPanels;
@@ -20,15 +22,19 @@ public class MainMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        gameMasterRef = GameObject.FindGameObjectWithTag("GameController");
+
         mainMenuPanels = GameObject.FindGameObjectsWithTag("MenuPanel");
         mainMenuButtons = new UnityEngine.UI.Button[mainMenuPanels.Length][];
 
-         //* REMOVE
-
-        PlayerPrefs.SetInt("f1_stage", 1);
-        PlayerPrefs.SetInt("f2_stage", 0);
-        PlayerPrefs.SetInt("f3_stage", 2);
-
+        //* REMOVE
+        for (int i = 1; i < 4; ++i )
+        {
+            PlayerPrefs.DeleteKey("f" + i + "_rate0");
+            PlayerPrefs.DeleteKey("f" + i + "_rate1");
+            PlayerPrefs.DeleteKey("f" + i + "_rate2");
+            PlayerPrefs.DeleteKey("f" + i + "_rate3");
+        }
         // */
 
         Debug.Log("Length: " + mainMenuPanels.Length);
@@ -66,7 +72,7 @@ public class MainMenu : MonoBehaviour
         buttonSelected = 0;
 
         // check if there exists a save file. If yes, allow for continue.
-        int gamesSaved = PlayerPrefs.GetInt("games_saved");
+        int gamesSaved = PlayerPrefs.GetInt("files_saved");
         if(gamesSaved == 0) {
             mainMenuButtons[mainMenuIndex][0].gameObject.SetActive(false);
             mainMenuButtons[mainMenuIndex][1].Select();            
@@ -139,17 +145,26 @@ public class MainMenu : MonoBehaviour
 
     void LoadFile1()
     {
-        Debug.Log("Load Game - File 1");
+        if(PlayerPrefs.GetInt("f1_saved") == 1) { // save file exists.
+            PlayerPrefs.SetInt("file_loaded", 1);
+            gameMasterRef.SendMessage("LoadLevel");
+        }
     }
 
     void LoadFile2()
     {
-        Debug.Log("Load Game - File 2");
+        if(PlayerPrefs.GetInt("f2_saved") == 1) { // save file exists.
+            PlayerPrefs.SetInt("file_loaded", 2);
+            gameMasterRef.SendMessage("LoadLevel");
+        }
     }
 
     void LoadFile3()
     {
-        Debug.Log("Load Game - File 3");
+        if(PlayerPrefs.GetInt("f3_saved") == 1) { // save file exists.
+            PlayerPrefs.SetInt("file_loaded", 3);
+            gameMasterRef.SendMessage("LoadLevel");
+        }
     }
 
     void initLoadData(GameObject btnPanel, int file)
@@ -157,12 +172,22 @@ public class MainMenu : MonoBehaviour
         if(PlayerPrefs.GetInt("f" + file + "_saved") == 1) {
             foreach (UnityEngine.UI.Text txt in btnPanel.GetComponentsInChildren<UnityEngine.UI.Text>())
             {
+                ShowButtonStats(btnPanel, true);
                 if(!txt.gameObject.name.StartsWith("_")) {
-                    txt.text = PlayerPrefs.GetInt("f" + file + "_" + txt.gameObject.name).ToString();
+                    if (txt.gameObject.name == "stage") {
+                        txt.text = PlayerPrefs.GetInt("f" + file + "_stage").ToString() + (PlayerPrefs.GetInt("f" + file + "_at_boss") == 1 ? " Boss" : "");
+                    } else {
+                        txt.text = PlayerPrefs.GetInt("f" + file + "_" + txt.gameObject.name).ToString();
+                    }
                 } 
             } 
         } else {
-            btnPanel.SetActive(false);
+            ShowButtonStats(btnPanel, false);
         }
+    }
+
+    void ShowButtonStats(GameObject btnPanel, bool val) {
+        btnPanel.transform.parent.gameObject.GetComponentsInChildren<RectTransform>()[1].gameObject.SetActive(!val);
+        btnPanel.SetActive(val);
     }
 }

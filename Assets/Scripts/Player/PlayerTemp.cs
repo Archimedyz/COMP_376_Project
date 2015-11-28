@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour
+public class PlayerTemp : MonoBehaviour
 {
     private bool mRunning;
     private bool mWalking;

@@ -4,16 +4,18 @@
 
 The following are global keys, used by any file
 
-	games_saved		/* Determines the number of save file that exist. */
-	game_loaded 		/* number of the file currently loaded for continuing and saving. 0 implies none loaded and go to main menu */
+	files_saved		/* Determines the number of save file that exist. */
+	file_loaded 		/* number of the file currently loaded for continuing and saving. 0 implies none loaded and go to main menu */
 	
 
 the following keys are preceeded with 'f[x]_', where [x] indicates the save file being referenced.
 
 	saved 			/* Determines if the save file exists. */
 	stage			/* The Stage at which the game was last saved */
+	at_boss			/* 1 if Stage Boss was reached */
 	lvl			/* The players lvl when last saved */
-	hp			/* The players lvl when last saved */
+	max_hp			/* The players max hp when last saved */
+	hp			/* The players hp when last saved */
 	str			/* The players strength stat when last saved */
 	def			/* The players defence stat when last saved */
 	speed			/* The players speed stat when last saved */

@@ -25,9 +25,9 @@ public class MainMenu : MonoBehaviour
 
          //* REMOVE
 
-        PlayerPrefs.SetInt("f1_stage", 0);
+        PlayerPrefs.SetInt("f1_stage", 1);
         PlayerPrefs.SetInt("f2_stage", 0);
-        PlayerPrefs.SetInt("f3_stage", 0);
+        PlayerPrefs.SetInt("f3_stage", 2);
 
         // */
 
@@ -46,12 +46,14 @@ public class MainMenu : MonoBehaviour
                 newButtonPanels = new GameObject[mainMenuButtons[i].Length - 1]; // minus the back button
                 for(int j = 0; j < newButtonPanels.Length; ++j) {
                     newButtonPanels[j] = mainMenuButtons[i][j].gameObject.GetComponentsInChildren<RectTransform>()[2].gameObject;
+                    initLoadData(newButtonPanels[j], j + 1);                    
                 }
             } else if(mainMenuPanels[i].name == "LoadPanel") {
                 loadMenuIndex = i;
                 loadButtonPanels = new GameObject[mainMenuButtons[i].Length - 1]; // minus the back button
                 for(int j = 0; j < newButtonPanels.Length; ++j) {
                     loadButtonPanels[j] = mainMenuButtons[i][j].gameObject.GetComponentsInChildren<RectTransform>()[2].gameObject;
+                    initLoadData(loadButtonPanels[j], j + 1);
                 }
             }
 
@@ -123,12 +125,6 @@ public class MainMenu : MonoBehaviour
     void NewFile1()
     {
         Debug.Log("New Game - File 1");
-
-        foreach (UnityEngine.UI.Text txt in newButtonPanels[0].GetComponentsInChildren<UnityEngine.UI.Text>())
-        {
-            Debug.Log("NEW: " + txt.gameObject.name);
-        }
-
     }
 
     void NewFile2()
@@ -154,5 +150,19 @@ public class MainMenu : MonoBehaviour
     void LoadFile3()
     {
         Debug.Log("Load Game - File 3");
+    }
+
+    void initLoadData(GameObject btnPanel, int file)
+    {
+        if(PlayerPrefs.GetInt("f" + file + "_saved") == 1) {
+            foreach (UnityEngine.UI.Text txt in btnPanel.GetComponentsInChildren<UnityEngine.UI.Text>())
+            {
+                if(!txt.gameObject.name.StartsWith("_")) {
+                    txt.text = PlayerPrefs.GetInt("f" + file + "_" + txt.gameObject.name).ToString();
+                } 
+            } 
+        } else {
+            btnPanel.SetActive(false);
+        }
     }
 }

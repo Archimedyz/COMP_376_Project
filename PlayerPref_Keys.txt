@@ -1,0 +1,25 @@
+-----------------------------------------------------------------------------------------------------------------
+		PlayerPref Keys
+-----------------------------------------------------------------------------------------------------------------
+
+The following are global keys, used by any file
+
+	games_saved		/* Determines the number of save file that exist. */
+	game_loaded 		/* number of the file currently loaded for continuing and saving. 0 implies none loaded and go to main menu */
+	
+
+the following keys are preceeded with 'f[x]_', where [x] indicates the save file being referenced.
+
+	saved 			/* Determines if the save file exists. */
+	stage			/* The Stage at which the game was last saved */
+	lvl			/* The players lvl when last saved */
+	hp			/* The players lvl when last saved */
+	str			/* The players strength stat when last saved */
+	def			/* The players defence stat when last saved */
+	speed			/* The players speed stat when last saved */
+	rate0			/*
+	rate1			   The players level up rates as  
+	rate2			   defined in the stats class.
+	rate3			*/
+	
+	

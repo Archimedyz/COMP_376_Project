@@ -28,12 +28,12 @@ public class MainMenu : MonoBehaviour
         mainMenuButtons = new UnityEngine.UI.Button[mainMenuPanels.Length][];
 
         //* REMOVE
-        for (int i = 1; i < 4; ++i )
+        for (int i = 3; i < 4; ++i )
         {
-            PlayerPrefs.DeleteKey("f" + i + "_rate0");
-            PlayerPrefs.DeleteKey("f" + i + "_rate1");
-            PlayerPrefs.DeleteKey("f" + i + "_rate2");
-            PlayerPrefs.DeleteKey("f" + i + "_rate3");
+            PlayerPrefs.SetInt("f" + i + "_lvl", 2);
+            PlayerPrefs.SetInt("f" + i + "_str", 12);
+            PlayerPrefs.SetInt("f" + i + "_def", 6);
+            PlayerPrefs.SetInt("f" + i + "_spd", 6);
         }
         // */
 

@@ -51,7 +51,7 @@ public class PauseMenu : MonoBehaviour {
     void Save()
     {
         buttonSelected = 1;
-        Debug.Log("Save");
+        GameObject.FindGameObjectWithTag("GameController").SendMessage("SaveGame");
     }
 
     void MainMenu()

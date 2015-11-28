@@ -18,10 +18,6 @@ the following keys are preceeded with 'f[x]_', where [x] indicates the save file
 	hp			/* The players hp when last saved */
 	str			/* The players strength stat when last saved */
 	def			/* The players defence stat when last saved */
-	speed			/* The players speed stat when last saved */
-	rate0			/*
-	rate1			   The players level up rates as  
-	rate2			   defined in the stats class.
-	rate3			*/
+	spd			/* The players speed stat when last saved */
 	
 	

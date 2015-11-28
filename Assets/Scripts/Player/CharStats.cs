@@ -26,8 +26,13 @@ public class Stats
     /// <param name="rate">4 int array size for level up rate</param>
     public Stats(int lvl, float hp, int str, int def, int speed, int[] rate)
     {
+        init(lvl, hp, str, def, speed, rate);
+    }
+
+    public void init(int lvl, float hp, int str, int def, int speed, int[] rate)
+    {
         _lvl = lvl;
-        Hp = hp + def*2;
+        Hp = hp + def * 2;
         Str = str;
         Def = def;
         Spd = speed;

@@ -56,6 +56,8 @@ public class Hobo : MonoBehaviour
 
     public int expGiven = 100;
 
+    private int staggerTimer = 0;
+
 	void Start ()
 	{
         mStats = new Stats(1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
@@ -87,8 +89,9 @@ public class Hobo : MonoBehaviour
 		}
 		
 		ResetBoolean ();
-
-		if (attackTimer > attackTimeWait && !mGetHit && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
+        if (staggerTimer > 0)
+            staggerTimer--;
+		if (attackTimer > attackTimeWait && !mGetHit && staggerTimer<=0 && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
 				Hit ();
@@ -126,7 +129,6 @@ public class Hobo : MonoBehaviour
 			mInvincibleTimer += Time.deltaTime;
 			if (mInvincibleTimer >= kInvincibilityDuration) {
 				mGetHit = false;
-				mRigidBody.isKinematic = true;
 				mInvincibleTimer = 0.0f;
 			}
 		}
@@ -144,12 +146,15 @@ public class Hobo : MonoBehaviour
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
+            
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
-                damage = (int)(damage * 1.3f);
-                Recoil(direction, 10.0f);
+                staggerTimer = 25 - (int)(staggerTimer * 0.10f);
+                damage = (int)(damage * 1.4f);
+                Recoil(direction, 2f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
 			} else {
+                staggerTimer = 15 - (int)(staggerTimer * 0.10f);
                 Recoil(direction, mPushBack);
 				if (audioTimer >= 0.2f) {
 					normalHit.Play ();

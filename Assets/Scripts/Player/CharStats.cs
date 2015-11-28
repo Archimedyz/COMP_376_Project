@@ -6,6 +6,7 @@ public class Stats
     private int _lvl;
     private int _exp;
     private float _hp;
+    private float _maxHp;
     private int _str;
     private int _def;
     private int _spd;
@@ -22,17 +23,18 @@ public class Stats
     /// <param name="hp"></param>
     /// <param name="str"></param>
     /// <param name="def"></param>
-    /// <param name="speed"></param>
+    /// <param name="spd"></param>
     /// <param name="rate">4 int array size for level up rate</param>
     public Stats(int lvl, float hp, int str, int def, int speed, int[] rate)
     {
-        init(lvl, hp, str, def, speed, rate);
+        init(lvl, (hp + def * 2), hp, str, def, speed, rate);
     }
 
-    public void init(int lvl, float hp, int str, int def, int speed, int[] rate)
+    public void init(int lvl, float hp, float maxHp, int str, int def, int speed, int[] rate)
     {
         _lvl = lvl;
-        Hp = hp + def * 2;
+        Hp = hp;
+        MaxHp = maxHp + def * 2;
         Str = str;
         Def = def;
         Spd = speed;
@@ -78,6 +80,11 @@ public class Stats
     {
         get { return _hp; }
         set { _hp = value; }
+    }
+    public float MaxHp
+    {
+        get { return _maxHp; }
+        set { _maxHp = value; }
     }
     public int Str
     {
@@ -146,7 +153,7 @@ public class Stats
     public void LevelUp()
     {
         _lvl++;
-        Hp = _hp + _rate[0] + (_rate[2] * 2);
+        MaxHp = _maxHp + _rate[0] + (_rate[2] * 2);
         Str = _str + _rate[1];
         Def = _def + _rate[2];
         Spd = _spd + _rate[3];

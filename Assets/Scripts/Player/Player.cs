@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
 
         // Init HealthBar Stuff
         mHealthBarRef = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<HealthBar>();
-        mHealthBarRef.SetMaxHealth(mStats.Hp);
+        mHealthBarRef.SetMaxHealth(mStats.MaxHp);
         mHealthBarRef.SetHealth(mStats.Hp);
 
         //AudioSource[] audioSources = GetComponents<AudioSource> ();
@@ -224,6 +224,8 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.C))
         {
             Defend();
+            mMoving = false;
+            mRunning = false;
             return true;
         }
         else
@@ -235,7 +237,7 @@ public class Player : MonoBehaviour
                 mHitting = true;
                 return true;
             }
-            else if (Input.GetKeyDown("z") && timerForSlide > 15)//TODO: Add NEED run for x frames to get slide
+            else if (Input.GetKeyDown("z") && timerForSlide > 15)
             {
                 Slide();
                 timerForSlide = 0;
@@ -637,6 +639,7 @@ public class Player : MonoBehaviour
         {
             uiCanvas.CreateDamageLabel("LEVEL UP!", (transform.position + damagePosition / 1.5f), UINotification.TYPE.LVLUP);
             mStats.IsLevelUp = false;
+            mHealthBarRef.SetMaxHealth(mStats.MaxHp);
             SpeedStatIncreases();
         }
     }

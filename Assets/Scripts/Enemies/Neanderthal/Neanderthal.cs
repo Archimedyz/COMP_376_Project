@@ -139,7 +139,6 @@ public class Neanderthal : MonoBehaviour
             if (mInvincibleTimer >= kInvincibilityDuration)
             {
                 mGetHit = false;
-                mRigidBody.isKinematic = true;
                 mInvincibleTimer = 0.0f;
             }
         }
@@ -157,13 +156,13 @@ public class Neanderthal : MonoBehaviour
             if (GameObject.Find("Player").GetComponent<Player>().IsStrongAttack())
             {
                 damage = (int)(damage * 1.3f);
-                mRigidBody.AddForce(new Vector2(direction.x, 0.0f) * 10, ForceMode.Impulse);
+                Recoil(direction, 2f);
                 if (!strongHit.isPlaying)
                     strongHit.Play();
             }
             else
             {
-                mRigidBody.AddForce(new Vector2(direction.x, 0.0f) * mPushBack, ForceMode.Impulse);
+                Recoil(direction, mPushBack);
                 if (audioTimer >= 0.15f)
                 {
                     normalHit.Play();
@@ -181,7 +180,10 @@ public class Neanderthal : MonoBehaviour
             }
         }
     }
-
+    public void Recoil(Vector2 direction, float modifier)
+    {
+        mRigidBody.AddForce(new Vector2(direction.x, 0.0f) * modifier, ForceMode.Impulse);
+    }
     private void Die()
     {
         mDying = true;

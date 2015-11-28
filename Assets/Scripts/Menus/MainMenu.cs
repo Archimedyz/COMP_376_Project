@@ -6,7 +6,9 @@ public class MainMenu : MonoBehaviour
 
     private int activeMenu;
 
-    GameObject[] mMenuPanels;
+    GameObject[] mainMenuPanels;
+    GameObject[] loadButtonPanels;
+    GameObject[] newButtonPanels;
     UnityEngine.UI.Button[][] mainMenuButtons;
     private int buttonSelected;
 
@@ -18,27 +20,43 @@ public class MainMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        mMenuPanels = GameObject.FindGameObjectsWithTag("MenuPanel");
-        mainMenuButtons = new UnityEngine.UI.Button[mMenuPanels.Length][];
+        mainMenuPanels = GameObject.FindGameObjectsWithTag("MenuPanel");
+        mainMenuButtons = new UnityEngine.UI.Button[mainMenuPanels.Length][];
 
-        Debug.Log("Length: " + mMenuPanels.Length);
+         //* REMOVE
 
-        for (int i = 0; i < mMenuPanels.Length; ++i)
+        PlayerPrefs.SetInt("f1_stage", 0);
+        PlayerPrefs.SetInt("f2_stage", 0);
+        PlayerPrefs.SetInt("f3_stage", 0);
+
+        // */
+
+        Debug.Log("Length: " + mainMenuPanels.Length);
+
+        for (int i = 0; i < mainMenuPanels.Length; ++i)
         {
-            mainMenuButtons[i] = mMenuPanels[i].GetComponentsInChildren<UnityEngine.UI.Button>();
-            Debug.Log(mMenuPanels[i].name + " - Buttons[" + i + "]: " + mainMenuButtons[i].Length);
+            mainMenuButtons[i] = mainMenuPanels[i].GetComponentsInChildren<UnityEngine.UI.Button>();
+            Debug.Log(mainMenuPanels[i].name + " - Buttons[" + i + "]: " + mainMenuButtons[i].Length);
             mainMenuButtons[i][0].Select();
 
-            if(mMenuPanels[i].name == "MainPanel") {
+            if(mainMenuPanels[i].name == "MainPanel") {
                 mainMenuIndex = i;
-            } else if(mMenuPanels[i].name == "NewPanel") {
+            } else if(mainMenuPanels[i].name == "NewPanel") {
                 newMenuIndex = i;
-            } else if(mMenuPanels[i].name == "LoadPanel") {
+                newButtonPanels = new GameObject[mainMenuButtons[i].Length - 1]; // minus the back button
+                for(int j = 0; j < newButtonPanels.Length; ++j) {
+                    newButtonPanels[j] = mainMenuButtons[i][j].gameObject.GetComponentsInChildren<RectTransform>()[2].gameObject;
+                }
+            } else if(mainMenuPanels[i].name == "LoadPanel") {
                 loadMenuIndex = i;
+                loadButtonPanels = new GameObject[mainMenuButtons[i].Length - 1]; // minus the back button
+                for(int j = 0; j < newButtonPanels.Length; ++j) {
+                    loadButtonPanels[j] = mainMenuButtons[i][j].gameObject.GetComponentsInChildren<RectTransform>()[2].gameObject;
+                }
             }
 
             if(i != mainMenuIndex) {
-                mMenuPanels[i].SetActive(false);
+                mainMenuPanels[i].SetActive(false);
             }
         }
 
@@ -48,8 +66,8 @@ public class MainMenu : MonoBehaviour
         // check if there exists a save file. If yes, allow for continue.
         int gamesSaved = PlayerPrefs.GetInt("games_saved");
         if(gamesSaved == 0) {
-            //Destroy(mainMenuButtons[mainMenuIndex][0].gameObject);
-            mainMenuButtons[mainMenuIndex][0].Select();            
+            mainMenuButtons[mainMenuIndex][0].gameObject.SetActive(false);
+            mainMenuButtons[mainMenuIndex][1].Select();            
         }
     }
 
@@ -73,8 +91,8 @@ public class MainMenu : MonoBehaviour
         buttonSelected = 0;
         Debug.Log("Load Game");
         activeMenu = loadMenuIndex;
-        mMenuPanels[activeMenu].SetActive(true);
-        mMenuPanels[mainMenuIndex].SetActive(false);
+        mainMenuPanels[activeMenu].SetActive(true);
+        mainMenuPanels[mainMenuIndex].SetActive(false);
     }
 
     void NewGame()
@@ -82,8 +100,8 @@ public class MainMenu : MonoBehaviour
         buttonSelected = 0;
         Debug.Log("New Game");
         activeMenu = newMenuIndex;
-        mMenuPanels[activeMenu].SetActive(true);
-        mMenuPanels[mainMenuIndex].SetActive(false);
+        mainMenuPanels[activeMenu].SetActive(true);
+        mainMenuPanels[mainMenuIndex].SetActive(false);
 
     }
 
@@ -97,14 +115,20 @@ public class MainMenu : MonoBehaviour
     void Back()
     {
         activeMenu = mainMenuIndex;
-        mMenuPanels[activeMenu].SetActive(true);
-        mMenuPanels[newMenuIndex].SetActive(false);
-        mMenuPanels[loadMenuIndex].SetActive(false);
+        mainMenuPanels[activeMenu].SetActive(true);
+        mainMenuPanels[newMenuIndex].SetActive(false);
+        mainMenuPanels[loadMenuIndex].SetActive(false);
     }
 
     void NewFile1()
     {
         Debug.Log("New Game - File 1");
+
+        foreach (UnityEngine.UI.Text txt in newButtonPanels[0].GetComponentsInChildren<UnityEngine.UI.Text>())
+        {
+            Debug.Log("NEW: " + txt.gameObject.name);
+        }
+
     }
 
     void NewFile2()

@@ -59,7 +59,6 @@ public class PauseMenu : MonoBehaviour {
         // get the game controller.
         PlayerPrefs.SetInt("file_loaded", 0);
         Time.timeScale = 1.0f;
-        Debug.Log("Going to Main Menu");
         GameObject.FindGameObjectWithTag("GameController").SendMessage("LoadLevel");
     }
 }

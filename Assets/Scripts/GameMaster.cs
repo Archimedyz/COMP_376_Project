@@ -10,7 +10,6 @@ public class GameMaster : MonoBehaviour {
 
     void LoadLevel() {
         int file_loaded = PlayerPrefs.GetInt("file_loaded");
-        Debug.Log("Chui La.");
         if(file_loaded != 0) {
             int stage = PlayerPrefs.GetInt("f" + file_loaded + "_stage");
             int at_boss = PlayerPrefs.GetInt("f" + file_loaded + "_at_boss");
@@ -23,5 +22,10 @@ public class GameMaster : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void NextLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel + 1);
     }
 }

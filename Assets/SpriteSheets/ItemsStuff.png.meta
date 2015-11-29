@@ -1,0 +1,2806 @@
+fileFormatVersion: 2
+guid: a4d2107b2e3819744adb61e1f3fcbffc
+timeCreated: 1448747359
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ItemsStuff_0
+    21300002: ItemsStuff_1
+    21300004: ItemsStuff_2
+    21300006: ItemsStuff_3
+    21300008: ItemsStuff_4
+    21300010: ItemsStuff_5
+    21300012: ItemsStuff_6
+    21300014: ItemsStuff_7
+    21300016: ItemsStuff_8
+    21300018: ItemsStuff_9
+    21300020: ItemsStuff_10
+    21300022: ItemsStuff_11
+    21300024: ItemsStuff_12
+    21300026: ItemsStuff_13
+    21300028: ItemsStuff_14
+    21300030: ItemsStuff_15
+    21300032: ItemsStuff_16
+    21300034: ItemsStuff_17
+    21300036: ItemsStuff_18
+    21300038: ItemsStuff_19
+    21300040: ItemsStuff_20
+    21300042: ItemsStuff_21
+    21300044: ItemsStuff_22
+    21300046: ItemsStuff_23
+    21300048: ItemsStuff_24
+    21300050: ItemsStuff_25
+    21300052: ItemsStuff_26
+    21300054: ItemsStuff_27
+    21300056: ItemsStuff_28
+    21300058: ItemsStuff_29
+    21300060: ItemsStuff_30
+    21300062: ItemsStuff_31
+    21300064: ItemsStuff_32
+    21300066: ItemsStuff_33
+    21300068: ItemsStuff_34
+    21300070: ItemsStuff_35
+    21300072: ItemsStuff_36
+    21300074: ItemsStuff_37
+    21300076: ItemsStuff_38
+    21300078: ItemsStuff_39
+    21300080: ItemsStuff_40
+    21300082: ItemsStuff_41
+    21300084: ItemsStuff_42
+    21300086: ItemsStuff_43
+    21300088: ItemsStuff_44
+    21300090: ItemsStuff_45
+    21300092: ItemsStuff_46
+    21300094: ItemsStuff_47
+    21300096: ItemsStuff_48
+    21300098: ItemsStuff_49
+    21300100: ItemsStuff_50
+    21300102: ItemsStuff_51
+    21300104: ItemsStuff_52
+    21300106: ItemsStuff_53
+    21300108: ItemsStuff_54
+    21300110: ItemsStuff_55
+    21300112: ItemsStuff_56
+    21300114: ItemsStuff_57
+    21300116: ItemsStuff_58
+    21300118: ItemsStuff_59
+    21300120: ItemsStuff_60
+    21300122: ItemsStuff_61
+    21300124: ItemsStuff_62
+    21300126: ItemsStuff_63
+    21300128: ItemsStuff_64
+    21300130: ItemsStuff_65
+    21300132: ItemsStuff_66
+    21300134: ItemsStuff_67
+    21300136: ItemsStuff_68
+    21300138: ItemsStuff_69
+    21300140: ItemsStuff_70
+    21300142: ItemsStuff_71
+    21300144: ItemsStuff_72
+    21300146: ItemsStuff_73
+    21300148: ItemsStuff_74
+    21300150: ItemsStuff_75
+    21300152: ItemsStuff_76
+    21300154: ItemsStuff_77
+    21300156: ItemsStuff_78
+    21300158: ItemsStuff_79
+    21300160: ItemsStuff_80
+    21300162: ItemsStuff_81
+    21300164: ItemsStuff_82
+    21300166: ItemsStuff_83
+    21300168: ItemsStuff_84
+    21300170: ItemsStuff_85
+    21300172: ItemsStuff_86
+    21300174: ItemsStuff_87
+    21300176: ItemsStuff_88
+    21300178: ItemsStuff_89
+    21300180: ItemsStuff_90
+    21300182: ItemsStuff_91
+    21300184: ItemsStuff_92
+    21300186: ItemsStuff_93
+    21300188: ItemsStuff_94
+    21300190: ItemsStuff_95
+    21300192: ItemsStuff_96
+    21300194: ItemsStuff_97
+    21300196: ItemsStuff_98
+    21300198: ItemsStuff_99
+    21300200: ItemsStuff_100
+    21300202: ItemsStuff_101
+    21300204: ItemsStuff_102
+    21300206: ItemsStuff_103
+    21300208: ItemsStuff_104
+    21300210: ItemsStuff_105
+    21300212: ItemsStuff_106
+    21300214: ItemsStuff_107
+    21300216: ItemsStuff_108
+    21300218: ItemsStuff_109
+    21300220: ItemsStuff_110
+    21300222: ItemsStuff_111
+    21300224: ItemsStuff_112
+    21300226: ItemsStuff_113
+    21300228: ItemsStuff_114
+    21300230: ItemsStuff_115
+    21300232: ItemsStuff_116
+    21300234: ItemsStuff_117
+    21300236: ItemsStuff_118
+    21300238: ItemsStuff_119
+    21300240: ItemsStuff_120
+    21300242: ItemsStuff_121
+    21300244: ItemsStuff_122
+    21300246: ItemsStuff_123
+    21300248: ItemsStuff_124
+    21300250: ItemsStuff_125
+    21300252: ItemsStuff_126
+    21300254: ItemsStuff_127
+    21300256: ItemsStuff_128
+    21300258: ItemsStuff_129
+    21300260: ItemsStuff_130
+    21300262: ItemsStuff_131
+    21300264: ItemsStuff_132
+    21300266: ItemsStuff_133
+    21300268: ItemsStuff_134
+    21300270: ItemsStuff_135
+    21300272: ItemsStuff_136
+    21300274: ItemsStuff_137
+    21300276: ItemsStuff_138
+    21300278: ItemsStuff_139
+    21300280: ItemsStuff_140
+    21300282: ItemsStuff_141
+    21300284: ItemsStuff_142
+    21300286: ItemsStuff_143
+    21300288: ItemsStuff_144
+    21300290: ItemsStuff_145
+    21300292: ItemsStuff_146
+    21300294: ItemsStuff_147
+    21300296: ItemsStuff_148
+    21300298: ItemsStuff_149
+    21300300: ItemsStuff_150
+    21300302: ItemsStuff_151
+    21300304: ItemsStuff_152
+    21300306: ItemsStuff_153
+    21300308: ItemsStuff_154
+    21300310: ItemsStuff_155
+    21300312: ItemsStuff_156
+    21300314: ItemsStuff_157
+    21300316: ItemsStuff_158
+    21300318: ItemsStuff_159
+    21300320: ItemsStuff_160
+    21300322: ItemsStuff_161
+    21300324: ItemsStuff_162
+    21300326: ItemsStuff_163
+    21300328: ItemsStuff_164
+    21300330: ItemsStuff_165
+    21300332: ItemsStuff_166
+    21300334: ItemsStuff_167
+    21300336: ItemsStuff_168
+    21300338: ItemsStuff_169
+    21300340: ItemsStuff_170
+    21300342: ItemsStuff_171
+    21300344: ItemsStuff_172
+    21300346: ItemsStuff_173
+    21300348: ItemsStuff_174
+    21300350: ItemsStuff_175
+    21300352: ItemsStuff_176
+    21300354: ItemsStuff_177
+    21300356: ItemsStuff_178
+    21300358: ItemsStuff_179
+    21300360: ItemsStuff_180
+    21300362: ItemsStuff_181
+    21300364: ItemsStuff_182
+    21300366: ItemsStuff_183
+    21300368: ItemsStuff_184
+    21300370: ItemsStuff_185
+    21300372: ItemsStuff_186
+    21300374: ItemsStuff_187
+    21300376: ItemsStuff_188
+    21300378: ItemsStuff_189
+    21300380: ItemsStuff_190
+    21300382: ItemsStuff_191
+    21300384: ItemsStuff_192
+    21300386: ItemsStuff_193
+    21300388: ItemsStuff_194
+    21300390: ItemsStuff_195
+    21300392: ItemsStuff_196
+    21300394: ItemsStuff_197
+    21300396: ItemsStuff_198
+    21300398: ItemsStuff_199
+    21300400: ItemsStuff_200
+    21300402: ItemsStuff_201
+    21300404: ItemsStuff_202
+    21300406: ItemsStuff_203
+    21300408: ItemsStuff_204
+    21300410: ItemsStuff_205
+    21300412: ItemsStuff_206
+    21300414: ItemsStuff_207
+    21300416: ItemsStuff_208
+    21300418: ItemsStuff_209
+    21300420: ItemsStuff_210
+    21300422: ItemsStuff_211
+    21300424: ItemsStuff_212
+    21300426: ItemsStuff_213
+    21300428: ItemsStuff_214
+    21300430: ItemsStuff_215
+    21300432: ItemsStuff_216
+    21300434: ItemsStuff_217
+    21300436: ItemsStuff_218
+    21300438: ItemsStuff_219
+    21300440: ItemsStuff_220
+    21300442: ItemsStuff_221
+    21300444: ItemsStuff_222
+    21300446: ItemsStuff_223
+    21300448: ItemsStuff_224
+    21300450: ItemsStuff_225
+    21300452: ItemsStuff_226
+    21300454: ItemsStuff_227
+    21300456: ItemsStuff_228
+    21300458: ItemsStuff_229
+    21300460: ItemsStuff_230
+    21300462: ItemsStuff_231
+    21300464: ItemsStuff_232
+    21300466: ItemsStuff_233
+    21300468: ItemsStuff_234
+    21300470: ItemsStuff_235
+    21300472: ItemsStuff_236
+    21300474: ItemsStuff_237
+    21300476: ItemsStuff_238
+    21300478: ItemsStuff_239
+    21300480: ItemsStuff_240
+    21300482: ItemsStuff_241
+    21300484: ItemsStuff_242
+    21300486: ItemsStuff_243
+    21300488: ItemsStuff_244
+    21300490: ItemsStuff_245
+    21300492: ItemsStuff_246
+    21300494: ItemsStuff_247
+    21300496: ItemsStuff_248
+    21300498: ItemsStuff_249
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: ItemsStuff_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 484
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_1
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 482
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 481
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_3
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 485
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 482
+        width: 32
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_5
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 485
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_6
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 487
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_7
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 480
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_8
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 484
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_9
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 484
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_10
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 481
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_11
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 484
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_12
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 480
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_13
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 484
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_14
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 450
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_15
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 453
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_16
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 452
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_17
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 450
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_18
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 451
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_19
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 451
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_20
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 449
+        width: 19
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_21
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 448
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_22
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 453
+        width: 30
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_23
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 453
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_24
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 452
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_25
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 456
+        width: 26
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_26
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 448
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_27
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 448
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_28
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 449
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_29
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 419
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_30
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 419
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_31
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 418
+        width: 30
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_32
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 418
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_33
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 421
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_34
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 420
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_35
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 420
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_36
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 416
+        width: 31
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_37
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 414
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_38
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 417
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_39
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 417
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_40
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 419
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_41
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 419
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_42
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 419
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_43
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 420
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_44
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 384
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_45
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 384
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_46
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 388
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_47
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 386
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_48
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 384
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_49
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 409
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_50
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 384
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_51
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 386
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_52
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 388
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_53
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 388
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_54
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 387
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_55
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 386
+        width: 31
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_56
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 390
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_57
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 385
+        width: 26
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_58
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 388
+        width: 28
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_59
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 392
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_60
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 355
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_61
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_62
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 357
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_63
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 357
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_64
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 355
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_65
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 355
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_66
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 356
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_67
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 352
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_68
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 350
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_69
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 358
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_70
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 352
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_71
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 352
+        width: 33
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_72
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 352
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_73
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 352
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_74
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 356
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_75
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 323
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_76
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 321
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_77
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 323
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_78
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 320
+        width: 20
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_79
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 321
+        width: 31
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_80
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 323
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_81
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 322
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_82
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 320
+        width: 33
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_83
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 325
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_84
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 321
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_85
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 320
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_86
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 320
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_87
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 320
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_88
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 320
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_89
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 323
+        width: 30
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_90
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 290
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_91
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 290
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_92
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 291
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_93
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 289
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_94
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 289
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_95
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 288
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_96
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 291
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_97
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 293
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_98
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 286
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_99
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 301
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_100
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 286
+        width: 34
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_101
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 286
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_102
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 290
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_103
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 286
+        width: 34
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_104
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 286
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_105
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 292
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_106
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 260
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_107
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 261
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_108
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 257
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_109
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 261
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_110
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 259
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_111
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 261
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_112
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 259
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_113
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 258
+        width: 34
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_114
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 222
+        width: 31
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_115
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 228
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_116
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 222
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_117
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 226
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_118
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 222
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_119
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 228
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_120
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 222
+        width: 34
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_121
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 226
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_122
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 222
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_123
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 222
+        width: 34
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_124
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 222
+        width: 31
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_125
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 225
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_126
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 222
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_127
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 222
+        width: 34
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_128
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 222
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_129
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 222
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_130
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 166
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_131
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 165
+        width: 34
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_132
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 163
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_133
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 163
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_134
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 164
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_135
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 164
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_136
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 163
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_137
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 161
+        width: 29
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_138
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 160
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_139
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 190
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_140
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 190
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_141
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 190
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_142
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 190
+        width: 34
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_143
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 165
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_144
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 165
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_145
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 158
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_146
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 158
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_147
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 158
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_148
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 158
+        width: 34
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_149
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 135
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_150
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 135
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_151
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 135
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_152
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 135
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_153
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 134
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_154
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 135
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_155
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 136
+        width: 26
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_156
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 133
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_157
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 129
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_158
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 129
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_159
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 135
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_160
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 98
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_161
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 101
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_162
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 126
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_163
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 126
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_164
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 126
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_165
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 126
+        width: 34
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_166
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 99
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_167
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 99
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_168
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 99
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_169
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 98
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_170
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 103
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_171
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 101
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_172
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 99
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_173
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 102
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_174
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 97
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_175
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_176
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 94
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_177
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 94
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_178
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 94
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_179
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 94
+        width: 34
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_180
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 85
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_181
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 88
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_182
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 67
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_183
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 68
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_184
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 66
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_185
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 71
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_186
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 67
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_187
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 68
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_188
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 65
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_189
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 78
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_190
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 79
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_191
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 75
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_192
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 73
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_193
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 68
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_194
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_195
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 65
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_196
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 70
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_197
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 66
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_198
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 51
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_199
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 62
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_200
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 62
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_201
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 62
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_202
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 62
+        width: 34
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_203
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 53
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_204
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 57
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_205
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 34
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_206
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 38
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_207
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 37
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_208
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 37
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_209
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 33
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_210
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 54
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_211
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 51
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_212
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 48
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_213
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 52
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_214
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 47
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_215
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 48
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_216
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 40
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_217
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 35
+        width: 31
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_218
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 44
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_219
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 49
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_220
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 43
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_221
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 43
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_222
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 41
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_223
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 42
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_224
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 47
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_225
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 46
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_226
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 36
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_227
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 39
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_228
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 40
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_229
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 32
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_230
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 37
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_231
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 35
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_232
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 42
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_233
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 35
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_234
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 35
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_235
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 6
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_236
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 7
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_237
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 7
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_238
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 7
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_239
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 6
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_240
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 5
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_241
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 4
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_242
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 4
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_243
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 7
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_244
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 1
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_245
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 0
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_246
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 0
+        width: 4
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_247
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 0
+        width: 4
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_248
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 0
+        width: 4
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ItemsStuff_249
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 0
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -154,6 +154,7 @@ public class Stats
     {
         _lvl++;
         MaxHp = _maxHp + _rate[0] + (_rate[2] * 2);
+        Hp = _hp + _rate[0] + (_rate[2] * 2);
         Str = _str + _rate[1];
         Def = _def + _rate[2];
         Spd = _spd + _rate[3];

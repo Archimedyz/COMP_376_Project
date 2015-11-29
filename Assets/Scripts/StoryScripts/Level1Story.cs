@@ -54,7 +54,7 @@ public class Level1Story : MonoBehaviour
 		hooded = GameObject.Find ("HoodedCharacter").GetComponent<HoodedCharacter> ();
 
 		GameObject.Find ("MetroSpawners").SetActive (false);
-
+		GameObject.Find ("LevelEndStart").SetActive (false);
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		theme = audioSources [0];
@@ -66,9 +66,10 @@ public class Level1Story : MonoBehaviour
 	{
 		if (metroArrives) {
 			if (!terraTheme.isPlaying) {
+				player.transform.position = new Vector3 (76f, -4.33f, 0f);
 				terraTheme.Play ();
 			}
-			float distCovered = (Time.time - startTime) * 0.01f;
+			float distCovered = (Time.time - startTime) * 10/*0.01f*/;
 			float fracJourney = distCovered / journeyLength;
 			metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
 			player.transform.position = Vector3.Lerp (player.transform.position, new Vector3 (metroTarget, player.transform.position.y, player.transform.position.z), fracJourney);
@@ -92,11 +93,9 @@ public class Level1Story : MonoBehaviour
 		}
 
 		if (scottArrives) {
-			//player.gameObject.SetActive (true);
 			player.GetComponent<Player> ().enabled = true;
 			player.transform.position += new Vector3 (0f, 0f, 1f);
 			player.SetInStory (true);
-			//mainCamera.GetComponent<FollowCam> ().SetTarget ();
 			scottArrives = false;
 		}
 
@@ -110,7 +109,6 @@ public class Level1Story : MonoBehaviour
 			if (player.transform.position.y >= -3.5f) {
 				player.SetMoveUp (false);
 				scottStopMove = false;
-				//TODO Character can move ?
 				scottCanWalk = true;
 			}
 		}
@@ -144,7 +142,8 @@ public class Level1Story : MonoBehaviour
 			player.SetInStory (false);
 			enemies.SetActive (true);
 			hoodedDissapeared = false;
-			GameObject.Find ("MetroSpawners").SetActive (false);
+			GameObject.Find ("MetroSpawners").SetActive (true);
+			GameObject.Find ("LevelEndStart").SetActive (true);
 		}
 	}
 

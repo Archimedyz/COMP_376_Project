@@ -3,11 +3,9 @@ using System.Collections;
 
 public class Rock : MonoBehaviour
 {
-
 	GameObject mShadow;
 
 	private AudioSource falling;
-	private AudioSource hit;
 
 	void Start ()
 	{
@@ -16,14 +14,12 @@ public class Rock : MonoBehaviour
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		falling = audioSources [0];
 		falling.Play ();
-		hit = audioSources [1];
 	}
 
 	void Update ()
 	{
 		if (transform.localPosition.y <= 0.0f) {
 			falling.Stop ();
-			hit.Play ();
 			Destroy (transform.parent.gameObject);
 			return;
 		}
@@ -33,7 +29,6 @@ public class Rock : MonoBehaviour
 
 	void OnTriggerEnter (Collider col)
 	{
-		hit.Play ();
 		if (col.gameObject.name == "GeneralColliderPlayer") {
 			// determine the Players Script.
 			Player player = col.gameObject.transform.parent.GetComponent<Player> ();

@@ -96,7 +96,7 @@ public class Boss1Controller : MonoBehaviour
 		
 		for (int i = 0; i < bossDifficulty - 1; i++) {
 			if (i < 3) {
-				enemies [i] = Instantiate (pookaPrefab, new Vector3 ((digdug.transform.position.x - 8f) + (i * 0.3f), -10f + (i * 2), -1f), Quaternion.identity) as GameObject;
+				enemies [i] = Instantiate (pookaPrefab, new Vector3 ((digdug.transform.position.x - 9f) + (i * 0.3f), -10f + (i * 2), -1f), Quaternion.identity) as GameObject;
 				enemies [i].transform.parent = transform;
 				enemies [i].GetComponent<Pooka> ().SetSpeed (enemySpeed);
 			} else {

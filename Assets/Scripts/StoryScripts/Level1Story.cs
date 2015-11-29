@@ -10,6 +10,7 @@ public class Level1Story : MonoBehaviour
 	private HoodedCharacter hooded;
 	private GameObject mainCamera;
 	private GameObject dialogue;
+	private GameObject enemies;
 	private Dialogue dialogueText;
 
 	private bool metroArrives = true;
@@ -48,8 +49,12 @@ public class Level1Story : MonoBehaviour
 		dialogueText = GameObject.Find ("DialogueText").GetComponent<Dialogue> ();
 		dialogue.SetActive (false);
 
-		//enemies = GameObject.Find ("Enemies") as GameObject;
+		enemies = GameObject.Find ("Enemies") as GameObject;
+		enemies.SetActive (false);
 		hooded = GameObject.Find ("HoodedCharacter").GetComponent<HoodedCharacter> ();
+
+		GameObject.Find ("MetroSpawners").SetActive (false);
+
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		theme = audioSources [0];
@@ -131,12 +136,15 @@ public class Level1Story : MonoBehaviour
 		if (hoodedFinishedTalking) {
 			StartCoroutine (FadeIn (theme));
 			hoodedFinishedTalking = false;
+			hoodedDissapeared = true;
 			hooded.SetDissapears ();
 		}
 
 		if (hoodedDissapeared) {
 			player.SetInStory (false);
+			enemies.SetActive (true);
 			hoodedDissapeared = false;
+			GameObject.Find ("MetroSpawners").SetActive (false);
 		}
 	}
 

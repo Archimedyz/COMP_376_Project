@@ -28,6 +28,7 @@ public class HoodedCharacter : MonoBehaviour
 	public void SetDissapears ()
 	{
 		mDissapear = true;
+		UpdateAnimator ();
 	}
 
 	private void ResetBoolean ()

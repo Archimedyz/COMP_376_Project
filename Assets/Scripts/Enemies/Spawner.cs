@@ -28,6 +28,9 @@ public class Spawner : MonoBehaviour
 
 	AudioSource strongHit;
 	AudioSource normalHit;
+	AudioSource dissapearing;
+	AudioSource hoboAppearing;
+	AudioSource neanderthalAppearing;
 	float audioTimer = 0.0f;
 
 	public Stats mStats;
@@ -54,6 +57,9 @@ public class Spawner : MonoBehaviour
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		normalHit = audioSources [0];
 		strongHit = audioSources [1];
+		dissapearing = audioSources [2];
+		hoboAppearing = audioSources [3];
+		neanderthalAppearing = audioSources [4];
 
 		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas> ();
 	}
@@ -69,6 +75,7 @@ public class Spawner : MonoBehaviour
 				if (appearTimer >= instantiationWait) {
 					for (int i = 0; i < hoboNumber; i++) {
 						if (hoboHolder [i] == null) {
+							hoboAppearing.Play ();
 							appearTimer = 0f;
 							hoboHolder [i] = Instantiate (hoboPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
 							break;
@@ -77,6 +84,7 @@ public class Spawner : MonoBehaviour
 					if (appearTimer > 0f) {
 						for (int i = 0; i < neanderthalNumber; i++) {
 							if (neanderthalHolder [i] == null) {
+								neanderthalAppearing.Play ();
 								appearTimer = 0f;
 								neanderthalHolder [i] = Instantiate (neanderthalPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
 								break;
@@ -109,8 +117,6 @@ public class Spawner : MonoBehaviour
 
 	public void GetHit (Vector2 direction, int damage, bool isCrit)
 	{
-		Debug.Log ("Allo");
-
 		if (!mGetHit && !mDying) {
 			mGetHit = true;
 			
@@ -138,6 +144,7 @@ public class Spawner : MonoBehaviour
 	private void Die ()
 	{
 		mDying = true;
+		dissapearing.Play ();
 	}
 
 	private void UpdateAnimator ()

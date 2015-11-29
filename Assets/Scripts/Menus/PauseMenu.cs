@@ -33,6 +33,7 @@ public class PauseMenu : MonoBehaviour {
             if (Input.GetButtonDown("Pause")) {
                 mPausePanel.SetActive(true);
                 buttonSelected = 0;
+                Debug.Log(menuButtons[0].gameObject.name);
                 menuButtons[buttonSelected].Select();
                 Time.timeScale = 0;
                 paused = true;
@@ -51,7 +52,7 @@ public class PauseMenu : MonoBehaviour {
     void Save()
     {
         buttonSelected = 1;
-        Debug.Log("Save");
+        GameObject.FindGameObjectWithTag("GameController").SendMessage("SaveGame");
     }
 
     void MainMenu()
@@ -59,7 +60,6 @@ public class PauseMenu : MonoBehaviour {
         // get the game controller.
         PlayerPrefs.SetInt("file_loaded", 0);
         Time.timeScale = 1.0f;
-        Debug.Log("Going to Main Menu");
         GameObject.FindGameObjectWithTag("GameController").SendMessage("LoadLevel");
     }
 }

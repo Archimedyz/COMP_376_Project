@@ -44,13 +44,10 @@ public class HealthBar : MonoBehaviour
 		mHealthValue = Mathf.Clamp (mHealthValue - hpLoss, 0.0f, maxHealthValue);
 		int newFragments = (int)((mHealthValue / maxHealthValue) * maxHeathFragments);
         
-		int diffFragments = oldFragments - newFragments;
-
-
 		for (int i = oldFragments; i > newFragments; --i) {
-			mHealth [i - 1].SetActive (false);
+			mHealth[i - 1].SetActive (false);
+            --mHealthIndex;
 		}
-		mHealthIndex -= diffFragments;
 	}
 
 	public void GainHealth (float hpGain)
@@ -60,12 +57,11 @@ public class HealthBar : MonoBehaviour
 		mHealthValue = Mathf.Clamp (mHealthValue + hpGain, 0.0f, maxHealthValue);
 		int newFragments = (int)((mHealthValue / maxHealthValue) * maxHeathFragments);
 
-		int diffFragments = newFragments - oldFragments;
-
 		for (int i = oldFragments; i < newFragments; ++i) {
-//            mHealth[i].SetActive(true);
+            mHealth[i].SetActive(true);
+            ++mHealthIndex;
 		}
-		mHealthIndex += diffFragments;
+		
 	}
 
 	public float GetHealth ()
@@ -92,11 +88,16 @@ public class HealthBar : MonoBehaviour
 		if ((int)newMax == (int)maxHealthValue)
 			return;
 		bool moreHealth = newMax > maxHealthValue;
-		float oldMax = maxHealthValue;
+        float oldMax = maxHealthValue;
+        Debug.Log(oldMax + " <> " + newMax);
 		maxHealthValue = newMax;
-		if (moreHealth)
+        mHealthValue += 2 * (newMax - oldMax);
+		if (moreHealth) {
+            Debug.Log("Lose Health - " + mHealthValue);
 			LoseHealth (newMax - oldMax);
-		else
+        } else {
+            Debug.Log("Gain Health - " + mHealthValue);
 			GainHealth (oldMax - newMax);
+        }
 	}
 }

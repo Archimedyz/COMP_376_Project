@@ -28,21 +28,18 @@ public class MainMenu : MonoBehaviour
         mainMenuButtons = new UnityEngine.UI.Button[mainMenuPanels.Length][];
 
         //* REMOVE
-        for (int i = 1; i < 4; ++i )
+        for (int i = 3; i < 4; ++i )
         {
-            PlayerPrefs.DeleteKey("f" + i + "_rate0");
-            PlayerPrefs.DeleteKey("f" + i + "_rate1");
-            PlayerPrefs.DeleteKey("f" + i + "_rate2");
-            PlayerPrefs.DeleteKey("f" + i + "_rate3");
+            PlayerPrefs.SetInt("f" + i + "_lvl", 2);
+            PlayerPrefs.SetInt("f" + i + "_str", 12);
+            PlayerPrefs.SetInt("f" + i + "_def", 6);
+            PlayerPrefs.SetInt("f" + i + "_spd", 6);
         }
         // */
-
-        Debug.Log("Length: " + mainMenuPanels.Length);
 
         for (int i = 0; i < mainMenuPanels.Length; ++i)
         {
             mainMenuButtons[i] = mainMenuPanels[i].GetComponentsInChildren<UnityEngine.UI.Button>();
-            Debug.Log(mainMenuPanels[i].name + " - Buttons[" + i + "]: " + mainMenuButtons[i].Length);
             mainMenuButtons[i][0].Select();
 
             if(mainMenuPanels[i].name == "MainPanel") {
@@ -97,7 +94,6 @@ public class MainMenu : MonoBehaviour
     void LoadGame()
     {
         buttonSelected = 0;
-        Debug.Log("Load Game");
         activeMenu = loadMenuIndex;
         mainMenuPanels[activeMenu].SetActive(true);
         mainMenuPanels[mainMenuIndex].SetActive(false);
@@ -106,7 +102,6 @@ public class MainMenu : MonoBehaviour
     void NewGame()
     {
         buttonSelected = 0;
-        Debug.Log("New Game");
         activeMenu = newMenuIndex;
         mainMenuPanels[activeMenu].SetActive(true);
         mainMenuPanels[mainMenuIndex].SetActive(false);
@@ -116,7 +111,6 @@ public class MainMenu : MonoBehaviour
     void Quit()
     {
         Application.Quit();
-        Debug.Log("Quit");
         Debug.DebugBreak();
     }
 

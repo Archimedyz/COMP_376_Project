@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Neanderthal : MonoBehaviour
 {
-
 	private bool mMoving;
 	private bool mThrowing;
 	private bool mDying = false;

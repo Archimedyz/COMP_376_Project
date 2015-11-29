@@ -13,12 +13,14 @@ public class MetroSpawner : MonoBehaviour {
     public float topOfTrack;
     public float bottomOfTrack;
 
+    GameObject mMainCameraRef; // for displaying the warnings.
+
     float spawnTimer;
 
 
 	// Use this for initialization
 	void Start () {
-	
+        mMainCameraRef = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 	
 	// Update is called once per frame
@@ -32,6 +34,8 @@ public class MetroSpawner : MonoBehaviour {
             spawnedMetro.SendMessage("SetDistanceToLive", distanceToLive);
             spawnedMetro.SendMessage("SetTopOfTrack", topOfTrack);
             spawnedMetro.SendMessage("SetBottomOfTrack", bottomOfTrack);
+        } else if(spawnTimer >= (1.0f / spawnRate) + 1.5f) { // show some warning. sound the choo-choo.
+
         }
 	}
 }

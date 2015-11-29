@@ -24,31 +24,31 @@ public class ShurikenController : MonoBehaviour
 	}
 
 
-//	void OnTriggerEnter(Collider other)
-//	{Debug.Log("TRIGGER SO WHAT THE FUCK");
-//		if (placed == true)   // this shuriken does not move
-//		{  
-//
-//		} 
-//		else    // mobile shuriken so teleports with enemy
-//		{
-//			if (other.gameObject.tag == "Enemy") 
-//			{
-//
-//
-////				rb.velocity = Vector3.zero;
-////				rb.angularVelocity = Vector3.zero;
-////				transform.parent = other.transform;
-//			}
-//		}
-//	}
-//	void OnTriggerExit(Collider other)
-//	{
-//		if (other.gameObject.tag == "Enemy") 
-//		{
-//			transform.parent = null;
-//		}
-//	}
+	void OnTriggerEnter(Collider other)
+	{  
+		if (placed == true)   // this shuriken does not move
+		{  
+
+		} 
+		else    // mobile shuriken so teleports with enemy
+		{
+			if (other.gameObject.tag == "Enemy") 
+			{
+
+
+//				rb.velocity = Vector3.zero;
+//				rb.angularVelocity = Vector3.zero;
+//				transform.parent = other.transform;
+			}
+		}
+	}
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Enemy") 
+		{
+			transform.parent = null;
+		}
+	}
 
 	// set placed, this is used in ShurikenSpawner
 	public void SetPlaced(bool newValue)

@@ -108,6 +108,7 @@ public class DigDug : MonoBehaviour
 		floorBoundaryInitialized = false;
 
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("BossHealth").GetComponent<HealthBar> ();
+		mHealthBarRef.transform.position += new Vector3 (0f, 0f, -30f);
 		storyScript = GameObject.Find ("BossScript").GetComponent<DigDugStory> ();
 
 		healthDivider = mHealthBarRef.GetMaxHealth () / 4;
@@ -391,5 +392,10 @@ public class DigDug : MonoBehaviour
 	public void SetColor ()
 	{
 		sr.color -= new Color (0f, 0.33f, 0.33f, 0f);
+	}
+
+	public void SetHealthBar ()
+	{
+		mHealthBarRef.transform.position += new Vector3 (0f, 0f, 30f);
 	}
 }

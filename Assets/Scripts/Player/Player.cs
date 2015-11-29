@@ -60,8 +60,8 @@ public class Player : MonoBehaviour
 	//Combat variables - Start
 
 	private float mInvincibleTimer;
-	private float kInvincibilityDuration = 0.5f;
-	private float kKnockdownInvincibilityDuration = 0.5f;
+	private float kInvincibilityDuration = 2f;
+	private float kKnockdownInvincibilityDuration = 2f;
 	public float mHitPushBack;
 	public float mKnockdownPushBack;
 
@@ -421,7 +421,7 @@ public class Player : MonoBehaviour
 
 	private void MovingRight ()
 	{
-		transform.position += new Vector3 (0.05f, 0f, 0f);
+		transform.position += new Vector3 (0.075f, 0f, 0f);
 		FaceDirection (Vector2.right);
 		mMoving = true;
 		mRunning = true;

@@ -25,16 +25,12 @@ public class Dialogue: MonoBehaviour
 	
 	void Update ()
 	{
-		Debug.Log ("Allo");
-		Debug.Log (theSourceFile);
 		if ((Input.anyKeyDown /*&& theSourceFile != null */ && finished) || startText) {
-			Debug.Log ("Allo2 " + finished + " " + startText);
 			startText = false;
 			text = reader.ReadLine ();
 			if (text != null) {
 				StartCoroutine (DisplayText ());
 			} else {
-				Debug.Log ("Allo3");
 				theSourceFile = null;
 				GameObject.Find ("Dialogue").SetActive (false);
 				if (fileName == "FirstScene") {

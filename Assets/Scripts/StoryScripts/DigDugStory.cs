@@ -34,6 +34,7 @@ public class DigDugStory : MonoBehaviour
 		player = GameObject.Find ("Player").GetComponent<Player> ();
 		digdug = GameObject.Find ("DigDug").GetComponent<DigDug> ();
 		mainCamera = GameObject.Find ("Main Camera") as GameObject;
+		mainCamera.GetComponent<FollowCam> ().SetTarget ();
 		enemies = GameObject.Find ("Enemies") as GameObject;
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
@@ -51,7 +52,7 @@ public class DigDugStory : MonoBehaviour
 		if (moveDigDug && hitTime <= 3) {
 			digdug.transform.position += new Vector3 (0.1f, 0, 0f);
 			mainCamera.transform.position += new Vector3 (0.1f, 0f, 0f);
-			if (player.transform.position.x <= (digdugTargetPosition - 10))
+			if (player.transform.position.x <= (digdugTargetPosition - 9))
 				player.SetMoveRight (true);
 			else
 				player.SetMoveRight (false);
@@ -171,6 +172,7 @@ public class DigDugStory : MonoBehaviour
 		}
 		
 		if (startBattle) {
+			digdug.SetHealthBar ();
 			player.SetInStory (false);
 			digdug.SetInStory (false);
 			startBattle = false;

@@ -3,6 +3,17 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
+	public GameObject neanderthalPrefab;
+	public int neanderthalNumber;
+	public GameObject hoboPrefab;
+	public int hoboNumber;
+
+	private GameObject[] neanderthalHolder;
+	private GameObject[] hoboHolder;
+
+	public float instantiationWait;
+	private float appearTimer = 0.0f;
+
 	private bool mGetHit;
 	private bool mDying;
 	private float dyingTimer = 0.0f;
@@ -30,10 +41,15 @@ public class Spawner : MonoBehaviour
 
 	void Start ()
 	{
+		neanderthalHolder = new GameObject[neanderthalNumber];
+		hoboHolder = new GameObject[hoboNumber];
+
 		mStats = new Stats (1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
 		mAnimator = GetComponent<Animator> ();
 
 		mDying = false;
+
+		mTarget = GameObject.Find ("Player").transform;
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		normalHit = audioSources [0];
@@ -46,6 +62,29 @@ public class Spawner : MonoBehaviour
 	{
 		if (mStats.isDead () && !mDying) {
 			Die ();
+		}
+
+		if (!mStats.isDead () && !mDying && !mGetHit) {
+			if (Vector3.Distance (transform.position, mTarget.position) <= appearRange) {
+				if (appearTimer >= instantiationWait) {
+					for (int i = 0; i < hoboNumber; i++) {
+						if (hoboHolder [i] == null) {
+							appearTimer = 0f;
+							hoboHolder [i] = Instantiate (hoboPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
+							break;
+						}
+					}
+					if (appearTimer > 0f) {
+						for (int i = 0; i < neanderthalNumber; i++) {
+							if (neanderthalHolder [i] == null) {
+								appearTimer = 0f;
+								neanderthalHolder [i] = Instantiate (neanderthalPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
+								break;
+							}
+						}
+					}
+				}
+			}
 		}
 
 		UpdateAnimator ();
@@ -65,6 +104,7 @@ public class Spawner : MonoBehaviour
 			}
 		}
 		audioTimer += Time.deltaTime;
+		appearTimer += Time.deltaTime;
 	}
 
 	public void GetHit (Vector2 direction, int damage, bool isCrit)

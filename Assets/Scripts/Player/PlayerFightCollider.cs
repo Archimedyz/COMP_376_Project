@@ -19,9 +19,9 @@ public class PlayerFightCollider : MonoBehaviour
 			}
 		} else if (col.gameObject.name == "EnemySpawner") {
 			col.gameObject.GetComponent<Spawner> ().GetHit (gameObject.transform.parent.GetComponent<Player> ().GetFacingDirection (), gameObject.transform.parent.GetComponent<Player> ().mStats.DoDynamicDamage (), gameObject.transform.parent.GetComponent<Player> ().mStats.wasCrit);
-			if (col.gameObject.GetComponent<Spawner> ().mStats.isDead () && col.gameObject.transform.parent.GetComponent<Neanderthal> ().expGiven != 0) {
-				gameObject.transform.parent.GetComponent<Player> ().AddExperience (col.gameObject.transform.parent.GetComponent<Neanderthal> ().expGiven);
-				col.gameObject.GetComponent<Spawner> ().expGiven = 0;
+			if (col.gameObject.GetComponent<Spawner> ().mStats.isDead () && col.gameObject.GetComponent<Spawner> ().expGiven != 0) {
+				gameObject.transform.parent.GetComponent<Player> ().AddExperience (col.gameObject.GetComponent<Spawner> ().expGiven);
+				//col.gameObject.GetComponent<Spawner> ().expGiven = 0;
 			}
 		}
 	}

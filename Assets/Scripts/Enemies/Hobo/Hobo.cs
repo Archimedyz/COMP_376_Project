@@ -16,7 +16,7 @@ public class Hobo : MonoBehaviour
 	public float mHoriMoveSpeed;
 	public float mVertiMoveSpeed;
 
-	public Transform mTarget;
+	private Transform mTarget;
 	public float mFollowRange;
 	public float mFollowSpeed;
 	public float mAttackDistance;
@@ -49,22 +49,24 @@ public class Hobo : MonoBehaviour
 
 	float audioTimer = 0.0f;
 
-    public Stats mStats;
+	public Stats mStats;
 
-    UICanvas uiCanvas;
-    private Vector3 damagePositionOffset = new Vector3(0, 0.7f, 0);
+	UICanvas uiCanvas;
+	private Vector3 damagePositionOffset = new Vector3 (0, 0.7f, 0);
 
-    public int expGiven = 100;
+	public int expGiven = 100;
 
-    private int staggerTimer = 0;
+	private int staggerTimer = 0;
 
 	void Start ()
 	{
-        mStats = new Stats(1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
+		mStats = new Stats (1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		mFacingDirection = Vector2.right;
 		mDying = false;
+
+		mTarget = GameObject.Find ("Player").transform;
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
@@ -77,7 +79,7 @@ public class Hobo : MonoBehaviour
 		strongHit = audioSources [1];
 		knifeHit = audioSources [2];
 
-        uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag("UICanvas").GetComponent<UICanvas>();
+		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas> ();
 	}
 
 	void Update ()
@@ -89,9 +91,9 @@ public class Hobo : MonoBehaviour
 		}
 		
 		ResetBoolean ();
-        if (staggerTimer > 0)
-            staggerTimer--;
-		if (attackTimer > attackTimeWait && !mGetHit && staggerTimer<=0 && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
+		if (staggerTimer > 0)
+			staggerTimer--;
+		if (attackTimer > attackTimeWait && !mGetHit && staggerTimer <= 0 && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
 				Hit ();
@@ -112,7 +114,7 @@ public class Hobo : MonoBehaviour
 
 		attackTimer += Time.deltaTime;
 
-		if (mStats.isDead() && !mDying) {
+		if (mStats.isDead () && !mDying) {
 			Die ();
 		}
 
@@ -148,35 +150,32 @@ public class Hobo : MonoBehaviour
 			mRigidBody.velocity = Vector2.zero;
             
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
-                staggerTimer = 25 - (int)(staggerTimer * 0.10f);
-                damage = (int)(damage * 1.4f);
-                Recoil(direction, 2f);
+				staggerTimer = 25 - (int)(staggerTimer * 0.10f);
+				damage = (int)(damage * 1.4f);
+				Recoil (direction, 2f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
 			} else {
-                staggerTimer = 15 - (int)(staggerTimer * 0.10f);
-                Recoil(direction, mPushBack);
+				staggerTimer = 15 - (int)(staggerTimer * 0.10f);
+				Recoil (direction, mPushBack);
 				if (audioTimer >= 0.2f) {
 					normalHit.Play ();
 					audioTimer = 0.0f;
 				}
 			}
-            mStats.TakeDamage(damage);
-            if (isCrit)
-            {
-                uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePositionOffset), UINotification.TYPE.CRIT);
-            }
-            else
-            {
-                uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
-            }
+			mStats.TakeDamage (damage);
+			if (isCrit) {
+				uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString (), (transform.position + damagePositionOffset), UINotification.TYPE.CRIT);
+			} else {
+				uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString (), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
+			}
 		}
 	}
 
-    public void Recoil(Vector2 direction, float modifier)
-    {
-        mRigidBody.AddForce(new Vector2(direction.x, 0.0f) * modifier, ForceMode.Impulse);
-    }
+	public void Recoil (Vector2 direction, float modifier)
+	{
+		mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * modifier, ForceMode.Impulse);
+	}
 
 	private void Hit ()
 	{
@@ -241,8 +240,8 @@ public class Hobo : MonoBehaviour
 		return mFacingDirection;
 	}
 
-    public void LevelUp()
-    {
-        mStats.Exp = 100;
-    }
+	public void LevelUp ()
+	{
+		mStats.Exp = 100;
+	}
 }

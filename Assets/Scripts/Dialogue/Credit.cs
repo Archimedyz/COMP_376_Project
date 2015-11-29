@@ -88,7 +88,6 @@ public class Credit : MonoBehaviour
 		while (panel.color.a > 0) {
 			panel.color = new Color (panel.color.r, panel.color.g, panel.color.b, panel.color.a - (0.5f * Time.deltaTime));
 			yield return new WaitForSeconds (0.01f);
-			Debug.Log (panel.color.a);
 		}
 
 		GameObject.Find ("CreditCanvas").SetActive (false);

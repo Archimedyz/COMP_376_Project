@@ -92,7 +92,7 @@ public class Hobo : MonoBehaviour
 		
 		ResetBoolean ();
 		if (staggerTimer > 0f)
-			staggerTimer -= 0.4f;
+			staggerTimer -= 0.6f;
 		if (attackTimer > attackTimeWait && !mGetHit && staggerTimer <= 0 && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
@@ -180,9 +180,9 @@ public class Hobo : MonoBehaviour
 
 		for (float timer = 0f; timer < 2.0f; timer += Time.deltaTime) {
 			Debug.Log (transform.position.x);
-			if (transform.position.x >= (initialPosX + 0.25f)) {
+			if (transform.position.x >= (initialPosX + 0.2f)) {
 				staggerRight = false;
-			} else if (transform.position.x <= (initialPosX - 0.25f)) {
+			} else if (transform.position.x <= (initialPosX - 0.2f)) {
 				staggerRight = true;
 			}
 

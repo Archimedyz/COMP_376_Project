@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
 	public Stats mStats;
 	
 	UICanvas uiCanvas;
-	private Vector3 damagePositionOffset = new Vector3 (0, 0.7f, -1);
+	private Vector3 damagePositionOffset = new Vector3 (0, 1f, -1);
 	
 	public int expGiven = 100;
 	
@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
 						if (hoboHolder [i] == null) {
 							hoboAppearing.Play ();
 							appearTimer = 0f;
-							hoboHolder [i] = Instantiate (hoboPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
+							hoboHolder [i] = Instantiate (hoboPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, -1f), Quaternion.identity) as GameObject;
 							break;
 						}
 					}

@@ -12,6 +12,7 @@ public class GameMaster : MonoBehaviour {
         mFileLoaded = 0;
         mStage = 0;
         mAtBoss = true;
+        PlayerPrefs.SetInt("set_player_stats", 1);
     }
 
     void LoadLevel() {
@@ -30,6 +31,7 @@ public class GameMaster : MonoBehaviour {
                     Destroy(s.gameObject);
                 }
             }
+            PlayerPrefs.SetInt("set_player_stats", 1);
         }
     }
 
@@ -65,5 +67,19 @@ public class GameMaster : MonoBehaviour {
             PlayerPrefs.SetInt("f" + mFileLoaded + "_def", playerRef.mStats.Def);
             PlayerPrefs.SetInt("f" + mFileLoaded + "_spd", playerRef.mStats.Spd);
         }
+    }
+
+    void SetStats(Stats stats)
+    {
+        stats.init(
+            PlayerPrefs.GetInt("f" + mFileLoaded + "_lvl"),
+            PlayerPrefs.GetFloat("f" + mFileLoaded + "_hp"),
+            PlayerPrefs.GetFloat("f" + mFileLoaded + "_max_hp"),
+            PlayerPrefs.GetInt("f" + mFileLoaded + "_str"),
+            PlayerPrefs.GetInt("f" + mFileLoaded + "_def"),
+            PlayerPrefs.GetInt("f" + mFileLoaded + "_spd"),
+            Stats.playerRate
+        );
+        PlayerPrefs.SetInt("set_player_stats", 0);
     }
 }

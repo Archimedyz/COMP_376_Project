@@ -305,7 +305,8 @@ public class Player : MonoBehaviour
                 Mathf.Clamp (transform.localPosition.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]),
                 Mathf.Clamp (transform.localPosition.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]),
                  transform.localPosition.z
-			);
+            );
+            mGroundY = transform.position.y;
 		} else if (mJumping) {
 			ResetBoolean ();
 			//Jump attack

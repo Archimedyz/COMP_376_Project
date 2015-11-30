@@ -624,6 +624,11 @@ public class Player : MonoBehaviour
 		inStory = a;
 	}
 
+	public void GetHealth (int health)
+	{
+		mHealthBarRef.GainHealth (health);
+	}
+
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {

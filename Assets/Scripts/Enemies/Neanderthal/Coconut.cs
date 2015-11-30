@@ -19,10 +19,14 @@ public class Coconut : MonoBehaviour
 
 	private float maxExistTime = 5.0f;
 
-    public int damage = 20;
+	public int damage = 20;
+
+	private Transform player;
 
 	void Start ()
 	{
+		player = GameObject.Find ("Player").transform;
+
 		canThrow = true;
 		throwed = false;
 		rb = GetComponent<Rigidbody> ();
@@ -38,8 +42,10 @@ public class Coconut : MonoBehaviour
 			transform.position = new Vector3 (transform.parent.position.x - 0.1f, transform.parent.position.y + 0.5f, transform.position.z);
 		} else if (Timer >= 0.12f && Timer < 0.24f) {
 			transform.position = new Vector3 (transform.parent.position.x - 0.5f, transform.parent.position.y - 0.1f, transform.position.z);
-		} else if (Timer >= 0.3f && canThrow) {
-			Throw ();
+		} else if (Timer >= 0.3f) {
+			if (canThrow)
+				Throw ();
+			transform.Translate (Vector3.Normalize (player.position - transform.position) * mThrowForce * Time.deltaTime);
 		}
 
 		if (throwed) {
@@ -55,11 +61,9 @@ public class Coconut : MonoBehaviour
 		throwed = true;
 		initialPositionX = transform.position.x;
 		gameObject.transform.parent = null;
-		if (mDirection == Vector2.right) {
-			rb.AddForce (Vector2.left * mThrowForce, ForceMode.Force);
-		} else if (mDirection == Vector2.left) {
-			rb.AddForce (Vector2.right * mThrowForce, ForceMode.Force);
-		}
+		//if (mDirection == Vector2.right) {
+		//rb.AddForce (Vector3.Normalize (player.position - transform.position) * mThrowForce, ForceMode.Force);
+		//} 
 	}
 
 	public void SetDirection (Vector2 direction)

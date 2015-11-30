@@ -95,6 +95,10 @@ public class Player : MonoBehaviour
 
 	public int timerForSlide;
 	private int[] playerRate = new int[] { 20, 2, 2, 2 };
+    [SerializeField]
+    private float DashSpeedModifier = 1.5f;
+    private int dashTime = 0;
+    private int dashRecovery = 15;
 
 	void Start ()
 	{
@@ -210,27 +214,37 @@ public class Player : MonoBehaviour
 			mNormalAttack = 0;
 			mHitting = false;
 		}
-		if (Input.GetKey (KeyCode.C)) {
+		if (Input.GetKey (KeyCode.V)) {
 			Defend ();
 			mMoving = false;
 			mRunning = false;
 			return true;
 		} else {
 			//Attack
-			if (Input.GetKeyDown ("z") && timerForSlide < 15) {
+            if (Input.GetKeyDown(KeyCode.Z) && timerForSlide < 15)
+            {
 				mNormalAttack++;
 				mHitting = true;
 				return true;
-			} else if (Input.GetKeyDown ("z") && timerForSlide > 15) {
+			} else if (Input.GetKeyDown (KeyCode.Z) && timerForSlide > 15) {
 				Slide ();
 				timerForSlide = 0;
 				return true;
-			} else if (Input.GetKey ("x")) {
+            }
+            else if (Input.GetKey(KeyCode.X))
+            {
 				mStrongAttack++;
 				mMoving = false;
 				mRunning = false;
 				return true;
 			}
+            else if (Input.GetKeyDown(KeyCode.C) && !mDashing && dashRecovery == 15)//DashDuration
+            {
+                mDashing = true;
+                dashTime = 0;
+                transform.Translate(GetFacingDirection() * mMoveSpeedX * DashSpeedModifier * Time.deltaTime, Space.World);
+                return true;
+            }
 			return false;
 		}
 	}
@@ -244,6 +258,13 @@ public class Player : MonoBehaviour
 		}
 		return mJumping;
 	}
+
+    private void DashHandler()
+    {
+        mDashing = true;
+        dashTime++;
+        transform.Translate(GetFacingDirection() * mMoveSpeedX * DashSpeedModifier * Time.deltaTime, Space.World);
+    }
 
 	void FixedUpdate ()
 	{
@@ -277,12 +298,20 @@ public class Player : MonoBehaviour
 			mJumping = false;
 		}
 
-		//get out of jumping?! / slide
+		//get out of jumping?! / slide / Dash / Handle dash recovery
 		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") && Mathf.Approximately (transform.position.y, mGroundY)) {
 			mJumping = false;
 		} else if (mSliding && !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Sliding")) {
 			mSliding = false;
-		}
+        }
+        else if (mDashing && !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Dash") && dashTime > 20)
+        {
+            mDashing = false;
+            dashRecovery = 0;
+        }
+        if (dashRecovery < 15 && !mDashing)
+            dashRecovery++;
+
 		//Instruction priority
 		if (inStory) {
 			ResetBoolean ();
@@ -309,7 +338,14 @@ public class Player : MonoBehaviour
                  transform.localPosition.z
 			);
 			mGroundY = transform.position.y;
-		} else if (mJumping) {
+        }
+        else if (mDashing)
+        {
+            ResetBoolean();
+            DashHandler();
+        }
+        else if (mJumping)
+        {
 			ResetBoolean ();
 			//Jump attack
 			MovementHandler ();
@@ -329,10 +365,6 @@ public class Player : MonoBehaviour
 			timerForSlide = 0;
 
 		mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
-
-		if (Input.GetKeyDown ("q")) {//Saturday
-			Dash ();
-		}
 
 		CheckFalling ();
 
@@ -617,6 +649,11 @@ public class Player : MonoBehaviour
 		return mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("DefendingPhase2");
 	}
 
+    public bool IsDashing()
+    {
+        return mDashing;
+    }
+
 	public float GetFootY ()
 	{
 		return mGroundY - (mSpriteRenderer.bounds.size.y / 2.0f);
@@ -646,4 +683,21 @@ public class Player : MonoBehaviour
 			journeyLength = Mathf.Abs (transform.position.x) + Mathf.Abs (target);
 		}
 	}
+    void OnCollisionEnter(Collision col)
+    {
+        if (mDashing)
+        {
+            if (col.gameObject.name.ToLower().StartsWith("hobo"))
+            {
+                //Stun and get behind
+            }
+            else
+            {
+                if (mDashing && col.gameObject.name.ToLower().StartsWith("neanderthal"))
+                {
+                    //Stun and get behind
+                }
+            }
+        }
+    }
 }

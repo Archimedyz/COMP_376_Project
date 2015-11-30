@@ -79,7 +79,12 @@ public class Stats
     public float Hp
     {
         get { return _hp; }
-        set { _hp = value; }
+        set
+        {
+            _hp = value;
+            if (_hp < 0)
+                _hp = 0;
+        }
     }
     public float MaxHp
     {

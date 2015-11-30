@@ -13,6 +13,7 @@ public class GameMaster : MonoBehaviour {
         mStage = 0;
         mAtBoss = true;
         PlayerPrefs.SetInt("set_player_stats", 1);
+        PlayerPrefs.SetInt("skip_dialogue", 1);
     }
 
     void LoadLevel() {
@@ -32,6 +33,7 @@ public class GameMaster : MonoBehaviour {
                 }
             }
             PlayerPrefs.SetInt("set_player_stats", 1);
+            PlayerPrefs.SetInt("skip_dialogue", 1);
         }
     }
 
@@ -61,8 +63,8 @@ public class GameMaster : MonoBehaviour {
 
             // set the player data
             PlayerPrefs.SetInt("f" + mFileLoaded + "_lvl", playerRef.mStats.Level);
-            PlayerPrefs.SetInt("f" + mFileLoaded + "_max_hp", 0);
-            PlayerPrefs.SetInt("f" + mFileLoaded + "_hp", 0);
+            PlayerPrefs.SetFloat("f" + mFileLoaded + "_max_hp", playerRef.mStats.MaxHp);
+            PlayerPrefs.SetFloat("f" + mFileLoaded + "_hp", playerRef.mStats.Hp);
             PlayerPrefs.SetInt("f" + mFileLoaded + "_str", playerRef.mStats.Str);
             PlayerPrefs.SetInt("f" + mFileLoaded + "_def", playerRef.mStats.Def);
             PlayerPrefs.SetInt("f" + mFileLoaded + "_spd", playerRef.mStats.Spd);
@@ -71,6 +73,7 @@ public class GameMaster : MonoBehaviour {
 
     void SetStats(Stats stats)
     {
+        Debug.Log("lvl: " + stats.Level + "\nmax_hp: " + stats.MaxHp + "\nhp: " + stats.Hp + "\nstr: " + stats.Str + "\ndef: " + stats.Def + "\nspd: " + stats.Spd);
         stats.init(
             PlayerPrefs.GetInt("f" + mFileLoaded + "_lvl"),
             PlayerPrefs.GetFloat("f" + mFileLoaded + "_hp"),
@@ -80,6 +83,10 @@ public class GameMaster : MonoBehaviour {
             PlayerPrefs.GetInt("f" + mFileLoaded + "_spd"),
             Stats.playerRate
         );
+        Debug.Log("File_Loaded = " + mFileLoaded + " - " + 
+            PlayerPrefs.GetFloat("f" + mFileLoaded + "_hp") + " - " +
+            PlayerPrefs.GetFloat("f" + mFileLoaded + "_max_hp"));
+        Debug.Log("lvl: " + stats.Level + "\nmax_hp: " + stats.MaxHp + "\nhp: " + stats.Hp + "\nstr: " + stats.Str + "\ndef: " + stats.Def + "\nspd: " + stats.Spd);
         PlayerPrefs.SetInt("set_player_stats", 0);
     }
 }

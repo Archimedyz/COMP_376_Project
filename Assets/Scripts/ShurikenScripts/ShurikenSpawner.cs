@@ -1,6 +1,7 @@
 ﻿
-// Authored by Robert Anthony Di Monaco
-
+//** 
+//** Authored by Robert Anthony Di Monaco
+//**
 
 using UnityEngine;
 using System.Collections;
@@ -15,6 +16,7 @@ using System.Collections;
  * Normal and Charge
  * 4 Buttons
  * 3 buttons shuriken
+ * 
  */
 
 public class ShurikenSpawner : MonoBehaviour 
@@ -47,8 +49,11 @@ public class ShurikenSpawner : MonoBehaviour
 	private ParticleSystem[] teleportBlast;
 
 	// shuriken scripts, each has its own
-	private ShurikenController[] shurikenSripts;
-	
+	private ShurikenController[] shurikenScripts;
+
+	// bool values needed for teleporting enemy
+	private bool[] isPressed;    // 0 is A, 1 is S, 2 is D, 3 is W
+
 	void Start () 
 	{
 		// Get references to other scripts
@@ -62,7 +67,9 @@ public class ShurikenSpawner : MonoBehaviour
 
 		teleportBlast = new ParticleSystem[Max]{ null, null, null, null };  // play the particle system when teleport to it
 
-		shurikenSripts = new ShurikenController[Max]{ null, null, null, null }; // shuriken scripts 
+		shurikenScripts = new ShurikenController[Max]{ null, null, null, null }; // shuriken scripts 
+
+		isPressed = new bool[Max]{ false, false, false, false };    // none have been pressed at start
 
 		speed = 150.0f;
 		turnSpeed = 300.0f;
@@ -73,61 +80,66 @@ public class ShurikenSpawner : MonoBehaviour
 		facingDirection = script.GetFacingDirection ();
 		
 		// Throw Shuriken left or right
-		if (amountUsed < 4) 
-		{
+		if (amountUsed < 4) {
 			if (Input.GetKeyDown (KeyCode.I)) 
 			{
-				Clone = Instantiate (ShurikenPrefab, new Vector3(spawnThrow.transform.position.x, spawnThrow.transform.position.y, -2.0f), 
+				Clone = Instantiate (ShurikenPrefab, new Vector3 (spawnThrow.transform.position.x, spawnThrow.transform.position.y, -3.0f), 
 				                     	  Quaternion.identity) as Rigidbody; 
 				textObject = Instantiate (TextControlPrefab, 
-				                          new Vector3(Clone.transform.position.x - 0.414f, Clone.transform.position.y + 0.352f, -2.0f), 
+				                          new Vector3 (Clone.transform.position.x - 0.414f, Clone.transform.position.y + 0.352f, -3.0f), 
 				                          Quaternion.identity) as GameObject;
-				for(int i = 0; i < Max; i++)  // get first open slot
-				{
-					if(shurikens[i] == null)
-					{
-						shurikens[i] = Clone.transform;
 
-						textControl[i] = textObject.GetComponent<TextMesh>();     // get the TextMesh 
-						textControl[i].text = "HOLD O";    // set initial so compiler doesnt complain
-						textPositions[i] = textObject.GetComponent<Transform>();  // get its position 
+				// get first open slot
+				for (int i = 0; i < Max; i++) 
+				{  
+					if (shurikens [i] == null) {
+						shurikens [i] = Clone.transform;
+
+						textControl [i] = textObject.GetComponent<TextMesh> ();     // get the TextMesh 
+						textControl [i].text = "O HOLD O";    // set initial so compiler doesnt complain
+						textPositions [i] = textObject.GetComponent<Transform> ();  // get its position 
 						
-						teleportBlast[i] = Clone.GetComponent<ParticleSystem>();  // get its particle system
+						teleportBlast [i] = Clone.GetComponent<ParticleSystem> ();  // get its particle system
+
+						shurikenScripts[i] = Clone.GetComponent<ShurikenController>();  // get its script
+						shurikenScripts[i].SetPlaced(false); 
 
 						break; // found empty slot 
 					}
 				}
-				if (facingDirection == Vector2.right)  			// Throw to the right  
-				{	    	
-					Clone.AddForce(speed * new Vector3(1.0f, 0.0f, 0.0f));
-					Clone.AddTorque(new Vector3(0, 0, -turnSpeed));	
-				} else    										// Throw to the left
-				{   	
-					Clone.AddForce (speed * new Vector3(-1.0f, 0.0f, 0.0f));
-					Clone.AddTorque(new Vector3(0, 0, turnSpeed));
+				if (facingDirection == Vector2.right) {  			// Throw to the right	    	
+					Clone.AddForce (speed * new Vector3 (1.0f, 0.0f, 0.0f));
+					Clone.AddTorque (new Vector3 (0, 0, -turnSpeed));	
+				} else {    										// Throw to the left   	
+					Clone.AddForce (speed * new Vector3 (-1.0f, 0.0f, 0.0f));
+					Clone.AddTorque (new Vector3 (0, 0, turnSpeed));
 				}
 				amountUsed++;  
 			} 
 			// Place Shuriken at feet	
 			else if (Input.GetKeyDown (KeyCode.J)) 
 			{
-				Clone = Instantiate (ShurikenPrefab, new Vector3(spawnPlace.transform.position.x, spawnPlace.transform.position.y, -2.0f), 
+				Clone = Instantiate (ShurikenPrefab, new Vector3 (spawnPlace.transform.position.x, spawnPlace.transform.position.y, -3.0f), 
 				                     	  Quaternion.identity) as Rigidbody;
 				textObject = Instantiate (TextControlPrefab, 
-				                          new Vector3(Clone.transform.position.x - 0.414f, Clone.transform.position.y + 0.352f, -2.0f), 
+				                          new Vector3 (Clone.transform.position.x - 0.414f, Clone.transform.position.y + 0.352f, -3.0f), 
 				                          Quaternion.identity) as GameObject;
-				for(int i = 0; i < Max; i++)  // get first open slot
-				{
-					if(shurikens[i] == null)
-					{
-						shurikens[i] = Clone.transform;
+
+				// get first open slot
+				for (int i = 0; i < Max; i++) 
+				{ 
+					if (shurikens [i] == null) {
+						shurikens [i] = Clone.transform;
 						
-						textControl[i] = textObject.GetComponent<TextMesh>();     // get the TextMesh 
-						textControl[i].text = "HOLD O";    // set initial so compiler doesnt complain
-						textPositions[i] = textObject.GetComponent<Transform>();  // get its position 
+						textControl [i] = textObject.GetComponent<TextMesh> ();     // get the TextMesh 
+						textControl [i].text = "O HOLD O";    // set initial so compiler doesnt complain
+						textPositions [i] = textObject.GetComponent<Transform> ();  // get its position 
 						
-						teleportBlast[i] = Clone.GetComponent<ParticleSystem>();  // get its particle system
-						
+						teleportBlast [i] = Clone.GetComponent<ParticleSystem> ();  // get its particle system
+
+						shurikenScripts[i] = Clone.GetComponent<ShurikenController>();  // get its script
+						shurikenScripts[i].SetPlaced(true);   // this shuriken does not move
+
 						break; // found empty slot 
 					}
 				}
@@ -137,12 +149,14 @@ public class ShurikenSpawner : MonoBehaviour
 
 		// update Text positions so they allign with shurikens
 		for (int i = 0; i < Max; i++)  
-			if(shurikens[i] != null)
-				textPositions[i].position = new Vector3(shurikens[i].position.x - 0.414f, shurikens[i].position.y + 0.352f, -2.0f);
-				
+			if (shurikens [i] != null)
+				textPositions [i].position = new Vector3 (shurikens [i].position.x - 0.414f, shurikens [i].position.y + 0.352f, -3.0f);
+
 		// When user holds down the O key alter text
-		if(Input.GetKey(KeyCode.O))    
+		if(Input.GetKey(KeyCode.O) && !Input.GetKey(KeyCode.K))    
 		{
+			Time.timeScale = 0.2f;  // SLOW MOTION so player has time to choose
+
 			// set controls Text
 			for(int i = 0; i < Max; i++)
 			{
@@ -174,50 +188,242 @@ public class ShurikenSpawner : MonoBehaviour
 				Player.transform.position = shurikens[3].position;	
 				teleportBlast[3].Play (false);
 			}
-
-//			// When user holds down O key and a WASD alter text
-//			if (Input.GetKey (KeyCode.A))
-//			{
-//				//Destroy (shurikens[0].gameObject); 
-//				//amount--;
-//			}else if (Input.GetKey (KeyCode.S)) 
-//			{
-//				//Destroy (shurikens[1].gameObject); 
-//				//amount--;
-//			}else if (Input.GetKey (KeyCode.D)) 
-//			{
-//				//Destroy (shurikens[2].gameObject); 
-//				//amount--;
-//			}else if (Input.GetKey (KeyCode.W)) 
-//			{
-//				//Destroy (shurikens[3].gameObject); 
-//				//amount--;
-//			}
 		}
-		if (Input.GetKeyUp (KeyCode.O)) 
-		{
-			// set them back once user releases the O key
+
+		// alter controls Text for shurikens with enemyOnPlaced or with a parent --> so player knows it has soemthing to teleport
+		if(!Input.GetKey(KeyCode.O) && !Input.GetKey(KeyCode.K))
 			for(int i = 0; i < Max; i++)
 			{
 				if(shurikens[i] != null)
-					textControl[i].text = "HOLD O"; 
+					if(shurikenScripts[i].GetEnemyOnPlaced() != null || shurikens[i].parent != null)
+						textControl[i].text = "O HOLD O\nK HOLD K";    // sets if shuriken has something to teleport
+				else
+					textControl[i].text = "O HOLD O";    // set back 
 			}
+
+		// When user holds down K key can teleport enemy from one shuriken to another
+		if (Input.GetKey (KeyCode.K) && !Input.GetKey(KeyCode.O))
+		{
+			Time.timeScale = 0.2f;  // SLOW MOTION so player has time to choose
+
+			// set text on those with something to teleport
+			for(int i = 0; i < Max; i++)
+			{
+				if(shurikens[i] != null && (shurikenScripts[i].GetEnemyOnPlaced() != null || shurikens[i].parent != null))
+					if(i == 0)      textControl[0].text = "A TELEPORT A";  
+					else if(i == 1) textControl[1].text = "S TELEPORT S";
+					else if(i == 2) textControl[2].text = "D TELEPORT D"; 
+					else if(i == 3) textControl[3].text = "W TELEPORT W"; 
+			}
+
+			// Whats getting teleported
+			if(Input.GetKeyDown(KeyCode.A) && isPressed[1] == false && isPressed[2] == false && isPressed[3] == false)  isPressed[0] = true; 
+			else if(Input.GetKeyDown(KeyCode.S) && isPressed[0] == false && isPressed[2] == false && isPressed[3] == false) isPressed[1] = true;
+			else if(Input.GetKeyDown(KeyCode.D) && isPressed[0] == false && isPressed[1] == false && isPressed[3] == false) isPressed[2] = true;
+			else if(Input.GetKeyDown(KeyCode.W) && isPressed[0] == false && isPressed[1] == false && isPressed[2] == false) isPressed[3] = true;
+
+		// TELEPORTING A
+			if(isPressed[0] && shurikens[0] != null && (shurikenScripts[0].GetEnemyOnPlaced() != null || shurikens[0].parent != null))      				
+			{
+				// Display new text, where can teleport to
+				if(shurikens[1] != null) textControl[1].text = "S TARGET TARGET S";
+				if(shurikens[2] != null) textControl[2].text = "D TARGET TARGET D";
+				if(shurikens[3] != null) textControl[3].text = "W TARGET TARGET W";
+
+				// Where its getting teleported
+				if(shurikenScripts[0].GetPlaced()) 	// placed shurikens
+				{
+					// Teleport whats on shuriken to new location
+					if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
+					{
+						shurikenScripts[0].GetEnemyOnPlaced().position = shurikens[1].position; 
+						teleportBlast[1].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
+					{
+						shurikenScripts[0].GetEnemyOnPlaced().position = shurikens[2].position;
+						teleportBlast[2].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
+					{
+						shurikenScripts[0].GetEnemyOnPlaced().position = shurikens[3].position;
+						teleportBlast[3].Play (false);
+					}
+				}
+				else   		// mobile parented shurikens
+				{
+					// Teleport shuriken's parent to new location
+					if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
+					{
+						shurikens[0].parent.position = shurikens[1].position;  
+						teleportBlast[1].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
+					{
+						shurikens[0].parent.position = shurikens[2].position;
+						teleportBlast[2].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
+					{
+						shurikens[0].parent.position = shurikens[3].position;
+						teleportBlast[3].Play (false);
+					}
+				}
+			}
+		// TELEPORTING S
+			else if(isPressed[1] && shurikens[1] != null && (shurikenScripts[1].GetEnemyOnPlaced() != null || shurikens[1].parent != null))      		
+			{ 
+				// Display new text, where can teleport to
+				if(shurikens[0] != null) textControl[0].text = "A TARGET TARGET A";
+				if(shurikens[2] != null) textControl[2].text = "D TARGET TARGET D";
+				if(shurikens[3] != null) textControl[3].text = "W TARGET TARGET W";
+
+				// Where its getting teleported
+				if(shurikenScripts[1].GetPlaced())   		// placed shurikens
+				{
+					// Teleport whats on shuriken to new location
+					if(Input.GetKeyDown (KeyCode.A) && shurikens[0] != null)
+					{
+						shurikenScripts[1].GetEnemyOnPlaced().position = shurikens[0].position;
+						teleportBlast[0].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
+					{
+						shurikenScripts[1].GetEnemyOnPlaced().position = shurikens[2].position;
+						teleportBlast[2].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
+					{
+						shurikenScripts[1].GetEnemyOnPlaced().position = shurikens[3].position;
+						teleportBlast[3].Play (false);
+					}
+				}
+				else if(shurikens[1].parent != null)  		// mobile parented shurikens
+				{
+					// Teleport shuriken's parent to new location
+					if(Input.GetKeyDown (KeyCode.A) && shurikens[0] != null)
+					{
+						shurikens[1].parent.position = shurikens[0].position;
+						teleportBlast[0].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
+					{
+						shurikens[1].parent.position = shurikens[2].position;
+						teleportBlast[2].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
+					{
+						shurikens[1].parent.position = shurikens[3].position;
+						teleportBlast[3].Play (false);
+					}
+				}
+			}
+		// TELEPORTING D
+			else if(isPressed[2] && shurikens[2] != null && (shurikenScripts[2].GetEnemyOnPlaced() != null || shurikens[2].parent != null))				
+			{
+				// Display new text, where can teleport to
+				if(shurikens[0] != null) textControl[0].text = "A TARGET TARGET A";
+				if(shurikens[1] != null) textControl[1].text = "S TARGET TARGET S";
+				if(shurikens[3] != null) textControl[3].text = "W TARGET TARGET W";
+
+				// Where its getting teleported
+				if(shurikenScripts[2].GetPlaced())   		// placed shurikens
+				{
+					// Teleport whats on shuriken to new location
+					if(Input.GetKeyDown (KeyCode.A) && shurikens[0] != null)
+					{
+						shurikenScripts[2].GetEnemyOnPlaced().position = shurikens[0].position;  
+						teleportBlast[0].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
+					{
+						shurikenScripts[2].GetEnemyOnPlaced().position = shurikens[1].position;
+						teleportBlast[1].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
+					{
+						shurikenScripts[2].GetEnemyOnPlaced().position = shurikens[3].position;
+						teleportBlast[3].Play (false);
+					}
+				}
+				else if(shurikens[2].parent != null)  		// mobile parented shurikens
+				{
+					// Teleport shuriken's parent to new location
+					if(Input.GetKeyDown (KeyCode.A) && shurikens[0] != null)
+					{
+						shurikens[2].parent.position = shurikens[0].position; 
+						teleportBlast[0].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
+					{
+						shurikens[2].parent.position = shurikens[1].position;
+						teleportBlast[1].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
+					{
+						shurikens[2].parent.position = shurikens[3].position;
+						teleportBlast[3].Play (false);
+					}
+				}
+			}
+		// TELEPORTING W
+			else if(isPressed[3] && shurikens[3] != null && (shurikenScripts[3].GetEnemyOnPlaced() != null || shurikens[3].parent != null))				
+			{
+				// Display new text, where can teleport to
+				if(shurikens[0] != null) textControl[0].text = "A TARGET A";
+				if(shurikens[1] != null) textControl[1].text = "S TARGET S";
+				if(shurikens[2] != null) textControl[2].text = "D TARGET D";
+
+				// Where its getting teleported
+				if(shurikenScripts[3].GetPlaced())   		// placed shurikens
+				{
+					// Teleport whats on shuriken to new location
+					if(Input.GetKeyDown (KeyCode.A) && shurikens[0] != null)
+					{
+						shurikenScripts[3].GetEnemyOnPlaced().position = shurikens[0].position;
+						teleportBlast[0].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
+					{
+						shurikenScripts[3].GetEnemyOnPlaced().position = shurikens[1].position;
+						teleportBlast[1].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
+					{
+						shurikenScripts[3].GetEnemyOnPlaced().position = shurikens[2].position;
+						teleportBlast[2].Play (false);
+					}
+				}
+				else if(shurikens[3].parent != null)  		// mobile parented shurikens
+				{
+					// Teleport shuriken's parent to new location
+					if(Input.GetKeyDown (KeyCode.A) && shurikens[0] != null)
+					{
+						shurikens[3].parent.position = shurikens[0].position; 
+						teleportBlast[0].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
+					{
+						shurikens[3].parent.position = shurikens[1].position;
+						teleportBlast[1].Play (false);
+					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
+					{
+						shurikens[3].parent.position = shurikens[2].position;
+						teleportBlast[2].Play (false);
+					}
+				}
+			}
+		}
+
+		if (Input.GetKeyUp (KeyCode.O) || Input.GetKeyUp (KeyCode.K)) 
+		{
+			Time.timeScale = 1.0f;    // Undo slow motion 
+
+			// set them back once user releases the O key or the K key
+			for(int i = 0; i < Max; i++)
+			{
+				if(shurikens[i] != null)
+					if(shurikenScripts[i].GetEnemyOnPlaced() != null || shurikens[i].parent != null)
+						textControl[i].text = "O HOLD O\nK HOLD K";    // sets if shuriken has something to teleport
+				else
+					textControl[i].text = "O HOLD O";    // set back 
+			}
+
+			// set bool elements to false
+			for(int i = 0; i < Max; i++)
+				isPressed[i] = false;
 		}
 	}
 }
 
 
 
-
-// TODO: TRIGGER SET ITS PARENT , GET REFERENCE IN ITS SCRIPT THEN IN HERE GO INTO KEYDOWN SHIT AND GET REFERENE TO THAT VAIRABLE AND MOVE THE ENEMY TO NEW LOCATION
-
-
-
-// is null checks and amount-- when destory
-
-
-
-
+// if player.position and o pressed near shuirken then pick up amount--
 
 
 

@@ -694,6 +694,12 @@ public class Player : MonoBehaviour
             if (col.gameObject.name.ToLower().StartsWith("hobo"))
             {
                 //Stun and get behind
+                FaceDirection((col.gameObject.GetComponent<Hobo>()).GetFacingDirection());
+                transform.position = col.gameObject.transform.position - new Vector3((col.gameObject.GetComponent<Hobo>()).GetFacingDirection().x,0,0);
+                mGroundY = Mathf.Clamp (mGroundY, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]);
+                mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
+                mDashing = false;
+                dashRecovery = 0;
             }
             else
             {

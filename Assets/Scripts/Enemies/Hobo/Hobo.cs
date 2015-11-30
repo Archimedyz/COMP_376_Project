@@ -4,8 +4,6 @@ using System.Collections;
 public class Hobo : MonoBehaviour
 {
 	private bool mMoving;
-	private bool mMovingRight;
-	private bool mMovingLeft;
 	private bool mHitting;
 	private bool mDying;
 
@@ -58,6 +56,8 @@ public class Hobo : MonoBehaviour
 
 	private float staggerTimer = 0f;
 
+	private float hittingTimer = 0.0f;
+
 	void Start ()
 	{
 		mStats = new Stats (1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
@@ -96,6 +96,7 @@ public class Hobo : MonoBehaviour
 		if (attackTimer > attackTimeWait && !mGetHit && staggerTimer <= 0 && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
+				knifeHit.Play ();
 				Hit ();
 			} else if (Vector2.Distance (transform.position, mTarget.position) <= mFollowRange && Vector2.Distance (transform.position, mTarget.position) > mAttackDistance) {
 				if (transform.position.x < mTarget.position.x) {
@@ -132,6 +133,14 @@ public class Hobo : MonoBehaviour
 			if (mInvincibleTimer >= kInvincibilityDuration) {
 				mGetHit = false;
 				mInvincibleTimer = 0.0f;
+			}
+		}
+
+		if (mHitting) {
+			hittingTimer += Time.deltaTime;
+			if (hittingTimer >= 0.5f) {
+				hittingTimer = 0.0f;
+				mHitting = false;
 			}
 		}
 		audioTimer += Time.deltaTime;
@@ -202,9 +211,9 @@ public class Hobo : MonoBehaviour
 
 	private void Hit ()
 	{
+		Debug.Log ("Allo");
 		attackTimer = 0;
 		mHitting = true;
-		knifeHit.Play ();
 	}
 	
 	private void MovingLeft ()
@@ -248,7 +257,7 @@ public class Hobo : MonoBehaviour
 	private void ResetBoolean ()
 	{
 		mMoving = false;
-		mHitting = false;
+		//mHitting = false;
 	}
 
 	private void UpdateAnimator ()

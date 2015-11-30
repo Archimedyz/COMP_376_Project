@@ -94,7 +94,6 @@ public class Player : MonoBehaviour
 	private AudioSource health;
 
 	public int timerForSlide;
-	private int[] playerRate = new int[] { 20, 2, 2, 2 };
     [SerializeField]
     private float DashSpeedModifier = 1.5f;
     private int dashTime = 0;
@@ -124,6 +123,11 @@ public class Player : MonoBehaviour
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
+
+        // before using the healthbar, check if stats need to be set:
+        if(PlayerPrefs.GetInt("set_player_stats") == 1) {
+            GameObject.FindGameObjectWithTag("GameController").SendMessage("SetStats", mStats);
+        }
 
 		// Init HealthBar Stuff
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("PlayerHealth").GetComponent<HealthBar> ();
@@ -628,7 +632,7 @@ public class Player : MonoBehaviour
 	/// <param name="speed"></param>
 	public void InitStats (int lvl, float hp, int str, int def, int speed)
 	{
-		mStats = new Stats (lvl, hp, str, def, speed, playerRate);
+		mStats = new Stats (lvl, hp, str, def, speed, Stats.playerRate);
 		SpeedStatIncreases ();
 	}
 

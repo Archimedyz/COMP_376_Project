@@ -16,6 +16,8 @@ public class Stats
     private bool _isLevelUp;
     public bool wasCrit;
 
+    public static int[] playerRate = { 20, 2, 2, 2 };
+
     /// <summary>
     /// 
     /// </summary>

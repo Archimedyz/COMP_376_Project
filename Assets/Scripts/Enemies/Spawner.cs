@@ -42,6 +42,8 @@ public class Spawner : MonoBehaviour
 	
 	private int staggerTimer = 0;
 
+	private bool firstTime = true;
+
 	void Start ()
 	{
 		neanderthalHolder = new GameObject[neanderthalNumber];
@@ -72,7 +74,8 @@ public class Spawner : MonoBehaviour
 
 		if (!mStats.isDead () && !mDying && !mGetHit) {
 			if (Vector3.Distance (transform.position, mTarget.position) <= appearRange) {
-				if (appearTimer >= instantiationWait) {
+				if (appearTimer >= instantiationWait || firstTime) {
+					firstTime = false;
 					for (int i = 0; i < hoboNumber; i++) {
 						if (hoboHolder [i] == null) {
 							hoboAppearing.Play ();
@@ -112,7 +115,26 @@ public class Spawner : MonoBehaviour
 			}
 		}
 		audioTimer += Time.deltaTime;
-		appearTimer += Time.deltaTime;
+
+		if (!isFull ())
+			appearTimer += Time.deltaTime;
+	}
+
+	private bool isFull ()
+	{
+		for (int i = 0; i < hoboNumber; i++) {
+			if (hoboHolder [i] == null) {
+				return false;
+			}
+		}
+
+		for (int i = 0; i < neanderthalNumber; i++) {
+			if (neanderthalHolder [i] == null) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public void GetHit (Vector2 direction, int damage, bool isCrit)

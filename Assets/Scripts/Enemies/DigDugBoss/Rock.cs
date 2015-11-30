@@ -7,6 +7,8 @@ public class Rock : MonoBehaviour
 
 	private AudioSource falling;
 
+	public int damage;
+
 	void Start ()
 	{
 		mShadow = transform.parent.GetChild (1).gameObject;
@@ -29,12 +31,15 @@ public class Rock : MonoBehaviour
 
 	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.name == "GeneralColliderPlayer") {
+		if (col.gameObject.name == "Player") {
 			// determine the Players Script.
-			Player player = col.gameObject.transform.parent.GetComponent<Player> ();
+			Player player = col.gameObject.GetComponent<Player> ();
 			if (Mathf.Abs (player.GetFootY () - (transform.parent.position.y - 0.3f)) <= 0.2f) {
 				falling.Stop ();
-				player.GetHit (Vector2.left, 10);
+				if (col.gameObject.GetComponent<Player> ().IsDefending ()) {
+					col.gameObject.GetComponent<Player> ().GetBlockDamage (damage / 3);
+				} else
+					col.gameObject.GetComponent<Player> ().GetHit (Vector2.left, damage);
 				Destroy (transform.parent.gameObject);
 			}
 		} else if (col.gameObject.name == "Pooka") {

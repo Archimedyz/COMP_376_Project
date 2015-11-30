@@ -13,6 +13,8 @@ public class Title : MonoBehaviour
 	private AudioSource launch;
 	private bool hasLaunched = false;
 
+	public int damage;
+
 	void Start ()
 	{
 		target = new Vector3 (transform.position.x - 1.0f, transform.position.y, transform.position.z);        
@@ -47,8 +49,11 @@ public class Title : MonoBehaviour
 
 	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.name == "GeneralColliderPlayer") {
-			col.gameObject.transform.parent.GetComponent<Player> ().GetHit (Vector2.left, 10);
+		if (col.gameObject.name == "Player") {
+			if (col.gameObject.GetComponent<Player> ().IsDefending ()) {
+				col.gameObject.GetComponent<Player> ().GetBlockDamage (damage / 3);
+			} else
+				col.gameObject.GetComponent<Player> ().GetKnockdown (Vector2.left, damage);
 		}
 	}
 

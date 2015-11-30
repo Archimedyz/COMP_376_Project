@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Fire : MonoBehaviour
 {
-
 	private float lifeTimer = 5.0f;
 	private float timer = 0.0f;
+
+	public int damage;
 
 	Rigidbody rb;
 
@@ -16,7 +17,7 @@ public class Fire : MonoBehaviour
 
 	void Update ()
 	{
-		rb.AddForce (Vector2.left * 10, ForceMode.Force);
+		rb.AddForce (Vector2.left * 7, ForceMode.Force);
 
 		timer += Time.deltaTime;
 
@@ -27,8 +28,13 @@ public class Fire : MonoBehaviour
 
 	void OnTriggerEnter (Collider col)
 	{
-		if (col.gameObject.name == "GeneralColliderPlayer") {
-			col.gameObject.transform.parent.GetComponent<Player> ().GetKnockdown (Vector2.left, 20);
+		if (col.gameObject.name == "Player") {
+			if (col.gameObject.GetComponent<Player> ().IsDefending ()) {
+				col.gameObject.GetComponent<Player> ().GetBlockDamage (damage / 3);
+			} else
+				col.gameObject.GetComponent<Player> ().GetKnockdown (Vector2.left, damage);
+
+			Destroy (gameObject);
 		}
 	}
 }

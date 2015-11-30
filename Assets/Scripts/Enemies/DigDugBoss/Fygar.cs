@@ -40,6 +40,8 @@ public class Fygar : MonoBehaviour
 	private AudioSource pop;
 	private AudioSource strongHit;
 	private AudioSource normalHit;
+	private AudioSource prepareFire;
+	private AudioSource launchFire;
 	private float audioTimer = 0.0f;
 
 	void Start ()
@@ -59,6 +61,8 @@ public class Fygar : MonoBehaviour
 		pop = audioSources [0];
 		normalHit = audioSources [1];
 		strongHit = audioSources [2];
+		prepareFire = audioSources [3];
+		launchFire = audioSources [4];
 	}
 
 	void Update ()
@@ -90,7 +94,7 @@ public class Fygar : MonoBehaviour
 				timer += Time.deltaTime;
 				int a = Random.Range (0, 20);
 				if (timer > nextFire && a == 0) {
-					BreathFire ();
+					StartCoroutine (BreathFire ());
 				}
 				if (!mBreathFire) {
 					if (transform.position.y - 0.1f <= mFloorBoundary [Floor.Y_MIN_INDEX]) {
@@ -119,7 +123,8 @@ public class Fygar : MonoBehaviour
 
 		if (mBreathFire) {
 			fireTimer += Time.deltaTime;
-			if (fireTimer >= 1.5f) {
+			if (fireTimer >= 2.0f) {
+				fireTimer = 0f;
 				mBreathFire = false;
 			}
 		}
@@ -153,10 +158,13 @@ public class Fygar : MonoBehaviour
 
 
 
-	private void BreathFire ()
+	private IEnumerator BreathFire ()
 	{
+		prepareFire.Play ();
 		mBreathFire = true;
 		timer = 0.0f;
+		yield return new WaitForSeconds (2.0f);
+		launchFire.Play ();
 		Instantiate (FirePrefab, new Vector3 (transform.position.x - 1.0f, transform.position.y, transform.position.z), Quaternion.identity);
 	}
 	

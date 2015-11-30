@@ -60,8 +60,8 @@ public class Player : MonoBehaviour
 	//Combat variables - Start
 
 	private float mInvincibleTimer;
-	private float kInvincibilityDuration = 2f;
-	private float kKnockdownInvincibilityDuration = 2f;
+	private float kInvincibilityDuration = 0.5f;
+	private float kKnockdownInvincibilityDuration = 0.5f;
 	public float mHitPushBack;
 	public float mKnockdownPushBack;
 

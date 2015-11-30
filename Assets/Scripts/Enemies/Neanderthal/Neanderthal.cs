@@ -52,7 +52,7 @@ public class Neanderthal : MonoBehaviour
 	float audioTimer = 0.0f;
 
 	private UICanvas uiCanvas;
-	private Vector3 damagePositionOffset = new Vector3 (0, 0.9f, 0);
+	private Vector3 damagePositionOffset = new Vector3 (0, 0.9f, -1);
 
 	public Stats mStats;
 

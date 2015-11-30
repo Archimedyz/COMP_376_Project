@@ -52,7 +52,7 @@ public class Hobo : MonoBehaviour
 	public Stats mStats;
 
 	UICanvas uiCanvas;
-	private Vector3 damagePositionOffset = new Vector3 (0, 0.7f, 0);
+	private Vector3 damagePositionOffset = new Vector3 (0, 0.7f, -1);
 
 	public int expGiven = 100;
 

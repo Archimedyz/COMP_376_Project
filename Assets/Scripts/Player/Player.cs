@@ -327,8 +327,6 @@ public class Player : MonoBehaviour
 
 		mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
 
-		PlayRunSound ();
-
 		if (Input.GetKeyDown ("q")) {//Saturday
 			Dash ();
 		}
@@ -359,7 +357,7 @@ public class Player : MonoBehaviour
 		UpdateAnimator ();
 	}
 
-	private void PlayRunSound ()
+	public void PlayRunSound ()
 	{
 		if (mRunning && !mJumping) {
 			if (!running.isPlaying) {
@@ -483,12 +481,12 @@ public class Player : MonoBehaviour
 		}
 	}
 
-    public void GetBlockDamage(int damage)
-    {
-        mStats.TakeDamage(damage);
-        mHealthBarRef.SetHealth(mStats.Hp);
-        uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
-    }
+	public void GetBlockDamage (int damage)
+	{
+		mStats.TakeDamage (damage);
+		mHealthBarRef.SetHealth (mStats.Hp);
+		uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString (), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+	}
 
 	private void Defend ()
 	{
@@ -626,12 +624,16 @@ public class Player : MonoBehaviour
 		inStory = a;
 	}
 
+	public void GetHealth (int health)
+	{
+		mHealthBarRef.GainHealth (health);
+	}
+
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
 			mInflate = true;
 			mRunning = false;
-			PlayRunSound ();
 			if (inStory)
 				target = -6;
 			else

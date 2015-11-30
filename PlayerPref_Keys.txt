@@ -6,7 +6,7 @@ The following are global keys, used by any file
 
 	files_saved		/* Determines the number of save file that exist. */
 	file_loaded 		/* number of the file currently loaded for continuing and saving. 0 implies none loaded and go to main menu */
-	
+	set_player_stats	/* lets the Player know when to request an update to their stats. */
 
 the following keys are preceeded with 'f[x]_', where [x] indicates the save file being referenced.
 

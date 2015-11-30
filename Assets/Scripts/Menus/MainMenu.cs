@@ -149,12 +149,26 @@ public class MainMenu : MonoBehaviour
 
     void NewFile2()
     {
-        Debug.Log("New Game - File 2");
+        if (PlayerPrefs.GetInt("f2_saved") == 1) {
+            // ask to overwrite the save file.
+            ShowDeleteFileDialogue(2);
+        } else {
+            // start a new game with the defaults.
+            InitNewFile(2);
+            LoadFile1();
+        }
     }
 
     void NewFile3()
     {
-        Debug.Log("New Game - File 3");
+       if(PlayerPrefs.GetInt("f3_saved") == 1) {
+            // ask to overwrite the save file.
+            ShowDeleteFileDialogue(3);
+        } else {
+            // start a new game with the defaults.
+            InitNewFile(3);
+            LoadFile1();
+        }
     }
 
     void InitNewFile(int file_num)
@@ -165,6 +179,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("f" + file_num + "_at_boss", default_at_boss);
         PlayerPrefs.SetInt("f" + file_num + "_lvl", default_lvl);
         PlayerPrefs.SetFloat("f" + file_num + "_max_hp", default_max_hp);
+        Debug.Log("file: " + file_num + " - " + PlayerPrefs.GetFloat("f"+file_num+"_max_hp"));
         PlayerPrefs.SetFloat("f" + file_num + "_hp", default_hp);
         PlayerPrefs.SetInt("f" + file_num + "_str", default_str);
         PlayerPrefs.SetInt("f" + file_num + "_def", default_def);

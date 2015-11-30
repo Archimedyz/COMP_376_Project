@@ -46,6 +46,7 @@ public class DigDugStory : MonoBehaviour
 	void Update ()
 	{
 		if (!finish) {
+			player.PlayRunSound ();
 			StartBattle ();
 		}
 		

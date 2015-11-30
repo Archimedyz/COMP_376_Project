@@ -14,7 +14,9 @@ public class Level1Story : MonoBehaviour
 	private GameObject metroSpawners;
 	private GameObject levelStuff;
 	private Dialogue dialogueText;
+	private GameObject pause;
 
+	private bool canStart = false;
 	private bool metroArrives = true;
 	private bool metroDeparts = false;
 	private bool scottArrives = false;
@@ -33,11 +35,11 @@ public class Level1Story : MonoBehaviour
 	
 	void Start ()
 	{
-		metro = Instantiate (metroPrefab, new Vector3 (81f, -5.5f, -1f), Quaternion.identity) as GameObject;
+		metro = Instantiate (metroPrefab, new Vector3 (150f, -5.5f, -1f), Quaternion.identity) as GameObject;
 		metro.GetComponent<Metro> ().enabled = false;
 		startTime = Time.time;
 
-		player.transform.position = new Vector3 (76f, -4.33f, 0f);
+		player.transform.position = new Vector3 (146f, -4.33f, -10f);
 		player.GetComponent<Player> ().enabled = false;
 
 		metroTarget = -68f;
@@ -60,6 +62,9 @@ public class Level1Story : MonoBehaviour
 		levelStuff = GameObject.Find ("LevelEndStart") as GameObject;
 		levelStuff.SetActive (false);
 
+		pause = GameObject.Find ("PauseCanvas") as GameObject;
+		pause.SetActive (false);
+
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		theme = audioSources [0];
 		theme.volume = 0f;
@@ -68,87 +73,94 @@ public class Level1Story : MonoBehaviour
 
 	void Update ()
 	{
-		if (metroArrives) {
-			if (!terraTheme.isPlaying) {
-				player.transform.position = new Vector3 (76f, -4.33f, 0f);
-				terraTheme.Play ();
+		if (canStart) {
+			if (metroArrives) {
+				if (!terraTheme.isPlaying) {
+					terraTheme.Play ();
+				}
+				float distCovered = (Time.time - startTime) * 0.01f;
+				float fracJourney = distCovered / journeyLength;
+				metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
+				player.transform.position = Vector3.Lerp (player.transform.position, new Vector3 (metroTarget, player.transform.position.y, player.transform.position.z), fracJourney);
+				if (player.transform.position.x <= mainCamera.transform.position.x) {
+					mainCamera.GetComponent<FollowCam> ().SetTarget ();
+				}
+				if (metro.transform.position.x <= -60f) {
+					metroArrives = false;
+					scottArrives = true;
+					metroDeparts = true;
+				}
 			}
-			float distCovered = (Time.time - startTime) * 10/*0.01f*/;
-			float fracJourney = distCovered / journeyLength;
-			metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
-			player.transform.position = Vector3.Lerp (player.transform.position, new Vector3 (metroTarget, player.transform.position.y, player.transform.position.z), fracJourney);
-			if (player.transform.position.x <= mainCamera.transform.position.x) {
-				mainCamera.GetComponent<FollowCam> ().SetTarget ();
+
+			if (metroDeparts) {
+				metro.transform.position -= new Vector3 (0.1f, 0.0f, 0.0f);
+				if (metro.transform.position.x <= -70f) {
+					scottGoesUp = true;
+					metroDeparts = false;
+					Destroy (metro);
+				}
 			}
-			if (metro.transform.position.x <= -60f) {
-				metroArrives = false;
-				scottArrives = true;
-				metroDeparts = true;
+
+			if (scottArrives) {
+				player.GetComponent<Player> ().enabled = true;
+				player.transform.position += new Vector3 (0f, 0f, 10f);
+				player.SetInStory (true);
+				scottArrives = false;
+			}
+
+			if (scottGoesUp) {
+				player.SetMoveUp (true);
+				scottGoesUp = false;
+				scottStopMove = true;
+			}
+
+			if (scottStopMove) {
+				if (player.transform.position.y >= -3.5f) {
+					player.SetMoveUp (false);
+					scottStopMove = false;
+					scottCanWalk = true;
+				}
+			}
+
+			if (scottCanWalk) {
+				player.SetCanWalk (true);
+				if (player.transform.position.x >= -40f) {
+					scottCanWalk = false;
+					player.SetCanWalk (false);
+					hoodedStartTalking = true;
+				}
+			}
+
+			if (hoodedStartTalking) {
+				if (terraTheme.isPlaying) {
+					StartCoroutine (FadeOut (terraTheme));
+				}
+				hoodedStartTalking = false;
+				dialogue.SetActive (true);
+				dialogueText.SelectTextFile ("FirstScene");
+			}
+
+			if (hoodedFinishedTalking) {
+				StartCoroutine (FadeIn (theme));
+				hoodedFinishedTalking = false;
+				hoodedDissapeared = true;
+				hooded.SetDissapears ();
+			}
+
+			if (hoodedDissapeared) {
+				pause.SetActive (true);
+				player.SetInStory (false);
+				enemies.SetActive (true);
+				hoodedDissapeared = false;
+				metroSpawners.SetActive (true);
+				levelStuff.SetActive (true);
 			}
 		}
+	}
 
-		if (metroDeparts) {
-			metro.transform.position -= new Vector3 (0.1f, 0.0f, 0.0f);
-			if (metro.transform.position.x <= -70f) {
-				scottGoesUp = true;
-				metroDeparts = false;
-				Destroy (metro);
-			}
-		}
-
-		if (scottArrives) {
-			player.GetComponent<Player> ().enabled = true;
-			player.transform.position += new Vector3 (0f, 0f, 1f);
-			player.SetInStory (true);
-			scottArrives = false;
-		}
-
-		if (scottGoesUp) {
-			player.SetMoveUp (true);
-			scottGoesUp = false;
-			scottStopMove = true;
-		}
-
-		if (scottStopMove) {
-			if (player.transform.position.y >= -3.5f) {
-				player.SetMoveUp (false);
-				scottStopMove = false;
-				scottCanWalk = true;
-			}
-		}
-
-		if (scottCanWalk) {
-			player.SetCanWalk (true);
-			if (player.transform.position.x >= -40f) {
-				scottCanWalk = false;
-				player.SetCanWalk (false);
-				hoodedStartTalking = true;
-			}
-		}
-
-		if (hoodedStartTalking) {
-			if (terraTheme.isPlaying) {
-				StartCoroutine (FadeOut (terraTheme));
-			}
-			hoodedStartTalking = false;
-			dialogue.SetActive (true);
-			dialogueText.SelectTextFile ("FirstScene");
-		}
-
-		if (hoodedFinishedTalking) {
-			StartCoroutine (FadeIn (theme));
-			hoodedFinishedTalking = false;
-			hoodedDissapeared = true;
-			hooded.SetDissapears ();
-		}
-
-		if (hoodedDissapeared) {
-			player.SetInStory (false);
-			enemies.SetActive (true);
-			hoodedDissapeared = false;
-			metroSpawners.SetActive (true);
-			levelStuff.SetActive (true);
-		}
+	public void SetCanStart ()
+	{
+		canStart = true;
 	}
 
 	private IEnumerator FadeIn (AudioSource audio)

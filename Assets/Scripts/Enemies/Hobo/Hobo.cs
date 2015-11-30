@@ -56,7 +56,7 @@ public class Hobo : MonoBehaviour
 
 	public int expGiven = 100;
 
-	private int staggerTimer = 0;
+	private float staggerTimer = 0f;
 
 	void Start ()
 	{
@@ -91,8 +91,8 @@ public class Hobo : MonoBehaviour
 		}
 		
 		ResetBoolean ();
-		if (staggerTimer > 0)
-			staggerTimer--;
+		if (staggerTimer > 0f)
+			staggerTimer -= 0.4f;
 		if (attackTimer > attackTimeWait && !mGetHit && staggerTimer <= 0 && !mDying && mFloorIndex == mTarget.gameObject.GetComponent<Player> ().GetLayerIndex ()) {
 			if (Vector2.Distance (transform.position, mTarget.position) <= (mAttackDistance + 0.05)) {
 				attackTimer = 0;
@@ -145,18 +145,19 @@ public class Hobo : MonoBehaviour
 	public void GetHit (Vector2 direction, int damage, bool isCrit)
 	{
 		if (!mGetHit && !mDying) {
+			StartCoroutine (Stagger ());
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
 			mRigidBody.velocity = Vector2.zero;
             
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
-				staggerTimer = 25 - (int)(staggerTimer * 0.10f);
+				staggerTimer = 25f - (staggerTimer * 0.10f);
 				damage = (int)(damage * 1.4f);
 				Recoil (direction, 2f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
 			} else {
-				staggerTimer = 15 - (int)(staggerTimer * 0.10f);
+				staggerTimer = 15 - (staggerTimer * 0.10f);
 				Recoil (direction, mPushBack);
 				if (audioTimer >= 0.2f) {
 					normalHit.Play ();
@@ -170,6 +171,28 @@ public class Hobo : MonoBehaviour
 				uiCanvas.CreateDamageLabel (((int)mStats.DamageDealt (damage)).ToString (), (transform.position + damagePositionOffset), UINotification.TYPE.HPLOSS);
 			}
 		}
+	}
+
+	private IEnumerator Stagger ()
+	{
+		bool staggerRight = true;
+		float initialPosX = transform.position.x;
+
+		for (float timer = 0f; timer < 2.0f; timer += Time.deltaTime) {
+			Debug.Log (transform.position.x);
+			if (transform.position.x >= (initialPosX + 0.25f)) {
+				staggerRight = false;
+			} else if (transform.position.x <= (initialPosX - 0.25f)) {
+				staggerRight = true;
+			}
+
+			if (staggerRight) {
+				transform.position += new Vector3 (0.1f, 0f, 0f);
+			} else {
+				transform.position -= new Vector3 (0.1f, 0f, 0f);
+			}
+		}
+		yield return new WaitForSeconds (0.001f);
 	}
 
 	public void Recoil (Vector2 direction, float modifier)

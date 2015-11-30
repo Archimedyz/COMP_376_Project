@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
 
 	private AudioSource deflating;
 	private AudioSource running;
+	private AudioSource health;
 
 	public int timerForSlide;
 	private int[] playerRate = new int[] { 20, 2, 2, 2 };
@@ -136,6 +137,7 @@ public class Player : MonoBehaviour
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		deflating = audioSources [0];
 		running = audioSources [1];
+		health = audioSources [2];
 
 		timerForSlide = 0;
 	}
@@ -305,8 +307,8 @@ public class Player : MonoBehaviour
                 Mathf.Clamp (transform.localPosition.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]),
                 Mathf.Clamp (transform.localPosition.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]),
                  transform.localPosition.z
-            );
-            mGroundY = transform.position.y;
+			);
+			mGroundY = transform.position.y;
 		} else if (mJumping) {
 			ResetBoolean ();
 			//Jump attack
@@ -625,9 +627,10 @@ public class Player : MonoBehaviour
 		inStory = a;
 	}
 
-	public void GetHealth (int health)
+	public void GetHealth (int a)
 	{
-		mHealthBarRef.GainHealth (health);
+		health.Play ();
+		mHealthBarRef.GainHealth (a);
 	}
 
 	void OnTriggerEnter (Collider col)

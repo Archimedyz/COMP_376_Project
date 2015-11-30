@@ -6,11 +6,6 @@ public class Pizza : MonoBehaviour
 
 	void Start ()
 	{
-	
-	}
-
-	void Update ()
-	{
 
 	}
 

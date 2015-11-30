@@ -150,6 +150,7 @@ public class Neanderthal : MonoBehaviour
 	public void GetHit (Vector2 direction, int damage, bool isCrit)
 	{
 		if (!mGetHit && !mDying) {
+			StartCoroutine (Stagger ());
 			attackTimer = 0;
 			mRigidBody.isKinematic = false;
 			mGetHit = true;
@@ -174,6 +175,29 @@ public class Neanderthal : MonoBehaviour
 			}
 		}
 	}
+
+	private IEnumerator Stagger ()
+	{
+		bool staggerRight = true;
+		float initialPosX = transform.position.x;
+		
+		for (float timer = 0f; timer < 2.0f; timer += Time.deltaTime) {
+			Debug.Log (transform.position.x);
+			if (transform.position.x >= (initialPosX + 0.25f)) {
+				staggerRight = false;
+			} else if (transform.position.x <= (initialPosX - 0.25f)) {
+				staggerRight = true;
+			}
+			
+			if (staggerRight) {
+				transform.position += new Vector3 (0.1f, 0f, 0f);
+			} else {
+				transform.position -= new Vector3 (0.1f, 0f, 0f);
+			}
+		}
+		yield return new WaitForSeconds (0.001f);
+	}
+
 	public void Recoil (Vector2 direction, float modifier)
 	{
 		mRigidBody.AddForce (new Vector2 (direction.x, 0.0f) * modifier, ForceMode.Impulse);

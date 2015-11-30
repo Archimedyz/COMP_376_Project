@@ -61,9 +61,6 @@ public class Coconut : MonoBehaviour
 		throwed = true;
 		initialPositionX = transform.position.x;
 		gameObject.transform.parent = null;
-		//if (mDirection == Vector2.right) {
-		//rb.AddForce (Vector3.Normalize (player.position - transform.position) * mThrowForce, ForceMode.Force);
-		//} 
 	}
 
 	public void SetDirection (Vector2 direction)
@@ -79,7 +76,11 @@ public class Coconut : MonoBehaviour
 	void OnCollisionEnter (Collision col)
 	{
 		if (col.gameObject.name == "Player") {
-			col.gameObject.GetComponent<Player> ().GetKnockdown (mDirection, damage);
+			if (col.gameObject.GetComponent<Player> ().IsDefending ()) {
+				col.gameObject.GetComponent<Player> ().GetBlockDamage (damage / 3);
+			} else
+				col.gameObject.GetComponent<Player> ().GetKnockdown (mDirection, damage);
+
 			Destroy (gameObject);
 		}
 	}

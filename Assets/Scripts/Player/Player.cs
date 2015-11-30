@@ -483,6 +483,13 @@ public class Player : MonoBehaviour
 		}
 	}
 
+    public void GetBlockDamage(int damage)
+    {
+        mStats.TakeDamage(damage);
+        mHealthBarRef.SetHealth(mStats.Hp);
+        uiCanvas.CreateDamageLabel(((int)mStats.DamageDealt(damage)).ToString(), (transform.position + damagePosition), UINotification.TYPE.HPLOSS);
+    }
+
 	private void Defend ()
 	{
 		mDefending = true;

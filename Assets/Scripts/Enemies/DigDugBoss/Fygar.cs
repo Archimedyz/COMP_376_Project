@@ -21,8 +21,6 @@ public class Fygar : MonoBehaviour
 
 	private Transform mTarget;
 
-	private Vector2 mFacingDirection;
-
 	private float destroyTimer = 0.0f;
 	private float fireTimer = 0.0f;
 	private float nextFire = 5.0f;
@@ -37,7 +35,6 @@ public class Fygar : MonoBehaviour
 	public int mFloorIndex;
 	public float[] mFloorBoundary;
 	private SpriteRenderer mSpriteRenderer;
-	private int mInitialOrderInLayer;
 	private bool floorBoundaryInitialized;
 
 	private AudioSource pop;
@@ -56,7 +53,6 @@ public class Fygar : MonoBehaviour
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
-		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
@@ -178,7 +174,6 @@ public class Fygar : MonoBehaviour
 
 	private void FaceDirection (Vector2 direction)
 	{
-		mFacingDirection = direction;
 		if (direction == Vector2.right) {
 			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
 			transform.localScale = newScale;

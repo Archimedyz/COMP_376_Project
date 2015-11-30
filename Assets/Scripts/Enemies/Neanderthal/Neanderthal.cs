@@ -10,8 +10,6 @@ public class Neanderthal : MonoBehaviour
 	private bool mAppearing;
 	private float appearingTimer = 0.0f;
 
-	private Vector2 mFacingDirection;
-
 	public float mHoriMoveSpeed;
 	public float mVertiMoveSpeed;
 
@@ -40,7 +38,6 @@ public class Neanderthal : MonoBehaviour
 	private FloorController mFloorControllerRef;
 	public int mFloorIndex;
 	public float[] mFloorBoundary;
-	private SpriteRenderer mSpriteRenderer;
 	private int mInitialOrderInLayer;
 	private bool floorBoundaryInitialized;
 
@@ -74,7 +71,6 @@ public class Neanderthal : MonoBehaviour
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
-		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
 
@@ -227,7 +223,6 @@ public class Neanderthal : MonoBehaviour
 
 	private void FaceDirection (Vector2 direction)
 	{
-		mFacingDirection = direction;
 		if (direction == Vector2.right) {
 			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
 			transform.localScale = newScale;

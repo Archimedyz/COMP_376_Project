@@ -253,7 +253,7 @@ public class Hobo : MonoBehaviour
 
 	private void UpdateAnimator ()
 	{
-		mAnimator.SetBool ("isMoving", mMovingRight);
+		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isHitting", mHitting);
 		mAnimator.SetBool ("isDying", mDying);
 	}

@@ -10,10 +10,7 @@ public class Coconut : MonoBehaviour
 	public float mThrowForce;
 	public float maxDisplacement;
 
-	private Rigidbody rb;
-
 	private float Timer;
-	private float throwTimer;
 
 	private Vector2 mDirection;
 
@@ -29,9 +26,7 @@ public class Coconut : MonoBehaviour
 
 		canThrow = true;
 		throwed = false;
-		rb = GetComponent<Rigidbody> ();
 		Timer = 0.0f;
-		throwTimer = 0.0f;
 	}
 
 	void Update ()

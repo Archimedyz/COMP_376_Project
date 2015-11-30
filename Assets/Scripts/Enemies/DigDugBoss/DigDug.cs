@@ -19,7 +19,6 @@ public class DigDug : MonoBehaviour
 
 	private GameObject hoseInstance = null;
 
-	private float titleSpeed = 1.0f;
 	private GameObject[] title;
 	private bool throwTitle = false;
 	private int nextThrow = 0;
@@ -29,7 +28,6 @@ public class DigDug : MonoBehaviour
 	public float tileRangeY;
 
 	private Animator mAnimator;
-	private Rigidbody rb;
 	private SpriteRenderer sr;
 
 	private bool mMoving;
@@ -73,7 +71,6 @@ public class DigDug : MonoBehaviour
 	public int mFloorIndex;
 	public float[] mFloorBoundary;
 	private SpriteRenderer mSpriteRenderer;
-	private int mInitialOrderInLayer;
 	private bool floorBoundaryInitialized;
 
 	// Floor Variables - END
@@ -95,7 +92,6 @@ public class DigDug : MonoBehaviour
 	void Start ()
 	{
 		mAnimator = GetComponent<Animator> ();
-		rb = GetComponent<Rigidbody> ();
 		sr = transform.GetChild (0).GetComponent<SpriteRenderer> ();	
 		title = new GameObject[6];
 		player = GameObject.Find ("Player").transform;
@@ -104,7 +100,6 @@ public class DigDug : MonoBehaviour
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
-		mInitialOrderInLayer = (int)(transform.position.y);
 		floorBoundaryInitialized = false;
 
 		mHealthBarRef = GameObject.FindGameObjectWithTag ("BossHealth").GetComponent<HealthBar> ();

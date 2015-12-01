@@ -161,8 +161,14 @@ public class ShurikenSpawner : MonoBehaviour
 
 		// update Text positions so they allign with shurikens
 		for (int i = 0; i < Max; i++)  
-			if (shurikens [i] != null)
+			if (shurikens [i] != null) 
+			{
 				textPositions [i].position = new Vector3 (shurikens [i].position.x - 0.414f, shurikens [i].position.y + 0.352f, -3.0f);
+
+				// is has parent then position it above it
+				if(shurikens[i].parent != null)
+					textPositions[i].position += new Vector3(0.0f, 1.0f, 0.0f);
+			}
 
 		// When user holds down the O key alter text
 		if(Input.GetKey(KeyCode.O) && !Input.GetKey(KeyCode.K))    
@@ -526,6 +532,12 @@ public class ShurikenSpawner : MonoBehaviour
 			}
 		}
 	}
+
+//	// used in ShurikenController to reposition text in front of enemy when shuriken hits them
+//	public Transform GetTextPosition(int i)
+//	{
+//		return textPositions [i];
+//	}
 }
 
 

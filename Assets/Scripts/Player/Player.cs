@@ -601,7 +601,6 @@ public class Player : MonoBehaviour
 
 	private void UpdateAnimator ()
 	{
-		Debug.Log (mDying);
 		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isRunning", (mRunning && !mJumping));
 		mAnimator.SetBool ("isWalking", (mWalking && !mJumping));

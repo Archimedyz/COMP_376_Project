@@ -35,6 +35,8 @@ public class Dialogue: MonoBehaviour
 				GameObject.Find ("Dialogue").SetActive (false);
 				if (fileName == "FirstScene") {
 					GameObject.Find ("LevelController").GetComponent<Level1Story> ().SetHoodedFinishedTalking (true);
+				} else if (fileName == "Level1End") {
+					GameObject.Find ("LevelController").GetComponent<Level1Story> ().SetLevelEnd (true);
 				}
 			}
 		}
@@ -45,6 +47,11 @@ public class Dialogue: MonoBehaviour
 		if (file == "FirstScene") {
 			fileName = file;
 			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FirstScene.txt");
+			reader = theSourceFile.OpenText ();
+			startText = true;
+		} else if (file == "Lavel1End") {
+			fileName = file;
+			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/Level1End.txt");
 			reader = theSourceFile.OpenText ();
 			startText = true;
 		} else {

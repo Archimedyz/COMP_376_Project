@@ -271,6 +271,8 @@ public class Player : MonoBehaviour
 			//Jump attack
 			MovementHandler ();
 		} else {
+			transform.position = new Vector3 (transform.position.x, transform.position.y, -1f);
+			transform.rotation = Quaternion.Euler (0f, 0f, 0f);
 			if (!ActionHandler ())
 			if (CanMove ()) {
 				bool isJumping = mJumping;

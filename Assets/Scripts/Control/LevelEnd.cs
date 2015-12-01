@@ -3,11 +3,6 @@ using System.Collections;
 
 public class LevelEnd : MonoBehaviour
 {
-	void Update ()
-	{
-		Debug.Log (transform.position);
-	}
-
 	void OnTriggerEnter (Collider col)
 	{
 		Debug.Log ("Allo");

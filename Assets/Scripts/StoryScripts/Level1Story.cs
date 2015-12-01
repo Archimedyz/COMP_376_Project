@@ -124,7 +124,7 @@ public class Level1Story : MonoBehaviour
 				if (!terraTheme.isPlaying) {
 					terraTheme.Play ();
 				}
-				float distCovered = (Time.time - startTime) * 10 /*0.01f*/;
+				float distCovered = (Time.time - startTime) * 10/*0.01f*/;
 				float fracJourney = distCovered / journeyLength;
 				metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
 				player.transform.position = Vector3.Lerp (player.transform.position, new Vector3 (metroTarget, player.transform.position.y, player.transform.position.z), fracJourney);

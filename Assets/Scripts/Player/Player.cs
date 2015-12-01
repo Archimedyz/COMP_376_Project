@@ -18,9 +18,13 @@ public class Player : MonoBehaviour
 	private bool mDashing;
 	private int mNormalAttack;
 	private int mStrongAttack;
+	private bool mDying = false;
 	private float mGroundY;
 	private bool moveRight = false;
 	private bool moveUp = false;
+
+	private bool dead = false;
+	private float dyingTimer = 0.0f;
 
 	private bool canMove = true;
 	private bool canWalk = false;
@@ -283,6 +287,18 @@ public class Player : MonoBehaviour
 
 	void FixedUpdate ()
 	{
+		if (!dead && mHealthBarRef.GetHealth () <= 0) {
+			Die ();
+		}
+
+		if (mDying) {
+			dyingTimer += Time.deltaTime;
+			if (dyingTimer >= 1.45f) {
+				mDying = false;
+				dyingTimer = 0f;
+			}
+		}
+
 		if (mNormalAttack >= 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			mNormalAttack = -1;
 			mHitting = false;
@@ -503,6 +519,12 @@ public class Player : MonoBehaviour
 		mRigidBody.useGravity = true;
 	}
 
+	private void Die ()
+	{
+		dead = true;
+		mDying = true;
+	}
+
 	public void GetHit (Vector2 direction, int damage)
 	{
 		if (!mGetHit && !mGetKnockdown && !mInflate) {
@@ -561,7 +583,9 @@ public class Player : MonoBehaviour
 		bool cond1 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetKnockdown");
 		bool cond2 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetUp");
 		bool cond3 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("GetHit");
-		return cond1 && cond2 & cond3 && canMove;
+		bool cond4 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Dying");
+		bool cond5 = !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Dead");
+		return cond1 && cond2 & cond3 && cond4 && cond5 && canMove;
 	}
 
 	private void ResetBoolean ()
@@ -577,6 +601,7 @@ public class Player : MonoBehaviour
 
 	private void UpdateAnimator ()
 	{
+		Debug.Log (mDying);
 		mAnimator.SetBool ("isMoving", mMoving);
 		mAnimator.SetBool ("isRunning", (mRunning && !mJumping));
 		mAnimator.SetBool ("isWalking", (mWalking && !mJumping));
@@ -590,6 +615,8 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isDashing", mDashing);
 		mAnimator.SetBool ("isInflating", mInflate);
 		mAnimator.SetBool ("isHittingBool", mHitting);
+		mAnimator.SetBool ("isDying", mDying);
+		mAnimator.SetBool ("Dead", dead);
 	}
 
 	private void CheckFalling ()

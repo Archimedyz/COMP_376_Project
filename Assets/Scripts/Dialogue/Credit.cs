@@ -64,6 +64,11 @@ public class Credit : MonoBehaviour
 		finished = false;
 			
 		thisText.text = text;
+		if (text [0] == "*") {
+			thisText.font = 25;
+		} else {
+			thisText.font = 18;
+		}
 
 		while (thisText.color.a < 1) {
 			thisText.color = new Color (thisText.color.r, thisText.color.g, thisText.color.b, thisText.color.a + (0.2f * Time.deltaTime));

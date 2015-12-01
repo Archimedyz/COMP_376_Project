@@ -166,7 +166,7 @@ public class Hobo : MonoBehaviour
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
 			} else if(GameObject.Find ("Player").GetComponent<Player> ().IsDashing ()){
-                staggerTimer = 25f - (staggerTimer * 0.10f);
+                staggerTimer = 28f - (staggerTimer * 0.10f);
                 damage = (int)(damage * 0.35f);
                 Recoil(direction, 2f);
                 if (audioTimer >= 0.2f)

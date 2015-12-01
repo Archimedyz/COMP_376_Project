@@ -108,6 +108,8 @@ public class Player : MonoBehaviour
 		DashSpeedModifier = 1.5f;
 	private int dashTime = 0;
 	private int dashRecovery = 15;
+    private bool mEndDash = false;
+    private Vector3 destination = Vector3.zero;
 
 	void Start ()
 	{
@@ -597,6 +599,7 @@ public class Player : MonoBehaviour
 		mWalking = false;
 		mDashing = false;
 		mHitting = false;
+        mEndDash = false;
 	}
 
 	private void UpdateAnimator ()
@@ -612,6 +615,7 @@ public class Player : MonoBehaviour
 		mAnimator.SetInteger ("isStrongHitting", mStrongAttack);
 		mAnimator.SetBool ("isSliding", mSliding);
 		mAnimator.SetBool ("isDashing", mDashing);
+        mAnimator.SetBool("isEndDash", mEndDash);
 		mAnimator.SetBool ("isInflating", mInflate);
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isDying", mDying);
@@ -756,16 +760,12 @@ public class Player : MonoBehaviour
 	{
 		if (mDashing) {
 			if (col.gameObject.name.ToLower ().StartsWith ("hobo")) {
-				//Stun and get behind
-				FaceDirection ((col.gameObject.GetComponent<Hobo> ()).GetFacingDirection ());
-				transform.position = col.gameObject.transform.position - new Vector3 ((col.gameObject.GetComponent<Hobo> ()).GetFacingDirection ().x, 0, 0);
-				mGroundY = Mathf.Clamp (mGroundY, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]);
-				mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
-				mDashing = false;
-				dashRecovery = 0;
+				//Stun and set destination with invuln
+                destination = new Vector3(col.gameObject.transform.position.x - (col.gameObject.GetComponent<Hobo>()).GetFacingDirection().x, transform.position.y, transform.position.z);
 			} else {
 				if (mDashing && col.gameObject.name.ToLower ().StartsWith ("neanderthal")) {
-					//Stun and get behind
+                    //Stun and set destination with invuln
+                    destination = new Vector3(col.gameObject.transform.position.x - (col.gameObject.GetComponent<Neanderthal>()).GetFacingDirection().x, transform.position.y, transform.position.z);
 				}
 			}
 		}

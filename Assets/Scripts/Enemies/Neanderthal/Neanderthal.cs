@@ -55,6 +55,8 @@ public class Neanderthal : MonoBehaviour
 
 	public int expGiven = 10;
 
+    private Vector2 mFacingDirection;
+
 	void Awake ()
 	{
 		mAppearing = true;
@@ -221,16 +223,20 @@ public class Neanderthal : MonoBehaviour
 		mMoving = true;
 	}
 
-	private void FaceDirection (Vector2 direction)
-	{
-		if (direction == Vector2.right) {
-			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
-			transform.localScale = newScale;
-		} else {
-			Vector3 newScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
-			transform.localScale = newScale;
-		}
-	}
+    private void FaceDirection(Vector2 direction)
+    {
+        mFacingDirection = direction;
+        if (direction == Vector2.right)
+        {
+            Vector3 newScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = newScale;
+        }
+        else
+        {
+            Vector3 newScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = newScale;
+        }
+    }
 
 	private void ResetBoolean ()
 	{
@@ -251,4 +257,10 @@ public class Neanderthal : MonoBehaviour
 	{
 		mStats.Exp = 100;
 	}
+
+    public Vector2 GetFacingDirection()
+    {
+        return mFacingDirection;
+    }
+
 }

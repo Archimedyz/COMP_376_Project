@@ -165,12 +165,14 @@ public class Player : MonoBehaviour
 
 		timerForSlide = 0;
 
-		levelText = GameObject.Find ("LevelText").GetComponent<Text> ();
-		if (mStats.Level <= 1) {
-			levelText.text = "F";
-			levelText.color = new Color (1, 0, 0);
-		} else {
-			SetLevelLabel ();
+		if (GameObject.Find ("LevelText") != null) {
+			levelText = GameObject.Find ("LevelText").GetComponent<Text> ();
+			if (mStats.Level <= 1) {
+				levelText.text = "F";
+				levelText.color = new Color (1, 0, 0);
+			} else {
+				SetLevelLabel ();
+			}
 		}
 	}
 	/// <summary>

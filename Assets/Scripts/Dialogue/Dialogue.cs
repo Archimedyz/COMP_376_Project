@@ -31,6 +31,8 @@ public class Dialogue: MonoBehaviour
 			if (text != null) {
 				StartCoroutine (DisplayText ());
 			} else {
+				reader.Close ();
+				reader = null;
 				theSourceFile = null;
 				GameObject.Find ("Dialogue").SetActive (false);
 				if (fileName == "FirstScene") {
@@ -49,7 +51,7 @@ public class Dialogue: MonoBehaviour
 			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FirstScene.txt");
 			reader = theSourceFile.OpenText ();
 			startText = true;
-		} else if (file == "Lavel1End") {
+		} else if (file == "Level1End") {
 			fileName = file;
 			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/Level1End.txt");
 			reader = theSourceFile.OpenText ();

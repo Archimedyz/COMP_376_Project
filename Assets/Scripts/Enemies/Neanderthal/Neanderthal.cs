@@ -57,6 +57,7 @@ public class Neanderthal : MonoBehaviour
 
     private Vector2 mFacingDirection;
 
+
 	void Awake ()
 	{
 		mAppearing = true;
@@ -274,5 +275,8 @@ public class Neanderthal : MonoBehaviour
     {
         return mFacingDirection;
     }
-
+    void OnDestroy()
+    {
+        GameObject.Find("Player").GetComponent<Player>().noDamageStreak++;
+    }
 }

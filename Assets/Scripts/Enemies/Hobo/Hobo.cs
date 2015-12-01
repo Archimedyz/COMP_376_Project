@@ -284,4 +284,9 @@ public class Hobo : MonoBehaviour
 	{
 		mStats.Exp = 100;
 	}
+
+    void OnDestroy()
+    {
+        GameObject.Find("Player").GetComponent<Player>().noDamageStreak++;
+    }
 }

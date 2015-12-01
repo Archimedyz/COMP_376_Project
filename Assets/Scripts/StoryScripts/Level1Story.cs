@@ -98,10 +98,9 @@ public class Level1Story : MonoBehaviour
 		}
 
 		if (doLevel) {
-			if (player.transform.position.x >= 70f) {
+			if (player.transform.position.x >= hoodedEnd.transform.position.x - 2f) {
 				doLevel = false;
 				StartCoroutine (FadeOut (theme));
-				healthbar.SetActive (false);
 				pickUps.SetActive (false);
 				player.SetInStory (true);
 				enemies.SetActive (false);
@@ -125,7 +124,7 @@ public class Level1Story : MonoBehaviour
 				if (!terraTheme.isPlaying) {
 					terraTheme.Play ();
 				}
-				float distCovered = (Time.time - startTime) * 10/*0.01f*/;
+				float distCovered = (Time.time - startTime) * 10 /*0.01f*/;
 				float fracJourney = distCovered / journeyLength;
 				metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
 				player.transform.position = Vector3.Lerp (player.transform.position, new Vector3 (metroTarget, player.transform.position.y, player.transform.position.z), fracJourney);

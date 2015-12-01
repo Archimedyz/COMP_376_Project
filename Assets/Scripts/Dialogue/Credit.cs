@@ -20,7 +20,6 @@ public class Credit : MonoBehaviour
 		thisText.text = " ";
 
 		theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/Credit.txt");
-		Debug.Log ("Allo");
 		reader = theSourceFile.OpenText ();
 	}
 

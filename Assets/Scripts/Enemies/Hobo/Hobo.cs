@@ -67,7 +67,7 @@ public class Hobo : MonoBehaviour
 		mDying = false;
 
 		mTarget = GameObject.Find ("Player").transform;
-        expGiven = 15 - 2 * (GameObject.Find("Player").GetComponent<Player>().mStats.Level-mStats.Level);
+		expGiven = 15 - 2 * (GameObject.Find ("Player").GetComponent<Player> ().mStats.Level - mStats.Level);
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
@@ -165,16 +165,15 @@ public class Hobo : MonoBehaviour
 				Recoil (direction, 2f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
-			} else if(GameObject.Find ("Player").GetComponent<Player> ().IsDashing ()){
-                staggerTimer = 28f - (staggerTimer * 0.10f);
-                damage = (int)(damage * 0.35f);
-                Recoil(direction, 2f);
-                if (audioTimer >= 0.2f)
-                {
-                    normalHit.Play();
-                    audioTimer = 0.0f;
-                }
-			}else {
+			} else if (GameObject.Find ("Player").GetComponent<Player> ().IsDashing ()) {
+				staggerTimer = 28f - (staggerTimer * 0.10f);
+				damage = (int)(damage * 0.35f);
+				Recoil (direction, 2f);
+				if (audioTimer >= 0.2f) {
+					normalHit.Play ();
+					audioTimer = 0.0f;
+				}
+			} else {
 				staggerTimer = 15 - (staggerTimer * 0.10f);
 				Recoil (direction, mPushBack);
 				if (audioTimer >= 0.2f) {
@@ -197,7 +196,6 @@ public class Hobo : MonoBehaviour
 		float initialPosX = transform.position.x;
 
 		for (float timer = 0f; timer < 2.0f; timer += Time.deltaTime) {
-			Debug.Log (transform.position.x);
 			if (transform.position.x >= (initialPosX + 0.2f)) {
 				staggerRight = false;
 			} else if (transform.position.x <= (initialPosX - 0.2f)) {
@@ -285,8 +283,8 @@ public class Hobo : MonoBehaviour
 		mStats.Exp = 100;
 	}
 
-    void OnDestroy()
-    {
-        GameObject.Find("Player").GetComponent<Player>().noDamageStreak++;
-    }
+	void OnDestroy ()
+	{
+		GameObject.Find ("Player").GetComponent<Player> ().noDamageStreak++;
+	}
 }

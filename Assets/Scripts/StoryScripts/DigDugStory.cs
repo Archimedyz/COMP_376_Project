@@ -32,6 +32,7 @@ public class DigDugStory : MonoBehaviour
 	void Start ()
 	{
 		player = GameObject.Find ("Player").GetComponent<Player> ();
+		player.SetInStory (false);
 		digdug = GameObject.Find ("DigDug").GetComponent<DigDug> ();
 		mainCamera = GameObject.Find ("Main Camera") as GameObject;
 		mainCamera.GetComponent<FollowCam> ().SetTarget ();

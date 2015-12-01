@@ -82,7 +82,7 @@ public class Level1Story : MonoBehaviour
 		healthbar = GameObject.Find ("UI") as GameObject;
 		healthbar.SetActive (false);
 
-		levelText = GameObject.Find ("LvlTxt") as GameObject;
+		levelText = GameObject.Find ("LevelCanvas") as GameObject;
 		levelText.SetActive (false);
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();

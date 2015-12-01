@@ -29,7 +29,8 @@ public class AreaBlastController : MonoBehaviour
 			blastsLeft--;
 		}
 
-		//UI_Blasttext.text = "Key M - Area Blast: " + blastsLeft; 
+		if(UI_Blasttext != null)
+			UI_Blasttext.text = "Key M - Area Blast: " + blastsLeft; 
 	}
 
 	void OnTriggerEnter (Collider other)

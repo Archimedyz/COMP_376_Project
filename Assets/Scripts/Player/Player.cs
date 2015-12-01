@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+	private Text levelText;
+
 	private bool mRunning;
 	private bool mWalking;
 	private bool mMoving;
@@ -152,6 +155,14 @@ public class Player : MonoBehaviour
 		health = audioSources [2];
 
 		timerForSlide = 0;
+
+		levelText = GameObject.Find ("LevelText").GetComponent<Text> ();
+		if (mStats.Level <= 1) {
+			levelText.text = "F";
+			levelText.color = new Color (1, 0, 0);
+		} else {
+			SetLevelLabel ();
+		}
 	}
 	private void MovementHandler ()
 	{
@@ -617,11 +628,39 @@ public class Player : MonoBehaviour
 		uiCanvas.CreateDamageLabel (exp.ToString () + "exp", (transform.position + damagePosition), UINotification.TYPE.EXP);
 		if (mStats.IsLevelUp) {
 			uiCanvas.CreateDamageLabel ("LEVEL UP!", (transform.position + damagePosition / 1.5f), UINotification.TYPE.LVLUP);
+			SetLevelLabel ();
 			mStats.IsLevelUp = false;
 			mHealthBarRef.SetMaxHealth (mStats.MaxHp);
 			SpeedStatIncreases ();
 		}
 	}
+
+	public void SetLevelLabel ()
+	{
+		switch (mStats.Level) {
+		case 2:
+			levelText.text = "E";
+			levelText.color = new Color (1f, 0.25f, 0f);
+			break;
+		case 3:
+			levelText.text = "D";
+			levelText.color = new Color (1f, 0.40f, 0f);
+			break;
+		case 4:
+			levelText.text = "C";
+			levelText.color = new Color (1f, 1f, 0f);
+			break;
+		case 5:
+			levelText.text = "B";
+			levelText.color = new Color (0.5f, 1f, 0f);
+			break;
+		case 6:
+			levelText.text = "A";
+			levelText.color = new Color (0f, 1f, 0f);
+			break;
+		}
+	}
+
 	/// <summary>
 	/// Initializes player stats
 	/// </summary>

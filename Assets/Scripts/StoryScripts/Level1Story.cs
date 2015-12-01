@@ -33,6 +33,8 @@ public class Level1Story : MonoBehaviour
 	private bool doLevel = false;
 	private bool endLevel = false;
 
+	private bool finish = false;
+
 	public GameObject metroPrefab;
 	private GameObject metro;
 	private float metroTarget;
@@ -91,12 +93,39 @@ public class Level1Story : MonoBehaviour
 
 	void Update ()
 	{
+		if (!finish) {
+			StartLevel ();
+		}
+
+		if (doLevel) {
+			if (player.transform.position.x >= 70f) {
+				doLevel = false;
+				StartCoroutine (FadeOut (theme));
+				healthbar.SetActive (false);
+				pickUps.SetActive (false);
+				player.SetInStory (true);
+				enemies.SetActive (false);
+				metroSpawners.SetActive (false);
+				dialogue.SetActive (true);
+				dialogueText.SelectTextFile ("Level1End");
+			}
+		}
+
+		if (endLevel) {
+			hoodedEnd.SetDissapears ();
+			player.SetMoveRight (true);
+			endLevel = false;
+		}
+	}
+
+	private void StartLevel ()
+	{
 		if (canStart) {
 			if (metroArrives) {
 				if (!terraTheme.isPlaying) {
 					terraTheme.Play ();
 				}
-				float distCovered = (Time.time - startTime) * 0.01f;
+				float distCovered = (Time.time - startTime) * 10/*0.01f*/;
 				float fracJourney = distCovered / journeyLength;
 				metro.transform.position = Vector3.Lerp (metro.transform.position, new Vector3 (metroTarget, metro.transform.position.y, metro.transform.position.z), fracJourney);
 				player.transform.position = Vector3.Lerp (player.transform.position, new Vector3 (metroTarget, player.transform.position.y, player.transform.position.z), fracJourney);
@@ -109,7 +138,7 @@ public class Level1Story : MonoBehaviour
 					metroDeparts = true;
 				}
 			}
-
+			
 			if (metroDeparts) {
 				metro.transform.position -= new Vector3 (0.1f, 0.0f, 0.0f);
 				if (metro.transform.position.x <= -70f) {
@@ -118,7 +147,7 @@ public class Level1Story : MonoBehaviour
 					Destroy (metro);
 				}
 			}
-
+			
 			if (scottArrives) {
 				healthbar.SetActive (true);
 				levelText.SetActive (true);
@@ -127,13 +156,13 @@ public class Level1Story : MonoBehaviour
 				player.SetInStory (true);
 				scottArrives = false;
 			}
-
+			
 			if (scottGoesUp) {
 				player.SetMoveUp (true);
 				scottGoesUp = false;
 				scottStopMove = true;
 			}
-
+			
 			if (scottStopMove) {
 				if (player.transform.position.y >= -3.5f) {
 					player.SetMoveUp (false);
@@ -141,7 +170,7 @@ public class Level1Story : MonoBehaviour
 					scottCanWalk = true;
 				}
 			}
-
+			
 			if (scottCanWalk) {
 				player.SetCanWalk (true);
 				if (player.transform.position.x >= -40f) {
@@ -150,7 +179,7 @@ public class Level1Story : MonoBehaviour
 					hoodedStartTalking = true;
 				}
 			}
-
+			
 			if (hoodedStartTalking) {
 				if (terraTheme.isPlaying) {
 					StartCoroutine (FadeOut (terraTheme));
@@ -159,14 +188,14 @@ public class Level1Story : MonoBehaviour
 				dialogue.SetActive (true);
 				dialogueText.SelectTextFile ("FirstScene");
 			}
-
+			
 			if (hoodedFinishedTalking) {
 				StartCoroutine (FadeIn (theme));
 				hoodedFinishedTalking = false;
 				hoodedDissapeared = true;
 				hooded.SetDissapears ();
 			}
-
+			
 			if (hoodedDissapeared) {
 				healthbar.SetActive (true);
 				pickUps.SetActive (true);
@@ -178,28 +207,7 @@ public class Level1Story : MonoBehaviour
 				levelStuff.SetActive (true);
 				doLevel = true;
 				hoodedEnd.gameObject.SetActive (true);
-			}
-
-			if (doLevel) {
-				if (player.transform.position.x >= 70f) {
-					StartCoroutine (FadeOut (theme));
-					doLevel = false;
-					healthbar.SetActive (false);
-					pickUps.SetActive (false);
-					player.SetInStory (true);
-					enemies.SetActive (false);
-					metroSpawners.SetActive (false);
-					levelStuff.SetActive (false);
-					dialogue.SetActive (true);
-					Debug.Log ("Allo");
-					dialogueText.SelectTextFile ("Level1End");
-				}
-			}
-
-			if (endLevel) {
-				hoodedEnd.SetDissapears ();
-				player.SetMoveRight (true);
-				endLevel = false;
+				finish = true;
 			}
 		}
 	}

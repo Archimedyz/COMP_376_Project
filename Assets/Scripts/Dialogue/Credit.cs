@@ -20,6 +20,7 @@ public class Credit : MonoBehaviour
 		thisText.text = " ";
 
 		theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/Credit.txt");
+		Debug.Log ("Allo");
 		reader = theSourceFile.OpenText ();
 	}
 
@@ -31,6 +32,7 @@ public class Credit : MonoBehaviour
 				StartCoroutine (DisplayText ());
 			} else {
 				theSourceFile = null;
+				reader.Close ();
 				StartCoroutine (RemoveCanvas ());
 			}
 		}

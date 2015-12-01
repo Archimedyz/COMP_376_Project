@@ -32,7 +32,6 @@ public class Dialogue: MonoBehaviour
 				StartCoroutine (DisplayText ());
 			} else {
 				reader.Close ();
-				reader = null;
 				theSourceFile = null;
 				GameObject.Find ("Dialogue").SetActive (false);
 				if (fileName == "FirstScene") {

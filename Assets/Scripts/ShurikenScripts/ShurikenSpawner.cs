@@ -71,7 +71,7 @@ public class ShurikenSpawner : MonoBehaviour
 
 		isPressed = new bool[Max]{ false, false, false, false };    // none have been pressed at start
 
-		speed = 150.0f;
+		speed = 1050.0f;
 		turnSpeed = 300.0f;
 	}
 	
@@ -103,6 +103,12 @@ public class ShurikenSpawner : MonoBehaviour
 
 						shurikenScripts[i] = Clone.GetComponent<ShurikenController>();  // get its script
 						shurikenScripts[i].SetPlaced(false); 
+
+						// Assign it the appropriate tag
+						if(i == 0) Clone.gameObject.tag = "Shuriken0";
+						else if(i == 1) Clone.gameObject.tag = "Shuriken1";
+						else if(i == 2) Clone.gameObject.tag = "Shuriken2";
+						else if(i == 3) Clone.gameObject.tag = "Shuriken3";
 
 						break; // found empty slot 
 					}
@@ -139,6 +145,12 @@ public class ShurikenSpawner : MonoBehaviour
 
 						shurikenScripts[i] = Clone.GetComponent<ShurikenController>();  // get its script
 						shurikenScripts[i].SetPlaced(true);   // this shuriken does not move
+
+						// Assign it the appropriate tag
+						if(i == 0) Clone.gameObject.tag = "Shuriken0";
+						else if(i == 1) Clone.gameObject.tag = "Shuriken1";
+						else if(i == 2) Clone.gameObject.tag = "Shuriken2";
+						else if(i == 3) Clone.gameObject.tag = "Shuriken3";
 
 						break; // found empty slot 
 					}
@@ -255,14 +267,24 @@ public class ShurikenSpawner : MonoBehaviour
 					{
 						shurikens[0].parent.position = shurikens[1].position;  
 						teleportBlast[1].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (0);
+
 					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
 					{
 						shurikens[0].parent.position = shurikens[2].position;
 						teleportBlast[2].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (0);
 					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
 					{
 						shurikens[0].parent.position = shurikens[3].position;
 						teleportBlast[3].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (0);
 					}
 				}
 			}
@@ -299,14 +321,23 @@ public class ShurikenSpawner : MonoBehaviour
 					{
 						shurikens[1].parent.position = shurikens[0].position;
 						teleportBlast[0].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (1);
 					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
 					{
 						shurikens[1].parent.position = shurikens[2].position;
 						teleportBlast[2].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (1);
 					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
 					{
 						shurikens[1].parent.position = shurikens[3].position;
 						teleportBlast[3].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (1);
 					}
 				}
 			}
@@ -343,14 +374,23 @@ public class ShurikenSpawner : MonoBehaviour
 					{
 						shurikens[2].parent.position = shurikens[0].position; 
 						teleportBlast[0].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (2);
 					}else if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
 					{
 						shurikens[2].parent.position = shurikens[1].position;
 						teleportBlast[1].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (2);
 					}else if(Input.GetKeyDown (KeyCode.W) && shurikens[3] != null)
 					{
 						shurikens[2].parent.position = shurikens[3].position;
 						teleportBlast[3].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (2);
 					}
 				}
 			}
@@ -387,14 +427,23 @@ public class ShurikenSpawner : MonoBehaviour
 					{
 						shurikens[3].parent.position = shurikens[0].position; 
 						teleportBlast[0].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (3);
 					}else if(Input.GetKeyDown (KeyCode.S) && shurikens[1] != null)
 					{
 						shurikens[3].parent.position = shurikens[1].position;
 						teleportBlast[1].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (3);
 					}else if(Input.GetKeyDown (KeyCode.D) && shurikens[2] != null)
 					{
 						shurikens[3].parent.position = shurikens[2].position;
 						teleportBlast[2].Play (false);
+
+						// can only teleport enemy once, then the shuriken gets destroyed
+						DestroyIt (3);
 					}
 				}
 			}
@@ -419,11 +468,78 @@ public class ShurikenSpawner : MonoBehaviour
 				isPressed[i] = false;
 		}
 	}
+
+	// Used to destroy parented Shurikens when its teleported
+	public void DestroyIt(int i)
+	{
+		Destroy(shurikens[i].gameObject);   // destroy it 						
+		shurikens[i] = null;         // free variable up
+		Destroy(textControl[i].gameObject);   // destroy text					
+		amountUsed--;      // return it to inventory
+	}
+
+	// When player holds O key and K key while near shuriken they'll pick it up
+	void OnTriggerStay(Collider other)
+	{
+		if(other.gameObject.tag == "Shuriken0") 
+		{
+			if (Input.GetKey (KeyCode.O) && Input.GetKey (KeyCode.K))
+			{
+				Destroy(other.gameObject);   // destroy it 
+
+				shurikens[0] = null;         // free variable up
+				Destroy(textControl[0].gameObject);   // destroy text
+				amountUsed--;      // return it to inventory
+			}
+		}
+		else if(other.gameObject.tag == "Shuriken1") 
+		{
+			if (Input.GetKey (KeyCode.O) && Input.GetKey (KeyCode.K))
+			{
+				Destroy(other.gameObject);   // destroy it 
+				
+				shurikens[1] = null;         // free variable up
+				Destroy(textControl[1].gameObject);   // destroy text					
+				amountUsed--;      // return it to inventory
+			}
+		}
+		else if(other.gameObject.tag == "Shuriken2") 
+		{
+			if (Input.GetKey (KeyCode.O) && Input.GetKey (KeyCode.K))
+			{
+				Destroy(other.gameObject);   // destroy it 
+				
+				shurikens[2] = null;         // free variable up
+				Destroy(textControl[2].gameObject);   // destroy text				
+				amountUsed--;      // return it to inventory
+			}
+		}
+		else if(other.gameObject.tag == "Shuriken3") 
+		{
+			if (Input.GetKey (KeyCode.O) && Input.GetKey (KeyCode.K))
+			{
+				Destroy(other.gameObject);   // destroy it 
+				
+				shurikens[3] = null;         // free variable up
+				Destroy(textControl[3].gameObject);   // destroy text				
+				amountUsed--;      // return it to inventory
+			}
+		}
+	}
 }
 
 
 
-// if player.position and o pressed near shuirken then pick up amount--
+
+
+
+
+
+
+
+
+
+
 
 
 

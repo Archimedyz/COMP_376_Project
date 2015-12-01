@@ -12,10 +12,14 @@ public class ShurikenController : MonoBehaviour
 	private bool placed;   // is Shuriken mobile or placed 
 	private Transform enemyOnPlaced;   // when an enemy walks on a shuriken you can teleport them
 
+	private ShurikenSpawner scriptRef; // needed to destroy shuriken when thrown and goes off level 
+
 	void Start () 
 	{	
 		rb = GetComponent<Rigidbody>();
 		enemyOnPlaced = null;
+
+		scriptRef = GameObject.Find ("SpawnShurikenPlace").GetComponent<ShurikenSpawner>();   
 	}
 	
 	void Update () 
@@ -43,6 +47,19 @@ public class ShurikenController : MonoBehaviour
 				rb.angularVelocity = Vector3.zero;
 				transform.parent = other.transform;
 			}
+
+		// destroy shuriken when hits boundary
+		if (other.gameObject.tag == "Boundary") 
+		{
+			if(gameObject.tag == "Shuriken0")
+				scriptRef.DestroyIt(0);
+			else if(gameObject.tag == "Shuriken1")
+				scriptRef.DestroyIt(1);
+			else if(gameObject.tag == "Shuriken2")
+				scriptRef.DestroyIt(2);
+			else if(gameObject.tag == "Shuriken3")
+				scriptRef.DestroyIt(3);
+		}
 	}
 	void OnTriggerExit(Collider other)
 	{

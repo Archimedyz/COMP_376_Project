@@ -8,6 +8,7 @@ public class Level1Story : MonoBehaviour
 
 	public Player player;
 	private HoodedCharacter hooded;
+	private HoodedCharacter hoodedEnd;
 	private GameObject mainCamera;
 	private GameObject dialogue;
 	private GameObject enemies;
@@ -29,6 +30,8 @@ public class Level1Story : MonoBehaviour
 	private bool hoodedStartTalking = false;
 	private bool hoodedFinishedTalking = false;
 	private bool hoodedDissapeared = false;
+	private bool doLevel = false;
+	private bool endLevel = false;
 
 	public GameObject metroPrefab;
 	private GameObject metro;
@@ -58,7 +61,10 @@ public class Level1Story : MonoBehaviour
 
 		enemies = GameObject.Find ("Enemies") as GameObject;
 		enemies.SetActive (false);
+
 		hooded = GameObject.Find ("HoodedCharacter").GetComponent<HoodedCharacter> ();
+		hoodedEnd = GameObject.Find ("HoodedCharacterEnd").GetComponent<HoodedCharacter> ();
+		hoodedEnd.gameObject.SetActive (false);
 
 		metroSpawners = GameObject.Find ("MetroSpawners") as GameObject;
 		metroSpawners.SetActive (false);
@@ -170,6 +176,26 @@ public class Level1Story : MonoBehaviour
 				hoodedDissapeared = false;
 				metroSpawners.SetActive (true);
 				levelStuff.SetActive (true);
+				doLevel = true;
+				hoodedEnd.gameObject.SetActive (true);
+			}
+
+			if (doLevel) {
+				if (player.transform.position.x >= 70f) {
+					doLevel = false;
+					healthbar.SetActive (false);
+					pickUps.SetActive (false);
+					player.SetInStory (true);
+					enemies.SetActive (false);
+					metroSpawners.SetActive (false);
+					levelStuff.SetActive (false);
+					dialogueText.SelectTextFile ("Level1End");
+				}
+			}
+
+			if (endLevel) {
+				hoodedEnd.SetDissapears ();
+				player.SetMoveRight (true);
 			}
 		}
 	}
@@ -207,5 +233,10 @@ public class Level1Story : MonoBehaviour
 	public void SetHoodedDissapeared (bool a)
 	{
 		hoodedDissapeared = a;
+	}
+
+	public void SetLevelEnd (bool a)
+	{
+		endLevel = a;
 	}
 }

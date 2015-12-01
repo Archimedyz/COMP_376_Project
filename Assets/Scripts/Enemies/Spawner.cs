@@ -85,6 +85,7 @@ public class Spawner : MonoBehaviour
 								hoboAppearing.Play ();
 								appearTimer = 0f;
 								hoboHolder [i] = Instantiate (hoboPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, -1f), Quaternion.identity) as GameObject;
+								hoboHolder [i].gameObject.transform.parent = transform.parent;
 								break;
 							}
 						}
@@ -95,6 +96,7 @@ public class Spawner : MonoBehaviour
 									neanderthalAppearing.Play ();
 									appearTimer = 0f;
 									neanderthalHolder [i] = Instantiate (neanderthalPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
+									neanderthalHolder [i].gameObject.transform.parent = transform.parent;
 									break;
 								}
 							}

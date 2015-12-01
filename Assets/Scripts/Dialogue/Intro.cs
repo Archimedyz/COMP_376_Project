@@ -75,14 +75,14 @@ public class Intro : MonoBehaviour
 
 		while (thisText.color.a < 1) {
 			thisText.color = new Color (thisText.color.r, thisText.color.g, thisText.color.b, thisText.color.a + (0.2f * Time.deltaTime));
-			yield return new WaitForSeconds (0.01f);
+			yield return new WaitForSeconds (0.005f);
 		}
 
 		yield return new WaitForSeconds (2f);
 
 		while (thisText.color.a > 0) {
 			thisText.color = new Color (thisText.color.r, thisText.color.g, thisText.color.b, thisText.color.a - (0.2f * Time.deltaTime));
-			yield return new WaitForSeconds (0.01f);
+			yield return new WaitForSeconds (0.005f);
 		}
 
 		thisText.text = "";
@@ -96,7 +96,7 @@ public class Intro : MonoBehaviour
 
 		while (panel.color.a > 0) {
 			panel.color = new Color (panel.color.r, panel.color.g, panel.color.b, panel.color.a - (0.5f * Time.deltaTime));
-			yield return new WaitForSeconds (0.01f);
+			yield return new WaitForSeconds (0.005f);
 		}
 		
 		creditCanvas.SetActive (true);

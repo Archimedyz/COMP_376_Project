@@ -62,12 +62,12 @@ public class Credit : MonoBehaviour
 	{
 		thisText.text = "";
 		finished = false;
-			
+		
 		thisText.text = text;
-		if (text [0] == "*") {
-			thisText.font = 25;
+		if (text [0] == '*') {
+			thisText.fontSize = 25;
 		} else {
-			thisText.font = 18;
+			thisText.fontSize = 18;
 		}
 
 		while (thisText.color.a < 1) {

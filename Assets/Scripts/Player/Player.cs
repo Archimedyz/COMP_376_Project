@@ -105,10 +105,10 @@ public class Player : MonoBehaviour
 	public int timerForSlide;
 	[SerializeField]
 	private float
-		DashSpeedModifier = 1.5f;
+		DashSpeedModifier = 1.15f;
 	private int dashTime = 0;
-	private int dashRecovery = 15;
-    private bool mEndDash = false;
+	private int dashRecovery = 10;
+    private bool mDashEnd = false;
     private Vector3 destination = Vector3.zero;
 
 	void Start ()
@@ -170,6 +170,186 @@ public class Player : MonoBehaviour
 			SetLevelLabel ();
 		}
 	}
+    /// <summary>
+    /// Main flow of the player
+    /// </summary>
+    void FixedUpdate()
+    {
+        if (!dead && mHealthBarRef.GetHealth() <= 0)
+        {
+            Die();
+        }
+
+        if (mDying)
+        {
+            dyingTimer += Time.deltaTime;
+            if (dyingTimer >= 1.45f)
+            {
+                mDying = false;
+                dyingTimer = 0f;
+            }
+        }
+
+        if (mNormalAttack >= 0 && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            mNormalAttack = -1;
+            mHitting = false;
+        }
+
+        if (!floorBoundaryInitialized)
+        {
+            // get current boundary
+            mFloorControllerRef.GetCurrentFloorBoundary(mFloorBoundary, mFloorIndex, mSpriteRenderer);
+            floorBoundaryInitialized = true;
+        }
+        if (mInflate)
+        {
+            canMove = false;
+            inflateTimer += Time.deltaTime;
+            if (inflateTimer >= maxInflateTimer)
+            {
+                if (transform.position.x > (target + 0.1f))
+                {
+                    if (!deflating.isPlaying)
+                        deflating.Play();
+                    float distCovered = (Time.time - startTime) * 0.5f;
+                    float fracJourney = distCovered / journeyLength;
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(target, transform.position.y, transform.position.z), fracJourney);
+                }
+                else
+                {
+                    deflating.Stop();
+                    mInflate = false;
+                    inflateTimer = 0.0f;
+                }
+            }
+        }
+        //Teleport back up
+        if (transform.position.y <= mGroundY && mJumping)
+        {
+            mRigidBody.useGravity = false;
+            mRigidBody.velocity = new Vector3(0, 0, 0);
+            transform.position = new Vector3(transform.position.x, mGroundY, transform.position.z);
+            mJumping = false;
+        }
+
+        //get out of jumping?! / slide / Dash / Handle dash recovery
+        if (mJumping && mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && Mathf.Approximately(transform.position.y, mGroundY))
+        {
+            mJumping = false;
+        }
+        else if (mSliding && !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Sliding"))
+        {
+            mSliding = false;
+        }
+        else if (mDashing && dashTime > 35)
+        {
+            mDashing = false;
+            dashRecovery = 0;
+        }
+        if (dashRecovery < 10 && !mDashing)
+            dashRecovery++;
+
+        //Instruction priority
+        if (inStory)
+        {
+            ResetBoolean();
+            if (moveRight)
+            {
+                MovingRight();
+            }
+            else if (moveUp)
+            {
+                MovingUp();
+            }
+            if (canWalk)
+            {
+                if (Input.GetButton("Left"))
+                {
+                    WalkLeft();
+                }
+                else if (Input.GetButton("Right"))
+                {
+                    WalkRight();
+                }
+                if (Input.GetButton("Up"))
+                {
+                    WalkUp();
+                }
+                else if (Input.GetButton("Down"))
+                {
+                    WalkDown();
+                }
+            }
+            transform.localPosition = new Vector3(
+                Mathf.Clamp(transform.localPosition.x, mFloorBoundary[Floor.X_MIN_INDEX], mFloorBoundary[Floor.X_MAX_INDEX]),
+                Mathf.Clamp(transform.localPosition.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]),
+                 transform.localPosition.z
+            );
+            mGroundY = transform.position.y;
+        }
+        else if (mDashing)
+        {
+            ResetBoolean();
+            DashHandler();
+        }
+        else if (mJumping)
+        {
+            ResetBoolean();
+            //Jump attack
+            MovementHandler();
+        }
+        else
+        {
+            if (!ActionHandler())
+                if (CanMove())
+                {
+                    bool isJumping = mJumping;
+                    ResetBoolean();
+                    MovementHandler();
+                    JumpHandler();
+                }
+        }
+
+        if (mRunning)
+            timerForSlide++;
+        else
+            timerForSlide = 0;
+
+        mShadow.transform.position = new Vector3(transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
+
+        CheckFalling();
+
+        // if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.
+        if (!mJumping && !mFalling)
+        {
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, mFloorBoundary[Floor.X_MIN_INDEX], mFloorBoundary[Floor.X_MAX_INDEX]), Mathf.Clamp(transform.position.y, mFloorBoundary[Floor.Y_MIN_INDEX], mFloorBoundary[Floor.Y_MAX_INDEX]), transform.position.z);
+        }
+        UpdateOrderInLayer();
+
+        if (mGetHit)
+        {
+            mInvincibleTimer += Time.deltaTime;
+            if (mInvincibleTimer >= kInvincibilityDuration)
+            {
+                mGetHit = false;
+                mInvincibleTimer = 0.0f;
+            }
+        }
+
+        if (mGetKnockdown)
+        {
+            mInvincibleTimer += Time.deltaTime;
+            if (mInvincibleTimer >= kKnockdownInvincibilityDuration)
+            {
+                mGetKnockdown = false;
+                mInvincibleTimer = 0.0f;
+            }
+        }
+        hitTimer += Time.deltaTime;
+        UpdateAnimator();
+    }
+
 	private void MovementHandler ()
 	{
 		float horizontal = Input.GetAxis ("Horizontal");
@@ -244,6 +424,7 @@ public class Player : MonoBehaviour
 			//Attack
 			if (Input.GetKeyDown (KeyCode.Z) && hitTimer >= hitWait && timerForSlide < 15) {
 				hitTimer = 0.0f;
+                dashRecovery = -15;
 				mNormalAttack++;
 				mAnimator.SetInteger ("isHitting", mNormalAttack % 6);
 				if (mNormalAttack > -1)
@@ -253,6 +434,7 @@ public class Player : MonoBehaviour
 				return true;
 			} else if (Input.GetKeyDown (KeyCode.Z) && timerForSlide > 15) {
 				Slide ();
+                dashRecovery = -30;
 				timerForSlide = 0;
 				return true;
 			} else if (Input.GetKey (KeyCode.X)) {
@@ -260,7 +442,7 @@ public class Player : MonoBehaviour
 				mMoving = false;
 				mRunning = false;
 				return true;
-			} else if (Input.GetKeyDown (KeyCode.C) && !mDashing && dashRecovery == 15) {//DashDuration
+			} else if (Input.GetKeyDown (KeyCode.C) && !mDashing && dashRecovery == 20) {//DashDuration
 				mDashing = true;
 				dashTime = 0;
 				transform.Translate (GetFacingDirection () * mMoveSpeedX * DashSpeedModifier * Time.deltaTime, Space.World);
@@ -276,7 +458,13 @@ public class Player : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Space) && Mathf.Approximately (mRigidBody.velocity.y, 0.0f) && !mJumping) {
 			mGroundY = transform.position.y;
 			Jump ();
-		}
+        }else if (Input.GetKeyDown(KeyCode.C) && !mDashing && dashRecovery == 10)
+        {//DashDuration
+            mDashing = true;
+            dashTime = 0;
+            transform.Translate(GetFacingDirection() * mMoveSpeedX * DashSpeedModifier * Time.deltaTime, Space.World);
+            return true;
+        }
 		return mJumping;
 	}
 
@@ -285,144 +473,6 @@ public class Player : MonoBehaviour
 		mDashing = true;
 		dashTime++;
 		transform.Translate (GetFacingDirection () * mMoveSpeedX * DashSpeedModifier * Time.deltaTime, Space.World);
-	}
-
-	void FixedUpdate ()
-	{
-		if (!dead && mHealthBarRef.GetHealth () <= 0) {
-			Die ();
-		}
-
-		if (mDying) {
-			dyingTimer += Time.deltaTime;
-			if (dyingTimer >= 1.45f) {
-				mDying = false;
-				dyingTimer = 0f;
-			}
-		}
-
-		if (mNormalAttack >= 0 && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
-			mNormalAttack = -1;
-			mHitting = false;
-		}
-
-		if (!floorBoundaryInitialized) {
-			// get current boundary
-			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
-			floorBoundaryInitialized = true;
-		}
-		if (mInflate) {
-			canMove = false;
-			inflateTimer += Time.deltaTime;
-			if (inflateTimer >= maxInflateTimer) {
-				if (transform.position.x > (target + 0.1f)) {
-					if (!deflating.isPlaying)
-						deflating.Play ();
-					float distCovered = (Time.time - startTime) * 0.5f;
-					float fracJourney = distCovered / journeyLength;
-					transform.position = Vector3.Lerp (transform.position, new Vector3 (target, transform.position.y, transform.position.z), fracJourney);
-				} else {
-					deflating.Stop ();
-					mInflate = false;
-					inflateTimer = 0.0f;
-				}
-			}
-		}
-		//Teleport back up
-		if (transform.position.y <= mGroundY && mJumping) {
-			mRigidBody.useGravity = false;
-			mRigidBody.velocity = new Vector3 (0, 0, 0);
-			transform.position = new Vector3 (transform.position.x, mGroundY, transform.position.z);
-			mJumping = false;
-		}
-
-		//get out of jumping?! / slide / Dash / Handle dash recovery
-		if (mJumping && mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") && Mathf.Approximately (transform.position.y, mGroundY)) {
-			mJumping = false;
-		} else if (mSliding && !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Sliding")) {
-			mSliding = false;
-		} else if (mDashing && !mAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Dash") && dashTime > 20) {
-			mDashing = false;
-			dashRecovery = 0;
-		}
-		if (dashRecovery < 15 && !mDashing)
-			dashRecovery++;
-
-		//Instruction priority
-		if (inStory) {
-			ResetBoolean ();
-			if (moveRight) {
-				MovingRight ();
-			} else if (moveUp) {
-				MovingUp ();
-			}
-			if (canWalk) {
-				if (Input.GetButton ("Left")) {
-					WalkLeft ();
-				} else if (Input.GetButton ("Right")) {
-					WalkRight ();
-				}
-				if (Input.GetButton ("Up")) {
-					WalkUp ();
-				} else if (Input.GetButton ("Down")) {
-					WalkDown ();
-				}
-			}
-			transform.localPosition = new Vector3 (
-                Mathf.Clamp (transform.localPosition.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]),
-                Mathf.Clamp (transform.localPosition.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]),
-                 transform.localPosition.z
-			);
-			mGroundY = transform.position.y;
-		} else if (mDashing) {
-			ResetBoolean ();
-			DashHandler ();
-		} else if (mJumping) {
-			ResetBoolean ();
-			//Jump attack
-			MovementHandler ();
-		} else {
-			if (!ActionHandler ())
-			if (CanMove ()) {
-				bool isJumping = mJumping;
-				ResetBoolean ();
-				MovementHandler ();
-				JumpHandler ();
-			}
-		}
-
-		if (mRunning)
-			timerForSlide++;
-		else
-			timerForSlide = 0;
-
-		mShadow.transform.position = new Vector3 (transform.position.x, (mGroundY - mSpriteRenderer.bounds.size.y / 2), transform.position.z);
-
-		CheckFalling ();
-
-		// if one is not jumping or falling, then they must be on the floor, meaning they must abide by the boundaries.
-		if (!mJumping && !mFalling) {
-			transform.position = new Vector3 (Mathf.Clamp (transform.position.x, mFloorBoundary [Floor.X_MIN_INDEX], mFloorBoundary [Floor.X_MAX_INDEX]), Mathf.Clamp (transform.position.y, mFloorBoundary [Floor.Y_MIN_INDEX], mFloorBoundary [Floor.Y_MAX_INDEX]), transform.position.z);
-		}
-		UpdateOrderInLayer ();
-
-		if (mGetHit) {
-			mInvincibleTimer += Time.deltaTime;
-			if (mInvincibleTimer >= kInvincibilityDuration) {
-				mGetHit = false;
-				mInvincibleTimer = 0.0f;
-			}
-		}
-
-		if (mGetKnockdown) {
-			mInvincibleTimer += Time.deltaTime;
-			if (mInvincibleTimer >= kKnockdownInvincibilityDuration) {
-				mGetKnockdown = false;
-				mInvincibleTimer = 0.0f;
-			}
-		}
-		hitTimer += Time.deltaTime;
-		UpdateAnimator ();
 	}
 
 	public void PlayRunSound ()
@@ -599,7 +649,7 @@ public class Player : MonoBehaviour
 		mWalking = false;
 		mDashing = false;
 		mHitting = false;
-        mEndDash = false;
+        mDashEnd = false;
 	}
 
 	private void UpdateAnimator ()
@@ -615,7 +665,7 @@ public class Player : MonoBehaviour
 		mAnimator.SetInteger ("isStrongHitting", mStrongAttack);
 		mAnimator.SetBool ("isSliding", mSliding);
 		mAnimator.SetBool ("isDashing", mDashing);
-        mAnimator.SetBool("isEndDash", mEndDash);
+        mAnimator.SetBool("isDashEnd", mDashEnd);
 		mAnimator.SetBool ("isInflating", mInflate);
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isDying", mDying);
@@ -654,15 +704,19 @@ public class Player : MonoBehaviour
 
 	public void AddExperience (int exp)
 	{
-		mStats.Exp += exp;
-		uiCanvas.CreateDamageLabel (exp.ToString () + "exp", (transform.position + damagePosition), UINotification.TYPE.EXP);
-		if (mStats.IsLevelUp) {
-			uiCanvas.CreateDamageLabel ("LEVEL UP!", (transform.position + damagePosition / 1.5f), UINotification.TYPE.LVLUP);
-			SetLevelLabel ();
-			mStats.IsLevelUp = false;
-			mHealthBarRef.SetMaxHealth (mStats.MaxHp);
-			SpeedStatIncreases ();
-		}
+        if (mStats.Level < 8)
+        {
+            mStats.Exp += exp;
+            uiCanvas.CreateDamageLabel(exp.ToString() + "exp", (transform.position + damagePosition), UINotification.TYPE.EXP);
+            if (mStats.IsLevelUp)
+            {
+                uiCanvas.CreateDamageLabel("LEVEL UP!", (transform.position + damagePosition / 1.5f), UINotification.TYPE.LVLUP);
+                SetLevelLabel();
+                mStats.IsLevelUp = false;
+                mHealthBarRef.SetMaxHealth(mStats.MaxHp);
+                SpeedStatIncreases();
+            }
+        }
 	}
 
 	public void SetLevelLabel ()
@@ -756,18 +810,29 @@ public class Player : MonoBehaviour
 			journeyLength = Mathf.Abs (transform.position.x) + Mathf.Abs (target);
 		}
 	}
-	void OnCollisionEnter (Collision col)
-	{
-		if (mDashing) {
-			if (col.gameObject.name.ToLower ().StartsWith ("hobo")) {
-				//Stun and set destination with invuln
-                destination = new Vector3(col.gameObject.transform.position.x - (col.gameObject.GetComponent<Hobo>()).GetFacingDirection().x, transform.position.y, transform.position.z);
-			} else {
-				if (mDashing && col.gameObject.name.ToLower ().StartsWith ("neanderthal")) {
-                    //Stun and set destination with invuln
-                    destination = new Vector3(col.gameObject.transform.position.x - (col.gameObject.GetComponent<Neanderthal>()).GetFacingDirection().x, transform.position.y, transform.position.z);
-				}
-			}
-		}
-	}
+    void OnCollisionEnter(Collision col)
+    {
+        if (mDashing)
+        {
+            if (col.gameObject.name.ToLower().StartsWith("hobo"))
+            {
+                //Stun
+                (col.gameObject.GetComponent<Hobo>()).GetHit(Vector2.zero, mStats.DoDynamicDamage(), mStats.wasCrit);
+                mDashing = false;
+                mDashEnd = true;
+                dashRecovery = -60;
+            }
+            else
+            {
+                if (mDashing && col.gameObject.name.ToLower().StartsWith("neanderthal"))
+                {
+                    //Stun
+                    (col.gameObject.GetComponent<Neanderthal>()).GetHit(Vector2.zero, mStats.DoDynamicDamage(), mStats.wasCrit);
+                    mDashing = false;
+                    mDashEnd = true;
+                    dashRecovery = -60;
+                }
+            }
+        }
+    }
 }

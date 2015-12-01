@@ -52,7 +52,7 @@ public class Hobo : MonoBehaviour
 	UICanvas uiCanvas;
 	private Vector3 damagePositionOffset = new Vector3 (0, 0.7f, -1);
 
-	public int expGiven = 100;
+	public int expGiven = 15;
 
 	private float staggerTimer = 0f;
 
@@ -67,7 +67,7 @@ public class Hobo : MonoBehaviour
 		mDying = false;
 
 		mTarget = GameObject.Find ("Player").transform;
-
+        expGiven = 15 - 2 * (GameObject.Find("Player").GetComponent<Player>().mStats.Level-mStats.Level);
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
@@ -161,11 +161,20 @@ public class Hobo : MonoBehaviour
             
 			if (GameObject.Find ("Player").GetComponent<Player> ().IsStrongAttack ()) {
 				staggerTimer = 25f - (staggerTimer * 0.10f);
-				damage = (int)(damage * 1.4f);
+				damage = (int)(damage * 1.5f);
 				Recoil (direction, 2f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
-			} else {
+			} else if(GameObject.Find ("Player").GetComponent<Player> ().IsDashing ()){
+                staggerTimer = 25f - (staggerTimer * 0.10f);
+                damage = (int)(damage * 0.35f);
+                Recoil(direction, 2f);
+                if (audioTimer >= 0.2f)
+                {
+                    normalHit.Play();
+                    audioTimer = 0.0f;
+                }
+			}else {
 				staggerTimer = 15 - (staggerTimer * 0.10f);
 				Recoil (direction, mPushBack);
 				if (audioTimer >= 0.2f) {
@@ -211,7 +220,6 @@ public class Hobo : MonoBehaviour
 
 	private void Hit ()
 	{
-		Debug.Log ("Allo");
 		attackTimer = 0;
 		mHitting = true;
 	}

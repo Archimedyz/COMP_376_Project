@@ -53,7 +53,7 @@ public class Neanderthal : MonoBehaviour
 
 	public Stats mStats;
 
-	public int expGiven = 10;
+	public int expGiven = 15;
 
     private Vector2 mFacingDirection;
 
@@ -64,11 +64,11 @@ public class Neanderthal : MonoBehaviour
 
 	void Start ()
 	{
-		mStats = new Stats (1, 7000, 18, 2, 0, new int[] { 20, 4, 2, 0 });
+		mStats = new Stats (1, 100, 18, 2, 0, new int[] { 20, 4, 2, 0 });
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		coconut = null;
-
+        expGiven = 15 - 2 * (GameObject.Find("Player").GetComponent<Player>().mStats.Level - mStats.Level);
 		mTarget = GameObject.Find ("Player").transform;
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
@@ -157,7 +157,19 @@ public class Neanderthal : MonoBehaviour
 				Recoil (direction, 2f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
-			} else {
+            }
+            else if (GameObject.Find("Player").GetComponent<Player>().IsDashing())
+            {
+                damage = (int)(damage * 0.35f);
+                Recoil(direction, 2f);
+                if (audioTimer >= 0.2f)
+                {
+                    normalHit.Play();
+                    audioTimer = 0.0f;
+                }
+            }
+            else
+            {
 				Recoil (direction, mPushBack);
 				if (audioTimer >= 0.15f) {
 					normalHit.Play ();

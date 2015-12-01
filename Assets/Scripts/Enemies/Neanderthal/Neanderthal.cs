@@ -69,7 +69,9 @@ public class Neanderthal : MonoBehaviour
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		coconut = null;
-        expGiven = 15 - 2 * (GameObject.Find("Player").GetComponent<Player>().mStats.Level - mStats.Level);
+        
+		//expGiven = 15 - 2 * (GameObject.Find("Player").GetComponent<Player>().mStats.Level - mStats.Level);
+
 		mTarget = GameObject.Find ("Player").transform;
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();

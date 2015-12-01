@@ -67,7 +67,9 @@ public class Hobo : MonoBehaviour
 		mDying = false;
 
 		mTarget = GameObject.Find ("Player").transform;
-		expGiven = 15 - 2 * (GameObject.Find ("Player").GetComponent<Player> ().mStats.Level - mStats.Level);
+		
+		//expGiven = 15 - 2 * (GameObject.Find ("Player").GetComponent<Player> ().mStats.Level - mStats.Level);
+
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
 		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
@@ -285,6 +287,7 @@ public class Hobo : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		GameObject.Find ("Player").GetComponent<Player> ().noDamageStreak++;
+		if(GameObject.Find ("Player") != null)
+			GameObject.Find ("Player").GetComponent<Player> ().noDamageStreak++;
 	}
 }

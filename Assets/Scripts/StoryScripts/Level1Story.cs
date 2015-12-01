@@ -182,6 +182,7 @@ public class Level1Story : MonoBehaviour
 
 			if (doLevel) {
 				if (player.transform.position.x >= 70f) {
+					StartCoroutine (FadeOut (theme));
 					doLevel = false;
 					healthbar.SetActive (false);
 					pickUps.SetActive (false);
@@ -189,6 +190,8 @@ public class Level1Story : MonoBehaviour
 					enemies.SetActive (false);
 					metroSpawners.SetActive (false);
 					levelStuff.SetActive (false);
+					dialogue.SetActive (true);
+					Debug.Log ("Allo");
 					dialogueText.SelectTextFile ("Level1End");
 				}
 			}
@@ -196,6 +199,7 @@ public class Level1Story : MonoBehaviour
 			if (endLevel) {
 				hoodedEnd.SetDissapears ();
 				player.SetMoveRight (true);
+				endLevel = false;
 			}
 		}
 	}

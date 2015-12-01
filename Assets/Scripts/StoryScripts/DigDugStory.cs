@@ -75,6 +75,7 @@ public class DigDugStory : MonoBehaviour
 				if (!falling.isPlaying)
 					falling.Play ();
 				digdug.transform.position += new Vector3 (0f, -0.1f, 0f);
+                StartCoroutine(GoToMainMenu());
 			} else {
 				digdug.transform.position += new Vector3 (0.05f, 0, 0f);
 				mainCamera.transform.position += new Vector3 (0.05f, 0f, 0f);
@@ -103,6 +104,12 @@ public class DigDugStory : MonoBehaviour
 			
 		}
 	}
+
+    public IEnumerator GoToMainMenu()
+    {
+        yield return new WaitForSeconds(5.0f);
+        GameObject.FindGameObjectWithTag("GameController").SendMessage("MainMenu");
+    }
 
 	public void DigDugDie ()
 	{

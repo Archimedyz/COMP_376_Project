@@ -75,7 +75,7 @@ public class DigDugStory : MonoBehaviour
 				if (!falling.isPlaying)
 					falling.Play ();
 				digdug.transform.position += new Vector3 (0f, -0.1f, 0f);
-                StartCoroutine(GoToMainMenu());
+				StartCoroutine (GoToMainMenu ());
 			} else {
 				digdug.transform.position += new Vector3 (0.05f, 0, 0f);
 				mainCamera.transform.position += new Vector3 (0.05f, 0f, 0f);
@@ -105,11 +105,11 @@ public class DigDugStory : MonoBehaviour
 		}
 	}
 
-    public IEnumerator GoToMainMenu()
-    {
-        yield return new WaitForSeconds(5.0f);
-        GameObject.FindGameObjectWithTag("GameController").SendMessage("MainMenu");
-    }
+	public IEnumerator GoToMainMenu ()
+	{
+		yield return new WaitForSeconds (5.0f);
+		GameObject.FindGameObjectWithTag ("GameController").SendMessage ("MainMenu");
+	}
 
 	public void DigDugDie ()
 	{
@@ -162,7 +162,7 @@ public class DigDugStory : MonoBehaviour
 		
 		if (startTimer > 4.0f && !digdug.isPumping () && goTowardPlayer && digdug.transform.position.x >= 2.0f) {
 			digdug.transform.position -= new Vector3 (0.2f, 0, 0f);
-			if (digdug.transform.position.x <= 2.0) {
+			if (digdug.transform.position.x <= 2f) {
 				backgroundMusic.Play ();
 				goTowardPlayer = false;
 				moveCamera = true;

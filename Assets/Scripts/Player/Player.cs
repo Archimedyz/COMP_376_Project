@@ -783,7 +783,7 @@ public class Player : MonoBehaviour
 			mInflate = true;
 			mRunning = false;
 			if (inStory)
-				target = -6;
+				target = -8;
 			else
 				target = -5;
 			startTime = Time.time;

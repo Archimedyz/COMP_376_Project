@@ -533,9 +533,16 @@ public class Player : MonoBehaviour
 
 	private void Die ()
 	{
+		StartCoroutine (GoToMainMenu ());
 		Time.timeScale = 0.3f;
 		dead = true;
 		mDying = true;
+	}
+
+	private IEnumerator GoToMainMenu ()
+	{
+		yield return new WaitForSeconds (3.0f);
+		GameObject.Find ("GameMaster").SendMessage ("MainMenu");
 	}
 
 	public void GetHit (Vector2 direction, int damage)

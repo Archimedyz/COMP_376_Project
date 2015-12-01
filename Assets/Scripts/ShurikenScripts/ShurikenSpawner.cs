@@ -71,7 +71,7 @@ public class ShurikenSpawner : MonoBehaviour
 
 		isPressed = new bool[Max]{ false, false, false, false };    // none have been pressed at start
 
-		speed = 1050.0f;
+		speed = 550.0f;
 		turnSpeed = 300.0f;
 	}
 	

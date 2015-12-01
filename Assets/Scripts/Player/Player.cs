@@ -191,11 +191,11 @@ public class Player : MonoBehaviour
 				direction.y /= 2.0f;
 				mGroundY += direction.y * Time.deltaTime;
 				direction.y = 0;
-			} else {
-				mGroundY += direction.y * Time.deltaTime;
-			}
+			} 
 			transform.Translate (direction * Time.deltaTime, Space.World);
-
+            if (!mJumping) {
+                mGroundY = transform.position.y;
+            }
 			mMoving = true;
 			mWalking = inStory;
 			mRunning = (!inStory);

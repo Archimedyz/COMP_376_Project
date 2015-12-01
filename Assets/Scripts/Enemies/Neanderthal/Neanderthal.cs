@@ -279,6 +279,7 @@ public class Neanderthal : MonoBehaviour
     }
     void OnDestroy()
     {
-        GameObject.Find("Player").GetComponent<Player>().noDamageStreak++;
+		if(GameObject.Find("Player") != null)
+        	GameObject.Find("Player").GetComponent<Player>().noDamageStreak++;
     }
 }

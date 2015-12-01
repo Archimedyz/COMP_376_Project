@@ -15,6 +15,9 @@ public class Level1Story : MonoBehaviour
 	private GameObject levelStuff;
 	private Dialogue dialogueText;
 	private GameObject pause;
+	private GameObject pickUps;
+	private GameObject healthbar;
+	private GameObject levelText;
 
 	private bool canStart = false;
 	private bool metroArrives = true;
@@ -65,6 +68,15 @@ public class Level1Story : MonoBehaviour
 		pause = GameObject.Find ("PauseCanvas") as GameObject;
 		pause.SetActive (false);
 
+		pickUps = GameObject.Find ("PickUps") as GameObject;
+		pickUps.SetActive (false);
+
+		healthbar = GameObject.Find ("UI") as GameObject;
+		healthbar.SetActive (false);
+
+		levelText = GameObject.Find ("LvlTxt") as GameObject;
+		levelText.SetActive (false);
+
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		theme = audioSources [0];
 		theme.volume = 0f;
@@ -102,6 +114,8 @@ public class Level1Story : MonoBehaviour
 			}
 
 			if (scottArrives) {
+				healthbar.SetActive (true);
+				levelText.SetActive (true);
 				player.GetComponent<Player> ().enabled = true;
 				player.transform.position += new Vector3 (0f, 0f, 10f);
 				player.SetInStory (true);
@@ -148,6 +162,8 @@ public class Level1Story : MonoBehaviour
 			}
 
 			if (hoodedDissapeared) {
+				healthbar.SetActive (true);
+				pickUps.SetActive (true);
 				pause.SetActive (true);
 				player.SetInStory (false);
 				enemies.SetActive (true);

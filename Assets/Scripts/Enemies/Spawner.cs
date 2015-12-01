@@ -7,6 +7,8 @@ public class Spawner : MonoBehaviour
 	public int neanderthalNumber;
 	public GameObject hoboPrefab;
 	public int hoboNumber;
+	public int maxEnemies;
+	private int enemiesCreated = 0;
 
 	private GameObject[] neanderthalHolder;
 	private GameObject[] hoboHolder;
@@ -72,31 +74,38 @@ public class Spawner : MonoBehaviour
 			Die ();
 		}
 
-		if (!mStats.isDead () && !mDying && !mGetHit) {
-			if (Vector3.Distance (transform.position, mTarget.position) <= appearRange) {
-				if (appearTimer >= instantiationWait || firstTime) {
-					firstTime = false;
-					for (int i = 0; i < hoboNumber; i++) {
-						if (hoboHolder [i] == null) {
-							hoboAppearing.Play ();
-							appearTimer = 0f;
-							hoboHolder [i] = Instantiate (hoboPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, -1f), Quaternion.identity) as GameObject;
-							break;
-						}
-					}
-					if (appearTimer > 0f) {
-						for (int i = 0; i < neanderthalNumber; i++) {
-							if (neanderthalHolder [i] == null) {
-								neanderthalAppearing.Play ();
+		if (enemiesCreated <= maxEnemies) {
+			if (!mStats.isDead () && !mDying && !mGetHit) {
+				if (Vector3.Distance (transform.position, mTarget.position) <= appearRange) {
+					if (appearTimer >= instantiationWait || firstTime) {
+						firstTime = false;
+						for (int i = 0; i < hoboNumber; i++) {
+							if (hoboHolder [i] == null) {
+								enemiesCreated++;
+								hoboAppearing.Play ();
 								appearTimer = 0f;
-								neanderthalHolder [i] = Instantiate (neanderthalPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
+								hoboHolder [i] = Instantiate (hoboPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, -1f), Quaternion.identity) as GameObject;
 								break;
+							}
+						}
+						if (appearTimer > 0f) {
+							for (int i = 0; i < neanderthalNumber; i++) {
+								if (neanderthalHolder [i] == null) {
+									enemiesCreated++;
+									neanderthalAppearing.Play ();
+									appearTimer = 0f;
+									neanderthalHolder [i] = Instantiate (neanderthalPrefab, transform.position + new Vector3 (Random.Range (-2f, 2f), -1f, 0f), Quaternion.identity) as GameObject;
+									break;
+								}
 							}
 						}
 					}
 				}
 			}
+		} else {
+			Die ();
 		}
+
 
 		UpdateAnimator ();
 		

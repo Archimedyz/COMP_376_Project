@@ -91,4 +91,10 @@ public class GameMaster : MonoBehaviour
 		//Debug.Log("lvl: " + stats.Level + "\nmax_hp: " + stats.MaxHp + "\nhp: " + stats.Hp + "\nstr: " + stats.Str + "\ndef: " + stats.Def + "\nspd: " + stats.Spd);
 		PlayerPrefs.SetInt ("set_player_stats", 0);
 	}
+
+	void MainMenu ()
+	{
+		PlayerPrefs.SetInt ("file_loaded", 0);
+		LoadLevel ();
+	}
 }

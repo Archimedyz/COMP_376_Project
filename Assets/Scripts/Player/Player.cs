@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
 		floorBoundaryInitialized = false;
 
 		// before using the healthbar, check if stats need to be set:
-		if (PlayerPrefs.GetInt ("set_player_stats") == 1) {
+		if (GameObject.FindGameObjectWithTag ("GameController") != null && PlayerPrefs.GetInt ("set_player_stats") == 1) {
 			GameObject.FindGameObjectWithTag ("GameController").SendMessage ("SetStats", mStats);
 		}
 
@@ -535,9 +535,16 @@ public class Player : MonoBehaviour
 
 	private void Die ()
 	{
+		StartCoroutine (GoToMainMenu ());
 		Time.timeScale = 0.3f;
 		dead = true;
 		mDying = true;
+	}
+
+	private IEnumerator GoToMainMenu ()
+	{
+		yield return new WaitForSeconds (3.0f);
+		GameObject.Find ("GameMaster").SendMessage ("MainMenu");
 	}
 
 	public void GetHit (Vector2 direction, int damage)

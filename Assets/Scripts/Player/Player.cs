@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
 	private bool canMove = true;
 	private bool canWalk = false;
-	private float mWalkSpeed = 10.0f;
+	private float mWalkSpeed = 2.0f;
 
 	private bool mInflate;
 	private float inflateTimer = 0.0f;

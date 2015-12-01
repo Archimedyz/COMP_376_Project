@@ -1,3 +1,4 @@
-Directors:$%- Awais Ali$%- Lukas Cardot-Goyette$%- Daniel Montalvo-Notz$%- Robert Di Monaco
-Programmers:$%- Awais Ali$%- Lukas Cardot-Goyette$%- Daniel Montalvo-Notz$%- Robert Di Monaco
-Special Thanks:$%- Jordan Crawford
+Directors:$%- Awais Ali$%- Lukas Cardot-Goyette$%- Daniel Montalvo-Notz$%- Robert Anthony Di Monaco
+Programmers:$%- Awais Ali$%- Lukas Cardot-Goyette$%- Daniel Montalvo-Notz$%- Robert Anthony Di Monaco
+Special Thanks:$%- Jordan Crawford$%-Thomas Fevens$%- All of Ubisoft
+*The Rift

@@ -385,21 +385,21 @@ public class Player : MonoBehaviour
 	/*	Added extra controls for AWSD play, I LEFT THE OLD KEYS!!!!
 	 * 		-Rob
 	 * 
-	 *		N -> slide and Normal attack  (Z in old controls)
-	 *		B -> Defend    (V in old controls)
+	 *		H -> slide and Normal attack  (Z in old controls)
+	 *		N -> Defend    (V in old controls)
 	 *		H -> strong attack (X in old ontrols)	
 	 *		G -> dash  (C in old controls)		
 	 */
 	private bool ActionHandler ()
 	{
-		if (Input.GetKey (KeyCode.V) || Input.GetKey (KeyCode.B)) {
+		if (Input.GetKey (KeyCode.V) || Input.GetKey (KeyCode.N)) {
 			Defend ();
 			mMoving = false;
 			mRunning = false;
 			return true;
 		} else {
 			//Attack
-			if ((Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.N)) && hitTimer >= hitWait && timerForSlide < 15) {
+			if ((Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.H)) && hitTimer >= hitWait && timerForSlide < 15) {
 				hitTimer = 0.0f;
 				dashRecovery = -15;
 				mNormalAttack++;
@@ -409,17 +409,17 @@ public class Player : MonoBehaviour
 				else
 					mHitting = false;
 				return true;
-			} else if ((Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.N)) && timerForSlide > 15) {
+			} else if ((Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.H)) && timerForSlide > 15) {
 				Slide ();
 				dashRecovery = -30;
 				timerForSlide = 0;
 				return true;
-			} else if (Input.GetKey (KeyCode.X) || Input.GetKey (KeyCode.H)) {
+			} else if (Input.GetKey (KeyCode.X) || Input.GetKey (KeyCode.U)) {
 				mStrongAttack++;
 				mMoving = false;
 				mRunning = false;
 				return true;
-			} else if ((Input.GetKeyDown (KeyCode.C) || Input.GetKeyDown (KeyCode.G)) && !mDashing && dashRecovery == 10) {//DashDuration
+			} else if ((Input.GetKeyDown (KeyCode.C) || Input.GetKeyDown (KeyCode.B)) && !mDashing && dashRecovery == 10) {//DashDuration
 				mDashing = true;
 				dashTime = 0;
 				transform.Translate (GetFacingDirection () * mMoveSpeedX * DashSpeedModifier * Time.deltaTime, Space.World);

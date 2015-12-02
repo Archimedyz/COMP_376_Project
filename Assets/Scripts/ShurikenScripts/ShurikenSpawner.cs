@@ -158,7 +158,7 @@ public class ShurikenSpawner : MonoBehaviour
 				
 				// if Enemy on Shuriken Position it below
 				if(shurikenScripts[i].GetEnemyOnPlaced() != null)
-					textPositions[i].position -= new Vector3(0.0f, 0.5f, 0.0f);
+					textPositions[i].position -= new Vector3(0.0f, 0.75f, 0.0f);
 			}
 
 		// When user holds down the O key alter text

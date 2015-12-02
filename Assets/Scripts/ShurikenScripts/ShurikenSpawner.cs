@@ -6,19 +6,6 @@
 using UnityEngine;
 using System.Collections;
 
-/* Jump: space
- * Defend: c
- * charge: X
- * z: normal and slide
- * q: bash
- * 
- * Bash and Slide
- * Normal and Charge
- * 4 Buttons
- * 3 buttons shuriken
- * 
- */
-
 public class ShurikenSpawner : MonoBehaviour 
 {
 	// References, they're self explanatory********
@@ -168,6 +155,10 @@ public class ShurikenSpawner : MonoBehaviour
 				// is has parent then position it above it
 				if(shurikens[i].parent != null)
 					textPositions[i].position += new Vector3(0.0f, 1.0f, 0.0f);
+				
+				// if Enemy on Shuriken Position it below
+				if(shurikenScripts[i].GetEnemyOnPlaced() != null)
+					textPositions[i].position -= new Vector3(0.0f, 0.5f, 0.0f);
 			}
 
 		// When user holds down the O key alter text

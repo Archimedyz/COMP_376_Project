@@ -171,7 +171,7 @@ public class DigDug : MonoBehaviour
 					MovingUp (10);
 				} 
 
-				if (Mathf.Abs (player.position.y - transform.position.y) <= 0.1) {
+				if (Mathf.Abs (player.position.y - transform.position.y) <= 0.5) {
 					Pumping ();
 				}
 			} else {

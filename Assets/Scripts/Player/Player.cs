@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 	private float mWalkSpeed = 2.0f;
 
 	private bool mInflate;
+	private bool mInflated = false;
 	private float inflateTimer = 0.0f;
 	private float maxInflateTimer = 2.0f;
 
@@ -203,6 +204,7 @@ public class Player : MonoBehaviour
 			floorBoundaryInitialized = true;
 		}
 		if (mInflate) {
+			mInflated = true;
 			canMove = false;
 			inflateTimer += Time.deltaTime;
 			if (inflateTimer >= maxInflateTimer) {
@@ -215,6 +217,7 @@ public class Player : MonoBehaviour
 				} else {
 					deflating.Stop ();
 					mInflate = false;
+					mInflated = false;
 					inflateTimer = 0.0f;
 				}
 			}
@@ -650,6 +653,7 @@ public class Player : MonoBehaviour
 		mAnimator.SetBool ("isDashing", mDashing);
 		mAnimator.SetBool ("isDashEnd", mDashEnd);
 		mAnimator.SetBool ("isInflating", mInflate);
+		mAnimator.SetBool ("isInflated", mInflated);
 		mAnimator.SetBool ("isHittingBool", mHitting);
 		mAnimator.SetBool ("isDying", mDying);
 		mAnimator.SetBool ("Dead", dead);
@@ -789,12 +793,15 @@ public class Player : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
+			ResetBoolean ();
 			mInflate = true;
+			mInflated = false;
 			mRunning = false;
+			UpdateAnimator ();
 			if (inStory)
 				target = -8;
 			else
-				target = -5;
+				target = -10;
 			startTime = Time.time;
 			journeyLength = Mathf.Abs (transform.position.x) + Mathf.Abs (target);
 		}

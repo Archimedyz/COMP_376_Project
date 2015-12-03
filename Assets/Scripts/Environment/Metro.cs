@@ -40,6 +40,12 @@ public class Metro : MonoBehaviour
 				col.GetComponent<Player> ().GetKnockdown (mGoingRight ? Vector3.left : Vector3.right, 50);
 			}
 		}
+
+		if (col.gameObject.tag == "Enemy") 
+		{
+			if(col.transform.position.y < -6.42)
+				Destroy (col.gameObject);
+		}
 	}
 
 	public void SetOrderInLayer (int orderInLayer)

@@ -251,14 +251,14 @@ public class Player : MonoBehaviour
 				MovingUp ();
 			}
 			if (canWalk) {
-				if (Input.GetButton ("Left")) {
+				if (Input.GetButton ("Left") || Input.GetKey (KeyCode.A)) {
 					WalkLeft ();
-				} else if (Input.GetButton ("Right")) {
+				} else if (Input.GetButton ("Right") || Input.GetKey (KeyCode.D)) {
 					WalkRight ();
 				}
-				if (Input.GetButton ("Up")) {
+				if (Input.GetButton ("Up") || Input.GetKey (KeyCode.W)) {
 					WalkUp ();
-				} else if (Input.GetButton ("Down")) {
+				} else if (Input.GetButton ("Down") || Input.GetKey (KeyCode.S)) {
 					WalkDown ();
 				}
 			}
@@ -390,8 +390,8 @@ public class Player : MonoBehaviour
 	 * 
 	 *		H -> slide and Normal attack  (Z in old controls)
 	 *		N -> Defend    (V in old controls)
-	 *		H -> strong attack (X in old ontrols)	
-	 *		G -> dash  (C in old controls)		
+	 *		U -> strong attack (X in old ontrols)	
+	 *		B -> dash  (C in old controls)		
 	 */
 	private bool ActionHandler ()
 	{
@@ -776,7 +776,10 @@ public class Player : MonoBehaviour
 
 	public float GetFootY ()
 	{
-		return mGroundY - (mSpriteRenderer.bounds.size.y / 2.0f);
+		if (mSpriteRenderer != null)
+			return mGroundY - (mSpriteRenderer.bounds.size.y / 2.0f);
+		else
+			return 0.0f;
 	}
 
 	public void SetInStory (bool a)

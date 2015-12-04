@@ -287,21 +287,26 @@ public class Hobo : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		if(GameObject.Find ("Player") != null)
+		if (GameObject.Find ("Player") != null)
 			GameObject.Find ("Player").GetComponent<Player> ().noDamageStreak++;
 	}
 
 	// prevent them from entering a wall. 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerEnter (Collider other)
 	{
 		if (other.gameObject.tag == "Wall") {
 			mRigidBody.isKinematic = false; 
 		}
 	}
-	void OnTriggerExit(Collider other)
+	void OnTriggerExit (Collider other)
 	{
 		if (other.gameObject.tag == "Wall") {
 			mRigidBody.isKinematic = true; 
 		}
+	}
+
+	public void SetFloorIndex (int index)
+	{
+		mFloorIndex = index;
 	}
 }

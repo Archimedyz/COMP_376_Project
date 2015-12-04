@@ -185,7 +185,8 @@ public class DigDug : MonoBehaviour
 				}
 				if (mThrowRocks) {
 					throwRockTimer += Time.deltaTime;
-					//ShakeCamera ();
+					originalPos = camTransform.localPosition;
+					ShakeCamera ();
 					if (throwRockTimer >= 2.0f) {
 						throwRockTimer = 0.0f;
 						mThrowRocks = false;

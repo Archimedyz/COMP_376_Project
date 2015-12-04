@@ -40,6 +40,7 @@ public class Neanderthal : MonoBehaviour
 	public float[] mFloorBoundary;
 	private int mInitialOrderInLayer;
 	private bool floorBoundaryInitialized;
+	private SpriteRenderer mSpriteRenderer;
 
 	// Floor Variables - END
 
@@ -65,7 +66,7 @@ public class Neanderthal : MonoBehaviour
 
 	void Start ()
 	{
-		mStats = new Stats (1, 100, 18, 2, 0, new int[] { 20, 4, 2, 0 });
+		mStats = new Stats (1, 80, 18, 2, 0, new int[] { 20, 4, 2, 0 });
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		coconut = null;
@@ -73,6 +74,7 @@ public class Neanderthal : MonoBehaviour
 		//expGiven = 15 - 2 * (GameObject.Find("Player").GetComponent<Player>().mStats.Level - mStats.Level);
 
 		mTarget = GameObject.Find ("Player").transform;
+		mSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer> ();
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();
 		mFloorBoundary = new float[4];
@@ -91,7 +93,7 @@ public class Neanderthal : MonoBehaviour
 
 		if (!floorBoundaryInitialized) {
 			// get current boundary
-			//mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
+			mFloorControllerRef.GetCurrentFloorBoundary (mFloorBoundary, mFloorIndex, mSpriteRenderer);
 			floorBoundaryInitialized = true;
 		}
 

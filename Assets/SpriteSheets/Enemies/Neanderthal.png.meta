@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8fcc9973a9372492ea991874e0db710b
-timeCreated: 1448938062
+timeCreated: 1449205536
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -155,7 +155,7 @@ TextureImporter:
         width: 63
         height: 64
       alignment: 9
-      pivot: {x: .489299953, y: .331475735}
+      pivot: {x: .569549561, y: .320943117}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Neanderthal_9
       rect:
@@ -165,7 +165,7 @@ TextureImporter:
         width: 56
         height: 64
       alignment: 9
-      pivot: {x: .427775532, y: .331475735}
+      pivot: {x: .512037575, y: .326209545}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Neanderthal_10
       rect:

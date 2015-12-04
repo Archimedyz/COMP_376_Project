@@ -60,7 +60,7 @@ public class Hobo : MonoBehaviour
 
 	void Start ()
 	{
-		mStats = new Stats (1, 70, 18, 2, 0, new int[] { 20, 4, 2, 0 });
+		mStats = new Stats (1, 60, 15, 2, 0, new int[] { 20, 4, 2, 0 });
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		mFacingDirection = Vector2.right;

@@ -699,6 +699,7 @@ public class Player : MonoBehaviour
 				SetLevelLabel ();
 				mStats.IsLevelUp = false;
 				mHealthBarRef.SetMaxHealth (mStats.MaxHp);
+                mHealthBarRef.GainHealth(mStats.MaxHp * 0.25f); //  get 0.25 of your life back
 				SpeedStatIncreases ();
 			}
 		}

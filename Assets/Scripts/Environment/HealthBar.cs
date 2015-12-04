@@ -30,12 +30,6 @@ public class HealthBar : MonoBehaviour
 
 		mHealthValue = maxHealthValue;
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
 
 	public void LoseHealth (float hpLoss)
 	{
@@ -87,14 +81,9 @@ public class HealthBar : MonoBehaviour
 	{
 		if ((int)newMax == (int)maxHealthValue)
 			return;
-		bool moreHealth = newMax > maxHealthValue;
-		float oldMax = maxHealthValue;
-		maxHealthValue = newMax;
-		mHealthValue += 2 * (newMax - oldMax);
-		if (moreHealth) {
-			LoseHealth (newMax - oldMax);
-		} else {
-			GainHealth (oldMax - newMax);
-		}
+        // calculate the percentage of health in the old health scheme.
+        float oldHealthPercentage = mHealthValue / maxHealthValue;
+        maxHealthValue = newMax;
+        mHealthValue = oldHealthPercentage * maxHealthValue;		
 	}
 }

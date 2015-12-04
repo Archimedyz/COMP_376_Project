@@ -19,6 +19,7 @@ public class Level1Story : MonoBehaviour
 	private GameObject pickUps;
 	private GameObject healthbar;
 	private GameObject levelText;
+	private GameObject control;
 
 	private bool canStart = false;
 	private bool metroArrives = true;
@@ -84,6 +85,9 @@ public class Level1Story : MonoBehaviour
 
 		levelText = GameObject.Find ("LevelCanvas") as GameObject;
 		levelText.SetActive (false);
+
+		control = GameObject.Find ("ControlsUI") as GameObject;
+		control.SetActive (false);
 
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		theme = audioSources [0];
@@ -204,6 +208,7 @@ public class Level1Story : MonoBehaviour
 				hoodedDissapeared = false;
 				metroSpawners.SetActive (true);
 				levelStuff.SetActive (true);
+				control.SetActive (true);
 				doLevel = true;
 				hoodedEnd.gameObject.SetActive (true);
 				finish = true;

@@ -297,6 +297,16 @@ public class Hobo : MonoBehaviour
 		if (other.gameObject.tag == "Wall") {
 			mRigidBody.isKinematic = false; 
 		}
+
+		if (other.gameObject.tag == "Player" && GetFacingDirection() != mTarget.gameObject.GetComponent<Player>().GetFacingDirection() && mHitting) {
+			if(Input.GetKey(KeyCode.N) || Input.GetKey(KeyCode.V))
+			{
+				if(GetFacingDirection () == Vector2.right)
+					transform.position -= new Vector3(0.5f, 0.0f, 0.0f); 
+				else
+					transform.position += new Vector3(0.5f, 0.0f, 0.0f);
+			}
+		}
 	}
 	void OnTriggerExit (Collider other)
 	{

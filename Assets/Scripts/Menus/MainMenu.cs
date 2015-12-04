@@ -151,7 +151,7 @@ public class MainMenu : MonoBehaviour
 		} else {
 			// start a new game with the defaults.
 			InitNewFile (2);
-			LoadFile1 ();
+			LoadFile2 ();
 		}
 	}
 
@@ -163,7 +163,7 @@ public class MainMenu : MonoBehaviour
 		} else {
 			// start a new game with the defaults.
 			InitNewFile (3);
-			LoadFile1 ();
+			LoadFile3 ();
 		}
 	}
 

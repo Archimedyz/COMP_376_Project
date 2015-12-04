@@ -55,7 +55,7 @@ public class Neanderthal : MonoBehaviour
 
 	public int expGiven = 15;
 
-    private Vector2 mFacingDirection;
+	private Vector2 mFacingDirection;
 
 
 	void Awake ()
@@ -160,19 +160,14 @@ public class Neanderthal : MonoBehaviour
 				Recoil (direction, 2f);
 				if (!strongHit.isPlaying)
 					strongHit.Play ();
-            }
-            else if (GameObject.Find("Player").GetComponent<Player>().IsDashing())
-            {
-                damage = (int)(damage * 0.35f);
-                Recoil(direction, 2f);
-                if (audioTimer >= 0.2f)
-                {
-                    normalHit.Play();
-                    audioTimer = 0.0f;
-                }
-            }
-            else
-            {
+			} else if (GameObject.Find ("Player").GetComponent<Player> ().IsDashing ()) {
+				damage = (int)(damage * 0.35f);
+				Recoil (direction, 2f);
+				if (audioTimer >= 0.2f) {
+					normalHit.Play ();
+					audioTimer = 0.0f;
+				}
+			} else {
 				Recoil (direction, mPushBack);
 				if (audioTimer >= 0.15f) {
 					normalHit.Play ();
@@ -238,20 +233,17 @@ public class Neanderthal : MonoBehaviour
 		mMoving = true;
 	}
 
-    private void FaceDirection(Vector2 direction)
-    {
-        mFacingDirection = direction;
-        if (direction == Vector2.right)
-        {
-            Vector3 newScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            transform.localScale = newScale;
-        }
-        else
-        {
-            Vector3 newScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            transform.localScale = newScale;
-        }
-    }
+	private void FaceDirection (Vector2 direction)
+	{
+		mFacingDirection = direction;
+		if (direction == Vector2.right) {
+			Vector3 newScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			transform.localScale = newScale;
+		} else {
+			Vector3 newScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			transform.localScale = newScale;
+		}
+	}
 
 	private void ResetBoolean ()
 	{
@@ -273,27 +265,32 @@ public class Neanderthal : MonoBehaviour
 		mStats.Exp = 100;
 	}
 
-    public Vector2 GetFacingDirection()
-    {
-        return mFacingDirection;
-    }
-    void OnDestroy()
-    {
-		if(GameObject.Find("Player") != null)
-        	GameObject.Find("Player").GetComponent<Player>().noDamageStreak++;
-    }
+	public Vector2 GetFacingDirection ()
+	{
+		return mFacingDirection;
+	}
+	void OnDestroy ()
+	{
+		if (GameObject.Find ("Player") != null)
+			GameObject.Find ("Player").GetComponent<Player> ().noDamageStreak++;
+	}
 
 	// prevent them from entering a wall. 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerEnter (Collider other)
 	{
 		if (other.gameObject.tag == "Wall") {
 			mRigidBody.isKinematic = false; 
 		}
 	}
-	void OnTriggerExit(Collider other)
+	void OnTriggerExit (Collider other)
 	{
 		if (other.gameObject.tag == "Wall") {
 			mRigidBody.isKinematic = true; 
 		}
+	}
+	
+	public void SetFloorIndex (int index)
+	{
+		mFloorIndex = index;
 	}
 }

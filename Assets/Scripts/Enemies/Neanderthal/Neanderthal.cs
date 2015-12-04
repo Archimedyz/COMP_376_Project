@@ -282,4 +282,18 @@ public class Neanderthal : MonoBehaviour
 		if(GameObject.Find("Player") != null)
         	GameObject.Find("Player").GetComponent<Player>().noDamageStreak++;
     }
+
+	// prevent them from entering a wall. 
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Wall") {
+			mRigidBody.isKinematic = false; 
+		}
+	}
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Wall") {
+			mRigidBody.isKinematic = true; 
+		}
+	}
 }

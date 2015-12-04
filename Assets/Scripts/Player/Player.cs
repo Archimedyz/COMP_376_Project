@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
 	{
 		mAnimator = GetComponent<Animator> ();
 		mRigidBody = GetComponent<Rigidbody> ();
-		InitStats (1, 50, 10, 5, 5);
+		InitStats (1, 70, 15, 8, 5);
 		mFacingDirection = Vector2.right;
 		mJumping = false;
 		mSliding = false;
@@ -699,7 +699,7 @@ public class Player : MonoBehaviour
 				SetLevelLabel ();
 				mStats.IsLevelUp = false;
 				mHealthBarRef.SetMaxHealth (mStats.MaxHp);
-                mHealthBarRef.GainHealth(mStats.MaxHp * 0.25f); //  get 0.25 of your life back
+				mHealthBarRef.GainHealth (mStats.MaxHp * 0.25f); //  get 0.25 of your life back
 				SpeedStatIncreases ();
 			}
 		}

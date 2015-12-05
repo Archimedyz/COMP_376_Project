@@ -39,7 +39,7 @@ public class Dialogue: MonoBehaviour
 				} else if (fileName == "Level1End") {
 					GameObject.Find ("LevelController").GetComponent<Level1Story> ().SetLevelEnd (true);
 				}
-				if (fileName == "FinalSceneDialogue") {
+				if (fileName == "GoodEnding" || fileName == "BadEnding") {
 					GameObject.Find ("LevelController").GetComponent<Final_Scene> ().SetGameEnd ();
 				}
 			}
@@ -58,10 +58,16 @@ public class Dialogue: MonoBehaviour
 			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/Level1End.txt");
 			reader = theSourceFile.OpenText ();
 			startText = true;
-		} else if (file == "FinalSceneDialogue") {
+		} else if (file == "GoodEnding") {
 			fileName = file;
-			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FinalSceneDialogue.txt");
+			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FinalDialogues/GoodEnding.txt");
 			reader = theSourceFile.OpenText ();
+			startText = true;
+		} else if (file == "BadEnding") {
+			fileName = file;
+			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FinalDialogues/BadEnding.txt");
+			reader = theSourceFile.OpenText ();
+			startText = true;
 		} else {
 			theSourceFile = null;
 		}
@@ -72,11 +78,22 @@ public class Dialogue: MonoBehaviour
 		int charLineNumber = 0;
 		thisText.text = "";
 		finished = false;
+
+		if (text.Substring (0, 8) == "Good and") {
+			thisText.color = new Color (0f, 0f, 1f);
+		} else if (text.Substring (0, 4) == "Good") {
+			thisText.color = new Color (0f, 1f, 0f);
+		} else if (text.Substring (0, 4) == "Evil") {
+			thisText.color = new Color (1f, 0f, 0f);
+		} else {
+			thisText.color = new Color (1f, 0f, 0f);
+		}
 		for (int i = 0; i < text.Length; i++, charLineNumber++) {
 
 			thisText.text += text [i];
 			yield return new WaitForSeconds (0.05f);
 		}
+
 		finished = true;
 	}
 }

@@ -108,7 +108,7 @@ public class DigDugStory : MonoBehaviour
 	public IEnumerator GoToMainMenu ()
 	{
 		yield return new WaitForSeconds (5.0f);
-		GameObject.FindGameObjectWithTag ("GameController").SendMessage ("MainMenu");
+		GameObject.FindGameObjectWithTag ("GameController").SendMessage ("NextLevel");
 	}
 
 	public void DigDugDie ()

@@ -151,6 +151,7 @@ public class Player : MonoBehaviour
 		mHealthBarRef.SetMaxHealth (mStats.MaxHp);
 		mHealthBarRef.SetHealth (mStats.Hp);
 
+
 		//AudioSource[] audioSources = GetComponents<AudioSource> ();
 		uiCanvas = (UICanvas)GameObject.FindGameObjectWithTag ("UICanvas").GetComponent<UICanvas> ();
 
@@ -794,6 +795,11 @@ public class Player : MonoBehaviour
 		mHealthBarRef.GainHealth (a);
 	}
 
+	public int GetLevel ()
+	{
+		return mStats.Level;
+	}
+
 	void OnTriggerEnter (Collider col)
 	{
 		if (col.gameObject.tag == "Hose" && !mInflate) {
@@ -830,4 +836,5 @@ public class Player : MonoBehaviour
 			}
 		}
 	}
+
 }

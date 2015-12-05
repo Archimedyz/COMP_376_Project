@@ -39,6 +39,9 @@ public class Dialogue: MonoBehaviour
 				} else if (fileName == "Level1End") {
 					GameObject.Find ("LevelController").GetComponent<Level1Story> ().SetLevelEnd (true);
 				}
+				if (fileName == "FinalSceneDialogue") {
+					GameObject.Find ("LevelController").GetComponent<Final_Scene> ().SetGameEnd ();
+				}
 			}
 		}
 	}
@@ -55,6 +58,10 @@ public class Dialogue: MonoBehaviour
 			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/Level1End.txt");
 			reader = theSourceFile.OpenText ();
 			startText = true;
+		} else if (file == "FinalSceneDialogue") {
+			fileName = file;
+			theSourceFile = new FileInfo ("Assets/Scripts/Dialogue/FinalSceneDialogue.txt");
+			reader = theSourceFile.OpenText ();
 		} else {
 			theSourceFile = null;
 		}

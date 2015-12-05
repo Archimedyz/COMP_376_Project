@@ -91,6 +91,7 @@ public class Neanderthal : MonoBehaviour
 
 	void Update ()
 	{
+		mRigidBody.isKinematic = true;
 
 		if (!floorBoundaryInitialized) {
 			// get current boundary

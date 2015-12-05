@@ -60,7 +60,7 @@ public class Hobo : MonoBehaviour
 
 	void Start ()
 	{
-		mStats = new Stats (1, 60, 15, 2, 0, new int[] { 20, 4, 2, 0 });
+		mStats = new Stats (1, 60, 12, 2, 0, new int[] { 20, 4, 2, 0 });
 		mRigidBody = GetComponent<Rigidbody> ();
 		mAnimator = GetComponent<Animator> ();
 		mFacingDirection = Vector2.right;
@@ -68,7 +68,7 @@ public class Hobo : MonoBehaviour
 
 		mTarget = GameObject.Find ("Player").transform;
 
-        expGiven = 15;
+		expGiven = 15;
 		//expGiven = 15 - 2 * (GameObject.Find ("Player").GetComponent<Player> ().mStats.Level - mStats.Level);
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();

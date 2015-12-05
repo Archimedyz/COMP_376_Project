@@ -62,7 +62,7 @@ public class Boss1Controller : MonoBehaviour
 	
 	private IEnumerator AddPooka (int position)
 	{
-		enemies [position] = Instantiate (pookaPrefab, new Vector3 ((digdug.transform.position.x - 8f) + (position * 0.3f), -10f + (position * 2), -1f), Quaternion.identity) as GameObject;
+		enemies [position] = Instantiate (pookaPrefab, new Vector3 ((digdug.transform.position.x - 8f) + (position * 0.3f), -10f + (position * 2), -2.0f), Quaternion.identity) as GameObject;
 		enemies [position].transform.parent = transform;
 		enemies [position].GetComponent<Pooka> ().SetSpeed (enemySpeed);
 		yield return new WaitForSeconds (3.0f);
@@ -70,7 +70,7 @@ public class Boss1Controller : MonoBehaviour
 	
 	private IEnumerator AddFygar (int position)
 	{
-		enemies [position] = Instantiate (fygarPrefab, new Vector3 ((digdug.transform.position.x - 5.5f) + ((position - 3) * 0.3f), -10f + ((position - 3) * 2), -1f), Quaternion.identity) as GameObject;
+		enemies [position] = Instantiate (fygarPrefab, new Vector3 ((digdug.transform.position.x - 5.5f) + ((position - 3) * 0.3f), -10f + ((position - 3) * 2), -2.0f), Quaternion.identity) as GameObject;
 		enemies [position].transform.parent = transform;
 		enemies [position].GetComponent<Fygar> ().SetSpeed (enemySpeed);
 		yield return new WaitForSeconds (3.0f);
@@ -96,11 +96,11 @@ public class Boss1Controller : MonoBehaviour
 		
 		for (int i = 0; i < bossDifficulty - 1; i++) {
 			if (i < 3) {
-				enemies [i] = Instantiate (pookaPrefab, new Vector3 ((digdug.transform.position.x - 9f) + (i * 0.3f), -10f + (i * 2), -1f), Quaternion.identity) as GameObject;
+				enemies [i] = Instantiate (pookaPrefab, new Vector3 ((digdug.transform.position.x - 9f) + (i * 0.3f), -10f + (i * 2), -2.0f), Quaternion.identity) as GameObject;
 				enemies [i].transform.parent = transform;
 				enemies [i].GetComponent<Pooka> ().SetSpeed (enemySpeed);
 			} else {
-				enemies [i] = Instantiate (fygarPrefab, new Vector3 ((digdug.transform.position.x - 5.5f) + ((i - 3) * 0.3f), -10f + ((i - 3) * 2), -1f), Quaternion.identity) as GameObject;
+				enemies [i] = Instantiate (fygarPrefab, new Vector3 ((digdug.transform.position.x - 5.5f) + ((i - 3) * 0.3f), -10f + ((i - 3) * 2), -2.0f), Quaternion.identity) as GameObject;
 				enemies [i].transform.parent = transform;
 				enemies [i].GetComponent<Fygar> ().SetSpeed (enemySpeed);
 			}

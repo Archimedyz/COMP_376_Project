@@ -67,7 +67,8 @@ public class Hobo : MonoBehaviour
 		mDying = false;
 
 		mTarget = GameObject.Find ("Player").transform;
-		
+
+        expGiven = 15;
 		//expGiven = 15 - 2 * (GameObject.Find ("Player").GetComponent<Player> ().mStats.Level - mStats.Level);
 
 		mFloorControllerRef = FindObjectOfType<FloorController> ();

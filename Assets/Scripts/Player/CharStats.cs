@@ -64,7 +64,14 @@ public class Stats
         get { return _exp; }
         set
         {
-            _exp = value;
+            if (value > 100)
+            {
+                _exp = 100;
+            }
+            else
+            {
+                _exp = value;
+            }
             while (_exp >= 100)
             {
                 Exp -= 100;

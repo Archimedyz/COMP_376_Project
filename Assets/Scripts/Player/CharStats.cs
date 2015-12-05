@@ -35,8 +35,8 @@ public class Stats
     public void init(int lvl, float hp, float maxHp, int str, int def, int speed, int[] rate)
     {
         _lvl = lvl;
-        Hp = hp + def * 2;
-        MaxHp = maxHp + def * 2;
+        Hp = hp;
+        MaxHp = maxHp;
         Str = str;
         Def = def;
         Spd = speed;

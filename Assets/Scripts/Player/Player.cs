@@ -114,6 +114,12 @@ public class Player : MonoBehaviour
 	public int noDamageStreak = 0;
 	private int maxStreak = 0;
 
+	void Awake ()
+	{
+		DontDestroyOnLoad (transform.gameObject);
+		//DontDestroyOnLoad (GameObject.Find ("LevelCanvas"));
+	}
+
 
 	void Start ()
 	{
@@ -182,6 +188,7 @@ public class Player : MonoBehaviour
 	/// </summary>
 	void FixedUpdate ()
 	{
+		Debug.Log (mStats.Level);
 		if (!dead && mHealthBarRef.GetHealth () <= 0) {
 			Die ();
 		}

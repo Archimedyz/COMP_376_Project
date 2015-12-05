@@ -38,6 +38,13 @@ public class DigDugStory : MonoBehaviour
 		mainCamera.GetComponent<FollowCam> ().SetTarget ();
 		enemies = GameObject.Find ("Enemies") as GameObject;
 
+		// before using the healthbar, check if stats need to be set:
+		if (GameObject.FindGameObjectWithTag ("GameController") != null) {
+			GameObject.FindGameObjectWithTag ("GameController").SendMessage ("SetStats", player.mStats);
+		}
+		
+		player.SetLevelLabel ();
+
 		AudioSource[] audioSources = GetComponents<AudioSource> ();
 		backgroundMusic = audioSources [0];
 		crash = audioSources [1];

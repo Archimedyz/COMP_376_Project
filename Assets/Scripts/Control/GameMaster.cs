@@ -31,7 +31,7 @@ public class GameMaster : MonoBehaviour
 			mAtBoss = false;
 			Application.LoadLevel (0);
 			foreach (Singleton s in GameObject.FindObjectsOfType<Singleton>()) {
-				if (s.gameObject.tag != gameObject.tag) {
+				if (s.gameObject.tag != gameObject.tag && (s.gameObject.name != "Player" && s.gameObject.name != "LevelCanvas")) {
 					Destroy (s.gameObject);
 				}
 			}
@@ -50,6 +50,7 @@ public class GameMaster : MonoBehaviour
 			mAtBoss = true;
 		}
 		SaveGame (); // save the game.
+		Debug.Log ("Allo");
 		LoadLevel (); // then load the level.
         
 	}

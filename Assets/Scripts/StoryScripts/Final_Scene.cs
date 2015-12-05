@@ -17,9 +17,16 @@ public class Final_Scene : MonoBehaviour
 	void Start ()
 	{
 		player = GameObject.Find ("Player").GetComponent<Player> ();
-		SetLevelLabel ();
 		hooded = GameObject.Find ("HoodedCharacter") as GameObject;
 		fevens = GameObject.Find ("EvilFevens") as GameObject;
+
+		
+		// before using the healthbar, check if stats need to be set:
+		if (GameObject.FindGameObjectWithTag ("GameController") != null) {
+			GameObject.FindGameObjectWithTag ("GameController").SendMessage ("SetStats", player.mStats);
+		}
+		
+		player.SetLevelLabel ();
 
 		dialogue = GameObject.Find ("Dialogue") as GameObject;
 		dialogueText = GameObject.Find ("DialogueText").GetComponent<Dialogue> ();

@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
 	{
 		mAnimator = GetComponent<Animator> ();
 		mRigidBody = GetComponent<Rigidbody> ();
-		InitStats (1, 70, 15, 5, 5);
+		InitStats (1, 100, 15, 5, 5);
 		mFacingDirection = Vector2.right;
 		mJumping = false;
 		mSliding = false;

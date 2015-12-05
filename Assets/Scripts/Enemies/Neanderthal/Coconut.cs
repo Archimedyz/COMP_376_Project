@@ -109,7 +109,7 @@ public class Coconut : MonoBehaviour
 			col.gameObject.GetComponent<Hobo> ().GetHit (GetDirection (), 5, false); 
 			Destroy (gameObject);
 		}
-		if (col.gameObject.name.Substring (0, 10) == "Neanderthal") {
+		if (col.gameObject.name.Substring (0, 11) == "Neanderthal") {
 			if (Time.timeSinceLevelLoad > initializedTime + 0.5f) {
 				col.gameObject.GetComponent<Neanderthal> ().GetHit (GetDirection (), 5, false); 
 				Destroy (gameObject);
